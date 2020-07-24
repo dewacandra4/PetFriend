@@ -19,9 +19,9 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="index.html">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span><?=$user['name'];?></span></a>
+        <a class="nav-link" href="<?=base_url('customer');?>">
+          <i class="fas fa-fw fa-heart"></i>
+          <span>Hi, <?=$user['name'];?></span></a>
       </li>
 
       <!-- Divider -->
@@ -34,20 +34,20 @@
 
       <!-- Nav Item - Profile -->
       <li class="nav-item">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="#">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Profile</span></a>
       </li>
 
       <!-- Nav Item - Edit Profile -->
       <li class="nav-item">
-        <a class="nav-link" href="tables.html">
+        <a class="nav-link" href="#">
           <i class="fas fa-fw fa-table"></i>
           <span>Edit Profile</span></a>
       </li>
       <!-- Nav Item - Change password -->
       <li class="nav-item">
-        <a class="nav-link" href="<?=base_url('user/change_password');?>">
+        <a class="nav-link" href="<?=base_url('customer/change_password');?>">
           <i class="fas fa-fw fa-table"></i>
           <span>Change Password</span></a>
       </li>
@@ -61,16 +61,16 @@
       </div>
       <!-- Nav Item - Charts -->
       <li class="nav-item">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="#">
           <i class="fas fa-fw fa-chart-area"></i>
-          <span>Charts</span></a>
+          <span>Products Order</span></a>
       </li>
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">
-        <a class="nav-link" href="tables.html">
+        <a class="nav-link" href="#">
           <i class="fas fa-fw fa-table"></i>
-          <span>Tables</span></a>
+          <span>Services Order</span></a>
       </li>
 
       <!-- Divider -->
@@ -83,8 +83,8 @@
 
     </ul>
     <!-- End of Sidebar -->
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
+<!-- Content Wrapper -->
+<div id="content-wrapper" class="d-flex flex-column">
 
 <!-- Main Content -->
 <div id="content">
@@ -99,12 +99,6 @@
 
     <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">
-
-      <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-      <li class="nav-item dropdown no-arrow d-sm-none">
-        <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-search fa-fw"></i>
-        </a>
         <!-- Dropdown - Messages -->
         <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
           <form class="form-inline mr-auto w-100 navbar-search">
