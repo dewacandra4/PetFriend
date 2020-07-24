@@ -33,22 +33,22 @@
       </div>
 
       <!-- Nav Item - Profile -->
-      <li class="nav-item">
+      <li class="nav-item ml-3">
       <a class="nav-link" href="<?=base_url('customer/profile');?>">
-          <i class="fas fa-fw fa-chart-area"></i>
+          <i class="fas fa-fw fa-user"></i>
           <span>Profile</span></a>
       </li>
 
       <!-- Nav Item - Edit Profile -->
-      <li class="nav-item">
+      <li class="nav-item ml-3">
         <a class="nav-link" href="#">
-          <i class="fas fa-fw fa-table"></i>
+          <i class="fas fa-fw fa-user-edit"></i>
           <span>Edit Profile</span></a>
       </li>
       <!-- Nav Item - Change password -->
-      <li class="nav-item">
+      <li class="nav-item ml-3">
         <a class="nav-link" href="<?=base_url('customer/change_password');?>">
-          <i class="fas fa-fw fa-table"></i>
+          <i class="fas fa-fw fa-key"></i>
           <span>Change Password</span></a>
       </li>
 
@@ -60,16 +60,16 @@
         My Order
       </div>
       <!-- Nav Item - Charts -->
-      <li class="nav-item">
+      <li class="nav-item ml-3">
         <a class="nav-link" href="#">
-          <i class="fas fa-fw fa-chart-area"></i>
+          <i class="fas fa-fw fa-bone"></i>
           <span>Products Order</span></a>
       </li>
 
       <!-- Nav Item - Tables -->
-      <li class="nav-item">
+      <li class="nav-item ml-3">
         <a class="nav-link" href="#">
-          <i class="fas fa-fw fa-table"></i>
+          <i class="fas fa-fw fa-heart"></i>
           <span>Services Order</span></a>
       </li>
 

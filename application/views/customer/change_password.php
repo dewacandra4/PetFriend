@@ -1,17 +1,15 @@
 
 <!-- Begin Page Content -->
-<div class="col-lg-10 py-5 mx-auto">
+<div class="col-lg-7 py-5 mx-auto">
 
 <!-- Illustrations -->
-<div class="card shadow ml-2 mt-2 mb-0">
-    <div class="card-header py-3">
-        <h5 class="m-0 font-weight-bold text-dark"><?=$title;?></h5>
+<div class="card shadow mt-5 mb-0">
+    <div class="card-header py-4">
+        <h5 class="m-0 font-weight-bold text-dark ml-4"><?=$title;?></h5>
     </div>
     <div class="card-body py-5">
-        <div class="text-center">
-        </div>
-        <div class="row mb-2"> 
-            <div class="mx-auto col-lg-10">
+        <div class="row"> 
+            <div class="mx-auto col-lg-7">
                 <?= $this->session->flashdata('message');?>
                 <form action="<?= base_url('customer/change_password');?>" method="post">
                     <div class="form-group">
@@ -38,9 +36,6 @@
         </div>
     </div>
 </div>
-</div>
-</div>
-
 </div>
 <!-- /.container-fluid -->
 
