@@ -5,7 +5,7 @@
               <!-- Illustrations -->
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h6 class="m-2 font-weight-normal text-primary text-center">Welcome Back, <strong><?=$user['name'];?></strong> !</h6>
+                  <h6 class="m-2 font-weight-normal text-danger text-center">Welcome Back, <strong><?=$user['name'];?></strong> !</h6>
                 </div>
                 <div class="card-body">
                   <div class="text-center">
@@ -18,7 +18,7 @@
               <!-- Approach -->
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">More Information</h6>
+                  <h6 class="m-0 font-weight-bold text-danger">More Information</h6>
                 </div>
                 <div class="card-body">
                   <p></p>
