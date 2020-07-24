@@ -31,7 +31,7 @@
                     </div>
                     <br>
                     <div class="form-group text-center">
-                        <button type="submit" class="btn btn-danger">Change Password</button>
+                        <button type="submit" class="btn btn-outline-danger">Change Password</button>
                     </div>
                 </form>
             </div>       
