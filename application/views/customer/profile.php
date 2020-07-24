@@ -6,7 +6,7 @@
               <!-- Illustrations -->
              
   
-              <div class="card shadow mb-4" >
+              <div class="card shadow mb-4">
                 <div class="card-header py-3">
                 <h5 class="m-0 font-weight-bold text-dark"><?=$title;?></h5>
               </div>
