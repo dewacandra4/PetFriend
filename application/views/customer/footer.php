@@ -31,8 +31,8 @@
         </div>
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
-          <button class="btn btn-primary btn-custom" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary btn-custom"  href="<?=base_url('auth/logout');?>">Logout</a>
+          <button class="btn btn-danger" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary btn-danger"  href="<?=base_url('auth/logout');?>">Logout</a>
         </div>
       </div>
     </div>
