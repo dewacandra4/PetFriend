@@ -7,7 +7,7 @@
     <ul class="navbar-nav bg-danger sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?=base_url('customer'); ?>">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?=base_url('home'); ?>">
         <div class="sidebar-brand-icon">
           <img src="<?= base_url()?>assets/sbadmin/img/logo_wh.png" alt="PetFriend" width=100% height=60%>
         </div>
