@@ -3,8 +3,8 @@
             <div class="col-lg-10 mx-auto">
 
               <!-- Illustrations -->
-              <div class="card shadow mb-4">
-                <div class="card-header py-3">
+              <div class="card shadow mb-4" >
+                <div class="card-header py-3" >
                   <h6 class="m-2 font-weight-normal text-danger text-center">Welcome Back, <strong><?=$user['name'];?></strong> !</h6>
                 </div>
                 <div class="card-body">
@@ -16,8 +16,8 @@
                 </div>
               </div>
               <!-- Approach -->
-              <div class="card shadow mb-4">
-                <div class="card-header py-3">
+              <div class="card shadow mb-4" >
+                <div class="card-header py-3" >
                   <h6 class="m-0 font-weight-bold text-danger">More Information</h6>
                 </div>
                 <div class="card-body">

@@ -108,5 +108,16 @@ class Auth extends CI_Controller {
 			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Congratulation! Your account has been created. Please Login</div>');
 			redirect('auth/login');
         }
-	}
+    }
+    
+    public function logout()
+    {
+        $this->session->unset_userdata('username');
+        $this->session->unset_userdata('role_id');// you can also use $this->session->sess_destroy(); to delete all session
+        $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">You have been logged out! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button></div>');
+        redirect('auth/login');
+    }
+
 }

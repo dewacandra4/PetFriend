@@ -7,7 +7,7 @@
     <ul class="navbar-nav bg-danger sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?=base_url('home'); ?>">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?=base_url('customer'); ?>">
         <div class="sidebar-brand-icon">
           <img src="<?= base_url()?>assets/sbadmin/img/logo_wh.png" alt="PetFriend" width=100% height=60%>
         </div>
@@ -34,7 +34,7 @@
 
       <!-- Nav Item - Profile -->
       <li class="nav-item">
-        <a class="nav-link" href="#">
+      <a class="nav-link" href="<?=base_url('customer/profile');?>">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Profile</span></a>
       </li>
@@ -123,7 +123,7 @@
         </a>
         <!-- Dropdown - User Information -->
         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-          <a class="dropdown-item" href="#">
+          <a class="dropdown-item" href="<?= base_url('customer/profile');?>">
             <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
             Profile
           </a>
