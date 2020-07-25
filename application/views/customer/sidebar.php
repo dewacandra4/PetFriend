@@ -33,20 +33,21 @@
       </div>
 
       <!-- Nav Item - Profile -->
-      <li class="nav-item">
+      <li class="nav-item ml-3">
       <a class="nav-link" href="<?=base_url('customer/profile');?>">
           <i class="fas fa-fw fa-user"></i>
           <span>Profile</span></a>
       </li>
 
       <!-- Nav Item - Edit Profile -->
-      <li class="nav-item">
-        <a class="nav-link" href="#">
+
+      <li class="nav-item ml-3">
+      <a class="nav-link" href="<?=base_url('customer/edit');?>">
           <i class="fas fa-fw fa-user-edit"></i>
           <span>Edit Profile</span></a>
       </li>
       <!-- Nav Item - Change password -->
-      <li class="nav-item">
+      <li class="nav-item ml-3">
         <a class="nav-link" href="<?=base_url('customer/change_password');?>">
           <i class="fas fa-fw fa-key"></i>
           <span>Change Password</span></a>
@@ -60,14 +61,14 @@
         My Order
       </div>
       <!-- Nav Item - Charts -->
-      <li class="nav-item">
+      <li class="nav-item ml-3">
         <a class="nav-link" href="#">
           <i class="fas fa-fw fa-bone"></i>
           <span>Products Order</span></a>
       </li>
 
       <!-- Nav Item - Tables -->
-      <li class="nav-item">
+      <li class="nav-item ml-3">
         <a class="nav-link" href="#">
           <i class="fas fa-fw fa-heart"></i>
           <span>Services Order</span></a>
@@ -99,6 +100,20 @@
 
     <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">
+        <!-- Dropdown - Messages -->
+        <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+          <form class="form-inline mr-auto w-100 navbar-search">
+            <div class="input-group">
+              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="button">
+                  <i class="fas fa-search fa-sm"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </li>
       <div class="topbar-divider d-none d-sm-block"></div>
 
       <!-- Nav Item - User Information -->
