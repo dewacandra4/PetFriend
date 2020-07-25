@@ -4,7 +4,7 @@
   <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-danger sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="navbar-nav bg-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?=base_url('home'); ?>">
@@ -19,7 +19,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="<?=base_url('customer');?>">
+        <a class="nav-link" href="<?=base_url('admin');?>">
           <i class="fas fa-fw fa-heart"></i>
           <span>Hi, <?=$user['name'];?></span></a>
       </li>
@@ -34,7 +34,7 @@
 
       <!-- Nav Item - Profile -->
       <li class="nav-item">
-      <a class="nav-link" href="<?=base_url('customer/profile');?>">
+      <a class="nav-link" href="<?=base_url('admin/profile');?>">
           <i class="fas fa-fw fa-user"></i>
           <span>Profile</span></a>
       </li>
@@ -47,7 +47,7 @@
       </li>
       <!-- Nav Item - Change password -->
       <li class="nav-item">
-        <a class="nav-link" href="<?=base_url('customer/change_password');?>">
+        <a class="nav-link" href="<?=base_url('admin/change_password');?>">
           <i class="fas fa-fw fa-key"></i>
           <span>Change Password</span></a>
       </li>
@@ -57,7 +57,28 @@
 
       <!-- Heading -->
       <div class="sidebar-heading">
-        My Order
+        Products and Services
+      </div>
+
+      <!-- Nav Item - Products -->
+      <li class="nav-item">
+      <a class="nav-link" href="<?=base_url('admin/#');?>">
+          <i class="fas fa-fw fa-boxes"></i>
+          <span>Manage Products</span></a>
+      </li>
+
+      <!-- Nav Item - Services -->
+      <li class="nav-item">
+        <a class="nav-link" href="<?= base_url('admin/#');?>">
+          <i class="fas fa-fw fa-briefcase"></i>
+          <span>Manage Services</span></a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        List Order
       </div>
       <!-- Nav Item - Charts -->
       <li class="nav-item">
@@ -73,6 +94,12 @@
           <span>Services Order</span></a>
       </li>
 
+      <!-- Nav Item - Payment -->
+      <li class="nav-item">
+        <a class="nav-link" href="<?=base_url('admin/#');?>">
+          <i class="fas fa-fw fa-dollar-sign"></i>
+          <span>Confirm Payment</span></a>
+      </li>
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 
@@ -109,13 +136,13 @@
         </a>
         <!-- Dropdown - User Information -->
         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-          <a class="dropdown-item" href="<?= base_url('customer/profile');?>">
-            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+          <a class="dropdown-item" href="<?= base_url('admin/profile');?>">
+            <i class="fas fa-user fa-sm fa-fw mr-2 text-primary"></i>
             Profile
           </a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-primary"></i>
             Logout
           </a>
         </div>

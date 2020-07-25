@@ -33,17 +33,15 @@ class Auth extends CI_Controller {
             //check password (pw_verify)
             if(password_verify($password, $user['password']))
             {
-                //siapin data username dan role id
                 $data = [
                     'username' => $user['username'],
                     'role_id' => $user['role_id']
                 ];
                 $this->session->set_userdata($data);
-                //cek apakah dia user/admin
+                //Check role user or admin
                 if($user['role_id']==1)
                 {
-					// redirect('admin');
-					echo "BERHASIL MASUK ADMIN";
+					redirect('admin');
                 }
                 else
                 {
@@ -113,7 +111,7 @@ class Auth extends CI_Controller {
     public function logout()
     {
         $this->session->unset_userdata('username');
-        $this->session->unset_userdata('role_id');// you can also use $this->session->sess_destroy(); to delete all session
+        $this->session->unset_userdata('role_id');
         $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">You have been logged out! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button></div>');

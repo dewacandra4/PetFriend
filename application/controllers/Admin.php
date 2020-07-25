@@ -1,16 +1,16 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Customer extends CI_Controller 
+class Admin extends CI_Controller 
 {
     public function index()
 	{
         $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
 		$data['title']= 'Dashboard';
-        $this->load->view('customer/header',$data);
-        $this->load->view('customer/sidebar');
-		$this->load->view('customer/dashboard');
-		$this->load->view('customer/footer');
+        $this->load->view('admin/header',$data);
+        $this->load->view('admin/sidebar');
+		$this->load->view('admin/dashboard');
+		$this->load->view('admin/footer');
 	}
 	public function change_password()
 	{
@@ -22,10 +22,10 @@ class Customer extends CI_Controller
 
 		if($this->form_validation->run() == false)
 		{			
-			$this->load->view('customer/header',$data);
-			$this->load->view('customer/sidebar');
-			$this->load->view('customer/change_password');
-			$this->load->view('customer/footer');
+			$this->load->view('admin/header',$data);
+			$this->load->view('admin/sidebar');
+			$this->load->view('admin/change_password');
+			$this->load->view('admin/footer');
 		}
 		else
 		{
@@ -34,14 +34,14 @@ class Customer extends CI_Controller
 			if(!password_verify($current_password, $data['user']['password']))
 			{
 				$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Wrong current password!</div>');
-                redirect('customer/change_password');
+                redirect('admin/change_password');
 			}
 			else
 			{
 				if($current_password == $new_password)
 				{
 					$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">New password cannot be the same as current password!</div>');
-                	redirect('customer/change_password');
+                	redirect('admin/change_password');
 				}
 				else
 				{
@@ -51,7 +51,7 @@ class Customer extends CI_Controller
 					$this->db->update('user');
 
 					$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Password Changed!</div>');
-                redirect('customer/change_password');
+                redirect('admin/change_password');
 				}
 			}
 		}
@@ -65,10 +65,10 @@ class Customer extends CI_Controller
         $result= $this->db->query("SELECT `id` FROM `user` WHERE `username` = '$lol'")->row()->id;
         $query = $this->db->query("SELECT * FROM `user` WHERE `id` = $result");
         $row = $query->row_array();
-        $data['customer']= $row;
-        $this->load->view('customer/header',$data);
-        $this->load->view('customer/sidebar',$data);
-        $this->load->view('customer/profile',$data);
-        $this->load->view('customer/footer');
+        $data['admin']= $row;
+        $this->load->view('admin/header',$data);
+        $this->load->view('admin/sidebar',$data);
+        $this->load->view('admin/profile',$data);
+        $this->load->view('admin/footer');
     }
 }

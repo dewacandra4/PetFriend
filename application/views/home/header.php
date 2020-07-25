@@ -39,7 +39,7 @@
                         <div class="col-xl-3 col-lg-3">
                             <div class="logo">
                                 <a href="index.html">
-                                    <img src="<?= base_url()?>assets/img/logo_trans.png" alt="PetFriend" width=90% height=50%>
+                                    <img src="<?= base_url()?>assets/img/logo_trans.png" alt="PetFriend" width=100% height=50%>
                                 </a>
                             </div>
                         </div>
@@ -56,7 +56,18 @@
                                                 <li><a href="<?=base_url('auth/registration'); ?>">Register</a></li>
                                             </ul>
                                         </li>
-                                        <li><a href="contact.html">Contact</a></li>
+                                        <li>
+                                            <form>
+                                                <div class="input-group mx-4">
+                                                    <input type="text" class="form-control" placeholder="Search">
+                                                    <div class="input-group-btn">
+                                                        <button class="btn btn-default" type="submit">
+                                                                <i class="fa fa-search"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form> 
+                                        </li>
                                     </ul>
                                 </nav>
                             </div>
