@@ -70,5 +70,20 @@ class Customer extends CI_Controller
         $this->load->view('customer/sidebar',$data);
         $this->load->view('customer/profile',$data);//ngirim variable user data ke page customer nanti 
         $this->load->view('customer/footer');
+	}
+	
+	public function edit()
+    {
+        $data['title'] = 'Edit Profile';
+        $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
+        $lol = $this->session->userdata('username');
+        $result= $this->db->query("SELECT `role_id` FROM `user` WHERE `username` = '$lol'")->row()->role_id;
+        $query = $this->db->query("SELECT * FROM `user` WHERE `role_id` = $result");
+        $row = $query->row_array();
+        $data['customer']= $row;
+        $this->load->view('customer/header',$data);
+        $this->load->view('customer/sidebar',$data);
+        $this->load->view('customer/edit',$data);//ngirim variable user data ke page customer nanti 
+        $this->load->view('customer/footer');
     }
 }
