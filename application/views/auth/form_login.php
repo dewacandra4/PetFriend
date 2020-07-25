@@ -1,4 +1,4 @@
-<body class="bg-danger">
+<body class="bg-gradient-danger">
 
   <div class="container pb-5 pt-5">
 
@@ -34,7 +34,7 @@
                       </div>
                     </div>
                     <br>
-                      <button type="submit" class="btn bg-danger btn-user btn-block text-white"> Login</button>
+                      <button type="submit" class="btn btn-outline-danger btn-user btn-block"> Login</button>
                     <br>
                   </form>
                   <div class="text-center">

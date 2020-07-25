@@ -54,7 +54,14 @@
   <!-- Page level custom scripts -->
   <script src="<?= base_url()?>assets/sbadmin/js/demo/chart-area-demo.js"></script>
   <script src="<?= base_url()?>assets/sbadmin/js/demo/chart-pie-demo.js"></script>
-
+  <script>
+    $('#image').on('change',function(){
+        //get the file name
+        var fileName = $(this).val();
+        //replace the "Choose a file" label
+        $(this).next('.custom-file-label').html(fileName.replace('C:\\fakepath\\'," "));
+    })
+  </script>
 </body>
 
 </html>

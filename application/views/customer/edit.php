@@ -7,15 +7,22 @@
                 <h5 class="m-0 font-weight-bold text-dark"><?=$title;?></h5>
               </div>
     <div class="row">
-    
-        <div class="col-md-4 border-right">
-        <?=form_open_multipart('customer/edit');?>
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="img-thumbnail rounded-circle text-center mt-5" src="<?=base_url('assets/dp/').$user['image'];?>" width="190px">
-            <span></br>
-            <input type="file" id="image" name="image">
-           </span>
-           </div>
-        </div>
+    <div class="col-md-4 border-right">
+        <?=form_open_multipart('admin/edit');?>
+            <div class="d-flex flex-column align-items-center p-3 py-2">
+                <img class="img-thumbnail rounded-circle text-center mt-5"  style="max-width:200px; height:200px;" src="<?=base_url('assets/dp/').$user['image'];?>" >
+                <p></p>
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Upload</span>
+                    </div>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="image" name="image">
+                        <label class="custom-file-label" for="image">Choose file</label>
+                    </div>
+                </div>
+            </div>       
+            </div>
         <div class="col-md-8">
             
             <div class="p-3 py-5">

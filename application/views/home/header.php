@@ -1,3 +1,6 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+?>
 <!doctype html>
 <html class="no-js" lang="zxx">
 
@@ -18,12 +21,12 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="<?= base_url()?>assets/anipat/css/themify-icons.css">
     <link rel="stylesheet" href="<?= base_url()?>assets/anipat/css/nice-select.css">
-    <!-- <link rel="stylesheet" href="<?= base_url()?>assets/anipat/css/flaticon.css"> -->
+    <link rel="stylesheet" href="<?= base_url()?>assets/anipat/css/flaticon.css">
     <link rel="stylesheet" href="<?= base_url()?>assets/anipat/css/gijgo.css">
     <link rel="stylesheet" href="<?= base_url()?>assets/anipat/css/animate.css">
     <link rel="stylesheet" href="<?= base_url()?>assets/anipat/css/slicknav.css">
     <link rel="stylesheet" href="<?= base_url()?>assets/anipat/css/style.css">
-    <!-- <link rel="stylesheet" href="css/responsive.css"> -->
+    <link rel="stylesheet" href="<?= base_url()?>assets/default/css/style.css">
 </head>
 
 <body>
@@ -38,7 +41,7 @@
                     <div class="row align-items-center">
                         <div class="col-xl-3 col-lg-3">
                             <div class="logo">
-                                <a href="index.html">
+                                <a href="<?=base_url('home'); ?>">
                                     <img src="<?= base_url()?>assets/img/logo_trans.png" alt="PetFriend" width=100% height=50%>
                                 </a>
                             </div>
@@ -48,12 +51,20 @@
                                 <nav>
                                     <ul id="navigation">
                                         <li><a  href="<?=base_url('home'); ?>">home</a></li>
-                                        <li><a href="about.html">Products</a></li>
-                                        <li><a href="service.html">Services</a></li>
+                                        <li><a href="#">Products</a></li>
+                                        <li><a href="#">Services</a></li>
                                         <li><a href="#">Account <i class="fa fa-angle-down fa-5x" aria-hidden="true"></i></a>
                                             <ul class="submenu">
-                                                <li><a href="<?=base_url('auth/login'); ?>">Login</a></li>
-                                                <li><a href="<?=base_url('auth/registration'); ?>">Register</a></li>
+                                                <?php if (is_admin() == 1) : ?>
+                                                    <li><a href="<?=base_url('admin'); ?>">My Account</a></li>
+                                                    <li><a href="<?= base_url('auth/logout'); ?>">Logout</a></li>
+                                                <?php elseif(is_admin()== 2) : ?>
+                                                    <li><a href="<?= base_url('customer'); ?>">My Account</a></li>
+                                                    <li><a href="<?= base_url('auth/logout'); ?>">Logout</a></li>
+                                                <?php else : ?>
+                                                    <li><a href="<?=base_url('auth/login'); ?>">Login</a></li>
+                                                    <li><a href="<?=base_url('auth/registration'); ?>">Register</a></li>
+                                                <?php endif; ?>
                                             </ul>
                                         </li>
                                         <li>
