@@ -41,7 +41,7 @@
 
       <!-- Nav Item - Edit Profile -->
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="<?=base_url('admin/edit');?>">
           <i class="fas fa-fw fa-user-edit"></i>
           <span>Edit Profile</span></a>
       </li>

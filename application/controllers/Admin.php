@@ -70,5 +70,72 @@ class Admin extends CI_Controller
         $this->load->view('admin/sidebar',$data);
         $this->load->view('admin/profile',$data);
         $this->load->view('admin/footer');
+	}
+	
+	public function edit()
+    {
+        $data['title'] = 'Edit Profile';
+        $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
+        $lol = $this->session->userdata('username');
+        $result= $this->db->query("SELECT `id` FROM `user` WHERE `username` = '$lol'")->row()->id;
+        $query = $this->db->query("SELECT * FROM `user` WHERE `id` = $result");
+        $row = $query->row_array();
+        $data['admin']= $row;
+		$this->form_validation->set_rules('name','name','required|trim');
+		$this->form_validation->set_rules('email','email','required|trim');
+		$this->form_validation->set_rules('address','address', 'required|trim');
+        $this->form_validation->set_rules('phone','phone','required|numeric'); 
+        if($this->form_validation->run()==false)
+        {
+            $this->load->view('admin/header',$data);
+            $this->load->view('admin/sidebar',$data);
+            $this->load->view('admin/edit',$data);
+            $this->load->view('admin/footer');
+        }
+        else
+        {
+            $name = $this->input->post('name');
+			$email = $this->input->post('email');   
+			$address = $this->input->post('address'); 
+			$phone = $this->input->post('phone'); 
+            $upload_image = $_FILES['image']['name'];
+
+			if($upload_image)
+            {
+                $config['upload_path'] = './assets/dp';
+                $config['allowed_types'] = 'gif|jpg|png';
+                $config['max_size']     = '2048';
+
+                $this->load->library('upload', $config);//load librari upload
+            
+                if($this->upload->do_upload('image'))
+                {
+                    //menghapus image lama biar ga menuh" in kecuali default profile image
+                    $old_image = $data['user']['image'];
+                    if($old_image != 'default.jpg')
+                    {
+                        unlink(FCPATH . 'assets/dp/'. $old_image);
+                    }
+
+                    $new_image = $this->upload->data('file_name');
+                    $this->db->set('image', $new_image);
+                }
+                else
+                {
+                    echo $this->upload->dispay_errors();
+                }
+
+            }
+			$this->db->set('name', $name);//update isi database 
+			$this->db->set('email', $email);
+			$this->db->set('phone', $phone);
+			$this->db->set('address', $address);
+			$this->db->where('id',$result);
+            $this->db->update('user');//update di tablenya user
+            $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Your profile has been updated! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button></div>');
+            redirect('admin/profile');
+        }
     }
 }
