@@ -176,7 +176,7 @@ h2::after {
 	z-index: 99;
 	cursor: pointer;
 	font-size: 16px;
-	color: #abb0b8;
+	color: #fd0800;
 }
 .carousel .wish-icon .fa-heart {
 	color: #ff6161;
@@ -187,6 +187,11 @@ h2::after {
 .star-rating i {
 	font-size: 14px;
 	color: #ffc000;
+}
+
+.fa-2x
+{
+	font-size:1em !important;
 }
 /* 
 @media (max-width: 768px) 

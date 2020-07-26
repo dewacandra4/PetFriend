@@ -41,11 +41,11 @@ class Auth extends CI_Controller {
                 //Check role user or admin
                 if($user['role_id']==1)
                 {
-					redirect('admin');
+					redirect('home');
                 }
                 else
                 {
-					redirect('customer');
+					redirect('home');
                 }
             }
             else

@@ -50,9 +50,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <div class="main-menu  d-none d-lg-block">
                                 <nav>
                                     <ul id="navigation">
-                                        <li><a  href="<?=base_url('home'); ?>">home</a></li>
-                                        <li><a href="#">Products</a></li>
-                                        <li><a href="#">Services</a></li>
+                                        <li><a href="#product">Products</a></li>
+                                        <li><a href="#service">Services</a></li>
                                         <li><a href="#">Account <i class="fa fa-angle-down fa-5x" aria-hidden="true"></i></a>
                                             <ul class="submenu">
                                                 <?php if (is_admin() == 1) : ?>
@@ -69,7 +68,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         </li>
                                         <li>
                                             <form>
-                                                <div class="input-group mx-4">
+                                                <div class="input-group mx-1">
                                                     <input type="text" class="form-control" placeholder="Search">
                                                     <div class="input-group-btn">
                                                         <button class="btn btn-default" type="submit">
@@ -78,6 +77,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                     </div>
                                                 </div>
                                             </form> 
+                                        </li>
+                                        <li>
+                                            <a href="#" class="nav-link "><span class="fa fa-shopping-cart fa-2x"></span>[<span class="cart-item-total">0</span>]</a>
                                         </li>
                                     </ul>
                                 </nav>
