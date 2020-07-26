@@ -106,7 +106,7 @@
                     <div class="single_service">
                          <div class="service_thumb service_icon_bg_1 d-flex align-items-center justify-content-center">
                              <div class="service_icon">
-                             <img src="https://img.icons8.com/plasticine/100/000000/dog-house.png"/>
+                                 <img src="<?= base_url()?>assets/anipat/img/service/service_icon_1.png" alt="">
                              </div>
                          </div>
                          <div class="service_content text-center">
