@@ -123,7 +123,7 @@
                              </div>
                          </div>
                          <div class="service_content text-center">
-                            <h3>Healthy Meals</h3>
+                            <h3>Pet Health</h3>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut</p>
                          </div>
                     </div>
