@@ -46,12 +46,12 @@
                         <div class="col-md-6"><input type="text" class="form-control" id="email" name="email" placeholder="Email" value="<?=$user['email'];?>">
                         <?= form_error('email','<small class="text-danger pl-3">','</small>'); ?>
                         </div>
-                        <div class="col-md-6"><input type="text" class="form-control" id="phone" name="phone" value="<?=$user['phone'];?>" placeholder="Phone Number">
+                        <div class="col-md-6"><input type="text" class="form-control fix" id="phone" name="phone" value="<?=$user['phone'];?>" placeholder="Phone Number">
                         <?= form_error('phone','<small class="text-danger pl-3">','</small>'); ?>
                         </div>
                     </div>
                     <div class="row mt-3">
-                        <div class="col-md-12"><input type="text" class="form-control fix"  id="address" name="address" placeholder="Address" value="<?=$user['address'];?>">
+                        <div class="col-md-12"><input type="text" class="form-control"  id="address" name="address" placeholder="Address" value="<?=$user['address'];?>">
                         <?= form_error('address','<small class="text-danger pl-3">','</small>'); ?>
                         </div>
                     </div>
