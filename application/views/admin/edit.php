@@ -51,7 +51,7 @@
                         </div>
                     </div>
                     <div class="row mt-3">
-                        <div class="col-md-12"><input type="text" class="form-control"  id="address" name="address" placeholder="Address" value="<?=$user['address'];?>">
+                        <div class="col-md-12"><input type="text" class="form-control fix"  id="address" name="address" placeholder="Address" value="<?=$user['address'];?>">
                         <?= form_error('address','<small class="text-danger pl-3">','</small>'); ?>
                         </div>
                     </div>
