@@ -10,8 +10,8 @@
                             </h3>
                             <ul class="address_line">
                                 <li>+62 81238912614</li>
-                                <li><a href="#">candrabrata8@gmail.Com</a></li>
-                                <li>Penarukan, Singaraja, Bali </li>
+                                <li><a href="#">candrabrata8@gmail.com</a></li>
+                                <li>Jalan Raya Puputan, Renon, Bali </li>
                             </ul>
                         </div>
                     </div>
@@ -21,11 +21,9 @@
                                 Our Services
                             </h3>
                             <ul class="links">
-                                <li><a href="#">Pet Insurance</a></li>
-                                <li><a href="#">Pet surgeries </a></li>
-                                <li><a href="#">Pet Adoption</a></li>
-                                <li><a href="#">Dog Insurance</a></li>
-                                <li><a href="#">Dog Insurance</a></li>
+                                <li><a href="#">Pet Health</a></li>
+                                <li><a href="#">Pet Hotel</a></li>
+                                <li><a href="#">Pet Salon</a></li>
                             </ul>
                         </div>
                     </div>
@@ -38,8 +36,6 @@
                                 <li><a href="#">About Us</a></li>
                                 <li><a href="#">Privacy Policy</a></li>
                                 <li><a href="#">Terms of Service</a></li>
-                                <li><a href="#">Login info</a></li>
-                                <li><a href="#">Knowledge Base</a></li>
                             </ul>
                         </div>
                     </div>
@@ -50,7 +46,7 @@
                                     <img src="<?= base_url()?>assets/img/logo_trans.png" alt="PetFriend" width=90% height=50%>
                                 </a>
                             </div>
-                            <p class="address_text">Denpasar, Jalan Raya Puputan, Renon 
+                            <p class="address_text">Denpasar, Jalan Raya Puputan, Renon, Bali
                             </p>
                             <div class="socail_links">
                                 <ul>
