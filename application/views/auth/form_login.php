@@ -27,12 +27,6 @@
                       <input type="password" class="form-control form-control-user" id="password" name="password" placeholder="Password">
                       <?php echo form_error('password', '<div class="text-danger small ml-2">','</div>'); ?>
                     </div>
-                    <div class="form-group">
-                      <div class="custom-control custom-checkbox small">
-                        <input type="checkbox" class="custom-control-input" id="customCheck">
-                        <label class="custom-control-label" for="customCheck">Remember Me</label>
-                      </div>
-                    </div>
                     <br>
                       <button type="submit" class="btn btn-outline-danger btn-user btn-block"> Login</button>
                     <br>
