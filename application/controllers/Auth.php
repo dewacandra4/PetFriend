@@ -1,25 +1,29 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Auth extends CI_Controller {
+class Auth extends CI_Controller 
+{
 	public function login()
     {
         $this->form_validation->set_rules('username','Username','trim|required');
         $this->form_validation->set_rules('password','Password','trim|required');
-
-        if($this->form_validation->run()==false)
-        {
-            //fungsiny ketika masuk link localhost/mhs info langsung ke load yang ini
-            //ada header ada footer tu urutan yang di load
-            $data['title'] = 'Login';//set title sesuai page
-            $this->load->view('home/header',$data);
-            $this->load->view('auth/form_login');
-            $this->load->view('home/footer');
-        }
+        if ($this->session->userdata('username')) {
+            redirect('home');
+        } 
         else
-        {
-            //validation success
-            $this->_login();
+        {    
+            if($this->form_validation->run()==false)
+            {
+                $data['title'] = 'Login';
+                $this->load->view('home/header',$data);
+                $this->load->view('auth/form_login');
+                $this->load->view('home/footer');
+            }
+            else
+            {
+                //validation success
+                $this->_login();
+            }
         }
     }
     private function _login()
@@ -80,43 +84,48 @@ class Auth extends CI_Controller {
             'min_length'=>'Password too short!'
         ]);
         $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
-    
-        if($this->form_validation->run() == false)
-        {
-            $data['title'] = 'Registration';
-            $this->load->view('home/header',$data);
-            $this->load->view('auth/form_register');
-            $this->load->view('home/footer');
-        }
+        if ($this->session->userdata('username')) {
+            redirect('home');
+        } 
         else
-        {
-            $email = $this->input->post('email', true);
-			$data = [
-				'name' => htmlspecialchars($this->input->post('name',true)), //htmlspecialchars prevent from sql injection or scripct/html inject
-				'address' => htmlspecialchars($this->input->post('address',true)), //htmlspecialchars prevent from sql injection or scripct/html inject
-				'phone' => $this->input->post('phone',true),
-				'email' => htmlspecialchars($email),
-				'username' => htmlspecialchars($this->input->post('username',true)),
-				'password' => password_hash($this->input->post('password1'),PASSWORD_DEFAULT),// password hash encrypst
-				'image' =>'default.jpg',
-                'role_id' => 2,
-                'is_active' => 0,
-                'date_created' => time()
-          	];
-            $token = base64_encode(random_bytes(32));
-            $user_token = [
-                'email' => $email,
-                'token' => $token,
-                'date_created' => time()
-            ];
+        {    
+            if($this->form_validation->run() == false)
+            {
+                $data['title'] = 'Registration';
+                $this->load->view('home/header',$data);
+                $this->load->view('auth/form_register');
+                $this->load->view('home/footer');
+            }
+            else
+            {
+                $email = $this->input->post('email', true);
+                $data = [
+                    'name' => htmlspecialchars($this->input->post('name',true)), //htmlspecialchars prevent from sql injection or scripct/html inject
+                    'address' => htmlspecialchars($this->input->post('address',true)), //htmlspecialchars prevent from sql injection or scripct/html inject
+                    'phone' => $this->input->post('phone',true),
+                    'email' => htmlspecialchars($email),
+                    'username' => htmlspecialchars($this->input->post('username',true)),
+                    'password' => password_hash($this->input->post('password1'),PASSWORD_DEFAULT),// password hash encrypst
+                    'image' =>'default.jpg',
+                    'role_id' => 2,
+                    'is_active' => 0,
+                    'date_created' => time()
+                ];
+                $token = base64_encode(random_bytes(32));
+                $user_token = [
+                    'email' => $email,
+                    'token' => $token,
+                    'date_created' => time()
+                ];
 
-            $this->db->insert('user', $data);
-            $this->db->insert('user_token', $user_token);
+                $this->db->insert('user', $data);
+                $this->db->insert('user_token', $user_token);
 
-            $this->_sendEmail($token, 'verify');
+                $this->_sendEmail($token, 'verify');
 
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Congratulation! your account has been created. Please check your email to activate your account</div>');
-			redirect('auth/login');
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Congratulation! your account has been created. Please check your email to activate your account</div>');
+                redirect('auth/login');
+            }
         }
     }
     
