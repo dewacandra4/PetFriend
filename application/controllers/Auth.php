@@ -45,11 +45,11 @@ class Auth extends CI_Controller
                 //Check role user or admin
                 if($user['role_id']==1)
                 {
-					redirect('home');
+					redirect('admin');
                 }
                 else
                 {
-					redirect('home');
+					redirect('customer');
                 }
             }
             else
@@ -146,7 +146,8 @@ class Auth extends CI_Controller
 
         if ($type == 'verify') {
             $this->email->subject('Account Verification');
-            $this->email->message('Please click this link to verify you account : <a href="' . base_url() . 'auth/verify?email=' . $this->input->post('email') . '&token=' . urlencode($token) . '">Activate</a><br> Ignore this email if you have never registered an account on the PetFriend website');
+            $this->email->message('Please click this link to verify you account : <a href="' . base_url() . 'auth/verify?email=' . $this->input->post('email') .
+             '&token=' . urlencode($token) . '">Activate</a><br> Ignore this email if you have never registered an account on the PetFriend website');
         } 
 
         if ($this->email->send()) {
