@@ -24,8 +24,12 @@
                       <?php echo form_error('username', '<div class="text-danger small ml-2">','</div>'); ?>
                     </div>
                     <div class="form-group">
-                      <input type="password" class="form-control form-control-user" id="password" name="password" placeholder="Password">
+                      <input type="password" class="form-control form-control-user form-password" id="password" name="password" placeholder="Password">
                       <?php echo form_error('password', '<div class="text-danger small ml-2">','</div>'); ?>
+                    </div>
+                    <div class="form-check ml-2">
+                      <input type="checkbox" class="form-check-input form-checkbox">
+                      <label class="form-check-label">Show Password</label>
                     </div>
                     <br>
                       <button type="submit" class="btn btn-outline-danger btn-user btn-block"> Login</button>

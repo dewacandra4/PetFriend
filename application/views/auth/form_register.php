@@ -31,13 +31,18 @@
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="password" class="form-control form-control-user" id="password1" name="password1" placeholder="Password">
+                    <input type="password" class="form-control form-control-user form-password" id="password1" name="password1" placeholder="Password">
                     <?= form_error('password1','<small class="text-danger pl-3">','</small>'); ?>
                   </div>
                   <div class="col-sm-6">
-                    <input type="password" class="form-control form-control-user" id="password2" name="password2" placeholder="Repeat Password">
+                    <input type="password" class="form-control form-control-user form-password" id="password2" name="password2" placeholder="Repeat Password">
                   </div>
                 </div>
+                <div class="form-check ml-2">
+                  <input type="checkbox" class="form-check-input form-checkbox">
+                  <label class="form-check-label">Show Password</label>
+                </div>
+                <br>
                 <button type="submit" class="btn btn-outline-danger btn-user btn-block">
                   Register Account
                 </button>

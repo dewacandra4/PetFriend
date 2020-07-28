@@ -34,31 +34,40 @@ class Auth extends CI_Controller
         $user = $this->db->get_where('user', ['username' => $username])->row_array();
         if($user)
         {
-            //check password (pw_verify)
-            if(password_verify($password, $user['password']))
+            if($user['is_active'] == 1)
             {
-                $data = [
-                    'username' => $user['username'],
-                    'role_id' => $user['role_id']
-                ];
-                $this->session->set_userdata($data);
-                //Check role user or admin
-                if($user['role_id']==1)
+                //check password (pw_verify)
+                if(password_verify($password, $user['password']))
                 {
-					redirect('admin');
+                    $data = [
+                        'username' => $user['username'],
+                        'role_id' => $user['role_id']
+                    ];
+                    $this->session->set_userdata($data);
+                    //Check role user or admin
+                    if($user['role_id']==1)
+                    {
+                        redirect('admin');
+                    }
+                    else
+                    {
+                        redirect('customer');
+                    }
                 }
                 else
                 {
-					redirect('customer');
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Wrong password!</div>');
+                    redirect('auth/login');
                 }
             }
             else
             {
-                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Wrong password!</div>');
+                $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">This account has not been activated! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+               </button></div>');
                 redirect('auth/login');
             }
         }
-
         else
         {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Username is not registered !</div>');
