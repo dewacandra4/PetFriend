@@ -115,7 +115,6 @@ class Customer extends CI_Controller
             
                 if($this->upload->do_upload('image'))
                 {
-                    //menghapus image lama biar ga menuh" in kecuali default profile image
                     $old_image = $data['user']['image'];
                     if($old_image != 'default.jpg')
                     {
@@ -124,23 +123,27 @@ class Customer extends CI_Controller
 
                     $new_image = $this->upload->data('file_name');
                     $this->db->set('image', $new_image);
+                    $this->db->set('name', $name);//update isi database 
+                    $this->db->set('email', $email);
+                    $this->db->set('phone', $phone);
+                    $this->db->set('address', $address);
+                    $this->db->where('id',$result);
+                    $this->db->update('user');//update di tablenya user
+                    $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Your profile has been updated! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button></div>');
+                    redirect('customer/profile');
                 }
-                else
+                elseif (! $this->upload->do_upload('image'))
                 {
-                    echo $this->upload->display_errors();
+                    $error = array('error' => $this->upload->display_errors());
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Error file extension or file larger than 2MB <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button></div>');
+                    redirect('customer/profile');
                 }
 
             }
-			$this->db->set('name', $name);//update isi database 
-			$this->db->set('email', $email);
-			$this->db->set('phone', $phone);
-			$this->db->set('address', $address);
-			$this->db->where('id',$result);
-            $this->db->update('user');//update di tablenya user
-            $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Your profile has been updated! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button></div>');
-            redirect('customer/profile');
         }
     }
 }

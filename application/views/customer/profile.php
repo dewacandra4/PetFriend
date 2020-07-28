@@ -20,7 +20,7 @@
                 </div>
               </div>
               <div class="col-md-5 mt-4 text-center">
-                <img class="img-thumbnail rounded-circle mx-auto" style="max-width:90%;" src="<?=base_url('assets/dp/').$user['image'];?>" alt="..."></br></br>
+                <img class="img-profile rounded-circle" style="max-width:300px; height:300px;" src="<?=base_url('assets/dp/').$user['image'];?>" alt="..."></br></br>
                 <p class="text-center"><strong>Profile Picture</strong></p>
               </div>
           </div>
