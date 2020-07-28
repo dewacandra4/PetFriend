@@ -68,7 +68,6 @@ class Auth extends CI_Controller
 	
 	public function registration()
 	{
-		$data['user'] = $this->db->get_where('user', ['id'=> $this->session->userdata('id')])->row_array();
 		$this->form_validation->set_rules('name', 'Name', 'required|trim');
 		$this->form_validation->set_rules('address', 'Address', 'required|trim');
         $this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[user.username]',  [
@@ -78,8 +77,7 @@ class Auth extends CI_Controller
             'is_unique' => 'This email has already registered !'
         ]);
         $this->form_validation->set_rules('phone','Phone Number','required|numeric');
-
-        $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[3]|matches[password2]', [
+        $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[10]|matches[password2]', [
             'matches'=>'Password does not match!',
             'min_length'=>'Password too short!'
         ]);
@@ -100,9 +98,9 @@ class Auth extends CI_Controller
             {
                 $email = $this->input->post('email', true);
                 $data = [
-                    'name' => htmlspecialchars($this->input->post('name',true)), //htmlspecialchars prevent from sql injection or scripct/html inject
-                    'address' => htmlspecialchars($this->input->post('address',true)), //htmlspecialchars prevent from sql injection or scripct/html inject
-                    'phone' => $this->input->post('phone',true),
+                    'name' => htmlspecialchars($this->input->post('name',true)), //htmlspecialchars prevent from malicious html code inject
+                    'address' => htmlspecialchars($this->input->post('address',true)), 
+                    'phone' => htmlspecialchars($this->input->post('phone',true)),
                     'email' => htmlspecialchars($email),
                     'username' => htmlspecialchars($this->input->post('username',true)),
                     'password' => password_hash($this->input->post('password1'),PASSWORD_DEFAULT),// password hash encrypst
@@ -120,10 +118,9 @@ class Auth extends CI_Controller
 
                 $this->db->insert('user', $data);
                 $this->db->insert('user_token', $user_token);
-
-                $this->_sendEmail($token, 'verify');
-
-                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Congratulation! your account has been created. Please check your email to activate your account</div>');
+                $this->_sendEmail($token, 'verify');//send an email to the customer for account activation
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+                Congratulation! your account has been created. Please check your email to activate your account</div>');
                 redirect('auth/login');
             }
         }
