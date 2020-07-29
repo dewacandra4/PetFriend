@@ -44,6 +44,17 @@
         $(this).next('.custom-file-label').html(fileName.replace('C:\\fakepath\\'," "));
     })
   </script>
+  <script>
+	$(document).ready(function(){		
+		$('.form-checkbox').click(function(){
+			if($(this).is(':checked')){
+				$('.form-password').attr('type','text');
+			}else{
+				$('.form-password').attr('type','password');
+			}
+		});
+	});
+  </script>
 </body>
 
 </html>
