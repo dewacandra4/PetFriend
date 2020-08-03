@@ -87,7 +87,6 @@ class Admin extends CI_Controller
         $row = $query->row_array();
         $data['admin']= $row;
 		$this->form_validation->set_rules('name','name','required|trim');
-		$this->form_validation->set_rules('email','email','required|trim');
 		$this->form_validation->set_rules('address','address', 'required|trim');
         $this->form_validation->set_rules('phone','phone','required|numeric'); 
         if($this->form_validation->run()==false)
@@ -99,8 +98,7 @@ class Admin extends CI_Controller
         }
         else
         {
-            $name = $this->input->post('name');
-			$email = $this->input->post('email');   
+            $name = $this->input->post('name'); 
 			$address = $this->input->post('address'); 
 			$phone = $this->input->post('phone'); 
             $upload_image = $_FILES['image']['name'];
@@ -139,7 +137,6 @@ class Admin extends CI_Controller
             }
 
             $this->db->set('name', $name);//update isi database 
-            $this->db->set('email', $email);
             $this->db->set('phone', $phone);
             $this->db->set('address', $address);
             $this->db->where('id',$result);
