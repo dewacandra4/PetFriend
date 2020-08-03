@@ -37,16 +37,14 @@
                         <h6 class="text-right"></h6>
                     </div>
                     <div class="row mt-2">
-                    <label class="ml-3 mb-3" for="Username">Username : <?=$user['username'];?></label>
+                    <label class="ml-3 mb-3" for="Username"><strong>Username : </strong><?=$user['username'];?></label>
+                    <label class="ml-5 mb-3" for="Email"><strong>Email : </strong><?=$user['email'];?></label>
                         <div class="col-md-12"><input type="text" class="form-control" id="name" name="name" placeholder="Name" value="<?=$user['name'];?>">
                         <?= form_error('name','<small class="text-danger pl-3">','</small>'); ?>
                         </div>
                     </div>
                     <div class="row mt-3">
-                        <div class="col-md-6"><input type="text" class="form-control" id="email" name="email" placeholder="Email" value="<?=$user['email'];?>">
-                        <?= form_error('email','<small class="text-danger pl-3">','</small>'); ?>
-                        </div>
-                        <div class="col-md-6"><input type="text" class="form-control fix" id="phone" name="phone" value="<?=$user['phone'];?>" placeholder="Phone Number">
+                        <div class="col-md-12"><input type="text" class="form-control fix" id="phone" name="phone" value="<?=$user['phone'];?>" placeholder="Phone Number">
                         <?= form_error('phone','<small class="text-danger pl-3">','</small>'); ?>
                         </div>
                     </div>
