@@ -32,7 +32,7 @@
                       <label class="form-check-label">Show Password</label>
                     </div>
                     <br>
-                      <button type="submit" class="btn btn-outline-danger btn-user btn-block"> Login</button>
+                      <button type="submit" class="btn genric-btn danger-border circle btn-block"> Login</button>
                     <br>
                   </form>
                   <div class="text-center">
