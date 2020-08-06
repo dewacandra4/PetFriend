@@ -11227,3 +11227,10 @@ body.sidebar-toggled footer.sticky-footer {
         margin-top: 15px;
     }
 }
+
+@media (max-width: 768px) 
+{
+    .fix2{
+        margin-bottom: 15px;
+    }
+}
