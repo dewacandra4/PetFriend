@@ -50,8 +50,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <div class="main-menu  d-none d-lg-block">
                                 <nav>
                                     <ul id="navigation">
-                                        <li><a href="#product">Products</a></li>
-                                        <li><a href="#service">Services</a></li>
+                                        <li><a href="#product" class="scroll">Products</a></li>
+                                        <li><a href="#service" class="scroll">Services</a></li>
                                         <li><a href="#">Account <i class="fa fa-angle-down fa-5x" aria-hidden="true"></i></a>
                                             <ul class="submenu">
                                                 <?php if (is_admin() == 1) : ?>

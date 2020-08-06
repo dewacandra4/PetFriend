@@ -27,12 +27,16 @@
                       <input type="password" class="form-control form-control-user form-password" id="password" name="password" placeholder="Password">
                       <?php echo form_error('password', '<div class="text-danger small ml-2">','</div>'); ?>
                     </div>
-                    <div class="form-check ml-2">
+                    <!-- <div class="form-check ml-2">
                       <input type="checkbox" class="form-check-input form-checkbox">
                       <label class="form-check-label">Show Password</label>
+                    </div> -->
+                    <div class="form-check form-switch">
+                      <input class="form-check-input form-checkbox" type="checkbox" id="flexSwitchCheckDefault">
+                      <label class="form-check-label" for="flexSwitchCheckDefault">Show Password</label>
                     </div>
                     <br>
-                      <button type="submit" class="btn btn-outline-danger btn-user btn-block"> Login</button>
+                      <button type="submit" class="btn genric-btn danger-border circle  btn-block"> Login</button>
                     <br>
                   </form>
                   <div class="text-center">

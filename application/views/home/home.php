@@ -23,9 +23,9 @@
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
                 </a>
-                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next" >
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
+                    <span class="sr-only" id="product">Next</span>
                 </a>
             </div>
         </div>
@@ -33,7 +33,7 @@
     </div>
     <!-- slider_area_end -->
     <!-- featured-product start -->
-    <div class="container mt-lg-5 " id="product">
+    <div class="container mt-lg-5 "  >
         <div class="row">
             <div class="col-md-12">
                 <h2>Featured <b>Products</b></h2>

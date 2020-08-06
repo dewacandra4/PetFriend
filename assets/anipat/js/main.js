@@ -3,12 +3,12 @@
 // TOP Menu Sticky
 $(window).on('scroll', function () {
 	var scroll = $(window).scrollTop();
-	if (scroll < 400) {
+	if (scroll < 420) {
     $("#sticky-header").removeClass("sticky");
-    $('#back-top').fadeIn(500);
+    $('#back-top').fadeIn(460);
 	} else {
     $("#sticky-header").addClass("sticky");
-    $('#back-top').fadeIn(500);
+    $('#back-top').fadeIn(460);
 	}
 });
 
