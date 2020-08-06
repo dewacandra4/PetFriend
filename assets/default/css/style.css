@@ -193,11 +193,3 @@ h2::after {
 {
 	font-size:1em !important;
 }
-/* 
-@media (max-width: 768px) 
-{
-    .logo img{
-        text-align: center;
-        width: 50%;
-    }
-} */
