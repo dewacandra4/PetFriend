@@ -43,7 +43,7 @@
                   <label class="form-check-label">Show Password</label>
                 </div>
                 <br>
-                <button type="submit" class="btn genric-btn danger-border circle  btn-block">
+                <button type="submit" class="btn btn-outline-danger btn-user btn-block">
                   Register Account
                 </button>
               </form>

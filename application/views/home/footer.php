@@ -85,8 +85,8 @@
                     <div class="col-xl-11">
                         <p class="copy_right text-center">
                             <p>
-                                Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Made with <i class="fa fa-heart" aria-hidden="true" style="color:red"></i> for everyone
-                            </p>
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Made with <i class="fa fa-heart" aria-hidden="true" style="color:red"></i> for everyone
+  </p>
                         </p>
                     </div>
                 </div>
@@ -97,30 +97,63 @@
 
 
     <!-- JS here -->
-
+    <script src="<?= base_url()?>assets/anipat/js/vendor/modernizr-3.5.0.min.js"></script>
     <script src="<?= base_url()?>assets/anipat/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="<?= base_url()?>assets/anipat/js/popper.min.js"></script>
     <script src="<?= base_url()?>assets/anipat/js/bootstrap.min.js"></script>
+    <script src="<?= base_url()?>assets/anipat/js/owl.carousel.min.js"></script>
+    <script src="<?= base_url()?>assets/anipat/js/isotope.pkgd.min.js"></script>
+    <script src="<?= base_url()?>assets/anipat/js/ajax-form.js"></script>
+    <script src="<?= base_url()?>assets/anipat/js/waypoints.min.js"></script>
+    <script src="<?= base_url()?>assets/anipat/js/jquery.counterup.min.js"></script>
+    <script src="<?= base_url()?>assets/anipat/js/imagesloaded.pkgd.min.js"></script>
+    <script src="<?= base_url()?>assets/anipat/js/scrollIt.js"></script>
+    <script src="<?= base_url()?>assets/anipat/js/jquery.scrollUp.min.js"></script>
+    <script src="<?= base_url()?>assets/anipat/js/wow.min.js"></script>
+    <script src="<?= base_url()?>assets/anipat/js/nice-select.min.js"></script>
+    <script src="<?= base_url()?>assets/anipat/js/jquery.slicknav.min.js"></script>
+    <script src="<?= base_url()?>assets/anipat/js/jquery.magnific-popup.min.js"></script>
+    <script src="<?= base_url()?>assets/anipat/js/plugins.js"></script>
+    <script src="<?= base_url()?>assets/anipat/js/gijgo.min.js"></script>
+
+    <!--contact js-->
+    <script src="<?= base_url()?>assets/anipat/js/contact.js"></script>
+    <script src="<?= base_url()?>assets/anipat/js/jquery.ajaxchimp.min.js"></script>
+    <script src="<?= base_url()?>assets/anipat/js/jquery.form.js"></script>
+    <script src="<?= base_url()?>assets/anipat/js/jquery.validate.min.js"></script>
+    <script src="<?= base_url()?>assets/anipat/js/mail-script.js"></script>
 
     <script src="<?= base_url()?>assets/anipat/js/main.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
-    $(document).ready(function(){
-    $(".scroll").on('click', function(event) {
+        $('#datepicker').datepicker({
+            iconsLibrary: 'fontawesome',
+            disableDaysOfWeek: [0, 0],
+        //     icons: {
+        //      rightIcon: '<span class="fa fa-caret-down"></span>'
+        //  }
+        });
+        $('#datepicker2').datepicker({
+            iconsLibrary: 'fontawesome',
+            icons: {
+             rightIcon: '<span class="fa fa-caret-down"></span>'
+         }
 
-        if (this.hash !== "") {
-            event.preventDefault();
-            var hash = this.hash;
-            $('html, body').animate
-            ({
-                scrollTop: $(hash).offset().top
-            }, 700, function()
-            {
-                window.location.hash = hash;
-            });
-        } 
-    });
-    });
-    </script> 
+        });
+        var timepicker = $('#timepicker').timepicker({
+         format: 'HH.MM'
+     });
+    </script>
+    <script>
+	$(document).ready(function(){		
+		$('.form-checkbox').click(function(){
+			if($(this).is(':checked')){
+				$('.form-password').attr('type','text');
+			}else{
+				$('.form-password').attr('type','password');
+			}
+		});
+	});
+    </script>
 </body>
 
 </html>
