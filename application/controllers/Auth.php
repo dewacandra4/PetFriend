@@ -44,7 +44,7 @@ class Auth extends CI_Controller
                         'role_id' => $user['role_id']
                     ];
                     $this->session->set_userdata($data);
-                    //Check role user or admin
+                    //Check role customer or admin
                     if($user['role_id']==1)
                     {
                         redirect('admin');
@@ -62,7 +62,8 @@ class Auth extends CI_Controller
             }
             else
             {
-                $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">This account has not been activated! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" 
+                role="alert">This account has not been activated! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                </button></div>');
                 redirect('auth/login');
