@@ -9,7 +9,7 @@
     <div class="row">
     
         <div class="col-md-4 border-right">
-        <?=form_open_multipart('admin/edit');?>
+        <?=form_open_multipart('admin/dashboard/edit');?>
             <div class="d-flex flex-column align-items-center p-3 py-2">
                 <img class="img-thumbnail rounded-circle text-center mt-5"  style="max-width:200px; height:200px;" src="<?=base_url('assets/dp/').$user['image'];?>" >
                 <!-- <div class="text-center">

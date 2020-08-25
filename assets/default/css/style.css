@@ -193,3 +193,9 @@ h2::after {
 {
 	font-size:1em !important;
 }
+
+@media only screen and (max-width: 600px) {
+	.product_etalase {
+	  margin: auto;
+	}
+  }

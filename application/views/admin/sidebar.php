@@ -19,7 +19,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="<?=base_url('admin');?>">
+        <a class="nav-link" href="<?=base_url('admin/dashboard');?>">
           <i class="fas fa-fw fa-heart"></i>
           <span>Hi, <?=$user['name'];?></span></a>
       </li>
@@ -34,20 +34,20 @@
 
       <!-- Nav Item - Profile -->
       <li class="nav-item">
-      <a class="nav-link" href="<?=base_url('admin/profile');?>">
+      <a class="nav-link" href="<?=base_url('admin/dashboard/profile');?>">
           <i class="fas fa-fw fa-user"></i>
           <span>Profile</span></a>
       </li>
 
       <!-- Nav Item - Edit Profile -->
       <li class="nav-item">
-        <a class="nav-link" href="<?= base_url('admin/edit');?>">
+        <a class="nav-link" href="<?= base_url('admin/dashboard/edit');?>">
           <i class="fas fa-fw fa-user-edit"></i>
           <span>Edit Profile</span></a>
       </li>
       <!-- Nav Item - Change password -->
       <li class="nav-item">
-        <a class="nav-link" href="<?=base_url('admin/change_password');?>">
+        <a class="nav-link" href="<?=base_url('admin/dashboard/change_password');?>">
           <i class="fas fa-fw fa-key"></i>
           <span>Change Password</span></a>
       </li>
@@ -62,14 +62,14 @@
 
       <!-- Nav Item - Products -->
       <li class="nav-item">
-      <a class="nav-link" href="<?=base_url('admin/#');?>">
+      <a class="nav-link" href="<?=base_url('admin/manage_products');?>">
           <i class="fas fa-fw fa-boxes"></i>
           <span>Manage Products</span></a>
       </li>
 
       <!-- Nav Item - Services -->
       <li class="nav-item">
-        <a class="nav-link" href="<?= base_url('admin/#');?>">
+        <a class="nav-link" href="<?= base_url('admin/manage_services');?>">
           <i class="fas fa-fw fa-briefcase"></i>
           <span>Manage Services</span></a>
       </li>

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Admin extends CI_Controller 
+class dashboard extends CI_Controller 
 {
     public function __construct()
     {
@@ -39,14 +39,14 @@ class Admin extends CI_Controller
 			if(!password_verify($current_password, $data['user']['password']))
 			{
 				$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Wrong current password!</div>');
-                redirect('admin/change_password');
+                redirect('admin/dashboard/change_password');
 			}
 			else
 			{
 				if($current_password == $new_password)
 				{
 					$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">New password cannot be the same as current password!</div>');
-                	redirect('admin/change_password');
+                	redirect('admin/dashboard/change_password');
 				}
 				else
 				{
@@ -56,7 +56,7 @@ class Admin extends CI_Controller
 					$this->db->update('user');
 
 					$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Password Changed!</div>');
-                redirect('admin/change_password');
+                redirect('admin/dashboard/change_password');
 				}
 			}
 		}
@@ -118,7 +118,7 @@ class Admin extends CI_Controller
                     role="alert">Error file extension or file larger than 2MB <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button></div>');
-                    redirect('admin/profile');
+                    redirect('admin/dashboard/profile');
                 }
 
                 else
@@ -145,7 +145,7 @@ class Admin extends CI_Controller
             role="alert">Your profile has been updated! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button></div>');
-            redirect('admin/profile');
+            redirect('admin/dashboard/profile');
         }
     }
 }

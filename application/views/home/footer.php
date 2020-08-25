@@ -1,5 +1,5 @@
  <!-- footer_start  -->
- <footer class="footer">
+<footer class="footer">
         <div class="footer_top">
             <div class="container">
                 <div class="row">
@@ -140,17 +140,6 @@
         } 
     });
     });
-    </script>
-    <script>
-	$(document).ready(function(){		
-		$('.form-checkbox').click(function(){
-			if($(this).is(':checked')){
-				$('.form-password').attr('type','text');
-			}else{
-				$('.form-password').attr('type','password');
-			}
-		});
-	});
     </script>
 </body>
 
