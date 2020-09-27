@@ -193,9 +193,99 @@ h2::after {
 {
 	font-size:1em !important;
 }
+.product_etalase {
+	margin: 30px 34px;
 
-@media only screen and (max-width: 600px) {
+}
+.logo{
+	width: 100%;
+	height: 50%;
+}
+
+.back-head{
+	background-color: #e97f42 !important;
+}
+
+.btn-cart {
+	color: #c45800;
+	font-size: 11px;
+	text-transform: uppercase;
+	font-weight: bold;
+	background: none;
+	border: 1px solid #fa8f02e3;
+	padding: 6px 14px;
+	margin-top: 5px;
+	line-height: 16px;
+	border-radius: 20px;
+}
+.btn-cart:hover, .btn-cart:focus {
+	color: #fff;
+	background: #f16e02;
+	box-shadow: none;
+}
+.btn-detail {
+	color: #ffffff;
+	font-size: 11px;
+	text-transform: uppercase;
+	font-weight: bold;
+	background: none;
+	background:#2cb104e3;
+	padding: 6px 14px;
+	margin-top: 5px;
+	line-height: 16px;
+	border-radius: 20px;
+}
+.btn-detail:hover, .btn-cart:focus {
+	color: #fff;
+	box-shadow: none;
+}
+
+.btn-contact {
+	color: #ffffff;
+	background:rgb(228, 116, 11);
+}
+.carousel .thumb-content .btn-detail {
+	color: #ffffff;
+	font-size: 11px;
+	text-transform: uppercase;
+	font-weight: bold;
+	background: none;
+	background: #2cb104e3;
+	padding: 6px 14px;
+	line-height: 16px;
+	border-radius: 20px;
+	width: 30%;
+	margin: 7px auto;
+}
+.img-services{
+	width: 200px;
+	height: 250px;
+	margin-left: auto;
+  	margin-right: auto;
+}
+.text-orange{
+	font-weight: 700;
+	color: #e97f42;
+}
+.text-orange:hover{
+	color: #c44800;
+}
+
+.bg-green{
+	background-color: green;
+}
+@media only screen and (max-width: 500px) {
 	.product_etalase {
-	  margin: auto;
+	  margin: 30px auto;
+
 	}
   }
+@media only screen and (max-width: 991px) {
+	.logo{
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		width: 50%;
+		height: 20%;
+	}
+}

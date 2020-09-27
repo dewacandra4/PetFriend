@@ -4,7 +4,7 @@
   <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-danger sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="navbar-nav bg-green sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?=base_url('home'); ?>">
@@ -19,7 +19,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="<?=base_url('customer/dashboard');?>">
+        <a class="nav-link" href="<?=base_url('doctor/dashboard');?>">
           <i class="fas fa-fw fa-heart"></i>
           <span>Hi, <?=$user['name'];?></span></a>
       </li>
@@ -34,7 +34,7 @@
 
       <!-- Nav Item - Profile -->
       <li class="nav-item">
-      <a class="nav-link" href="<?=base_url('customer/dashboard/profile');?>">
+      <a class="nav-link" href="<?=base_url('doctor/dashboard/profile');?>">
           <i class="fas fa-fw fa-user"></i>
           <span>Profile</span></a>
       </li>
@@ -42,13 +42,13 @@
       <!-- Nav Item - Edit Profile -->
 
       <li class="nav-item">
-      <a class="nav-link" href="<?=base_url('customer/dashboard/edit');?>">
+      <a class="nav-link" href="<?=base_url('doctor/dashboard/edit');?>">
           <i class="fas fa-fw fa-user-edit"></i>
           <span>Edit Profile</span></a>
       </li>
       <!-- Nav Item - Change password -->
       <li class="nav-item">
-        <a class="nav-link" href="<?=base_url('customer/dashboard/change_password');?>">
+        <a class="nav-link" href="<?=base_url('doctor/dashboard/change_password');?>">
           <i class="fas fa-fw fa-key"></i>
           <span>Change Password</span></a>
       </li>
@@ -58,20 +58,32 @@
 
       <!-- Heading -->
       <div class="sidebar-heading">
-        My Order
+        Diseases 
       </div>
       <!-- Nav Item - Charts -->
       <li class="nav-item">
-        <a class="nav-link" href="#">
-          <i class="fas fa-fw fa-bone"></i>
-          <span>Products Order</span></a>
+        <a class="nav-link" href="<?=base_url('doctor/manage_diseases');?>">
+          <i class="fas fa-fw fa-book-medical"></i>
+          <span>Data Diseases</span></a>
       </li>
+      <!-- Divider -->
+      <hr class="sidebar-divider">
 
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        Data Symptoms
+      </div>
       <!-- Nav Item - Tables -->
       <li class="nav-item">
-        <a class="nav-link" href="#">
-          <i class="fas fa-fw fa-heart"></i>
-          <span>Services Order</span></a>
+        <a class="nav-link" href="<?=base_url('doctor/manage_sympt');?>">
+          <i class="fas fa-fw fa-notes-medical"></i>
+          <span>Symptoms</span></a>
+      </li>
+      <!-- Nav Item - Tables -->
+      <li class="nav-item">
+        <a class="nav-link" href="<?=base_url('doctor/manage_cf');?>">
+          <i class="fas fa-fw fa-calculator"></i>
+          <span>CF Value</span></a>
       </li>
 
       <!-- Divider -->

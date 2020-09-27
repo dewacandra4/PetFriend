@@ -9,10 +9,10 @@
                 </div>
                 <ul class="nav flex-column text-center border">
                     <li class="nav-item">
-                        <a class="nav-link text-orange active" href="<?= base_url('home/products') ;?>">All Products</a>
+                        <a class="nav-link text-dark" href="<?= base_url('home/products') ;?>">All Products</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark " href="<?= base_url('category/dog') ;?>">Dog</a>
+                        <a class="nav-link text-orange active " href="<?= base_url('category/dog') ;?>">Dog</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-dark" href="<?= base_url('category/cat') ;?>">Cat</a>
@@ -30,27 +30,30 @@
             <div class="blog_left_sidebar">
                 <div class="card mx-auto">
                     <div class="card-header back-head text-light">
-                        <strong>ALL PRODUCTS</strong>
+                        <strong>DOG CATEGORY</strong>
                     </div>
-                    <div class="card-body ">
+                    <div class="card-body">
                         <div class="row text-center">
-                            <?php foreach ($products as $product) : ?>
-                                <div class="product_etalase card " style="width: 15rem;">
-                                <img src="<?= base_url().'/assets/products/'.$product['img']?>" class="card-img-top">
-                                    <div class="card-body">
-                                        <h5 class="card-title mb-1"><?= $product['name'] ?></h5>
-                                        <!-- <small><?= $product['description'] ?></small> -->
-                                        <br>
-                                        <span class="badge badge-pill badge-success mb-3">RM <?= $product['price'] ?></span>
-                                        <br>
-                                        <?= anchor('home/add_cart/'.$product['id'],'<div class=" btn btn-cart">Add to Cart</div>')?>
-                                        <?= anchor('home/detail_product/'.$product['id'],'<div class="btn btn-detail">Detail</div>')?>
+                            <?php if(empty($dog)) :?>
+                                    <p class="mx-2">Sorry, there are currently no products available at this category</p>
+                            <?php else:?>
+                                <?php foreach ($dog as $pd) : ?>
+                                    <div class="product_etalase card" style="width: 15rem;">
+                                    <img src="<?= base_url().'/assets/products/'.$pd->img ?>" class="card-img-top">
+                                        <div class="card-body">
+                                            <h5 class="card-title mb-1"><?= $pd->name ?></h5>
+                                            <!-- <small><?= $pd->description ?></small> -->
+                                            <br>
+                                            <span class="badge badge-pill badge-success mb-3">RM <?= $pd->price ?></span>
+                                            <br>
+                                            <a href="#" class="btn btn-cart"> Add to Cart</a>
+                                            <a href="#" class="btn btn-detail"> Detail</a>
+                                        </div>
                                     </div>
-                                </div>
-                            <?php endforeach; ?>
-                            
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                         </div>
-                        <?= $this->pagination->create_links();?>
+                        
                     </div>
                 </div>
             </div>

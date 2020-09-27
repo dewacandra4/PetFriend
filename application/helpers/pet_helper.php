@@ -14,11 +14,14 @@ function is_logged_in()
         {
             $menu = "Admin";
         }
-        else
+        elseif($menu == "customer")
         {
             $menu = "Customer";
         }
-
+        else
+        {
+            $menu = "Veterinarian";
+        }
         $queryRole = $ci->db->get_where('user_role', ['role' => $menu])->row_array();
         $role = $queryRole['role'];
 
@@ -46,8 +49,37 @@ function is_admin()
     {
         return 2;
     }
+    elseif($role_id == 3)
+    {
+        return 3;
+    }
     else
     {
         return false;
+    }
+}
+
+function is_category()
+{
+    $ci = get_instance();
+    $id = $ci->uri->segment(3);
+    $queryRole = $ci->db->get_where('products', ['id' => $id])->row_array();
+    $cate = $queryRole['category'];
+
+    if($cate == "cat")
+    {
+        return 1;
+    }
+    else if($cate == "dog")
+    {
+        return 2;
+    }
+    else if($cate == "birds")
+    {
+        return 3;
+    }
+    else
+    {
+        return 4;
     }
 }

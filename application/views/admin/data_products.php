@@ -1,6 +1,7 @@
 <div class="container-fluid">
     <button class ="btn btn-sm btn-primary mb-3" data-toggle="modal" data-target="#modalProduct"><i class="fas fa-plus fa-sm"></i> Add Products</button>
-    <table class="table table-bordered">
+    <?php echo $this->session->flashdata('message')?>
+    <table class="table table-responsive table-bordered">
         <tr>
             <th>NO</th>
             <th>PRODUCTS NAME</th>
@@ -10,22 +11,22 @@
             <th colspan = "3">ACTION</th>
         </tr>
         <?php
-        $no =1;
-        foreach($product as $pd) :?>
+       
+        foreach($product as $product) :?>
         <tr>
-            <td><?= $no++?></td>
-            <td><?= $pd->name?></td>
-            <td><?= $pd->description?></td>
-            <td><?= $pd->price?></td>
-            <td><?= $pd->stock?></td>
-            <td><div class="btn btn-success btn-sm"><i class="fas fa-search-plus"></i></div></td>
-            <td><?= anchor('admin/manage_products/edit/'.$pd->id,'<div class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></div>')?></td>
-            <td><?= anchor('admin/manage_products/delete/'.$pd->id,'<div class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></div>')?></td>
+            <td><?= ++$start?></td>
+            <td><?= $product['name']?></td>
+            <td><?= $product['description']?></td>
+            <td><?= $product['price']?></td>
+            <td><?= $product['stock']?></td>
+            <td><?= anchor('home/detail_product/'.$product['id'],'<div class="btn btn-success btn-sm"><i class="fas fa-search-plus"></i></div>')?></td>               
+            <td><?= anchor('admin/manage_products/edit/'.$product['id'],'<div class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></div>')?></td>
+            <td><?= anchor('admin/manage_products/delete/'.$product['id'],'<div class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></div>')?></td>
         </tr>
         <?php endforeach;?>
     </table>
+  <?= $this->pagination->create_links();?>
 </div>
-
 <div class="modal fade" id="modalProduct" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -65,4 +66,5 @@
         </form>
     </div>
   </div>
+</div>
 </div>

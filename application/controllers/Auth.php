@@ -47,11 +47,15 @@ class Auth extends CI_Controller
                     //Check role customer or admin
                     if($user['role_id']==1)
                     {
-                        redirect('admin');
+                        redirect('admin/dashboard');
                     }
-                    else
+                    else if($user['role_id'] ==2)
                     {
-                        redirect('customer');
+                        redirect('customer/dashboard');
+                    }
+                    else if($user['role_id'] == 3)
+                    {
+                        redirect('doctor/dashboard');
                     }
                 }
                 else

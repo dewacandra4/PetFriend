@@ -1,13 +1,13 @@
 <?php
 
-class Model_products extends CI_Model{
+class Model_services extends CI_Model{
     public function show_data(){
-        return $this->db->get('products');
+        return $this->db->get('services');
     }
-    public function add_products($data,$table){
+    public function add_services($data,$table){
         $this->db->insert($table,$data);
     }
-    public function edit_products($where,$table){
+    public function edit_services($where,$table){
         return $this->db->get_where($table,$where);
     }
     public function update_data($where,$data,$table)
@@ -20,9 +20,9 @@ class Model_products extends CI_Model{
         $this->db->where($where);
         $this->db->delete($table);
     }
-    public function detail_product($id)
+    public function detail_service($id)
     {
-        $result = $this->db->where('id',$id)->get('products');
+        $result = $this->db->where('id',$id)->get('services');
         if($result->num_rows()>0)
         {
             return $result->result();
@@ -31,14 +31,5 @@ class Model_products extends CI_Model{
         {
             return false;
         }
-    }
-    public function countAllProducts()
-    {
-        return $this->db->get('products')->num_rows();
-    }
-
-    public function getProducts($limit, $start)
-    {
-        return $this->db->get('products', $limit, $start)->result_array();
     }
 }

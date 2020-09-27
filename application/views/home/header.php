@@ -10,7 +10,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <title><?= $title; ?></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <!-- <link rel="manifest" href="site.webmanifest"> -->
     <link rel="shortcut icon" type="image/x-icon" href="<?= base_url()?>assets/img/logo_sm.png">
     <!-- Place favicon.ico in the root directory -->
@@ -40,25 +39,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="container">
                     <div class="row align-items-center">
                         <div class="col-xl-3 col-lg-3">
-                            <div class="logo">
-                                <a href="<?=base_url('home'); ?>">
-                                    <img src="<?= base_url()?>assets/img/logo_trans.png" alt="PetFriend" width=100% height=50%>
-                                </a>
-                            </div>
+                            <a href="<?=base_url('home'); ?>">
+                                <img class="logo" src="<?= base_url()?>assets/img/logo_trans.png" alt="PetFriend" >
+                            </a>
                         </div>
                         <div class="col-xl-9 col-lg-9">
                             <div class="main-menu  d-none d-lg-block">
                                 <nav>
                                     <ul id="navigation">
-                                        <li><a href="<?=base_url('home/products'); ?>" class="scroll">Products</a></li>
-                                        <li><a href="#service" class="scroll">Services</a></li>
+                                        <li><a href="<?=base_url('home/products');?>" class="scroll">Products</a></li>
+                                        <li><a href="<?=base_url('home/services');?>" class="scroll">Services</a></li>
                                         <li><a href="#">Account <i class="fa fa-angle-down fa-5x" aria-hidden="true"></i></a>
                                             <ul class="submenu">
                                                 <?php if (is_admin() == 1) : ?>
                                                     <li><a href="<?=base_url('admin/dashboard'); ?>">My Account</a></li>
                                                     <li><a href="<?= base_url('auth/logout'); ?>">Logout</a></li>
-                                                <?php elseif(is_admin()== 2) : ?>
-                                                    <li><a href="<?= base_url('customer'); ?>">My Account</a></li>
+                                                <?php elseif(is_admin() == 2) : ?>
+                                                    <li><a href="<?= base_url('customer/dashboard'); ?>">My Account</a></li>
+                                                    <li><a href="<?= base_url('auth/logout'); ?>">Logout</a></li>
+                                                <?php elseif(is_admin() == 3) : ?>
+                                                    <li><a href="<?= base_url('doctor/dashboard'); ?>">My Account</a></li>
                                                     <li><a href="<?= base_url('auth/logout'); ?>">Logout</a></li>
                                                 <?php else : ?>
                                                     <li><a href="<?=base_url('auth/login'); ?>">Login</a></li>

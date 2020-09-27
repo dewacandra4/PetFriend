@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Customer extends CI_Controller 
+class dashboard extends CI_Controller 
 {
 	public function __construct()
     {
@@ -12,10 +12,10 @@ class Customer extends CI_Controller
 	{
         $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
 		$data['title']= 'Dashboard';
-        $this->load->view('customer/header',$data);
-        $this->load->view('customer/sidebar');
-		$this->load->view('customer/dashboard');
-		$this->load->view('customer/footer');
+        $this->load->view('doctor/header',$data);
+        $this->load->view('doctor/sidebar');
+		$this->load->view('doctor/dashboard');
+		$this->load->view('doctor/footer');
 	}
 	public function change_password()
 	{
@@ -27,10 +27,10 @@ class Customer extends CI_Controller
 
 		if($this->form_validation->run() == false)
 		{			
-			$this->load->view('customer/header',$data);
-			$this->load->view('customer/sidebar');
-			$this->load->view('customer/change_password');
-			$this->load->view('customer/footer');
+			$this->load->view('doctor/header',$data);
+			$this->load->view('doctor/sidebar');
+			$this->load->view('doctor/change_password');
+			$this->load->view('doctor/footer');
 		}
 		else
 		{
@@ -39,14 +39,14 @@ class Customer extends CI_Controller
 			if(!password_verify($current_password, $data['user']['password']))
 			{
 				$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Wrong current password!</div>');
-                redirect('customer/change_password');
+                redirect('doctor/dashboard/change_password');
 			}
 			else
 			{
 				if($current_password == $new_password)
 				{
 					$this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">New password cannot be the same as current password!</div>');
-                	redirect('customer/change_password');
+                	redirect('doctor/dashboard/change_password');
 				}
 				else
 				{
@@ -56,7 +56,7 @@ class Customer extends CI_Controller
 					$this->db->update('user');
 
 					$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Password Changed!</div>');
-                redirect('customer/change_password');
+                redirect('doctor/dashboard/change_password');
 				}
 			}
 		}
@@ -70,11 +70,11 @@ class Customer extends CI_Controller
         $result= $this->db->query("SELECT `id` FROM `user` WHERE `username` = '$lol'")->row()->id;
         $query = $this->db->query("SELECT * FROM `user` WHERE `id` = $result");
         $row = $query->row_array();
-        $data['customer']= $row;
-        $this->load->view('customer/header',$data);
-        $this->load->view('customer/sidebar',$data);
-        $this->load->view('customer/profile',$data);
-        $this->load->view('customer/footer');
+        $data['doctor']= $row;
+        $this->load->view('doctor/header',$data);
+        $this->load->view('doctor/sidebar',$data);
+        $this->load->view('doctor/profile',$data);
+        $this->load->view('doctor/footer');
 	}
 	
 	public function edit()
@@ -85,16 +85,16 @@ class Customer extends CI_Controller
         $result= $this->db->query("SELECT `id` FROM `user` WHERE `username` = '$lol'")->row()->id;
         $query = $this->db->query("SELECT * FROM `user` WHERE `id` = $result");
         $row = $query->row_array();
-        $data['customer']= $row;
+        $data['doctor']= $row;
 		$this->form_validation->set_rules('name','name','required|trim');
 		$this->form_validation->set_rules('address','address', 'required|trim');
         $this->form_validation->set_rules('phone','phone','required|numeric'); 
         if($this->form_validation->run()==false)
         {
-            $this->load->view('customer/header',$data);
-            $this->load->view('customer/sidebar',$data);
-            $this->load->view('customer/edit',$data);
-            $this->load->view('customer/footer');
+            $this->load->view('doctor/header',$data);
+            $this->load->view('doctor/sidebar',$data);
+            $this->load->view('doctor/edit',$data);
+            $this->load->view('doctor/footer');
         }
         else
         {
@@ -118,7 +118,7 @@ class Customer extends CI_Controller
                     $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Error file extension or file larger than 2MB <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button></div>');
-                    redirect('customer/profile');
+                    redirect('doctor/dashboard/profile');
                 }
                 else
                 {
@@ -142,7 +142,7 @@ class Customer extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Your profile has been updated! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button></div>');
-            redirect('customer/profile');
+            redirect('doctor/dashboard/profile');
         }
     }
 }

@@ -39,22 +39,32 @@
                 <h2>Featured <b>Products</b></h2>
                 <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="0">
                 <!-- Carousel indicators -->
+                
                 <ol class="carousel-indicators">
-                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#myCarousel" data-slide-to="1"></li>
-                    <li data-target="#myCarousel" data-slide-to="2"></li>
-                    <li data-target="#myCarousel" data-slide-to="3"></li>
-                    <li data-target="#myCarousel" data-slide-to="4"></li>
-                </ol>   
+                <?php $count = count($products);
+                for( $n = 0; $n<$count;$n++)
+                {
+                    if($n==0)
+                    {
+                        echo "<li data-target='#myCarousel' data-slide-to= $n class='active'></li>";
+                    }
+                    else
+                    {
+                        echo "<li data-target='#myCarousel' data-slide-to= $n class=''></li>";
+                    }
+                
+                }
+                ?>
+                    
+                </ol>
                 <!-- Wrapper for carousel items -->
                 <div class="carousel-inner " >
                     <!-- <div class="item carousel-item active"> -->
                         <div class="row mx-auto">
-                            <?php $i = 0; foreach ($products as $p) : $item_class = ($i === 0) ? 'item carousel-item active' : 'item carousel-item';  ?>
-                            <div class="<?php echo $item_class ?>">
+                            <?php $i = 0; foreach ($products as $p) : $item_class = ($i === 0) ? 'item carousel-item active' : 'item carousel-item'; ?>
+                            <div class="<?= $item_class ?>">
                                 <div class="col-sm-5 mx-auto my-1">
                                     <div class="thumb-wrapper">
-                                        <span class="wish-icon"><i class="fa fa-heart-o"></i></span>
                                         <div class="img-box">
                                             <img src="<?= base_url().'assets/products/'.$p->img;?>"class="img-fluid" alt="">	
                                         </div>
@@ -69,9 +79,9 @@
                                                     <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
                                                 </ul>
                                             </div>
-                                            <small><?= $p->description;?></small>
                                             <p class="item-price"> <b>$<?= $p->price;?></b></p>
-                                            <a href="#" class="btn btn-primary">Add to Cart</a>
+                                            <?= anchor('home/detail_product/'.$p->id,'<div class="btn btn-cart">Add to Cart</div>')?>
+                                            <?= anchor('home/detail_product/'.$p->id,'<div class="btn-detail">Detail</div>')?>
                                         </div>						
                                     </div>
                                 </div>
