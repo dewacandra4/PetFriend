@@ -61,7 +61,62 @@ class Home extends CI_Controller {
         $this->load->view('home/header',$data);
         $this->load->view('home/products',$data);
         $this->load->view('home/footer');
-	}
+    }
+    public function add_to_cart()
+    {
+        $data = array(
+            'id' => $this->input->post('id'), 
+            'name' => $this->input->post('name'), 
+            'price' => $this->input->post('price'), 
+            'qty' => $this->input->post('quantity'), 
+            'img' => $this->input->post('image'), 
+            'category' => $this->input->post('cat'),
+            'stocks' => $this->input->post('stocks'),
+
+        );
+
+        $this->cart->insert($data);   
+        $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Added to cart<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button></div>');
+        redirect('Home/cart');
+    }
+
+    //to remove an item from cart
+    public function Remove_cart($rowid)
+    {
+        $this->cart->remove($rowid); 
+        $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Item Removed<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button></div>');
+            redirect('Home/cart');
+
+    }
+
+    public function update_cart($rowid)
+    {
+        $data = array(
+            'rowid' => $rowid,
+            'qty'   => $this->input->post('quantity'),
+         );
+    
+        $this->cart->update($data);
+        $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Qty Updated<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button></div>');
+            redirect('Home/cart');
+
+    }
+
+    public function cart()
+    {
+        $data['title'] = 'Shopping Cart';
+        $this->load->view('home/header',$data);
+        $this->load->view('customer/cart');
+        $this->load->view('home/footer');
+    }
+
+
 	public function detail_product($id)
 	{
 		$data['products'] = $this->model_products->detail_product($id);

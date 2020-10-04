@@ -79,7 +79,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             </form> 
                                         </li>
                                         <li>
-                                            <a href="#" class="nav-link "><span class="fa fa-shopping-cart fa-2x"></span>[<span class="cart-item-total">0</span>]</a>
+                                            <a href="<?= base_url('Home/cart'); ?>" class="nav-link "><span class="fa fa-shopping-cart fa-2x"></span>[<span class="cart-item-total"><?php echo $this->cart->total_items();?></span>]</a>
                                         </li>
                                     </ul>
                                 </nav>

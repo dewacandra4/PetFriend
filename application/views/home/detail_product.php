@@ -1,6 +1,7 @@
 <!-- <body class="bg-gradient-danger"> -->
 <div class="container pb-5 pt-5 my-5">
     <?php foreach($products as $pd): ?>
+    <form method="post" action="<?php echo base_url().'Home/add_to_cart';?>" enctype="multipart/form-data">
     <div class="card">
         <div class="card-header back-head text-light text-center">
             <strong><?= $pd->name?></strong>
@@ -33,6 +34,10 @@
                                 <td>Description</td>
                                 <td class="text-justify"><?= $pd->description?></td>
                             </tr>
+                            <tr>
+                                <td>Quantity</td>
+                                <td><input type="number" name="quantity" id="<?php echo $pd->id;?>" value="1" min="1" max="<?= $pd->stock?>" class="quantity form-control"> </td>
+                            </tr>
                         </table>
                         <div class="star-rating float-right mr-3">
                             <ul class="list-inline">
@@ -42,13 +47,19 @@
                                 <li class="list-inline-item"><i class="fa fa-star"></i></li>
                                 <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
                             </ul>
-                            
                         </div>
+                        <input type="hidden" name="id" class="form-control" value="<?= $pd->id?>">
+                        <input type="hidden" name="name" class="form-control" value="<?= $pd->name?>">
+                        <input type="hidden" name="price" class="form-control" value="<?= $pd->price?>">
+                        <input type="hidden" name="image" class="form-control" value="<?= $pd->img?>">
+                        <input type="hidden" name="cat" class="form-control" value="<?= $pd->category?>">
+                        <input type="hidden" name="stocks" class="form-control" value="<?= $pd->stock?>">
                         <br>
                         <?= anchor('home/detail_product/'.$pd->id,'<div class="btn btn-detail float-right mx-2 mt-5">Buy now</div>')?>
-                        <?= anchor('home/add_cart/'.$pd->id,'<div class="btn btn-cart float-right mt-5">Add to Cart</div>')?>
+                        <button type="submit" class="add_cart btn btn-cart float-right mt-5">Add to Cart</button>
                     </div>
                 </div>
+        </form>
             <?php endforeach; ?>
         </div>
     </div>
