@@ -93,10 +93,10 @@ class Home extends CI_Controller {
 
     }
 
-    public function update_cart($rowid)
+    public function update_cart()
     {
         $data = array(
-            'rowid' => $rowid,
+            'rowid' => $this->input->post('rowid'),
             'qty'   => $this->input->post('quantity'),
          );
     

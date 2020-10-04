@@ -44,7 +44,6 @@
                   <?php echo form_hidden($i.'[rowid]', $items['rowid']); ?>
               </thead>
               <tbody>
-              <form method="post" action="<?php echo base_url().'Home/update_cart';?>" enctype="multipart/form-data">
                 <tr>
                   <th scope="row" class="border-0">
                     <div class="p-2">
@@ -54,17 +53,19 @@
                       </div>
                     </div>
                   </th>
-                  <td class="border-0 align-middle"><strong>RM <?php echo $this->cart->format_number($items['price']); ?></strong></td>
-                 
-                  <td class="border-0 align-middle"><input type="number" name="quantity" class="form-control" value="<?php echo $items['qty']; ?>" min="1" max="<?php echo $items['stocks']; ?>"/>
+                  <td class="border-0 align-middle pd-3"><strong>RM <?php echo $this->cart->format_number($items['price']); ?></strong></td>
+                  <form action="<?php echo base_url().'Home/update_cart';?>" method="post" enctype="multipart/form-data">
+                  <td class="border-0 align-middle">
+                    <input type="number" name="quantity" class="form-control" value="<?php echo $items['qty']; ?>" min="1" max="<?php echo $items['stocks']; ?>"/>
+                  <input type="hidden" name="rowid" class="form-control" value="<?php echo $items['rowid']; ?>">
                   <span class="text-muted font-weight-normal font-italic d-block">Available Stocks: <?php echo $items['stocks']; ?></span>
                 </td>
                 <td class="border-0 align-middle"><strong>RM <?php echo $this->cart->format_number($items['subtotal']); ?></strong></td>
                   <td class="border-0 align-middle"><?= anchor('Home/Remove_cart/'.$items['rowid'],'<div class="btn btn-outline-danger">Remove</div>')?>
-                  <?= anchor('Home/update_cart/'.$items['rowid'],'<button class="btn btn-outline-success" type="submit" >Update Qty</button>')?>
+                  <button type="submit" class="btn btn-outline-success">Update Qty</button>
+                </form>
                 </td>
                 </tr>
-                </form>
                 <?php $i++; ?>
               <?php endforeach; ?>
               </tbody>
