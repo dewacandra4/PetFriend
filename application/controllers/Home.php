@@ -76,7 +76,8 @@ class Home extends CI_Controller {
         );
 
         $this->cart->insert($data);   
-        $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Added to cart<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Added 
+        to cart<button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
         </button></div>');
         redirect('Home/cart');
@@ -86,7 +87,8 @@ class Home extends CI_Controller {
     public function Remove_cart($rowid)
     {
         $this->cart->remove($rowid); 
-        $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Item Removed<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Item 
+        Removed<button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button></div>');
             redirect('Home/cart');

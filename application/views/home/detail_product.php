@@ -34,10 +34,6 @@
                                 <td>Description</td>
                                 <td class="text-justify"><?= $pd->description?></td>
                             </tr>
-                            <tr>
-                                <td>Quantity</td>
-                                <td><input type="number" name="quantity" id="<?php echo $pd->id;?>" value="1" min="1" max="<?= $pd->stock?>" class="quantity form-control"> </td>
-                            </tr>
                         </table>
                         <div class="star-rating float-right mr-3">
                             <ul class="list-inline">
@@ -51,6 +47,7 @@
                         <input type="hidden" name="id" class="form-control" value="<?= $pd->id?>">
                         <input type="hidden" name="name" class="form-control" value="<?= $pd->name?>">
                         <input type="hidden" name="price" class="form-control" value="<?= $pd->price?>">
+                        <input type="hidden" name="quantity" class="form-control" value="1">
                         <input type="hidden" name="image" class="form-control" value="<?= $pd->img?>">
                         <input type="hidden" name="cat" class="form-control" value="<?= $pd->category?>">
                         <input type="hidden" name="stocks" class="form-control" value="<?= $pd->stock?>">

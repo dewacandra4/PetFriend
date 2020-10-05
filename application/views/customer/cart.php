@@ -52,9 +52,10 @@
                 <tr>
                   <th scope="row" class="border-0">
                     <div class="p-2">
-                      <img src="<?= base_url().'/assets/products/'.$items['img'];?>"  width="100" alt="" class="img-fluid rounded shadow-sm">
+                      <img src="<?= base_url().'/assets/products/'.$items['img'];?>" width="100" alt="" class="img-fluid rounded shadow-sm">
                       <div class="ml-3 d-inline-block align-middle">
-                        <h5 class="mb-0"> <a href="#" class="text-dark d-inline-block align-middle"><?php echo $items['name']; ?></a></h5><span class="text-muted font-weight-normal font-italic d-block">Category: <?php echo $items['category']; ?></span>
+                        <h5 class="mb-0"> <a href="<?=base_url('Home/detail_product/'.$items['id']);?>" class="text-dark d-inline-block align-middle"><?php echo $items['name']; ?></a>
+                        </h5><span class="text-muted font-weight-normal font-italic d-block">Category: <?php echo $items['category']; ?></span>
                       </div>
                     </div>
                   </th>
