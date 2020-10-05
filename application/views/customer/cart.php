@@ -9,7 +9,7 @@
   <div class="container text-white py-5 text-center">
   <h2 class="mt-4">Shopping Cart</h2>
 <p class="text-center">The following items are items that you have put in the cart, 
-<br>select "Update Qty" button to update the quantity and do the recalculation cost for your items</p>
+<br>select "Update Qty" button to update the quantity and recalculate the cost</p>
     </p>
   </div>
   <div class="pb-5">
@@ -62,9 +62,9 @@
                   <td class="border-0 align-middle pd-3"><strong>RM <?php echo $this->cart->format_number($items['price']); ?></strong></td>
                   <form action="<?php echo base_url().'Home/update_cart';?>" method="post" enctype="multipart/form-data">
                   <td class="border-0 align-middle">
-                    <input type="number" name="quantity" class="form-control" value="<?php echo $items['qty']; ?>" min="1" max="<?php echo $items['stocks']; ?>"/>
+                    <input type="number" name="quantity" placeholder="Available : <?php echo $items['stocks']; ?>" class="form-control" value="" min="1" max="<?php echo $items['stocks']; ?>"/>
                   <input type="hidden" name="rowid" class="form-control" value="<?php echo $items['rowid']; ?>">
-                  <span class="text-muted font-weight-normal font-italic d-block">Available Stocks: <?php echo $items['stocks']; ?></span>
+                  <span class="text-muted font-bold font-weight-bold font-italic d-block">You currently order : <?php echo $items['qty']; ?> Item(s) </span>
                 </td>
                 <td class="border-0 align-middle"><strong>RM <?php echo $this->cart->format_number($items['subtotal']); ?></strong></td>
                   <td class="border-0 align-middle"><?= anchor('Home/Remove_cart/'.$items['rowid'],'<div class="btn btn-outline-danger">Remove</div>')?>

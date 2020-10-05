@@ -1,6 +1,5 @@
 
     <!-- slider_area_start -->
-    <form method="post" action="<?php echo base_url().'Home/add_to_cart';?>" enctype="multipart/form-data">
     <div class="single_slider slider_bg_1 d-flex align-items-center">      
         <div class="col-lg-8 mx-auto">
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -82,20 +81,11 @@
                                                 </ul>
                                             </div>
                                             <p class="item-price"> <b>$<?= $p->price;?></b></p>
-                                            <input type="hidden" name="id" class="form-control" value="<?= $p->id?>">
-                                            <input type="hidden" name="name" class="form-control" value="<?= $p->name?>">
-                                            <input type="hidden" name="price" class="form-control" value="<?= $p->price?>">
-                                            <input type="hidden" name="quantity" class="form-control" value="1">
-                                            <input type="hidden" name="image" class="form-control" value="<?= $p->img?>">
-                                            <input type="hidden" name="cat" class="form-control" value="<?= $p->category?>">
-                                            <input type="hidden" name="stocks" class="form-control" value="<?= $p->stock?>">
-                                            <button type="submit" class="add_cart btn btn-cart">Add to Cart</button>
                                             <?= anchor('home/detail_product/'.$p->id,'<div class="btn-detail">Detail</div>')?>
                                         </div>						
                                     </div>
                                 </div>
                             </div>
-                            </form>
                             <?php $i++; endforeach; ?>
                 </div>
                 <!-- Carousel controls -->
