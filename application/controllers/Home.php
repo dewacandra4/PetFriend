@@ -78,7 +78,6 @@ class Home extends CI_Controller {
             'img' =>  $q3,
             'category' => $q4,
             'stocks' =>  $q5,
-
         );
 
         $this->cart->insert($data);   
