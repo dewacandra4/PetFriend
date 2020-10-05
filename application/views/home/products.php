@@ -35,6 +35,7 @@
                     <div class="card-body ">
                         <div class="row text-center">
                             <?php foreach ($products as $product) : ?>
+                                <form method="post" action="<?php echo base_url().'Home/add_to_cart';?>" enctype="multipart/form-data">
                                 <div class="product_etalase card " style="width: 15rem;">
                                 <img src="<?= base_url().'/assets/products/'.$product['img']?>" class="card-img-top">
                                     <div class="card-body">
@@ -43,10 +44,18 @@
                                         <br>
                                         <span class="badge badge-pill badge-success mb-3">RM <?= $product['price'] ?></span>
                                         <br>
-                                        <?= anchor('home/add_cart/'.$product['id'],'<div class=" btn btn-cart">Add to Cart</div>')?>
+                                        <input type="hidden" name="id" class="form-control" value="<?php echo $product['id']; ?>">
+                                        <input type="hidden" name="name" class="form-control" value="<?php echo $product['name']; ?>">
+                                        <input type="hidden" name="price" class="form-control" value="<?php echo $product['price']; ?>">
+                                        <input type="hidden" name="quantity" class="form-control" value="1">
+                                        <input type="hidden" name="image" class="form-control" value="<?php echo $product['img']; ?>">
+                                        <input type="hidden" name="cat" class="form-control" value="<?php echo $product['category']; ?>">
+                                        <input type="hidden" name="stocks" class="form-control" value="<?php echo $product['stock']; ?>">
+                                        <button type="submit" class="add_cart btn btn-cart">Add to Cart</button>
                                         <?= anchor('home/detail_product/'.$product['id'],'<div class="btn btn-detail">Detail</div>')?>
                                     </div>
                                 </div>
+                                </form>
                             <?php endforeach; ?>
                             
                         </div>

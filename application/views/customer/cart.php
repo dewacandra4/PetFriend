@@ -7,15 +7,15 @@
         <div class="px-4 px-lg-0">
 
   <div class="container text-white py-5 text-center">
-    <h1 class="display-4">Shopping Cart</h1>
+  <h2 class="mt-4">Shopping Cart</h2>
+<p class="text-center">The following items are items that you have put in the cart, 
+<br>select "Update Qty" button to update the quantity and do the recalculation cost for your items</p>
     </p>
   </div>
-  <!-- End -->
-  
   <div class="pb-5">
     <div class="container">
       <div class="row">
-        <div class="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
+        <div class="col-lg-12 p-10 bg-white rounded shadow-sm mb-5">
 
           <!-- Shopping cart table -->
           <div class="table-responsive">
@@ -23,22 +23,27 @@
             <?= $this->session->flashdata('message'); ?>
               <thead>
                 <tr>
-                  <th scope="col" class="border-0 bg-light">
-                    <div class="p-2 px-3 text-uppercase">Product</div>
+                  <th scope="col" class="border 1 card-header back-head text-light">
+                    <div class="p-2 px-3 align-middle text-uppercase">Product</div>
                   </th>
-                  <th scope="col" class="border-0 bg-light">
+                  <th scope="col" class="border 1 card-header back-head text-light">
                     <div class="py-2 text-uppercase">Price</div>
                   </th>
-                  <th scope="col" class="border-0 bg-light">
+                  <th scope="col" class="border 1 card-header back-head text-light">
                     <div class="py-2 text-uppercase">Quantity</div>
                   </th>
-                  <th scope="col" class="border-0 bg-light">
+                  <th scope="col" class="border 1 card-header back-head text-light">
                     <div class="py-2 text-uppercase">Total Price</div>
                   </th>
-                  <th scope="col" class="border-0 bg-light">
+                  <th scope="col" class="border 1 card-header back-head text-light">
                     <div class="py-2 text-uppercase">Action</div>
                   </th>
                 </tr>
+                <?php if(empty($this->cart->contents())) :?>
+                  <div class="alert alert-warning" role="alert">
+                  There is no items in your cart, if you like to check our available products click <a href="<?=base_url('home/products');?>" class="alert-link">Here</a>
+                </div>
+                <?php else:?>
                 <?php $i = 1; ?>
                 <?php foreach ($this->cart->contents() as $items): ?>
                   <?php echo form_hidden($i.'[rowid]', $items['rowid']); ?>
@@ -68,6 +73,7 @@
                 </tr>
                 <?php $i++; ?>
               <?php endforeach; ?>
+              <?php endif; ?>
               </tbody>
             </table>
           </div>
@@ -76,7 +82,7 @@
       </div>
       <div class="row py-3 p-4 bg-white rounded shadow-sm">
         <div class="col-lg-12">
-          <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Order summary </div>
+          <div class="card-header back-head text-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Order summary </div>
           <div class="p-4">
             <p class="font-italic mb-4">Tax and Service costs are calculated based on values you have entered.</p>
             <ul class="list-unstyled mb-4">
@@ -86,7 +92,7 @@
               <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Total</strong>
                 <h5 class="font-weight-bold">RM <?php echo $this->cart->format_number($this->cart->total()*0.05) + ($this->cart->total()); ?></h5>
               </li>
-            </ul><a href="#" class="btn btn-danger rounded-pill py-2 btn-block">Procceed to checkout</a>
+            </ul><a href="#" class="add_cart btn btn-cart  rounded py-3 btn-block">Procceed to checkout</a>
           </div>
         </div>
       </div>
