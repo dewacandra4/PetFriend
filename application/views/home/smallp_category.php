@@ -46,8 +46,8 @@
                                                 <br>
                                                 <span class="badge badge-pill badge-success mb-3">RM <?= $pd->price ?></span>
                                                 <br>
-                                                <a href="#" class="btn btn-cart"> Add to Cart</a>
-                                                <a href="#" class="btn btn-detail"> Detail</a>
+                                                <?= anchor('home/add_to_cart/'.$pd->id,'<div class="add_cart btn btn-cart">Add to cart</div>')?>
+                                                <?= anchor('home/detail_product/'.$pd->id,'<div class="btn btn-detail">Detail</div>')?>
                                             </div>
                                         </div>
                                 <?php endforeach; ?>

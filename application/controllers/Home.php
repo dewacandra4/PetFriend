@@ -62,16 +62,22 @@ class Home extends CI_Controller {
         $this->load->view('home/products',$data);
         $this->load->view('home/footer');
     }
-    public function add_to_cart()
+
+    public function add_to_cart($id)
     {
+        $q1 = $this->db->query("SELECT`name`FROM `products` WHERE `id` = $id")->row()->name;
+        $q2 = $this->db->query("SELECT`price`FROM `products` WHERE `id` = $id")->row()->price;
+        $q3 = $this->db->query("SELECT`img`FROM `products` WHERE `id` = $id")->row()->img;
+        $q4 = $this->db->query("SELECT`category`FROM `products` WHERE `id` = $id")->row()->category;
+        $q5 = $this->db->query("SELECT`stock`FROM `products` WHERE `id` = $id")->row()->stock;
         $data = array(
-            'id' => $this->input->post('id'), 
-            'name' => $this->input->post('name'), 
-            'price' => $this->input->post('price'), 
-            'qty' => $this->input->post('quantity'), 
-            'img' => $this->input->post('image'), 
-            'category' => $this->input->post('cat'),
-            'stocks' => $this->input->post('stocks'),
+            'id' => $id, 
+            'name' =>  $q1,
+            'price' =>  $q2,
+            'qty' => 1,
+            'img' =>  $q3,
+            'category' => $q4,
+            'stocks' =>  $q5,
 
         );
 
