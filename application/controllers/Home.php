@@ -123,6 +123,18 @@ class Home extends CI_Controller {
         $this->load->view('home/footer');
     }
 
+    public function search()
+    {
+        $keyword = $this->input->post('keyword');
+        $data['searchr'] = $this->model_products->search($keyword);
+        $data['title'] = 'Search Result';
+        $data['key'] = $keyword;
+        $this->load->view('home/header',$data);
+        $this->load->view('home/search',$data);
+        $this->load->view('home/footer');
+
+    }
+
 
 	public function detail_product($id)
 	{
