@@ -1,6 +1,6 @@
 <div class="container-fluid my-5">
     <h2 class="mt-4">SEARCH RESULT</h2>
-    <p class="text-center">The following are the search result, check all of our available products <a href="<?=base_url('home/products');?>" 
+    <p class="text-center">The following are the search result ordered for price in descending order,  check all of our available products <a href="<?=base_url('home/products');?>" 
     class="font-weight-bold text-dark"> Here</a></p>
     <div class="row">
         <div class="col-lg-2">
@@ -8,53 +8,24 @@
                 <div class="card-header text-center back-head text-light">
                     <strong>ITEMS ORDER</strong>
                 </div>
-                <form action="<?= base_url('Home/searchP');?>" method="post">
                 <ul class="nav flex-column text-center border">
-                    <li class="nav-item p-1">
-                        <a class="nav-link text-orange active " href="#">Normal Order</a>
-                    </li>
-                    <li class="nav-item p-1">
+                <li class="nav-item p-1">
+                    <?= anchor('home/searchN/'.$key,'<div class="nav-link text-dark">Normal Order</div>')?>
+                </li>
+                <li class="nav-item p-1">
                     <?= anchor('home/searchA/'.$key,'<div class="nav-link text-dark">Cheap to Expensive</div>')?>
-                    </li>
-                    <li class="nav-item p-1">
-                    <?= anchor('home/searchD/'.$key,'<div class="nav-link text-dark">Expensive to Cheap</div>')?>
-                    </li>
-                    <li class="nav-item p-1">
-                        <hr class="solid">
-                        <div class="card-header text-center back-head text-light">
-                        <strong>SEARCH BASE ON PRICE</strong>
-                        </div>
-                        &nbsp;
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">RM</span>
-                        </div>
-                        <input type="text" class="form-control" name="min" autocomplete="off" placeholder="Enter Min Price">
-                        <div class="input-group-append">
-                            <span class="input-group-text">.00</span>
-                        </div>
-                        </div>
-                        <div class="input-group mb-1 pt-1 pd-8">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">RM</span>
-                        </div>
-                        <input type="text" class="form-control" name="max" autocomplete="off" placeholder="Enter Max Price">
-                        <div class="input-group-append">
-                            <span class="input-group-text">.00</span>
-                        </div>
-                        </div>
-                        <input type="hidden" name="key" value="<?= $key?>">
-                        <button class="add_cart btn btn-cart" type="submit">Search</button>
-                    </li>
+                 </li>
+                <li class="nav-item p-1">
+                    <a class="nav-link text-orange active " href="#">Expensive to Cheap</a>
+                </li>
                 </ul>
             </div>
         </div>
-        </form>
         <div class="col-lg-10 mb-5 mb-lg-0">
             <div class="blog_left_sidebar">
                 <div class="card mx-auto">
                     <div class="card-header back-head text-light">
-                        <strong>SEARCH RESULT FOR : "<?= $key?>" </strong>
+                        <strong>SEARCH RESULT FOR : "<?= $key?>"</strong>
                     </div>
                     <div class="card-body ">
                         <div class="row text-center">

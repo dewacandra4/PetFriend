@@ -135,6 +135,56 @@ class Home extends CI_Controller {
 
     }
 
+    public function searchN($key)
+    {
+        $keyword = $key;
+        $data['searchr'] = $this->model_products->search($keyword);
+        $data['title'] = 'Search Result';
+        $data['key'] = $keyword;
+        $this->load->view('home/header',$data);
+        $this->load->view('home/search',$data);
+        $this->load->view('home/footer');
+
+    }
+
+    public function searchA($key)
+    {
+        $keyword = $key;
+        $data['searchr'] = $this->model_products->Asearch($keyword);
+        $data['title'] = 'Search Result';
+        $data['key'] = $keyword;
+        $this->load->view('home/header',$data);
+        $this->load->view('home/searchA',$data);
+        $this->load->view('home/footer');
+    }
+
+    public function searchD($key)
+    {
+        $keyword = $key;
+        $data['searchr'] = $this->model_products->Dsearch($keyword);
+        $data['title'] = 'Search Result';
+        $data['key'] = $keyword;
+        $this->load->view('home/header',$data);
+        $this->load->view('home/searchD',$data);
+        $this->load->view('home/footer');
+    }
+
+    public function searchP()
+    {
+        $key=$this->input->post('key');
+        $max=$this->input->post('max');
+        $min=$this->input->post('min');
+        $keyword = $key;
+        $data['searchr'] = $this->model_products->Psearch($keyword,$max,$min);
+        $data['title'] = 'Search Result';
+        $data['key'] = $keyword;
+        $data['ma'] = $max;
+        $data['mi'] = $min;
+        $this->load->view('home/header',$data);
+        $this->load->view('home/searchP',$data);
+        $this->load->view('home/footer');
+    }
+
 
 	public function detail_product($id)
 	{

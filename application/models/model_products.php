@@ -49,5 +49,31 @@ class Model_products extends CI_Model{
         $result = $this->db->get('products')->result(); 
         return $result;
     }
+//search ascending price order
+    public function Asearch($keyword)
+    {
+        $this->db->like('name', $keyword );
+        $this->db->or_like('description', $keyword );
+        $this->db->order_by('price', 'ASC');
+        $result = $this->db->get('products')->result(); 
+        return $result;
+    }
+//search descending price order
+    public function Dsearch($keyword)
+    {
+        $this->db->like('name', $keyword );
+        $this->db->or_like('description', $keyword );
+        $this->db->order_by('price', 'DESC');
+        $result = $this->db->get('products')->result(); 
+        return $result;
+    }
+//search between entered price
+    public function Psearch($keyword,$max,$min)
+    {
+        $this->db->where('products.price >=', $min);
+        $this->db->where('products.price <=', $max);
+        $result = $this->db->get('products')->result(); 
+        return $result;
+    }
 
 }

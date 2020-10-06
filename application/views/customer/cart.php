@@ -39,11 +39,6 @@
                     <div class="py-2 text-uppercase">Action</div>
                   </th>
                 </tr>
-                <?php if(empty($this->cart->contents())) :?>
-                  <div class="alert alert-warning" role="alert">
-                  There is no items in your cart, if you like to check our available products click <a href="<?=base_url('home/products');?>" class="alert-link">Here</a>
-                </div>
-                <?php else:?>
                 <?php $i = 1; ?>
                 <?php foreach ($this->cart->contents() as $items): ?>
                   <?php echo form_hidden($i.'[rowid]', $items['rowid']); ?>
@@ -74,13 +69,17 @@
                 </tr>
                 <?php $i++; ?>
               <?php endforeach; ?>
-              <?php endif; ?>
               </tbody>
             </table>
           </div>
+          <?php if(empty($this->cart->contents())) :?>
+                  <div class="alert alert-warning" role="alert">
+                  There is no items in your cart, if you like to check our available products click <a href="<?=base_url('home/products');?>" class="alert-link">Here</a>
+                </div>
           <!-- End -->
         </div>
       </div>
+                <?php else:?>
       <div class="row py-3 p-4 bg-white rounded shadow-sm">
         <div class="col-lg-12">
           <div class="card-header back-head text-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Order summary </div>
@@ -102,6 +101,7 @@
 </div>
         </div>
   </div>
+  <?php endif; ?>
   <!-- /.container-fluid -->
 
 </div>
