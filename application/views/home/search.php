@@ -1,27 +1,16 @@
 <div class="container-fluid my-5">
     <h2 class="mt-4">SEARCH RESULT</h2>
-    <p class="text-center">The following are the search result .</p>
+    <p class="text-center">The following are the search result,  check all of our available products <a href="<?=base_url('home/products');?>" 
+    class="font-weight-bold text-dark"> Here</a></p>
     <div class="row">
         <div class="col-lg-2">
             <div class="sidebar_left mx-auto mb-4" style="width: 18rem;">
                 <div class="card-header text-center back-head text-light">
-                    <strong>CATEGORY</strong>
+                    <strong>SEARCH OPTION</strong>
                 </div>
                 <ul class="nav flex-column text-center border">
                     <li class="nav-item">
                         <a class="nav-link text-dark" href="<?= base_url('home/products') ;?>">All Products</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark " href="<?= base_url('category/dog') ;?>">Dog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="<?= base_url('category/cat') ;?>">Cat</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="<?= base_url('category/birds') ;?>">Birds</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="<?= base_url('category/smallp') ;?>" >Small Pets</a>
                     </li>
                 </ul>
             </div>
@@ -34,6 +23,9 @@
                     </div>
                     <div class="card-body ">
                         <div class="row text-center">
+                          <?php if(empty($searchr)) :?>
+                            <p class="mx-2">Sorry, there are currently no products like : "<?= $key?>"</p> 
+                            <?php else:?>
                             <?php foreach ($searchr as $product) : ?>
                                 <div class="product_etalase card " style="width: 15rem;">
                                 <img src="<?= base_url().'/assets/products/'.$product->img ?>" class="card-img-top">
@@ -48,7 +40,7 @@
                                     </div>
                                 </div>
                             <?php endforeach; ?>
-                            
+                            <?php endif; ?>
                         </div>
                         <?= $this->pagination->create_links();?>
                     </div>
