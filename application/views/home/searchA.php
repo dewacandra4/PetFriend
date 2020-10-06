@@ -1,6 +1,6 @@
 <div class="container-fluid my-5">
     <h2 class="mt-4">SEARCH RESULT</h2>
-    <p class="text-center">The following are the search result, check all of our available products <a href="<?=base_url('home/products');?>" 
+    <p class="text-center">The following are the search result ordered for price in ascending order,  check all of our available products <a href="<?=base_url('home/products');?>" 
     class="font-weight-bold text-dark"> Here</a></p>
     <div class="row">
         <div class="col-lg-2">
@@ -11,10 +11,10 @@
                 <form action="<?= base_url('Home/searchP');?>" method="post">
                 <ul class="nav flex-column text-center border">
                     <li class="nav-item p-1">
-                        <a class="nav-link text-orange active " href="#">Normal Order</a>
+                    <?= anchor('home/searchN/'.$key,'<div class="nav-link text-dark">Normal Order</div>')?>
                     </li>
                     <li class="nav-item p-1">
-                    <?= anchor('home/searchA/'.$key,'<div class="nav-link text-dark">Cheap to Expensive</div>')?>
+                        <a class="nav-link text-orange active " href="#">Cheap to Expensive</a>
                     </li>
                     <li class="nav-item p-1">
                     <?= anchor('home/searchD/'.$key,'<div class="nav-link text-dark">Expensive to Cheap</div>')?>
@@ -54,7 +54,7 @@
             <div class="blog_left_sidebar">
                 <div class="card mx-auto">
                     <div class="card-header back-head text-light">
-                        <strong>SEARCH RESULT FOR : "<?= $key?>" </strong>
+                        <strong>SEARCH RESULT FOR : "<?= $key?>"</strong>
                     </div>
                     <div class="card-body ">
                         <div class="row text-center">
