@@ -134,7 +134,7 @@ class Home extends CI_Controller {
         $this->load->view('home/footer');
 
     }
-
+//normal order
     public function searchN($key)
     {
         $keyword = $key;
@@ -146,7 +146,7 @@ class Home extends CI_Controller {
         $this->load->view('home/footer');
 
     }
-
+//ascending order
     public function searchA($key)
     {
         $keyword = $key;
@@ -157,7 +157,7 @@ class Home extends CI_Controller {
         $this->load->view('home/searchA',$data);
         $this->load->view('home/footer');
     }
-
+//descending order
     public function searchD($key)
     {
         $keyword = $key;

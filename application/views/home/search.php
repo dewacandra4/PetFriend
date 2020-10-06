@@ -29,7 +29,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">RM</span>
                         </div>
-                        <input type="text" class="form-control" name="min" autocomplete="off" placeholder="Enter Min Price">
+                        <input type="text" class="form-control" name="min" autocomplete="off" placeholder="Enter Min Price" required>
                         <div class="input-group-append">
                             <span class="input-group-text">.00</span>
                         </div>
@@ -38,7 +38,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">RM</span>
                         </div>
-                        <input type="text" class="form-control" name="max" autocomplete="off" placeholder="Enter Max Price">
+                        <input type="text" class="form-control" name="max" autocomplete="off" placeholder="Enter Max Price" required>
                         <div class="input-group-append">
                             <span class="input-group-text">.00</span>
                         </div>

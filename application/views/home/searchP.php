@@ -9,13 +9,14 @@
                 <div class="card-header text-center back-head text-light">
                     <strong>SEARCH ITEM BASED ON PRICE</strong>
                 </div>
+                <form action="<?= base_url('Home/searchP');?>" method="post">
                 <ul class="nav flex-column text-center border">
                 <li class="nav-item p-2">
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text">RM</span>
                         </div>
-                        <input type="text" class="form-control" name="min" autocomplete="off" placeholder="Enter Min Price">
+                        <input type="text" class="form-control" name="min" autocomplete="off" placeholder="Enter Min Price" required>
                         <div class="input-group-append">
                             <span class="input-group-text">.00</span>
                         </div>
@@ -24,18 +25,18 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">RM</span>
                         </div>
-                        <input type="text" class="form-control" name="max" autocomplete="off" placeholder="Enter Max Price">
+                        <input type="text" class="form-control"  name="max" autocomplete="off" placeholder="Enter Max Price" required>
                         <div class="input-group-append">
                             <span class="input-group-text">.00</span>
                         </div>
                         </div>
-                        <hr class="solid">
                         <input type="hidden" name="key" value="<?= $key?>">
                         <button class="add_cart btn btn-cart" type="submit">Search</button>
                     </li>
                 </ul>
             </div>
         </div>
+        </form>
         <div class="col-lg-10 mb-5 mb-lg-0">
             <div class="blog_left_sidebar">
                 <div class="card mx-auto">
