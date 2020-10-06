@@ -67,9 +67,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             </ul>
                                         </li>
                                         <li>
-                                            <form>
+                                            <form action="<?= base_url('Home/search');?>" method="post">
                                                 <div class="input-group mx-1">
-                                                    <input type="text" class="form-control" placeholder="Search">
+                                                    <input type="text"  class="form-control" autocomplete="off" id="keyword" name="keyword" placeholder="Search">
                                                     <div class="input-group-btn">
                                                         <button class="btn btn-default" type="submit">
                                                                 <i class="fa fa-search"></i>
@@ -79,7 +79,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             </form> 
                                         </li>
                                         <li>
-                                            <a href="#" class="nav-link "><span class="fa fa-shopping-cart fa-2x"></span>[<span class="cart-item-total">0</span>]</a>
+                                            <a href="<?= base_url('Home/cart'); ?>" class="nav-link "><span class="fa fa-shopping-cart fa-2x"></span>[<span class="cart-item-total"><?php echo $this->cart->total_items();?></span>]</a>
                                         </li>
                                     </ul>
                                 </nav>

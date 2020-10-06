@@ -61,7 +61,81 @@ class Home extends CI_Controller {
         $this->load->view('home/header',$data);
         $this->load->view('home/products',$data);
         $this->load->view('home/footer');
-	}
+    }
+
+    public function add_to_cart($id)
+    {
+        $q1 = $this->db->query("SELECT`name`FROM `products` WHERE `id` = $id")->row()->name;
+        $q2 = $this->db->query("SELECT`price`FROM `products` WHERE `id` = $id")->row()->price;
+        $q3 = $this->db->query("SELECT`img`FROM `products` WHERE `id` = $id")->row()->img;
+        $q4 = $this->db->query("SELECT`category`FROM `products` WHERE `id` = $id")->row()->category;
+        $q5 = $this->db->query("SELECT`stock`FROM `products` WHERE `id` = $id")->row()->stock;
+        $data = array(
+            'id' => $id, 
+            'name' =>  $q1,
+            'price' =>  $q2,
+            'qty' => 1,
+            'img' =>  $q3,
+            'category' => $q4,
+            'stocks' =>  $q5,
+        );
+
+        $this->cart->insert($data);   
+        $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Added 
+        to cart<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button></div>');
+        redirect('Home/cart');
+    }
+
+    //to remove an item from cart
+    public function Remove_cart($rowid)
+    {
+        $this->cart->remove($rowid); 
+        $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Item 
+        Removed<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button></div>');
+            redirect('Home/cart');
+
+    }
+
+    public function update_cart()
+    {
+        $data = array(
+            'rowid' => $this->input->post('rowid'),
+            'qty'   => $this->input->post('quantity'),
+         );
+    
+        $this->cart->update($data);
+        $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Qty Updated<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button></div>');
+            redirect('Home/cart');
+
+    }
+
+    public function cart()
+    {
+        $data['title'] = 'Shopping Cart';
+        $this->load->view('home/header',$data);
+        $this->load->view('customer/cart');
+        $this->load->view('home/footer');
+    }
+
+    public function search()
+    {
+        $keyword = $this->input->post('keyword');
+        $data['searchr'] = $this->model_products->search($keyword);
+        $data['title'] = 'Search Result';
+        $data['key'] = $keyword;
+        $this->load->view('home/header',$data);
+        $this->load->view('home/search',$data);
+        $this->load->view('home/footer');
+
+    }
+
+
 	public function detail_product($id)
 	{
 		$data['products'] = $this->model_products->detail_product($id);

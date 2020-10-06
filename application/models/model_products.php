@@ -41,4 +41,13 @@ class Model_products extends CI_Model{
     {
         return $this->db->get('products', $limit, $start)->result_array();
     }
+
+    public function search($keyword)
+    {
+        $this->db->like('name', $keyword );
+        $this->db->or_like('description', $keyword );
+        $result = $this->db->get('products')->result(); 
+        return $result;
+    }
+
 }

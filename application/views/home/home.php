@@ -62,6 +62,7 @@
                     <!-- <div class="item carousel-item active"> -->
                         <div class="row mx-auto">
                             <?php $i = 0; foreach ($products as $p) : $item_class = ($i === 0) ? 'item carousel-item active' : 'item carousel-item'; ?>
+                            
                             <div class="<?= $item_class ?>">
                                 <div class="col-sm-5 mx-auto my-1">
                                     <div class="thumb-wrapper">
@@ -80,7 +81,7 @@
                                                 </ul>
                                             </div>
                                             <p class="item-price"> <b>$<?= $p->price;?></b></p>
-                                            <?= anchor('home/detail_product/'.$p->id,'<div class="btn btn-cart">Add to Cart</div>')?>
+                                            <?= anchor('home/add_to_cart/'.$p->id,'<div class="add_cart btn btn-cart">Add to cart</div>')?>
                                             <?= anchor('home/detail_product/'.$p->id,'<div class="btn-detail">Detail</div>')?>
                                         </div>						
                                     </div>

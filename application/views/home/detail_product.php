@@ -42,11 +42,10 @@
                                 <li class="list-inline-item"><i class="fa fa-star"></i></li>
                                 <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
                             </ul>
-                            
                         </div>
                         <br>
                         <?= anchor('home/detail_product/'.$pd->id,'<div class="btn btn-detail float-right mx-2 mt-5">Buy now</div>')?>
-                        <?= anchor('home/add_cart/'.$pd->id,'<div class="btn btn-cart float-right mt-5">Add to Cart</div>')?>
+                        <?= anchor('home/add_to_cart/'.$pd->id,'<div class="add_cart btn btn-cart float-right mx-2 mt-5">Add to Cart</div>')?>
                     </div>
                 </div>
             <?php endforeach; ?>
