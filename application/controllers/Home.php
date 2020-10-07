@@ -187,16 +187,18 @@ class Home extends CI_Controller {
 
     public function check_out()
     {
-        if ($this->session->userdata('logged_in')) {
-            redirect('Home/products');
-    
-        } else {
-
+        $lol = $this->session->userdata('username');
+        if ($lol==null) 
+        {
             $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">You have to logged in 
             before continue the Payment<button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button></div>');
             redirect('auth/login');
+        } 
+        else
+        {
+            redirect('home/products');
         }
     }
 
