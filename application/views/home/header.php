@@ -69,7 +69,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <li>
                                             <form action="<?= base_url('Home/search');?>" method="post">
                                                 <div class="input-group mx-1">
-                                                    <input type="text"  class="form-control" autocomplete="off" id="keyword" name="keyword" placeholder="Search">
+                                                    <input type="text"  class="form-control" id="keyword" name="keyword" placeholder="Search" autocomplete="off">
                                                     <div class="input-group-btn">
                                                         <button class="btn btn-default" type="submit">
                                                                 <i class="fa fa-search"></i>
