@@ -92,7 +92,7 @@
               <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Total</strong>
                 <h5 class="font-weight-bold">RM <?php echo $this->cart->format_number(($this->cart->total()*0.05) + $this->cart->total()); ?></h5>
               </li>
-            </ul><a href="<?= base_url('home/check_out'); ?>" class="add_cart btn btn-cart  rounded py-3 btn-block">Procceed to checkout</a>
+            </ul><a href="<?= base_url('home/check_out'); ?>" class="add_cart btn btn-cart  rounded py-3 btn-block">Pay Now</a>
           </div>
         </div>
       </div>

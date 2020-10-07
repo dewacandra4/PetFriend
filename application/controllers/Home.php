@@ -198,8 +198,16 @@ class Home extends CI_Controller {
         } 
         else
         {
-            redirect('home/products');
+            redirect('home/payment');
         }
+    }
+
+    public function payment()
+    {
+        $data['title'] = 'Payment';
+        $this->load->view('home/header',$data);
+        $this->load->view('customer/payment');
+        $this->load->view('home/footer');
     }
 
 
