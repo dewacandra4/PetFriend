@@ -201,13 +201,54 @@ class Home extends CI_Controller {
             redirect('home/payment');
         }
     }
-
+//viewing the checkout form for products
     public function payment()
     {
+        $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
+        $lol = $this->session->userdata('username');
+        $result= $this->db->query("SELECT `id` FROM `user` WHERE `username` = '$lol'")->row()->id;
+        $query = $this->db->query("SELECT * FROM `user` WHERE `id` = $result");
+        $row = $query->row_array();
+        $data['customer']= $row;
         $data['title'] = 'Payment';
         $this->load->view('home/header',$data);
-        $this->load->view('customer/payment');
+        $this->load->view('customer/payment',$data);
         $this->load->view('home/footer');
+    }
+//ordering the products
+    public function order_products()
+    {
+        $user_id = $this->input->post ('user_id');
+        $data = [
+            'user_id' => $user_id,
+            'order_status' => $this->input->post ('order_status'),
+            'order_date' => time(),
+            'total_price' => $this->input->post ('total_price'),
+            'total_items' => $this->input->post ('total_items'),
+            'payment_method' => $this->input->post ('payment_method'),
+            'delivery_address' => $this->input->post ('delivery_address'),
+            'delivery_note' => $this->input->post ('delivery_note')
+        ];
+
+        $this->db->insert('products_order', $data);
+
+        $ordert = $this->db->query("SELECT `order_id` FROM `products_order` WHERE `user_id` = '$user_id'
+        ORDER BY `order_id` DESC LIMIT 1")->row()->order_id;
+
+        foreach ($this->cart->contents() as $items)
+        {
+            $data1 = [
+                'order_id' => $ordert,
+                'product_id' => $items['id'],
+                'order_qty' => $items['qty'],
+                'product_name' => $items['name'],
+            ];
+    
+            $this->db->insert('products_order_detail', $data1);
+
+        }
+
+        redirect('customer/dashboard');
     }
 
 
