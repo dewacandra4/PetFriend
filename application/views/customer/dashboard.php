@@ -23,10 +23,7 @@
                 <div class="card-body">
                   <p></p>
                 </div>
-              </div>
-            </div>
-          </div>
-
+                </div>
         </div>
         <!-- /.container-fluid -->
 

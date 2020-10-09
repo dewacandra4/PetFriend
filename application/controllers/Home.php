@@ -249,7 +249,9 @@ class Home extends CI_Controller {
 
         }
 
-        redirect('customer/dashboard');
+        redirect('customer/dashboard/my_producto');
+        $this->cart->destroy();
+
     }
 
 

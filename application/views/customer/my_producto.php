@@ -20,6 +20,10 @@
                     </tr>
                 </thead>
                 <tbody>
+                <?php if(empty($producto)) :?>
+                  <div class="alert alert-warning" role="alert">
+                  There is no order yet, if you like to check our available products click <a href="<?=base_url('home/products');?>" class="alert-link">Here</a>
+                </div>
                 <?php $i = 1; ?>
                 <?php foreach ($producto as $po): ?>
                     <tr>
@@ -31,6 +35,7 @@
                     </tr>
                     <?php $i++; ?>
                     <?php endforeach; ?>
+                    <?php endif; ?>
                 </tbody>
                 </table>
                 </div>
