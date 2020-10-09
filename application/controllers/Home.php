@@ -248,9 +248,8 @@ class Home extends CI_Controller {
             $this->db->insert('products_order_detail', $data1);
 
         }
-
-        redirect('customer/dashboard/my_producto');
         $this->cart->destroy();
+        redirect('customer/dashboard/my_producto');
 
     }
 

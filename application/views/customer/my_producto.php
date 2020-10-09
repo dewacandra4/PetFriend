@@ -24,18 +24,18 @@
                   <div class="alert alert-warning" role="alert">
                   There is no order yet, if you like to check our available products click <a href="<?=base_url('home/products');?>" class="alert-link">Here</a>
                 </div>
+                <?php endif; ?>
                 <?php $i = 1; ?>
                 <?php foreach ($producto as $po): ?>
                     <tr>
                     <td><?php echo $i; ?></td>
                     <td><?= $po->order_id?></td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
+                    <td><?= date('d F yy', $po->order_date);?></td>
+                    <td><?= $po->order_status?></td>
+                    <td><a href="#">Detail</a></td>
                     </tr>
                     <?php $i++; ?>
                     <?php endforeach; ?>
-                    <?php endif; ?>
                 </tbody>
                 </table>
                 </div>
