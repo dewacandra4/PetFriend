@@ -106,6 +106,10 @@
 
 </div>
 </html>
+</div>
+</div>
+</div>
+</div>
 <!-- End of Main Content -->
 <script src="./src/bootstrap-input-spinner.js"></script>
 <script>
