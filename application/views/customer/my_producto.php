@@ -32,7 +32,7 @@
                     <td><?= $po->order_id?></td>
                     <td><?= date('d F yy', $po->order_date);?></td>
                     <td><?= $po->order_status?></td>
-                    <td><a href="#">Detail</a></td>
+                    <td><?= anchor('customer/dashboard/view_reciept/'.$po->order_id,'<div class="text-info">Detail</div>')?></td>
                     </tr>
                     <?php $i++; ?>
                     <?php endforeach; ?>

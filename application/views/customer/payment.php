@@ -141,7 +141,7 @@
               <hr class="mb-4">
               <input type="hidden" name="user_id" value="<?=$user['id'];?>">
               <input type="hidden" name="order_status" value="Verifying Payment">
-              <input type="hidden" name="total_price" value="<?php echo $this->cart->format_number(($this->cart->total()*0.05) + $this->cart->total()); ?>">
+              <input type="hidden" name="total_price" value="<?php echo $this->cart->total()*0.05 + $this->cart->total(); ?>">
               <input type="hidden" name="total_items" value="<?php echo $this->cart->total_items();?>">
               <button class="add_cart btn btn-cart  rounded py-3 btn-block" type="submit">Continue to checkout</button>
 

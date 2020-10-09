@@ -243,6 +243,7 @@ class Home extends CI_Controller {
                 'order_qty' => $items['qty'],
                 'product_name' => $items['name'],
                 'total_price' => $this->cart->format_number($items['subtotal']),
+                'img' => $items['img'],
             ];
     
             $this->db->insert('products_order_detail', $data1);

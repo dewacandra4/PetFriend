@@ -164,7 +164,7 @@ class dashboard extends CI_Controller
         $this->load->view('customer/footer');
     }
 
-    public function view_reciept()
+    public function view_reciept($oid)
     {
         $data['title'] = 'Order Detail';
         $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
@@ -173,6 +173,9 @@ class dashboard extends CI_Controller
         $query = $this->db->query("SELECT * FROM `user` WHERE `id` = $result");
         $row = $query->row_array();
         $data['customer']= $row;
+
+        $data['producto_orderid'] = $this->model_products->get_myproducto_orderid($oid)->result();
+        $data['producto_detail'] = $this->model_products->get_myproducto_detail($oid)->result();
 
         $this->load->view('customer/header',$data);
         $this->load->view('customer/sidebar',$data);
