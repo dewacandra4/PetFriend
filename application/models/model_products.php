@@ -76,4 +76,9 @@ class Model_products extends CI_Model{
         return $result;
     }
 
+    public function get_myproducto($id)
+    {
+        return $this->db->get_where("products_order", array('user_id'=> $id));
+    }
+
 }
