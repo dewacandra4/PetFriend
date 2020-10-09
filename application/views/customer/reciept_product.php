@@ -10,7 +10,7 @@
                 <hr>
                 <div class="d-flex flex-row justify-content-between align-items-center order-details">
                     <div><span class="d-block fs-12">Order date</span><span class="font-weight-bold"><?= date('d F yy', $poi->order_date);?></span></div>
-                    <div><span class="d-block fs-12">Order ID</span><span class="font-weight-bold">#<?=$poi->order_id?></span></div>
+                    <div><span class="d-block fs-12">Product Order ID</span><span class="font-weight-bold">#<?=$poi->order_id?></span></div>
                     <div><span class="d-block fs-12">Payment method</span><span class="font-weight-bold"><?=$poi->payment_method?></span><img class="ml-1 mb-1" src="https://i.imgur.com/ZZr3Yqj.png" width="20"></div>
                     <div><span class="d-block fs-12">Shipping Address</span><span class="font-weight-bold text-success"><?=$poi->delivery_address?></span></div>
                 </div>

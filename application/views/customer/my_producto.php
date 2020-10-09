@@ -13,7 +13,7 @@
                 <thead>
                     <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Order ID</th>
+                    <th scope="col">Product Order ID</th>
                     <th scope="col">Order Date</th>
                     <th scope="col">Order Status</th>
                     <th scope="col">Action</th>
