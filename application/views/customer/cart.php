@@ -57,7 +57,7 @@
                   <td class="border-0 align-middle pd-3"><strong>RM <?php echo $this->cart->format_number($items['price']); ?></strong></td>
                   <form action="<?php echo base_url().'Home/update_cart';?>" method="post" enctype="multipart/form-data">
                   <td class="border-0 align-middle">
-                    <input type="number" name="quantity" placeholder="Available : <?php echo $items['stocks']; ?>" class="form-control" value="" min="1" max="<?php echo $items['stocks']; ?>"/>
+                    <input type="number" name="quantity" placeholder="Available : <?php echo $items['stocks']; ?>" class="form-control" value="" min="1" max="<?php echo $items['stocks']; ?>" required>
                   <input type="hidden" name="rowid" class="form-control" value="<?php echo $items['rowid']; ?>">
                   <span class="text-muted font-bold font-weight-bold font-italic d-block">You currently order : <?php echo $items['qty']; ?> Item(s) </span>
                 </td>
@@ -92,7 +92,7 @@
               <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Total</strong>
                 <h5 class="font-weight-bold">RM <?php echo $this->cart->format_number(($this->cart->total()*0.05) + $this->cart->total()); ?></h5>
               </li>
-            </ul><a href="#" class="add_cart btn btn-cart  rounded py-3 btn-block">Procceed to checkout</a>
+            </ul><a href="<?= base_url('home/check_out'); ?>" class="add_cart btn btn-cart  rounded py-3 btn-block">Pay Now</a>
           </div>
         </div>
       </div>
@@ -106,6 +106,10 @@
 
 </div>
 </html>
+</div>
+</div>
+</div>
+</div>
 <!-- End of Main Content -->
 <script src="./src/bootstrap-input-spinner.js"></script>
 <script>
