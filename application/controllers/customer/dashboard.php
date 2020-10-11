@@ -256,7 +256,7 @@ class dashboard extends CI_Controller
                 //load library
                 $this->load->library('pagination');
                 //config
-                $config['base_url'] = 'http://localhost/PetFriend/customer/dashboard/my_producto';
+                $config['base_url'] = 'http://localhost/PetFriend/customer/dashboard/my_serviceo';
                 $config['total_rows'] = $this->model_services->countListServices();
                 $config['per_page'] = 8;
                 //styling
@@ -331,16 +331,19 @@ class dashboard extends CI_Controller
 
         if($service_type == 1)
         {
+            $price=$this->db->query("SELECT `price` FROM `services` WHERE `id` = '1'")->row()->price;
             $data['pethotel'] = $this->model_services->get_myhotel_detail($oid)->result();
         }
         
         if($service_type == 2)
         {
+            $price=$this->db->query("SELECT `price` FROM `services` WHERE `id` = '2'")->row()->price;
             $data['pethealth'] = $this->model_services->get_myhealth_detail($oid)->result();
         }
         
         if($service_type == 3)
         {
+            $price=$this->db->query("SELECT `price` FROM `services` WHERE `id` = '3'")->row()->price;
             $data['petsalon'] = $this->model_services->get_mysalon_detail($oid)->result();
         }
 
@@ -352,6 +355,7 @@ class dashboard extends CI_Controller
         $comcount = $rep->num_rows();
         $rept = [
             'rep' =>  $comcount,
+            'price' =>  $price
         ];
         $data['guest']= $rept;
 

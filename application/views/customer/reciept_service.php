@@ -47,9 +47,25 @@
                 <hr>
 
                 <?php foreach ($pethotel as $ph): ?>
-                    <?php $sub_total=  $book['price'] * $book['days'];
-              $tax=$sub_total*0.05;
-              $discount = $sub_total*0.15;
+                
+                <?php $ci = strtotime(date('d F yy',$ph->check_in));
+                $co = strtotime(date('d F yy',$ph->check_out));
+                $days = $co-$ci;
+                ?>
+                <?php echo round($days/(60 * 60 * 24));?>
+
+                <?php
+                if($ph->room_type =="Deluxe") 
+                {
+                    $price= $guest['price'] + 10;
+                }
+                if($ph->room_type =="Royale") 
+                {
+                    $price= $guest['price'] + 20;
+                }  
+                $sub_total= $price * round($days/(60 * 60 * 24));
+                $tax=$sub_total*0.05;
+                $discount = $sub_total*0.15;
                 if($guest['rep'] >=4)
                 {
                     $total = ($tax + $sub_total) - $discount;
@@ -58,26 +74,18 @@
                     $total = $tax + $sub_total;
                 }
                 ?> 
-                <?php $ci = strtotime(date('d F yy',$ph->check_in));
-                $co = strtotime(date('d F yy',$ph->check_out));
-                $days = $co-$ci;
-                ?>
-                <?php echo round($days/(60 * 60 * 24));?>
                 <div class="d-flex justify-content-between align-items-center product-details">
                 skdkasdjklasdj
                 </div>
-                <?php $subtotal = $pod->total_price + $subtotal; ?>
                 <?php endforeach; ?>
                 <div class="mt-5 amount row">
                     <div class="d-flex justify-content-center col-md-6 "></div>
                     <div class="col-md-6">
                         <div class="billing">
-                            <div class="d-flex justify-content-between"><span>Subtotal</span><span class="font-weight-bold">RM <?php echo number_format($subtotal,2)."<br>";?></span></div>
+                            <div class="d-flex justify-content-between"><span>Subtotal</span><span class="font-weight-bold">RM <?php echo number_format($sub_total,2)."<br>";?></span></div>
                             <div class="d-flex justify-content-between mt-2"><span>Shipping fee</span><span class="font-weight-bold text-success">Free</span></div>
-                            <?php $tax = $subtotal * 0.05; ?>
                             <div class="d-flex justify-content-between mt-2"><span>Tax</span><span class="font-weight-bold text-success">+RM <?php echo number_format($tax,2)."<br>";?> </span></div>
                             <hr>
-                            <?php $total = $subtotal + $tax; ?>
                             <div class="d-flex justify-content-between mt-1"><span class="font-weight-bold">Total</span><span class="font-weight-bold">
                                 RM <?php echo number_format($total,2)."<br>";?></span></div>
                         </div>

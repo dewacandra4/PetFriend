@@ -285,7 +285,8 @@ class Home extends CI_Controller {
                 'total_items' => $this->input->post ('total_items'),
                 'payment_method' => $this->input->post ('payment_method'),
                 'delivery_address' => $this->input->post ('delivery_address'),
-                'delivery_note' => $this->input->post ('delivery_note')
+                'delivery_note' => $this->input->post ('delivery_note'),
+                'delivery_date' => time()
             ];
         }
         else
