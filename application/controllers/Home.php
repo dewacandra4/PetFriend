@@ -245,9 +245,10 @@ class Home extends CI_Controller {
             {
                 $p = ( $p + 10);
             }
-
+            //determine repeater guset
             $this->db->where('user_id',$result);
             $this->db->where('order_status', "Order Complete");
+            $this->db->where('service_id', 1);
             $rep = $this->db->get('services_order');
             $comcount = $rep->num_rows();
 
