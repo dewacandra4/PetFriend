@@ -18,34 +18,25 @@
         <div class="col-lg-12 p-10 bg-white rounded shadow-sm mb-5">
 
           <!-- Shopping cart table -->
-          <div class="table-responsive">
-            <table class="table">
+            <table class="table table-bordered">
             <?= $this->session->flashdata('message'); ?>
               <thead>
-                <tr>
-                  <th scope="col" class="border 1 card-header back-head text-light">
-                    <div class="p-2 px-3 align-middle text-uppercase">Product</div>
-                  </th>
-                  <th scope="col" class="border 1 card-header back-head text-light">
-                    <div class="py-2 text-uppercase">Price</div>
-                  </th>
-                  <th scope="col" class="border 1 card-header back-head text-light">
-                    <div class="py-2 text-uppercase">Quantity</div>
-                  </th>
-                  <th scope="col" class="border 1 card-header back-head text-light">
-                    <div class="py-2 text-uppercase">Total Price</div>
-                  </th>
-                  <th scope="col" class="border 1 card-header back-head text-light">
-                    <div class="py-2 text-uppercase">Action</div>
-                  </th>
-                </tr>
+                    <tr>
+                  <th>NO</th>
+                  <th>PRODUCTS</th>
+                  <th>PRICE</th>
+                  <th>QUANTITY</th>
+                  <th>SUB TOTAL</th>
+                  <th colspan = "2">ACTION</th>
+              </tr>
                 <?php $i = 1; ?>
                 <?php foreach ($this->cart->contents() as $items): ?>
                   <?php echo form_hidden($i.'[rowid]', $items['rowid']); ?>
               </thead>
               <tbody>
                 <tr>
-                  <th scope="row" class="border-0">
+                <td><?=$i?></td>
+                  <th scope="row" class="border-1">
                     <div class="p-2">
                       <img src="<?= base_url().'/assets/products/'.$items['img'];?>" width="100" alt="" class="img-fluid rounded shadow-sm">
                       <div class="ml-3 d-inline-block align-middle">
@@ -54,16 +45,16 @@
                       </div>
                     </div>
                   </th>
-                  <td class="border-0 align-middle pd-3"><strong>RM <?php echo $this->cart->format_number($items['price']); ?></strong></td>
+                  <td class="border-1 align-middle pd-3"><strong>RM <?php echo $this->cart->format_number($items['price']); ?></strong></td>
                   <form action="<?php echo base_url().'Home/update_cart';?>" method="post" enctype="multipart/form-data">
-                  <td class="border-0 align-middle">
+                  <td class="border-1 align-middle">
                     <input type="number" name="quantity" placeholder="Available : <?php echo $items['stocks']; ?>" class="form-control" value="" min="1" max="<?php echo $items['stocks']; ?>" required>
                   <input type="hidden" name="rowid" class="form-control" value="<?php echo $items['rowid']; ?>">
                   <span class="text-muted font-bold font-weight-bold font-italic d-block">You currently order : <?php echo $items['qty']; ?> Item(s) </span>
                 </td>
-                <td class="border-0 align-middle"><strong>RM <?php echo $this->cart->format_number($items['subtotal']); ?></strong></td>
-                  <td class="border-0 align-middle"><?= anchor('Home/Remove_cart/'.$items['rowid'],'<div class="btn btn-outline-danger">Remove</div>')?>
-                  <button type="submit" class="btn btn-outline-success">Update Qty</button>
+                <td class="border-1 align-middle"><strong>RM <?php echo $this->cart->format_number($items['subtotal']); ?></strong></td>
+                  <td class="border-1 align-middle"><button type="submit" class="btn btn-success"><i class="fa fa-edit"></i> Update Qty</button></td>
+                  <td class="border-1 align-middle"><?= anchor('Home/Remove_cart/'.$items['rowid'],'<div class="btn btn-danger">Remove</div>')?>
                 </form>
                 </td>
                 </tr>
@@ -71,7 +62,6 @@
               <?php endforeach; ?>
               </tbody>
             </table>
-          </div>
           <?php if(empty($this->cart->contents())) :?>
                   <div class="alert alert-warning" role="alert">
                   There is no items in your cart, if you like to check our available products click <a href="<?=base_url('home/products');?>" class="alert-link">Here</a>
@@ -80,7 +70,7 @@
         </div>
       </div>
                 <?php else:?>
-      <div class="row py-3 p-4 bg-white rounded shadow-sm">
+      <div class="row py-3 p-6 bg-white rounded shadow-sm">
         <div class="col-lg-12">
           <div class="card-header back-head text-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Order summary </div>
           <div class="p-4">

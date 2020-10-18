@@ -91,54 +91,24 @@
               </div>
               <!--Grid row-->
               <hr>
-              <div class="d-block my-3">
+              <div class="d-block my-1">
                 <div class="custom-control custom-radio">
-                  <input id="credit" name="payment_method" type="radio" class="custom-control-input" value="Credit Card" checked required>
-                  <label class="custom-control-label" for="credit">Credit card</label>
-                </div>
-                <div class="custom-control custom-radio">
-                  <input id="debit" name="payment_method" type="radio" class="custom-control-input" value="Debit Card" required>
-                  <label class="custom-control-label" for="debit">Debit card</label>
+                  <input id="Bank" name="payment_method" type="radio" class="custom-control-input" value="Bank Transfer" checked required>
+                  <label class="custom-control-label" for="Bank">Bank Transfer</label>
                 </div>
                 <div class="custom-control custom-radio">
-                  <input id="paypal" name="payment_method" type="radio" class="custom-control-input" value="Paypal" required>
-                  <label class="custom-control-label" for="paypal">Paypal</label>
+                  <input id="M-Bank" name="payment_method" type="radio" class="custom-control-input" value="M-Banking" required>
+                  <label class="custom-control-label" for="M-Bank">M-Banking</label>
+                </div>
+                <div class="custom-control custom-radio">
+                  <input id="COD" name="payment_method" type="radio" class="custom-control-input" value="COD" required>
+                  <label class="custom-control-label" for="COD">COD (Cash On Delivery)</label>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="cc-name">Name on card</label>
-                  <input type="text" class="form-control" id="cc-name" placeholder="" required>
-                  <small class="text-muted">Full name as displayed on card</small>
-                  <div class="invalid-feedback">
-                    Name on card is required
-                  </div>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="cc-number">Credit card number</label>
-                  <input type="text" class="form-control" id="cc-number" placeholder="" required>
-                  <div class="invalid-feedback">
-                    Credit card number is required
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-3 mb-3">
-                  <label for="cc-expiration">Expiration</label>
-                  <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
-                  <div class="invalid-feedback">
-                    Expiration date required
-                  </div>
-                </div>
-                <div class="col-md-3 mb-3">
-                  <label for="cc-expiration">CVV</label>
-                  <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
-                  <div class="invalid-feedback">
-                    Security code required
-                  </div>
-                </div>
-              </div>
-              <hr class="mb-4">
+              <hr class="mb-1">
+              <div class="Box1" style="display:none">Text Bank Trf</div>
+              <div class="Box2" style="display:none">Text M-Banking</div>
+              <div class="Box3" style="display:none">Text COD</div>
               <input type="hidden" name="user_id" value="<?=$user['id'];?>">
               <input type="hidden" name="order_status" value="Verifying Payment">
               <input type="hidden" name="total_price" value="<?php echo $this->cart->total()*0.05 + $this->cart->total(); ?>">
@@ -201,3 +171,24 @@
     </div>
   </main>
   <!--Main layout-->
+  <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+<Script>
+$('input[type="radio"]').click(function(){
+        if($(this).attr("value")=="COD"){
+            $(".Box3").show('fast');
+            $(".Box2").hide('fast');
+            $(".Box1").hide('fast');
+        }
+        if($(this).attr("value")=="Bank Transfer"){
+            $(".Box1").show('fast');
+            $(".Box3").hide('fast');
+            $(".Box2").hide('fast');
+        } 
+        if($(this).attr("value")=="M-Banking"){
+            $(".Box2").show('fast');
+            $(".Box1").hide('fast');
+            $(".Box3").hide('fast');
+        }        
+    });
+$('input[type="radio"]').trigger('click');
+</Script>
