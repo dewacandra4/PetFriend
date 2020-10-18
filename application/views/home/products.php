@@ -43,7 +43,9 @@
                                         <br>
                                         <span class="badge badge-pill badge-success mb-3">RM <?= $product['price'] ?></span>
                                         <br>
-                                        <?php if (is_admin() == 2) : ?>
+                                        <?php if (is_admin() == 1) : ?>
+                                                <?php elseif(is_admin() == 3) : ?>
+                                                <?php else : ?>
                                         <?= anchor('home/add_to_cart/'.$product['id'],'<div class="add_cart btn btn-cart">Add to cart</div>')?>
                                         <?php endif; ?>
                                         <?= anchor('home/detail_product/'.$product['id'],'<div class="btn btn-detail">Detail</div>')?>
