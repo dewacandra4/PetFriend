@@ -143,9 +143,27 @@
                 </div>
                 <br><br>
               </div>
-              <div class="Box3" style="display:none">Text COD</div>
+              <div class="Box3" style="display:none">
+              <br><br>
+              <div class="card">
+                  <div class="card-header">
+                  <Strong> Cash On Delivery</Strong>
+                  </div>
+                  <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                    <img src="<?= base_url().'assets/img/c.png'?>"class="img-fluid mb-3" width="35%">
+                      <p>You can place an order, then pay when the product has been received</p>
+                    <p>The amount of money that needs to be prepared : <input readonly class="form-control w-50 mt-1" type="text" 
+                    value="RM <?php echo $this->cart->format_number(($this->cart->total()*0.05) + $this->cart->total()); ?>">
+                    <br><strong>Please make sure that address you entered is correct, and fill delivery note if products must be delivered at a specific location</strong>
+                    </p>
+                    </blockquote>
+                  </div>
+                </div>
+                <br><br>
+              </div>
               <input type="hidden" name="user_id" value="<?=$user['id'];?>">
-              <input type="hidden" name="order_status" value="Verifying Payment">
+              <input type="hidden" name="order_status" value="Awaiting Payment">
               <input type="hidden" name="total_price" value="<?php echo $this->cart->total()*0.05 + $this->cart->total(); ?>">
               <input type="hidden" name="total_items" value="<?php echo $this->cart->total_items();?>">
               <button class="add_cart btn btn-cart  rounded py-3 btn-block" type="submit">Continue to checkout</button>

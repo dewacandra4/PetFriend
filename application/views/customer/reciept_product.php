@@ -5,14 +5,26 @@
         <?php foreach ($producto_orderid as $poi): ?>
             <div class="receipt bg-white p-3 rounded"><img width="160" src="<?= base_url()?>assets/img/logo_trans.png" alt="PetFriend">
                 <h4 class="mt-2 mb-3">Your order Status : <a> <?=$poi->order_status?><a></h4>
-                
-                <h6 class="name">Hello <?=$user['name'];?>,</h6><span class="fs-20 text-black-50"> here is the detail of your order :</span>
+                <?php if ($poi->order_status == "Awaiting Payment") : ?>
+                <h6 class="name">Hello <?=$user['name'];?>,</h6><span class="fs-20 text-black-50"> Please make a payment to this account :</span>
+                <?php else : ?>
+                <h6 class="name">Hello <?=$user['name'];?>,</h6><span class="fs-20 text-black-50"> Here is the detail of your order :</span>
+                <?php endif; ?>
                 <hr>
                 <div class="d-flex flex-row justify-content-between align-items-center order-details">
                     <div><span class="d-block fs-12">Order date</span><span class="font-weight-bold"><?= date('d F yy', $poi->order_date);?></span></div>
                     <div><span class="d-block fs-12">Product Order ID</span><span class="font-weight-bold">#<?=$poi->order_id?></span></div>
-                    <div><span class="d-block fs-12">Payment method</span><span class="font-weight-bold"><?=$poi->payment_method?></span><img class="ml-1 mb-1" src="https://i.imgur.com/ZZr3Yqj.png" width="20"></div>
-                    <div><span class="d-block fs-12">Shipping Address</span><span class="font-weight-bold text-success"><?=$poi->delivery_address?></span></div>
+                    <div><span class="d-block fs-12">Payment method</span><span class="font-weight-bold"><?=$poi->payment_method?></span>
+                    <?php if ($poi->payment_method == "Bank Transfer") : ?>
+                    <img class="ml-1 mb-1" src="<?= base_url().'assets/img/b.png'?>" width="20"></div>
+                    <?php endif; ?>
+                    <?php if ($poi->payment_method == "COD") : ?>
+                    <img class="ml-1 mb-1" src="<?= base_url().'assets/img/c.png'?>" width="20"></div>
+                    <?php endif; ?>
+                    <?php if ($poi->payment_method == "M-Banking") : ?>
+                    <img class="ml-1 mb-1" src="<?= base_url().'assets/img/m.png'?>" width="20"></div>
+                    <?php endif; ?>
+                    <div><span class="d-block fs-12">Shipping Address</span><span class="font-weight-bold"><?=$poi->delivery_address?></span></div>
                 </div>
                 <?php endforeach; ?>
                 <hr>
@@ -37,13 +49,22 @@
                             <div class="d-flex justify-content-between"><span>Subtotal</span><span class="font-weight-bold">RM <?php echo number_format($subtotal,2)."<br>";?></span></div>
                             <div class="d-flex justify-content-between mt-2"><span>Shipping fee</span><span class="font-weight-bold text-success">Free</span></div>
                             <?php $tax = $subtotal * 0.05; ?>
-                            <div class="d-flex justify-content-between mt-2"><span>Tax</span><span class="font-weight-bold">+RM <?php echo number_format($tax,2)."<br>";?> </span></div>
+                            <div class="d-flex justify-content-between mt-2"><span>Tax</span><span class="font-weight-bold text-success">+RM <?php echo number_format($tax,2)."<br>";?> </span></div>
                             <hr>
                             <?php $total = $subtotal + $tax; ?>
-                            <div class="d-flex justify-content-between mt-1"><span class="font-weight-bold">Total</span><span class="font-weight-bold text-success">
+                            <div class="d-flex justify-content-between mt-1"><span class="font-weight-bold">Total</span><span class="font-weight-bold">
                                 RM <?php echo number_format($total,2)."<br>";?></span></div>
                         </div>
                     </div>
+                    <?php if ($poi->order_status == "Awaiting Payment") : ?>
+                        <?php
+                        $stop_date = date('d F yy', $poi->order_date);
+                        echo 'date before day adding: ' . $stop_date; 
+                        $stop_date = date('d F yy', strtotime($stop_date . ' +1 day'));
+                        echo 'date after adding 1 day: ' . $stop_date;
+                        ?>
+
+                <?php endif; ?>
             </div>
         </div>
     </div>

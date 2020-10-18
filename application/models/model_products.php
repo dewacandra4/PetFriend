@@ -78,7 +78,11 @@ class Model_products extends CI_Model{
 //get all product order based on user id
     public function get_myproducto($id)
     {
-        return $this->db->get_where("products_order", array('user_id'=> $id));
+        $this->db->where('user_id', $id);
+        $this->db->where('order_status', "Awaiting Payment");
+        $this->db->or_where('order_status', "On Process");
+        $result = $this->db->get('products_order');
+        return $result;
     }
 //get product detail from order_id
     public function get_myproducto_detail($oid)
