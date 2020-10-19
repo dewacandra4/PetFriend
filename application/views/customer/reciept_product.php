@@ -56,16 +56,15 @@
                                 RM <?php echo number_format($total,2)."<br>";?></span></div>
                         </div>
                     </div>
-                    <?php if ($poi->order_status == "Awaiting Payment") : ?>
-                        <?php
-                        $stop_date = date('d F yy', $poi->order_date);
-                        echo 'date before day adding: ' . $stop_date; 
-                        $stop_date = date('d F yy', strtotime($stop_date . ' +1 day'));
-                        echo 'date after adding 1 day: ' . $stop_date;
-                        ?>
-
-                <?php endif; ?>
             </div>
+            <?php if ($poi->order_status == "Awaiting Payment") : ?>
+            <?php $stop_date = date('d F yy H:i:s', $poi->order_date);
+            $stop_date2 = date('d F yy H:i:s', strtotime($stop_date . ' +24 Hour'));?>
+            <br><br>
+            <div class="alert alert-warning">
+            <p> If the payment has not been made, the order will be canceled in: <strong id="demo"></strong></p>
+            </div> 
+            <?php endif; ?>
         </div>
     </div>
 </div>
@@ -93,3 +92,34 @@ body {
     margin-top: 13px
 }
 </style>
+
+<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+<Script>
+// Set the date we're counting down to
+var countDownDate =  new Date("<?php echo $stop_date2;?>").getTime();
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get today's date and time
+  var now = new Date().getTime();
+
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now;
+
+  // Time calculations for days, hours, minutes and seconds
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Display the result in the element with id="demo"
+  document.getElementById("demo").innerHTML =  hours + "h "
+  + minutes + "m " + seconds + "s ";
+
+  // If the count down is finished, write some text
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("demo").innerHTML = "EXPIRED";
+  }
+}, 1000);
+</Script>
