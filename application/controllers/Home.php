@@ -218,6 +218,7 @@ class Home extends CI_Controller {
 //ordering the products
     public function order_products()
     {
+        date_default_timezone_set('Asia/Singapore');
         $user_id = $this->input->post ('user_id');
         $data = [
             'user_id' => $user_id,

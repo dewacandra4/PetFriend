@@ -1,5 +1,6 @@
 
   <!-- Begin Page Content -->
+  <?php date_default_timezone_set('Asia/Singapore');?>
   <div class="col-lg-9 mx-auto py-5">
       <?= $this->session->flashdata('message'); ?>
 
@@ -31,14 +32,15 @@
                     <tr>
                     <td><?php echo $i; ?></td>
                     <td><?= $po->order_id?></td>
-                    <td><?= date('d F yy', $po->order_date);?></td>
+                    <td><?= date('d F yy', $po->order_date);?> || <?= date('H:i:s', $po->order_date);?></td>
                     <td><?= $po->order_status?></td>
                     <?php if($po->order_status == "On Process") :?>
                       <td>Paid</td>
                       <?php else : ?>
-                        <?php $stop_date = date('d F yy', $po->order_date);
-                      $stop_date2 = date('d F yy', strtotime($stop_date . ' +1 day'));?>
-                      <td><?php echo $stop_date2; ?></td>
+                        <?php $stop_date = date('d F yy H:i:s', $po->order_date);
+                      $stop_date2 = date('d F yy', strtotime($stop_date . ' +1 day'));
+                      $stop_date3 = date('H:i:s', strtotime($stop_date . ' +1 day'));?>
+                      <td><?php echo $stop_date2; ?> || <?php echo $stop_date3; ?></td>
                     <?php endif; ?>
                     <td><?= anchor('customer/dashboard/view_reciept/'.$po->order_id,'<div class="text-info">Detail</div>')?></td>
                     </tr>

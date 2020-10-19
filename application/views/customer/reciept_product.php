@@ -1,4 +1,4 @@
-
+<?php date_default_timezone_set('Asia/Singapore');?>
 <div class="container mt-5 mb-5">
     <div class="d-flex justify-content-center row">
         <div class="col-md-10">
@@ -59,7 +59,7 @@
             </div>
             <?php if ($poi->order_status == "Awaiting Payment") : ?>
             <?php $stop_date = date('d F yy H:i:s', $poi->order_date);
-            $stop_date2 = date('d F yy H:i:s', strtotime($stop_date . ' +24 Hour'));?>
+            $stop_date2 = date('d F yy H:i:s', strtotime($stop_date . '+1 day'));?>
             <br><br>
             <div class="alert alert-warning">
             <p> If the payment has not been made, the order will be canceled in: <strong id="demo"></strong></p>
