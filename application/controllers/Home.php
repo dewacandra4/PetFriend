@@ -220,16 +220,33 @@ class Home extends CI_Controller {
     {
         date_default_timezone_set('Asia/Singapore');
         $user_id = $this->input->post ('user_id');
-        $data = [
-            'user_id' => $user_id,
-            'order_status' => $this->input->post ('order_status'),
-            'order_date' => time(),
-            'total_price' => $this->input->post ('total_price'),
-            'total_items' => $this->input->post ('total_items'),
-            'payment_method' => $this->input->post ('payment_method'),
-            'delivery_address' => $this->input->post ('delivery_address'),
-            'delivery_note' => $this->input->post ('delivery_note')
-        ];
+        $method_pay = $this->input->post ('payment_method');
+        if($method_pay == "COD")
+        {
+            $data = [
+                'user_id' => $user_id,
+                'order_status' => $this->input->post ('order_status1'),
+                'order_date' => time(),
+                'total_price' => $this->input->post ('total_price'),
+                'total_items' => $this->input->post ('total_items'),
+                'payment_method' => $this->input->post ('payment_method'),
+                'delivery_address' => $this->input->post ('delivery_address'),
+                'delivery_note' => $this->input->post ('delivery_note')
+            ];
+        }
+        else
+        {
+            $data = [
+                'user_id' => $user_id,
+                'order_status' => $this->input->post ('order_status2'),
+                'order_date' => time(),
+                'total_price' => $this->input->post ('total_price'),
+                'total_items' => $this->input->post ('total_items'),
+                'payment_method' => $this->input->post ('payment_method'),
+                'delivery_address' => $this->input->post ('delivery_address'),
+                'delivery_note' => $this->input->post ('delivery_note')
+            ];
+        }
 
         $this->db->insert('products_order', $data);
 

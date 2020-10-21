@@ -3,7 +3,6 @@
   <?php date_default_timezone_set('Asia/Singapore');?>
   <div class="col-lg-9 mx-auto py-5">
       <?= $this->session->flashdata('message'); ?>
-
         <!-- Illustrations -->
         <div class="card shadow px-0 mb-5 mt-5" >
           <div class="card-header py-4">
@@ -35,7 +34,7 @@
                     <td><?= date('d F yy', $po->order_date);?> || <?= date('H:i:s', $po->order_date);?></td>
                     <td><?= $po->order_status?></td>
                     <?php if($po->order_status == "On Process") :?>
-                      <td>Paid</td>
+                      <td> - </td>
                       <?php else : ?>
                         <?php $stop_date = date('d F yy H:i:s', $po->order_date);
                       $stop_date2 = date('d F yy', strtotime($stop_date . ' +1 day'));
