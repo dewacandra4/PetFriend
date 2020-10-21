@@ -82,7 +82,7 @@
       </div>
       <!-- Nav Item - Charts -->
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="<?=base_url('admin/list_order/products_order');?>">
           <i class="fas fa-fw fa-bone"></i>
           <span>Products Order</span></a>
       </li>

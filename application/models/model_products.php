@@ -37,11 +37,20 @@ class Model_products extends CI_Model{
         return $this->db->get('products')->num_rows();
     }
 
+    public function countListProducts()
+    {
+        return $this->db->get('products_order')->num_rows();
+    }
+
     public function getProducts($limit, $start)
     {
         return $this->db->get('products', $limit, $start)->result_array();
     }
 
+    public function getListProducts($limit, $start)
+    {
+        return $this->db->get('products_order', $limit, $start)->result_array();
+    }
     public function search($keyword)
     {
         $this->db->like('name', $keyword );

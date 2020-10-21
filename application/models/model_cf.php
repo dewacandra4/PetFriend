@@ -67,7 +67,7 @@ class Model_cf extends CI_Model {
          if($symptom!=null)
             $sql=$sql." and symptom_id in (".$symptom.")";
         $sql=$sql." order by symptom_id";
-         return $this->db->query($sql);
+        return $this->db->query($sql);
      }
 
      function getSympt(){

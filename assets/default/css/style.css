@@ -274,6 +274,7 @@ h2::after {
 .bg-green{
 	background-color: green;
 }
+
 @media only screen and (max-width: 500px) {
 	.product_etalase {
 	  margin: 30px auto;
