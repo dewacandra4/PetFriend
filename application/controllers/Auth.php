@@ -145,8 +145,8 @@ class Auth extends CI_Controller
         $config = [
             'protocol'  => 'smtp',
             'smtp_host' => 'ssl://smtp.googlemail.com',
-            'smtp_user' => 'petfriend80@gmail.com',
-            'smtp_pass' => 'petfriend1234',
+            'smtp_user' => 'finalprojectdua@gmail.com',
+            'smtp_pass' => 'jmVqQvZ3rs9qmC9',
             'smtp_port' => 465,
             'mailtype'  => 'html',
             'charset'   => 'utf-8',
@@ -155,7 +155,7 @@ class Auth extends CI_Controller
 
         $this->email->initialize($config);
 
-        $this->email->from('petfriend80@gmail.com', 'PetFriend Admin');
+        $this->email->from('finalprojectdua@gmail.com', 'PetFriend Admin');
         $this->email->to($this->input->post('email'));
 
         if ($type == 'verify') {

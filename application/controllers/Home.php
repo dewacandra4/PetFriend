@@ -296,6 +296,79 @@ class Home extends CI_Controller {
             $this->load->view('home/footer');
         }
     }
+    public function calculate_cf()
+    {
+        $data['title'] = 'Result';
+        $symptom = implode(",", $this->input->post("symptom"));//get list all selected symptom
+        $data["listSymptom"] = $this->model_symptom->get_list_by_id($symptom);
+        $username = $this->session->userdata('username');
+        $user_id = $this->db->get_where('user', ['username'=> $username])->row()->id;
+        //calculate cf value
+        $listDiseases = $this->model_cf->get_by_symptom($symptom); //get disease data
+        $disease = array();
+        $total=0;
+        foreach($listDiseases->result() as $value){
+            $listSymptom = $this->model_cf->get_symptom_by_disease($value->disease_id,$symptom); //get the cf value with the matched disease
+            $combineCFmb=0;
+            $combineCFmd=0;
+            $CFBefore=0;
+            $j=0;
+            foreach($listSymptom->result() as $value2){
+                $j++;
+                if($j==3){
+                    $combineCFmb=$value2->mb;
+                    $combineCFmd=$value2->md;}
+                else
+                {
+                $combineCFmb =$combineCFmb + ($value2->mb * (1 - $combineCFmb));
+                $combineCFmd =$combineCFmd + ($value2->md * (1 - $combineCFmd));
+                }
+
+                $combinehasil = $combineCFmb-$combineCFmd; 
+            }
+            if($combinehasil)
+            {
+                $disease[$total]=array('code'=>$value->code,
+                                    'name'=>$value->name,
+                                    'credibility'=>$combinehasil*100,
+                                    'information'=>$value->information);
+                                    // 'user_id' =>$user_login);
+                // $this->db->insert('diagnosis_result', $disease[$total]);
+                $total++;
+            }
+            
+        }
+        //record to history
+        var_export($combinehasil, true);
+        $insert_data = array();
+        foreach ($this->input->post("symptom") as $g) {
+            $insert_data[] = array(
+                            'user_id' => $user_id,
+                            'symptom_id' => $g
+                        );
+        }
+        $this->db->insert_batch('history', $insert_data);
+        
+        //diagnosis_result
+        function cmp($a, $b)
+        {
+            return ($a["credibility"] > $b["credibility"]) ? -1 : 1;
+        }
+        usort($disease, "cmp");
+        $data["listDiseases"] = $disease;
+        $disease = $disease + array(null);
+        $data_hasil = array(
+            'code' =>$disease[0]['code'],
+            'name' =>$disease[0]['name'],
+            'credibility' =>$disease[0]['credibility'],
+            'information' =>$disease[0]['information'],
+            'user_id' =>$user_id,
+        );
+        $this->db->insert('diagnosis_result', $data_hasil);
+        $this->load->view('home/header',$data);
+        $this->load->view('cf/result',$data);
+        $this->load->view('home/footer');
+    }
     public function list_sympt($type)
     {
         if($type == "dog")
@@ -309,74 +382,7 @@ class Home extends CI_Controller {
             }
             else
             {
-                $data['title'] = 'Result';
-                $symptom = implode(",", $this->input->post("symptom"));
-                $data["listSymptom"] = $this->model_symptom->get_list_by_id($symptom);
-                
-                //hitung
-                $listDiseases = $this->model_cf->get_by_symptom($symptom);
-                $disease = array();
-                $total=0;
-                foreach($listDiseases->result() as $value){
-                    $listSymptom = $this->model_cf->get_symptom_by_disease($value->disease_id,$symptom);
-                    $combineCFmb=0;
-                    $combineCFmd=0;
-                    $CFBefore=0;
-                    $j=0;
-                    foreach($listSymptom->result() as $value2){
-                        $j++;
-                        if($j==3){
-                            $combineCFmb=$value2->mb;
-                            $combineCFmd=$value2->md;}
-                        else
-                        {
-                        $combineCFmb =$combineCFmb + ($value2->mb * (1 - $combineCFmb));
-                        $combineCFmd =$combineCFmd + ($value2->md * (1 - $combineCFmd));
-                        }
-    
-                        $combinehasil = $combineCFmb-$combineCFmd; 
-                    }
-                    if($combinehasil)
-                    {
-                        $disease[$total]=array('code'=>$value->code,
-                                            'name'=>$value->name,
-                                            'credibility'=>$combinehasil*100,
-                                            'information'=>$value->information);
-                                            // 'user_id' =>$user_login);
-                        // $this->db->insert('diagnosis_result', $disease[$total]);
-                        $total++;
-                    }
-                    
-                }
-
-                var_export($combinehasil, true);
-                $insert_data = array();
-                foreach ($this->input->post("symptom") as $g) {
-                    $insert_data[] = array(
-                                    // 'user_id' => $user_login,
-                                    'symptom_id' => $g
-                                );
-                }
-                $this->db->insert_batch('history', $insert_data);
-
-                function cmp($a, $b)
-                {
-                    return ($a["credibility"] > $b["credibility"]) ? -1 : 1;
-                }
-                usort($disease, "cmp");
-                $data["listDiseases"] = $disease;
-                $disease = $disease + array(null);
-                $data_hasil = array(
-                    'code' =>$disease[0]['code'],
-                    'name' =>$disease[0]['name'],
-                    'credibility' =>$disease[0]['credibility'],
-                    'information' =>$disease[0]['information'],
-                    // 'user_id' =>$disease[0]['user_id'],
-                );
-                $this->db->insert('diagnosis_result', $data_hasil);
-                $this->load->view('home/header',$data);
-                $this->load->view('cf/result',$data);
-                $this->load->view('home/footer');
+                $this->calculate_cf();
             }
         }
         elseif($type == "cat")
