@@ -9,7 +9,7 @@
           <h5 class="m-0 font-weight-bold text-dark ml-4"><?=$title;?></h5>
         </div>
                 <div class="card-body">
-                <table class="table table-hover">
+                <table class="table">
                 <thead>
                     <tr>
                     <th scope="col">#</th>
@@ -41,12 +41,16 @@
                       $stop_date3 = date('H:i:s', strtotime($stop_date . ' +1 day'));?>
                       <td><?php echo $stop_date2; ?> || <?php echo $stop_date3; ?></td>
                     <?php endif; ?>
-                    <td><?= anchor('customer/dashboard/view_reciept/'.$po->order_id,'<div class="text-info">Detail</div>')?></td>
+                    <td><?= anchor('customer/dashboard/view_reciept/'.$po->order_id,'<div class="btn btn-success">Detail</div>')?>
+                    <?php if($po->order_status == "Awaiting Payment") :?>
+                     || <Button class="btn btn-danger">Cancel</Button></td>
+                     <?php endif; ?>
                     </tr>
                     <?php $i++; ?>
                     <?php endforeach; ?>
                 </tbody>
                 </table>
+                <?= $this->pagination->create_links();?>
                 </div>
               </div>
           </div>
