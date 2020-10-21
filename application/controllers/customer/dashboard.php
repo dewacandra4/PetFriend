@@ -168,14 +168,9 @@ class dashboard extends CI_Controller
                 if(time() - $po->order_date > (60 * 60 * 24))
                 {
                     $poid=$po->order_id;
-                    $this->db->set('order_status', "Canceled");
+                    $this->db->set('order_status', "Cancelled");
                     $this->db->where('order_id', $po->order_id);
                     $this->db->update('products_order');
-                    //$this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Order with Order Id : #'.$po->order_id
-                    //.' has been canceled 
-                    //<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                   // <span aria-hidden="true">&times;</span>
-                    //</button></div>');
                     $this->_sendEmail($poid,$email,$namee);
                     redirect('customer/dashboard/my_producto');
                 }
@@ -274,6 +269,19 @@ class dashboard extends CI_Controller
             echo $this->email->print_debugger();
             die;
         }
+    }
+
+    public function cancel_product ($oid)
+    {
+        $this->db->set('order_status', "Cancelled");
+        $this->db->where('order_id', $oid);
+        $this->db->update('products_order');
+        $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">
+        Order with Order id : #'.$oid.' successfully cancelled<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button></div>');
+        redirect('customer/dashboard/my_producto');
+
     }
 
 

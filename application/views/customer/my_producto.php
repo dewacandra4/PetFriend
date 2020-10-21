@@ -4,7 +4,7 @@
   <div class="col-lg-9 mx-auto py-5">
       <?= $this->session->flashdata('message'); ?>
         <!-- Illustrations -->
-        <div class="card shadow px-0 mb-5 mt-5" >
+        <div class="card shadow px-0 mb-5 mt-5">
           <div class="card-header py-4">
           <h5 class="m-0 font-weight-bold text-dark ml-4"><?=$title;?></h5>
         </div>
@@ -43,7 +43,7 @@
                     <?php endif; ?>
                     <td><?= anchor('customer/dashboard/view_reciept/'.$po->order_id,'<div class="btn btn-success">Detail</div>')?>
                     <?php if($po->order_status == "Awaiting Payment") :?>
-                     || <Button class="btn btn-danger">Cancel</Button></td>
+                     || <?= anchor('customer/dashboard/cancel_product/'.$po->order_id,'<div class="btn btn-danger">Cancel</div>')?></td>
                      <?php endif; ?>
                     </tr>
                     <?php $i++; ?>
