@@ -155,8 +155,29 @@ class dashboard extends CI_Controller
         $query = $this->db->query("SELECT * FROM `user` WHERE `id` = $result");
         $row = $query->row_array();
         $data['customer']= $row;
-
         $data['producto'] = $this->model_products->get_myproducto($result)->result();
+        $p = $this->model_products->get_myproducto($result)->result();//to verify the payment due date
+        
+        date_default_timezone_set('Asia/Singapore');
+        foreach ($p as $po)
+        {
+            if($po->payment_method == "Bank Transfer" || $po->payment_method == "M-Banking" )
+            {
+                if(time() - $po->order_date > (60 * 60 * 24))
+                {
+                    
+                    $this->db->set('order_status', "Canceled");
+                    $this->db->where('order_id', $po->order_id);
+                    $this->db->update('products_order');
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Order with Order Id : #'.$po->order_id
+                    .' has been canceled 
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button></div>');
+                    redirect('customer/dashboard/my_producto');
+                }
+            }
+        }
 
         $this->load->view('customer/header',$data);
         $this->load->view('customer/sidebar',$data);
@@ -182,4 +203,5 @@ class dashboard extends CI_Controller
         $this->load->view('customer/reciept_product',$data);
         $this->load->view('customer/footer');
     }
+
 }

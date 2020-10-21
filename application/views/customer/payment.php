@@ -1,6 +1,6 @@
 
   <!--Main layout-->
-  <main class="mt-5 pt-4">
+  <main class="mt-1 pt-4">
     <div class="container wow fadeIn">
 
       <!-- Heading -->
@@ -53,7 +53,7 @@
 
               <!--email-->
               <div class="md-form mb-4">
-              <label for="email" class="ml-1">Email (optional)</label>
+              <label for="email" class="ml-1">Email</label>
                 <input type="text" id="email" class="form-control" placeholder="eg: youremail@example.com" value="<?=$user['email'];?>">
               </div>
 
@@ -66,10 +66,10 @@
               <div class="row">
 
                 <!--Grid column-->
-                <div class="col-lg-8 col-md-12 mb-4">
+                <div class="col-lg-12 col-md-12 mb-1">
 
                  <!--address-->
-                <div class="md-form mb-4">
+                <div class="md-form mb-2">
                 <label for="delivery_address" class="ml-1">Address</label>
                 <input type="text" name="delivery_address" class="form-control" placeholder="eg: 1234 Main St" value="<?=$user['address'];?>">
                 </div>
@@ -77,70 +77,94 @@
                 </div>
 
                 <!--Grid column-->
-                <div class="col-lg-4 col-md-6 mb-4">
-
-                  <label for="zip">Zip</label>
-                  <input type="text" class="form-control" id="zip" placeholder="" required>
-                  <div class="invalid-feedback">
-                    Zip code required.
-                  </div>
-
-                </div>
                 <!--Grid column-->
 
               </div>
               <!--Grid row-->
               <hr>
-              <div class="d-block my-3">
+              <label for="payment_method" class="ml-1">Please Select The Payment Method : </label>
+              <div class="d-block my-1">
                 <div class="custom-control custom-radio">
-                  <input id="credit" name="payment_method" type="radio" class="custom-control-input" value="Credit Card" checked required>
-                  <label class="custom-control-label" for="credit">Credit card</label>
-                </div>
-                <div class="custom-control custom-radio">
-                  <input id="debit" name="payment_method" type="radio" class="custom-control-input" value="Debit Card" required>
-                  <label class="custom-control-label" for="debit">Debit card</label>
+                  <input id="Bank" name="payment_method" type="radio" class="custom-control-input" value="Bank Transfer" checked required>
+                  <label class="custom-control-label" for="Bank">Bank Transfer</label>
                 </div>
                 <div class="custom-control custom-radio">
-                  <input id="paypal" name="payment_method" type="radio" class="custom-control-input" value="Paypal" required>
-                  <label class="custom-control-label" for="paypal">Paypal</label>
+                  <input id="M-Bank" name="payment_method" type="radio" class="custom-control-input" value="M-Banking" required>
+                  <label class="custom-control-label" for="M-Bank">M-Banking</label>
+                </div>
+                <div class="custom-control custom-radio">
+                  <input id="COD" name="payment_method" type="radio" class="custom-control-input" value="COD" required>
+                  <label class="custom-control-label" for="COD">COD (Cash On Delivery)</label>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="cc-name">Name on card</label>
-                  <input type="text" class="form-control" id="cc-name" placeholder="" required>
-                  <small class="text-muted">Full name as displayed on card</small>
-                  <div class="invalid-feedback">
-                    Name on card is required
+              <div class="Box1" style="display:none">
+              <br><br>
+              <div class="card">
+                  <div class="card-header">
+                  <Strong> Bank Transfer</Strong>
+                  </div>
+                  <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                      <p>If you choose the Bank Transfer method, make sure you make a transfer to the account number below :</p>
+                      <div class="card w-50 mb-2">
+                      <div class="card-body">
+                      <img src="<?= base_url().'assets/img/b.png'?>"class="img-fluid" width="20%"><strong class="ml-3 mr-3"> 930 12434 9999</strong>
+                      </div>
+                    </div>
+                    <p>The total amount that you have to transfer is as follows : <input readonly class="form-control w-50 mt-1" type="text" 
+                    value="RM <?php echo $this->cart->format_number(($this->cart->total()*0.05) + $this->cart->total()); ?>">
+                    <br><strong>We will verify your payment soon, and if within 24 hours the payment has not been made, the order will be canceled automatically.</strong>
+                    </p>
+                    </blockquote>
                   </div>
                 </div>
-                <div class="col-md-6 mb-3">
-                  <label for="cc-number">Credit card number</label>
-                  <input type="text" class="form-control" id="cc-number" placeholder="" required>
-                  <div class="invalid-feedback">
-                    Credit card number is required
-                  </div>
-                </div>
+                <br><br>
               </div>
-              <div class="row">
-                <div class="col-md-3 mb-3">
-                  <label for="cc-expiration">Expiration</label>
-                  <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
-                  <div class="invalid-feedback">
-                    Expiration date required
+              <div class="Box2" style="display:none">
+              <br><br>
+              <div class="card">
+                  <div class="card-header">
+                  <Strong>Mobile Banking</Strong>
+                  </div>
+                  <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                      <p>If you choose the Mobile Banking Transfer method, make sure you make a transfer to the account number below :</p>
+                      <div class="card w-50 mb-2">
+                      <div class="card-body">
+                      <img src="<?= base_url().'assets/img/m.png'?>"class="img-fluid" width="20%"><strong class="ml-3"> 8835 3345 776 777</strong>
+                      </div>
+                    </div>
+                    <p>The total amount that you have to transfer is as follows : <input readonly class="form-control w-50 mt-1" type="text" 
+                    value="RM <?php echo $this->cart->format_number(($this->cart->total()*0.05) + $this->cart->total()); ?>">
+                    <br><strong>We will verify your payment soon, and if within 24 hours the payment has not been made, the order will be canceled automatically.</strong>
+                    </p>
+                    </blockquote>
                   </div>
                 </div>
-                <div class="col-md-3 mb-3">
-                  <label for="cc-expiration">CVV</label>
-                  <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
-                  <div class="invalid-feedback">
-                    Security code required
-                  </div>
-                </div>
+                <br><br>
               </div>
-              <hr class="mb-4">
+              <div class="Box3" style="display:none">
+              <br><br>
+              <div class="card">
+                  <div class="card-header">
+                  <Strong> Cash On Delivery</Strong>
+                  </div>
+                  <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                    <img src="<?= base_url().'assets/img/c.png'?>"class="img-fluid mb-3" width="35%">
+                      <p>You can place an order, then pay when the product has been received</p>
+                    <p>The amount of money that needs to be prepared : <input readonly class="form-control w-50 mt-1" type="text" 
+                    value="RM <?php echo $this->cart->format_number(($this->cart->total()*0.05) + $this->cart->total()); ?>">
+                    <br><strong>Please make sure that address you entered is correct, and fill delivery note if products must be delivered at a specific location</strong>
+                    </p>
+                    </blockquote>
+                  </div>
+                </div>
+                <br><br>
+              </div>
               <input type="hidden" name="user_id" value="<?=$user['id'];?>">
-              <input type="hidden" name="order_status" value="Verifying Payment">
+              <input type="hidden" name="order_status1" value="On Process">
+              <input type="hidden" name="order_status2" value="Awaiting Payment">
               <input type="hidden" name="total_price" value="<?php echo $this->cart->total()*0.05 + $this->cart->total(); ?>">
               <input type="hidden" name="total_items" value="<?php echo $this->cart->total_items();?>">
               <button class="add_cart btn btn-cart  rounded py-3 btn-block" type="submit">Continue to checkout</button>
@@ -201,3 +225,24 @@
     </div>
   </main>
   <!--Main layout-->
+  <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+<Script>
+$('input[type="radio"]').click(function(){
+        if($(this).attr("value")=="COD"){
+            $(".Box3").show('fast');
+            $(".Box2").hide('fast');
+            $(".Box1").hide('fast');
+        }
+        if($(this).attr("value")=="Bank Transfer"){
+            $(".Box1").show('fast');
+            $(".Box3").hide('fast');
+            $(".Box2").hide('fast');
+        } 
+        if($(this).attr("value")=="M-Banking"){
+            $(".Box2").show('fast');
+            $(".Box1").hide('fast');
+            $(".Box3").hide('fast');
+        }        
+    });
+$('input[type="radio"]').trigger('click');
+</Script>
