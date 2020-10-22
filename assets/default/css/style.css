@@ -193,11 +193,111 @@ h2::after {
 {
 	font-size:1em !important;
 }
-/* 
-@media (max-width: 768px) 
-{
-    .logo img{
-        text-align: center;
-        width: 50%;
-    }
-} */
+.product_etalase {
+	margin: 30px 34px;
+
+}
+.logo{
+	width: 100%;
+	height: 50%;
+}
+
+.back-head{
+	background-color: #e97f42 !important;
+}
+
+.btn-cart {
+	color: #c45800;
+	font-size: 11px;
+	text-transform: uppercase;
+	font-weight: bold;
+	background: none;
+	border: 1px solid #fa8f02e3;
+	padding: 6px 14px;
+	margin-top: 5px;
+	line-height: 16px;
+	border-radius: 20px;
+}
+.btn-cart:hover, .btn-cart:focus {
+	color: #fff;
+	background: #f16e02;
+	box-shadow: none;
+}
+.btn-detail {
+	color: #ffffff;
+	font-size: 11px;
+	text-transform: uppercase;
+	font-weight: bold;
+	background: none;
+	background:#2cb104e3;
+	padding: 6px 14px;
+	margin-top: 5px;
+	line-height: 16px;
+	border-radius: 20px;
+}
+.btn-detail:hover, .btn-cart:focus {
+	color: #fff;
+	box-shadow: none;
+}
+
+.btn-contact {
+	color: #ffffff;
+	background:rgb(228, 116, 11);
+}
+.carousel .thumb-content .btn-detail {
+	color: #ffffff;
+	font-size: 11px;
+	text-transform: uppercase;
+	font-weight: bold;
+	background: none;
+	background: #2cb104e3;
+	padding: 6px 14px;
+	line-height: 16px;
+	border-radius: 20px;
+	width: 30%;
+	margin: 7px auto;
+}
+.img-services{
+	width: 200px;
+	height: 250px;
+	margin-left: auto;
+  	margin-right: auto;
+}
+.text-orange{
+	font-weight: 700;
+	color: #e97f42;
+}
+.text-orange:hover{
+	color: #c44800;
+}
+
+.bg-green{
+	background-color: green;
+}
+table.dataTable thead .sorting:after,
+table.dataTable thead .sorting:before,
+table.dataTable thead .sorting_asc:after,
+table.dataTable thead .sorting_asc:before,
+table.dataTable thead .sorting_asc_disabled:after,
+table.dataTable thead .sorting_asc_disabled:before,
+table.dataTable thead .sorting_desc:after,
+table.dataTable thead .sorting_desc:before,
+table.dataTable thead .sorting_desc_disabled:after,
+table.dataTable thead .sorting_desc_disabled:before {
+bottom: .5em;
+}
+@media only screen and (max-width: 500px) {
+	.product_etalase {
+	  margin: 30px auto;
+
+	}
+  }
+@media only screen and (max-width: 991px) {
+	.logo{
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		width: 50%;
+		height: 20%;
+	}
+}

@@ -47,11 +47,15 @@ class Auth extends CI_Controller
                     //Check role customer or admin
                     if($user['role_id']==1)
                     {
-                        redirect('admin');
+                        redirect('admin/dashboard');
                     }
-                    else
+                    else if($user['role_id'] ==2)
                     {
-                        redirect('customer');
+                        redirect('customer/dashboard');
+                    }
+                    else if($user['role_id'] == 3)
+                    {
+                        redirect('doctor/dashboard');
                     }
                 }
                 else
@@ -141,8 +145,8 @@ class Auth extends CI_Controller
         $config = [
             'protocol'  => 'smtp',
             'smtp_host' => 'ssl://smtp.googlemail.com',
-            'smtp_user' => 'petfriend80@gmail.com',
-            'smtp_pass' => 'petfriend1234',
+            'smtp_user' => 'finalprojectdua@gmail.com',
+            'smtp_pass' => 'jmVqQvZ3rs9qmC9',
             'smtp_port' => 465,
             'mailtype'  => 'html',
             'charset'   => 'utf-8',
@@ -151,7 +155,7 @@ class Auth extends CI_Controller
 
         $this->email->initialize($config);
 
-        $this->email->from('petfriend80@gmail.com', 'PetFriend Admin');
+        $this->email->from('finalprojectdua@gmail.com', 'PetFriend Admin');
         $this->email->to($this->input->post('email'));
 
         if ($type == 'verify') {
@@ -210,6 +214,7 @@ class Auth extends CI_Controller
     {
         $this->session->unset_userdata('username');
         $this->session->unset_userdata('role_id');
+        $this->cart->destroy();
         $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">You have been logged out! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button></div>');

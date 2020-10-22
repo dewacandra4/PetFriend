@@ -1,5 +1,5 @@
  <!-- footer_start  -->
- <footer class="footer">
+<footer class="footer">
         <div class="footer_top">
             <div class="container">
                 <div class="row">
@@ -125,23 +125,21 @@
 
     <script src="<?= base_url()?>assets/anipat/js/main.js"></script>
     <script>
-        $('#datepicker').datepicker({
-            iconsLibrary: 'fontawesome',
-            disableDaysOfWeek: [0, 0],
-        //     icons: {
-        //      rightIcon: '<span class="fa fa-caret-down"></span>'
-        //  }
-        });
-        $('#datepicker2').datepicker({
-            iconsLibrary: 'fontawesome',
-            icons: {
-             rightIcon: '<span class="fa fa-caret-down"></span>'
-         }
-
-        });
-        var timepicker = $('#timepicker').timepicker({
-         format: 'HH.MM'
-     });
+        $(document).ready(function(){
+        $(".scroll").on('click', function(event) {
+            if (this.hash !== "") {
+            event.preventDefault();
+            var hash = this.hash;
+            $('html, body').animate
+            ({
+                scrollTop: $(hash).offset().top
+            }, 700, function()
+            {
+                window.location.hash = hash;
+            });
+        } 
+    });
+    });
     </script>
     <script>
 	$(document).ready(function(){		
@@ -153,7 +151,7 @@
 			}
 		});
 	});
-    </script>
+  </script>
 </body>
 
 </html>

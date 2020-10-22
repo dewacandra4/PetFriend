@@ -19,7 +19,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="<?=base_url('customer');?>">
+        <a class="nav-link" href="<?=base_url('customer/dashboard');?>">
           <i class="fas fa-fw fa-heart"></i>
           <span>Hi, <?=$user['name'];?></span></a>
       </li>
@@ -34,7 +34,7 @@
 
       <!-- Nav Item - Profile -->
       <li class="nav-item">
-      <a class="nav-link" href="<?=base_url('customer/profile');?>">
+      <a class="nav-link" href="<?=base_url('customer/dashboard/profile');?>">
           <i class="fas fa-fw fa-user"></i>
           <span>Profile</span></a>
       </li>
@@ -42,13 +42,13 @@
       <!-- Nav Item - Edit Profile -->
 
       <li class="nav-item">
-      <a class="nav-link" href="<?=base_url('customer/edit');?>">
+      <a class="nav-link" href="<?=base_url('customer/dashboard/edit');?>">
           <i class="fas fa-fw fa-user-edit"></i>
           <span>Edit Profile</span></a>
       </li>
       <!-- Nav Item - Change password -->
       <li class="nav-item">
-        <a class="nav-link" href="<?=base_url('customer/change_password');?>">
+        <a class="nav-link" href="<?=base_url('customer/dashboard/change_password');?>">
           <i class="fas fa-fw fa-key"></i>
           <span>Change Password</span></a>
       </li>
@@ -62,7 +62,7 @@
       </div>
       <!-- Nav Item - Charts -->
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="<?= base_url('customer/dashboard/my_producto');?>">
           <i class="fas fa-fw fa-bone"></i>
           <span>Products Order</span></a>
       </li>
@@ -124,7 +124,7 @@
         </a>
         <!-- Dropdown - User Information -->
         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-          <a class="dropdown-item" href="<?= base_url('customer/profile');?>">
+          <a class="dropdown-item" href="<?= base_url('customer/dashboard/profile');?>">
             <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
             Profile
           </a>
