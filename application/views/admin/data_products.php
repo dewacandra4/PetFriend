@@ -1,32 +1,50 @@
 <div class="container-fluid">
-    <button class ="btn btn-sm btn-primary mb-3" data-toggle="modal" data-target="#modalProduct"><i class="fas fa-plus fa-sm"></i> Add Products</button>
+    
     <?php echo $this->session->flashdata('message')?>
-    <table class="table table-responsive table-bordered">
-        <tr>
-            <th>NO</th>
-            <th>PRODUCTS NAME</th>
-            <th>DESCRIPTION</th>
-            <th>PRICE</th>
-            <th>STOCKS</th>
-            <th colspan = "3">ACTION</th>
-        </tr>
-        <?php
-       
-        foreach($product as $product) :?>
-        <tr>
-            <td><?= ++$start?></td>
-            <td><?= $product['name']?></td>
-            <td><?= $product['description']?></td>
-            <td><?= $product['price']?></td>
-            <td><?= $product['stock']?></td>
-            <td><?= anchor('home/detail_product/'.$product['id'],'<div class="btn btn-success btn-sm"><i class="fas fa-search-plus"></i></div>')?></td>               
-            <td><?= anchor('admin/manage_products/edit/'.$product['id'],'<div class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></div>')?></td>
-            <td><?= anchor('admin/manage_products/delete/'.$product['id'],'<div class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></div>')?></td>
-        </tr>
-        <?php endforeach;?>
-    </table>
-  <?= $this->pagination->create_links();?>
+    <div class="card shadow px-0 mb-5" >
+        <div class="card-header py-4">
+            <h5 class="m-0 font-weight-bold text-center text-dark">Product List</h5>
+        </div>
+        <div class="card-body">
+          <button class ="btn btn-sm btn-primary mb-3" data-toggle="modal" data-target="#modalProduct"><i class="fas fa-plus fa-sm"></i> Add Products</button>
+          <div class="table-responsive">
+            <table id="selectedColumn" class="table table-hover table-bordered " cellspacing="0" width="100%">
+              <thead>  
+                <tr>
+                    <th class="th-lg">NO</th>
+                    <th class="th-lg">PRODUCTS NAME</th>
+                    <th class="th-lg">DESCRIPTION</th>
+                    <th class="th-lg">PRICE</th>
+                    <th class="th-lg">STOCKS</th>
+                    <th class="th-lg">ACTION</th>
+                    
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                foreach($product as $product) :?>
+                <tr>
+                    <td><?= ++$start?></td>
+                    <td><?= $product['name']?></td>
+                    <td><?= $product['description']?></td>
+                    <td><?= $product['price']?></td>
+                    <td><?= $product['stock']?></td>
+                    <td>
+                      <div class="d-flex p-2">
+                        <?= anchor('home/detail_product/'.$product['id'],'<div class="btn btn-success btn-sm glyphicon-object-align-horizontal"><i class="fas fa-search-plus"></i></div>')?>               
+                        <?= anchor('admin/manage_products/edit/'.$product['id'],'<div class="btn btn-primary btn-sm glyphicon-object-align-horizontal"><i class="fa fa-edit"></i></div>')?>
+                        <?= anchor('admin/manage_products/delete/'.$product['id'],'<div class="btn btn-danger btn-sm glyphicon-object-align-horizontal"><i class="fa fa-trash"></i></div>')?>
+                      </div>
+                    </td>
+                </tr>
+                <?php endforeach;?>
+              </tbody>
+            </table>
+          </div>
+        </div>
+    </div>
 </div>
+
 <div class="modal fade" id="modalProduct" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
