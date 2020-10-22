@@ -6,13 +6,29 @@
             <div class="receipt bg-white p-3 rounded"><img width="160" src="<?= base_url()?>assets/img/logo_trans.png" alt="PetFriend">
                 <h4 class="mt-2 mb-3">Your order Status : <a> <?=$poi->order_status?><a></h4>
                 <?php if ($poi->order_status == "Awaiting Payment") : ?>
-                <h6 class="name">Hello <?=$user['name'];?>,</h6><span class="fs-20 text-black-50"> Please make a payment to this account :</span>
+                <h6 class="name">Hello <?=$user['name'];?>,</h6><span class="fs-20 text-black-50"> Please make a payment to this Bank account :</span>
+                <br>
+                <?php if ($poi->payment_method == "Bank Transfer") : ?>
+                <div class="card mt-2 mb-2">
+                      <div class="card-body-responsive">
+                      <img src="<?= base_url().'assets/img/b.png'?>"class="img-fluid mb-2 mt-2" width="6%"><strong> 930 12434 9999</strong>
+                      </div>
+                    </div>
+                <?php endif; ?>
+                <?php if ($poi->payment_method == "M-Banking") : ?>
+                <div class="card mt-2 mb-2">
+                      <div class="card-body-responsive">
+                      <img src="<?= base_url().'assets/img/m.png'?>"class="img-fluid mb-2 mt-2" width="6%"><strong>8835 3345 776 777</strong>
+                      </div>
+                    </div>
+                <?php endif; ?>
                 <?php else : ?>
                 <h6 class="name">Hello <?=$user['name'];?>,</h6><span class="fs-20 text-black-50"> Here is the detail of your order :</span>
                 <?php endif; ?>
                 <hr>
                 <div class="d-flex flex-row justify-content-between align-items-center order-details">
-                    <div><span class="d-block fs-12">Order date</span><span class="font-weight-bold"><?= date('d F yy', $poi->order_date);?></span></div>
+                    <div><span class="d-block fs-12">Order date</span><span class="font-weight-bold"><i class="fa fa-calendar" aria-hidden="true"></i>
+                    <?= date('d F yy', $poi->order_date);?></span></div>
                     <div><span class="d-block fs-12">Product Order ID</span><span class="font-weight-bold">#<?=$poi->order_id?></span></div>
                     <div><span class="d-block fs-12">Payment method</span><span class="font-weight-bold"><?=$poi->payment_method?></span>
                     <?php if ($poi->payment_method == "Bank Transfer") : ?>
@@ -24,7 +40,8 @@
                     <?php if ($poi->payment_method == "M-Banking") : ?>
                     <img class="ml-1 mb-1" src="<?= base_url().'assets/img/m.png'?>" width="20"></div>
                     <?php endif; ?>
-                    <div><span class="d-block fs-12">Shipping Address</span><span class="font-weight-bold"><?=$poi->delivery_address?></span></div>
+                    <div><span class="d-block fs-12">Shipping Address</span><span class="font-weight-bold"><i class="fa fa-map-marker" aria-hidden="true"></i>
+                    <?=$poi->delivery_address?></span></div>
                 </div>
                 <?php endforeach; ?>
                 <hr>
@@ -120,6 +137,7 @@ var x = setInterval(function() {
   if (distance < 0) {
     clearInterval(x);
     document.getElementById("demo").innerHTML = "EXPIRED";
+    
 
   }
 }, 1000);
