@@ -408,4 +408,18 @@ class Home extends CI_Controller {
             
         }
     }
+
+    public function pethotelo ()
+    {
+        $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
+        $lol = $this->session->userdata('username');
+        $result= $this->db->query("SELECT `id` FROM `user` WHERE `username` = '$lol'")->row()->id;
+        $query = $this->db->query("SELECT * FROM `user` WHERE `id` = $result");
+        $row = $query->row_array();
+        $data['customer']= $row;
+        $data['title'] = 'Pet Hotel';
+        $this->load->view('home/header',$data);
+        $this->load->view('Home/pethotelo',$data);
+        $this->load->view('home/footer');
+    }
 }
