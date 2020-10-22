@@ -157,6 +157,8 @@ class dashboard extends CI_Controller
         $data['customer']= $row;
         $data['producto'] = $this->model_products->get_myproducto($result)->result();
         $p = $this->model_products->get_myproducto($result)->result();//to verify the payment due date
+        $email= $this->db->query("SELECT `email` FROM `user` WHERE `username` = '$lol'")->row()->email;
+        $namee= $this->db->query("SELECT `name` FROM `user` WHERE `username` = '$lol'")->row()->name;
         
         date_default_timezone_set('Asia/Singapore');
         foreach ($p as $po)
@@ -165,15 +167,16 @@ class dashboard extends CI_Controller
             {
                 if(time() - $po->order_date > (60 * 60 * 24))
                 {
-                    
+                    $poid=$po->order_id;
                     $this->db->set('order_status', "Canceled");
                     $this->db->where('order_id', $po->order_id);
                     $this->db->update('products_order');
-                    $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Order with Order Id : #'.$po->order_id
-                    .' has been canceled 
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button></div>');
+                    //$this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Order with Order Id : #'.$po->order_id
+                    //.' has been canceled 
+                    //<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                   // <span aria-hidden="true">&times;</span>
+                    //</button></div>');
+                    $this->_sendEmail($poid,$email,$namee);
                     redirect('customer/dashboard/my_producto');
                 }
             }
@@ -203,5 +206,36 @@ class dashboard extends CI_Controller
         $this->load->view('customer/reciept_product',$data);
         $this->load->view('customer/footer');
     }
+
+    private function _sendEmail($poid,$email,$namee)
+    {
+        $config = [
+            'protocol'  => 'smtp',
+            'smtp_host' => 'ssl://smtp.googlemail.com',
+            'smtp_user' => 'finalprojectdua@gmail.com',
+            'smtp_pass' => 'jmVqQvZ3rs9qmC9',
+            'smtp_port' => 465,
+            'mailtype'  => 'html',
+            'charset'   => 'utf-8',
+            'newline'   => "\r\n"
+        ];
+
+        $this->email->initialize($config);
+
+        $this->email->from('finalprojectdua@gmail.com', 'PetFriend Admin');
+        $this->email->to($email);
+
+            $this->email->subject('Canceled Product Order');
+            $this->email->message('Dear '.$namee.', <br> Your Product Order with ID #'.$poid.' has been canceled because you did not make a payment,<br>
+            please visit PetFriend website to see more detailed information, <br>Thank You ^^ ');
+
+        if ($this->email->send()) {
+            return true;
+        } else {
+            echo $this->email->print_debugger();
+            die;
+        }
+    }
+
 
 }
