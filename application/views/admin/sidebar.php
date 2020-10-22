@@ -16,7 +16,9 @@
 
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
-
+      <?php $uri=$this->uri->segment(1).'/'.$this->uri->segment(2);
+      $uri2=$this->uri->segment(1).'/'.$this->uri->segment(2).'/'.$this->uri->segment(3);
+      ?>
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
         <a class="nav-link" href="<?=base_url('admin/dashboard');?>">
@@ -33,20 +35,20 @@
       </div>
 
       <!-- Nav Item - Profile -->
-      <li class="nav-item">
-      <a class="nav-link" href="<?=base_url('admin/dashboard/profile');?>">
+      <li class="nav-item <?php if($uri2=='admin/dashboard/profile'){ echo 'active';}?>">
+      <a class="nav-link " href="<?=base_url('admin/dashboard/profile');?>">
           <i class="fas fa-fw fa-user"></i>
           <span>Profile</span></a>
       </li>
 
       <!-- Nav Item - Edit Profile -->
-      <li class="nav-item">
-        <a class="nav-link" href="<?= base_url('admin/dashboard/edit');?>">
+      <li class="nav-item <?php if($uri2 =='admin/dashboard/edit'){ echo 'active';}?>">
+        <a class="nav-link " href="<?= base_url('admin/dashboard/edit');?>">
           <i class="fas fa-fw fa-user-edit"></i>
           <span>Edit Profile</span></a>
       </li>
       <!-- Nav Item - Change password -->
-      <li class="nav-item">
+      <li class="nav-item <?php if($uri2=='admin/dashboard/change_password'){ echo 'active';}?>">
         <a class="nav-link" href="<?=base_url('admin/dashboard/change_password');?>">
           <i class="fas fa-fw fa-key"></i>
           <span>Change Password</span></a>
@@ -61,14 +63,14 @@
       </div>
 
       <!-- Nav Item - Products -->
-      <li class="nav-item">
+      <li class="nav-item <?php if($uri=='admin/manage_products'){ echo 'active';}?>">
       <a class="nav-link" href="<?=base_url('admin/manage_products');?>">
           <i class="fas fa-fw fa-boxes"></i>
           <span>Manage Products</span></a>
       </li>
 
       <!-- Nav Item - Services -->
-      <li class="nav-item">
+      <li class="nav-item <?php if($uri=='admin/manage_services'){ echo 'active';}?>">
         <a class="nav-link" href="<?= base_url('admin/manage_services');?>">
           <i class="fas fa-fw fa-briefcase"></i>
           <span>Manage Services</span></a>
@@ -81,8 +83,8 @@
         List Order
       </div>
       <!-- Nav Item - Charts -->
-      <li class="nav-item">
-        <a class="nav-link" href="<?=base_url('admin/list_order/products_order');?>">
+      <li class="nav-item <?php if($uri=='admin/list_order'){ echo 'active';}?>">
+        <a class="nav-link" href="<?=base_url('admin/list_order');?>">
           <i class="fas fa-fw fa-bone"></i>
           <span>Products Order</span></a>
       </li>
@@ -94,12 +96,6 @@
           <span>Services Order</span></a>
       </li>
 
-      <!-- Nav Item - Payment -->
-      <!-- <li class="nav-item">
-        <a class="nav-link" href="<?=base_url('admin/confirm_pay');?>">
-          <i class="fas fa-fw fa-dollar-sign"></i>
-          <span>Confirm Payment</span></a>
-      </li> -->
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 
@@ -110,6 +106,7 @@
 
     </ul>
     <!-- End of Sidebar -->
+    
 <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
 

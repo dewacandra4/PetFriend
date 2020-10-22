@@ -1,4 +1,7 @@
 <div class="container">
+<?php if (validation_errors()) : ?>
+<div class="alert alert-danger text-center alert-dismissible fade show" role="alert"><?= validation_errors(); ?><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>                
+<?php endif; ?>
 <?= $this->session->flashdata('message');?>
     <div class="card shadow px-0 mb-5 mt-5" >
         <div class="card-header py-4">

@@ -8,7 +8,7 @@ class List_order extends CI_Controller
         parent::__construct();
         is_logged_in();
     }
-    public function products_order()
+    public function index()
     {
         $data['title'] = 'Order List';
         $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
@@ -75,7 +75,7 @@ class List_order extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Successfully Edited! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button></div>');
-            redirect('admin/list_order/products_order');
+            redirect('admin/list_order');
         }
     }
 }

@@ -18,7 +18,7 @@ class Manage_products extends CI_Controller
         $row = $query->row_array();
         $data['admin']= $row;
         $data['start'] = $this->uri->segment(4);    
-        $data['product'] = $this->model_products->getProducts();
+        $data['barang'] = $this->db->get('products')->result_array();
         $this->load->view('admin/header',$data);
         $this->load->view('admin/sidebar',$data);
         $this->load->view('admin/data_products',$data);
@@ -28,6 +28,7 @@ class Manage_products extends CI_Controller
     {
         $name = $this->input->post('name');
         $description = $this->input->post('description');
+        $category = $this->input->post('category');
         $price = $this->input->post('price');
         $stock = $this->input->post('stock');
         $upload_image = $_FILES['img']['name'];
@@ -57,6 +58,7 @@ class Manage_products extends CI_Controller
                 'name' => $name,
                 'description' => $description,
                 'img' => $new_image,
+                'category' => $category,
                 'price' => $price,
                 'stock' => $stock,
                 'is_available' => 1,
@@ -77,63 +79,85 @@ class Manage_products extends CI_Controller
             redirect('admin/manage_products/index');
         }
     }
-    public function edit($id)
-    {
-        $data['title'] = 'Edit Products';
-        $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
-        $where = array('id' => $id);
-        $data['products'] = $this->model_products->edit_products($where, 'products')->result();
-        $this->load->view('admin/header',$data);
-        $this->load->view('admin/sidebar',$data);
-        $this->load->view('admin/edit_products',$data);
-        $this->load->view('admin/footer');
 
-    }
     public function update()
     {
-        $id = $this->input->post('id');
-        $name = $this->input->post('name');
-        $description = $this->input->post('description');
-        $price = $this->input->post('price');
-        $stock = $this->input->post('stock');
-        $upload_image = $_FILES['img']['name'];
-        $data['product'] = $this->model_products->show_data()->result();
-        if($upload_image)
+        //rules validation
+        $this->form_validation->set_rules('name', 'Product Name', 'required');
+        $this->form_validation->set_rules('description', 'Description', 'required');
+        $this->form_validation->set_rules('price', 'Price', 'required|numeric');
+        $this->form_validation->set_rules('category', 'Category', 'required');
+        $this->form_validation->set_rules('stock', 'Stock', 'required|numeric');
+        if($this->form_validation->run() == false)
         {
-            $config['upload_path'] = './assets/products';
-            $config['allowed_types'] = 'gif|jpg|png';
-            $config['max_size']     = '2048';
-
-            $this->load->library('upload', $config);//load librari upload
-        
-            if(! $this->upload->do_upload('img'))
-            {
-                $error = array('error' => $this->upload->display_errors());
-                $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" 
-                role="alert">Error file extension or file larger than 2MB <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button></div>');
-                redirect('admin/manage_products/index');
-            }
-
-            else
-            {
-                $new_image = $this->upload->data('file_name');
-                $this->db->set('img', $new_image);
-            }
+            var_dump($upload_image);
+            $data['title'] = 'Manage Products';
+            $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
+            $user = $this->session->userdata('username');
+            $result= $this->db->query("SELECT `id` FROM `user` WHERE `username` = '$user'")->row()->id;
+            $query = $this->db->query("SELECT * FROM `user` WHERE `id` = $result");
+            $row = $query->row_array();
+            $data['admin']= $row;
+            $data['start'] = $this->uri->segment(4);    
+            $data['barang'] = $this->db->get('products')->result_array();
+            $this->load->view('admin/header',$data);
+            $this->load->view('admin/sidebar',$data);
+            $this->load->view('admin/data_products',$data);
+            $this->load->view('admin/footer');
         }
-        $data = array(
-            'name' => $name,
-            'description' => $description,
-            'price' => $price,
-            'stock' => $stock,
-        );
-
-        $where = array(
-            'id' =>$id
-        );
-        $this->model_products->update_data($where,$data, 'products');
-        redirect('admin/manage_products/index');
+        else
+        {
+            $id = $this->input->post('id');
+            $name = $this->input->post('name');
+            $description = $this->input->post('description');
+            $price = $this->input->post('price');
+            $category = $this->input->post('category');
+            $stock = $this->input->post('stock');
+            $upload_image = $_FILES['img']['name'];
+            
+            $data['product'] = $this->model_products->show_data()->result();
+            if($upload_image)
+            {
+                $config['upload_path'] = './assets/products';
+                $config['allowed_types'] = 'gif|jpg|png';
+                $config['max_size']     = '2048';
+    
+                $this->load->library('upload', $config);//load librari upload
+            
+                if($this->upload->do_upload('img'))
+                {
+                    $new_image = $this->upload->data('file_name');
+                }
+                
+                else
+                {
+                    $error = array('error' => $this->upload->display_errors());
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" 
+                    role="alert">Error file extension or file larger than 2MB <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button></div>');
+                    redirect('admin/manage_products/index');
+                  
+                }
+            }
+            $data = array(
+                'name' => $name,
+                'description' => $description,
+                'img' => $new_image,
+                'category' => $category,
+                'price' => $price,
+                'stock' => $stock,
+            );
+    
+            $where = array(
+                'id' =>$id
+            );
+            $this->model_products->update_data($where,$data, 'products');
+            $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Successfully Edited! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button></div>');
+            redirect('admin/manage_products/index');
+        }
     }
     public function delete($id)
     {

@@ -285,7 +285,10 @@ table.dataTable thead .sorting_desc:before,
 table.dataTable thead .sorting_desc_disabled:after,
 table.dataTable thead .sorting_desc_disabled:before {
 bottom: .5em;
+
 }
+
+
 @media only screen and (max-width: 500px) {
 	.product_etalase {
 	  margin: 30px auto;
