@@ -95,11 +95,11 @@
       </li>
 
       <!-- Nav Item - Payment -->
-      <li class="nav-item">
-        <a class="nav-link" href="<?=base_url('admin/#');?>">
+      <!-- <li class="nav-item">
+        <a class="nav-link" href="<?=base_url('admin/confirm_pay');?>">
           <i class="fas fa-fw fa-dollar-sign"></i>
           <span>Confirm Payment</span></a>
-      </li>
+      </li> -->
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 

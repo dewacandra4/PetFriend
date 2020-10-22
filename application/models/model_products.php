@@ -42,15 +42,23 @@ class Model_products extends CI_Model{
         return $this->db->get('products_order')->num_rows();
     }
 
-    public function getProducts($limit, $start)
+    public function getProducts()
     {
-        return $this->db->get('products', $limit, $start)->result_array();
+        return $this->db->get('products')->result_array();
     }
 
-    public function getListProducts($limit, $start)
+    public function getListProducts()
     {
-        return $this->db->get('products_order', $limit, $start)->result_array();
+        return $this->db->get('products_order')->result_array();
     }
+    //update status payment
+    function updateStatus($data, $order_id)
+    {
+        $this->db->where('order_id',$order_id);
+        $this->db->update('products_order', $data);
+        return TRUE;
+    }
+
     public function search($keyword)
     {
         $this->db->like('name', $keyword );
@@ -103,5 +111,6 @@ class Model_products extends CI_Model{
     {
         return $this->db->get_where("products_order", array('order_id'=> $oid));
     }
+
 
 }

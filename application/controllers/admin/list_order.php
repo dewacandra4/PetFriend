@@ -18,45 +18,8 @@ class List_order extends CI_Controller
         $row = $query->row_array();
         $data['admin']= $row;
         $data['start'] = $this->uri->segment(4);
-        //load library
-        $this->load->library('pagination');
-        //config
-        $config['base_url'] = 'http://localhost/PetFriend/admin/list_order/products_order';
-        $config['total_rows'] = $this->model_products->countListProducts();
-        $config['per_page'] = 8;
-        //styling
-        $config['full_tag_open'] = '<nav>
-        <ul class="pagination justify-content-center">';
-        $config['full_tag_close'] = '</ul>
-        </nav>';
-        $config['first_link'] = 'First';
-        $config['first_tag_open'] = '<li class="page-item">';
-        $config['first_tag_close'] = '</li>';
-
-        $config['last_link'] = 'Last';
-        $config['last_tag_open'] = '<li class="page-item">';
-        $config['last_tag_close'] = '</li>';
-        
-        $config['next_link'] = '&raquo';
-        $config['next_tag_open'] = '<li class="page-item">';
-        $config['next_tag_close'] = '</li>';
-        
-        $config['prev_link'] = '&laquo';
-        $config['prev_tag_open'] = '<li class="page-item">';
-        $config['prev_tag_close'] = '</li>';
-        
-        $config['cur_tag_open'] = '<li class="page-item active"><a class="page-link" href="#">';
-        $config['cur_tag_close'] = '</a></li>';
-        
-        $config['num_tag_open'] = '<li class="page-item">';
-        $config['num_tag_close'] = '</li>';
-
-        $config['attributes'] = array('class' => 'page-link');
-
-        //initialize
-        $this->pagination->initialize($config);
-
-        $data['product'] = $this->model_products->getListProducts($config['per_page'],$data['start']);
+        $data['product'] = $this->model_products->getListProducts();
+        $data['order']=$this->db->get('products_order')->result_array();
         $this->load->view('admin/header',$data);
         $this->load->view('admin/sidebar',$data);
         $this->load->view('admin/list_products',$data);
@@ -81,5 +44,38 @@ class List_order extends CI_Controller
         $this->load->view('admin/sidebar',$data);
         $this->load->view('admin/detail_product',$data);
         $this->load->view('admin/footer');
+    }
+    public function confirm_payment()
+    {
+        $this->form_validation->set_rules('order_status', 'Order Status', 'required');
+        $order_id = $this->input->post('order_id');
+        $data = array(
+            'order_status'=> $this->input->post('order_status'),
+        );
+        if($this->form_validation->run() == false)
+        {
+            $data['title'] = 'Order List';
+            $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
+            $user = $this->session->userdata('username');
+            $result= $this->db->query("SELECT `id` FROM `user` WHERE `username` = '$user'")->row()->id;
+            $query = $this->db->query("SELECT * FROM `user` WHERE `id` = $result");
+            $row = $query->row_array();
+            $data['admin']= $row;
+            $data['start'] = $this->uri->segment(4);
+            $data['product'] = $this->model_products->getListProducts();
+            $data['order']=$this->db->get('products_order')->result_array();
+            $this->load->view('admin/header',$data);
+            $this->load->view('admin/sidebar',$data);
+            $this->load->view('admin/list_products',$data);
+            $this->load->view('admin/footer');
+        }
+        else
+        {
+            $this->model_products->updateStatus($data,$order_id);
+            $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Successfully Edited! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button></div>');
+            redirect('admin/list_order/products_order');
+        }
     }
 }
