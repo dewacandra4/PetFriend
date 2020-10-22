@@ -182,7 +182,7 @@ class dashboard extends CI_Controller
                 //config
                 $config['base_url'] = 'http://localhost/PetFriend/customer/dashboard/my_producto';
                 $config['total_rows'] = $this->model_products->countListProducts();
-                $config['per_page'] = 5;
+                $config['per_page'] = 8;
                 //styling
                 $config['full_tag_open'] = '<nav>
                 <ul class="pagination justify-content-center">';

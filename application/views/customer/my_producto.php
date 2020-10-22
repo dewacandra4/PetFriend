@@ -1,14 +1,15 @@
 
   <!-- Begin Page Content -->
   <?php date_default_timezone_set('Asia/Singapore');?>
-  <div class="col-lg-9 mx-auto py-5">
+  <div class="container">
       <?= $this->session->flashdata('message'); ?>
         <!-- Illustrations -->
-        <div class="card shadow px-0 mb-5 mt-5">
+        <div class="card shadow">
           <div class="card-header py-4">
           <h5 class="m-0 font-weight-bold text-dark ml-4"><?=$title;?></h5>
         </div>
                 <div class="card-body">
+                <div class="table-responsive">
                 <table class="table">
                 <thead>
                     <tr>
@@ -54,6 +55,7 @@
                 </table>
                 <?= $this->pagination->create_links();?>
                 </div>
+              </div>
               </div>
           </div>
   <!-- /.container-fluid -->
