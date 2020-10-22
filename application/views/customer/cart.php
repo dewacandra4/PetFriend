@@ -18,7 +18,7 @@
         <div class="col-lg-12 p-10 bg-white rounded shadow-sm mb-5">
 
           <!-- Shopping cart table -->
-            <table class="table table-bordered">
+            <table class="table table-bordered table-responsive">
             <?= $this->session->flashdata('message'); ?>
               <thead>
                     <tr>
