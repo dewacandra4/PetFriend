@@ -163,7 +163,7 @@ class dashboard extends CI_Controller
         date_default_timezone_set('Asia/Singapore');
         foreach ($p as $po)
         {
-            if($po->payment_method == "Bank Transfer" || $po->payment_method == "M-Banking" )
+            if($po->payment_method == "Bank Transfer" || $po->payment_method == "M-Banking" && $po->order_status == "Awaiting Payment" )
             {
                 if(time() - $po->order_date > (60 * 60 * 24))
                 {
