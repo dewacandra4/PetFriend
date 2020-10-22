@@ -155,9 +155,67 @@ class dashboard extends CI_Controller
         $query = $this->db->query("SELECT * FROM `user` WHERE `id` = $result");
         $row = $query->row_array();
         $data['customer']= $row;
+        $data['start'] = $this->uri->segment(4);
+        $p = $this->model_products->get_myproducto2($result)->result();//to verify the payment due date
+        $email= $this->db->query("SELECT `email` FROM `user` WHERE `username` = '$lol'")->row()->email;
+        $namee= $this->db->query("SELECT `name` FROM `user` WHERE `username` = '$lol'")->row()->name;
+        
+        date_default_timezone_set('Asia/Singapore');
+        foreach ($p as $po)
+        {
+            if($po->payment_method == "Bank Transfer" || $po->payment_method == "M-Banking" && $po->order_status == "Awaiting Payment")
+            {
+                if(time() - $po->order_date > (60 * 60 * 24))
+                {
+                    $poid=$po->order_id;
+                    $this->db->set('order_status', "Cancelled");
+                    $this->db->where('order_id', $po->order_id);
+                    $this->db->update('products_order');
+                    $this->_sendEmail($poid,$email,$namee);
+                    redirect('customer/dashboard/my_producto');
+                }
+            }
+        }
 
-        $data['producto'] = $this->model_products->get_myproducto($result)->result();
+                //load library
+                $this->load->library('pagination');
+                //config
+                $config['base_url'] = 'http://localhost/PetFriend/customer/dashboard/my_producto';
+                $config['total_rows'] = $this->model_products->countListProducts();
+                $config['per_page'] = 5;
+                //styling
+                $config['full_tag_open'] = '<nav>
+                <ul class="pagination justify-content-center">';
+                $config['full_tag_close'] = '</ul>
+                </nav>';
+                $config['first_link'] = 'First';
+                $config['first_tag_open'] = '<li class="page-item">';
+                $config['first_tag_close'] = '</li>';
+        
+                $config['last_link'] = 'Last';
+                $config['last_tag_open'] = '<li class="page-item">';
+                $config['last_tag_close'] = '</li>';
+                
+                $config['next_link'] = '&raquo';
+                $config['next_tag_open'] = '<li class="page-item">';
+                $config['next_tag_close'] = '</li>';
+                
+                $config['prev_link'] = '&laquo';
+                $config['prev_tag_open'] = '<li class="page-item">';
+                $config['prev_tag_close'] = '</li>';
+                
+                $config['cur_tag_open'] = '<li class="page-item active"><a class="page-link" href="#">';
+                $config['cur_tag_close'] = '</a></li>';
+                
+                $config['num_tag_open'] = '<li class="page-item">';
+                $config['num_tag_close'] = '</li>';
+        
+                $config['attributes'] = array('class' => 'page-link');
+        
+                //initialize
+                $this->pagination->initialize($config);
 
+        $data['producto'] = $this->model_products->get_myproducto($result, $config['per_page'], $data['start'])->result();
         $this->load->view('customer/header',$data);
         $this->load->view('customer/sidebar',$data);
         $this->load->view('customer/my_producto',$data);
@@ -182,4 +240,49 @@ class dashboard extends CI_Controller
         $this->load->view('customer/reciept_product',$data);
         $this->load->view('customer/footer');
     }
+
+    private function _sendEmail($poid,$email,$namee)
+    {
+        $config = [
+            'protocol'  => 'smtp',
+            'smtp_host' => 'ssl://smtp.googlemail.com',
+            'smtp_user' => 'finalprojectdua@gmail.com',
+            'smtp_pass' => 'jmVqQvZ3rs9qmC9',
+            'smtp_port' => 465,
+            'mailtype'  => 'html',
+            'charset'   => 'utf-8',
+            'newline'   => "\r\n"
+        ];
+
+        $this->email->initialize($config);
+
+        $this->email->from('finalprojectdua@gmail.com', 'PetFriend Admin');
+        $this->email->to($email);
+
+            $this->email->subject('Canceled Product Order');
+            $this->email->message('Dear '.$namee.', <br> Your Product Order with ID #'.$poid.' has been canceled because you did not make a payment,<br>
+            please visit PetFriend website to see more detailed information, <br>Thank You ^^ ');
+
+        if ($this->email->send()) {
+            return true;
+        } else {
+            echo $this->email->print_debugger();
+            die;
+        }
+    }
+
+    public function cancel_product ($oid)
+    {
+        $this->db->set('order_status', "Cancelled");
+        $this->db->where('order_id', $oid);
+        $this->db->update('products_order');
+        $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">
+        Order with Order id : #'.$oid.' successfully cancelled<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button></div>');
+        redirect('customer/dashboard/my_producto');
+
+    }
+
+
 }

@@ -1,21 +1,22 @@
 
   <!-- Begin Page Content -->
+  <?php date_default_timezone_set('Asia/Singapore');?>
   <div class="col-lg-9 mx-auto py-5">
       <?= $this->session->flashdata('message'); ?>
-
         <!-- Illustrations -->
-        <div class="card shadow px-0 mb-5 mt-5" >
+        <div class="card shadow px-0 mb-5 mt-5">
           <div class="card-header py-4">
           <h5 class="m-0 font-weight-bold text-dark ml-4"><?=$title;?></h5>
         </div>
                 <div class="card-body">
-                <table class="table table-hover">
+                <table class="table">
                 <thead>
                     <tr>
                     <th scope="col">#</th>
                     <th scope="col">Product Order ID</th>
                     <th scope="col">Order Date</th>
                     <th scope="col">Order Status</th>
+                    <th scope="col">Payment Due Date</th>
                     <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -30,14 +31,28 @@
                     <tr>
                     <td><?php echo $i; ?></td>
                     <td><?= $po->order_id?></td>
-                    <td><?= date('d F yy', $po->order_date);?></td>
+                    <td><?= date('d F yy', $po->order_date);?> || <?= date('H:i:s', $po->order_date);?></td>
                     <td><?= $po->order_status?></td>
-                    <td><?= anchor('customer/dashboard/view_reciept/'.$po->order_id,'<div class="text-info">Detail</div>')?></td>
+                    <?php if($po->order_status == "On Process") :?>
+                      <td> - </td>
+                      <?php else : ?>
+                        <?php $stop_date = date('d F yy H:i:s', $po->order_date);
+                      $stop_date2 = date('d F yy', strtotime($stop_date . ' +1 day'));
+                      $stop_date3 = date('H:i:s', strtotime($stop_date . ' +1 day'));?>
+                      <td><?php echo $stop_date2; ?> || <?php echo $stop_date3; ?></td>
+                    <?php endif; ?>
+                    <td><?= anchor('customer/dashboard/view_reciept/'.$po->order_id,'<div class="btn btn-success"><i class="fa fa-info-circle" aria-hidden="true"></i>
+                     Detail</div>')?>
+                    <?php if($po->order_status == "Awaiting Payment") :?>
+                     || <?= anchor('customer/dashboard/cancel_product/'.$po->order_id,'<div class="btn btn-danger"><i class="fa fa-ban" aria-hidden="true"></i>
+                      Cancel</div>')?></td>
+                     <?php endif; ?>
                     </tr>
                     <?php $i++; ?>
                     <?php endforeach; ?>
                 </tbody>
                 </table>
+                <?= $this->pagination->create_links();?>
                 </div>
               </div>
           </div>
