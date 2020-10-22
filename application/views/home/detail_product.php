@@ -33,25 +33,19 @@
                                 <td>Description</td>
                                 <td class="text-justify"><?= $pd->description?></td>
                             </tr>
-
-                            <tr>
-                                <td>Rating</td>
-                                <td><div class="star-rating float-right mr-3">
-                                <ul class="list-inline">
+                        </table>
+                        <div class="star-rating float-right mr-3">
+                            <ul class="list-inline">
                                 <li class="list-inline-item"><i class="fa fa-star"></i></li>
                                 <li class="list-inline-item"><i class="fa fa-star"></i></li>
                                 <li class="list-inline-item"><i class="fa fa-star"></i></li>
                                 <li class="list-inline-item"><i class="fa fa-star"></i></li>
                                 <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
                             </ul>
-                        </div></td>
-                            </tr>
-                        </table>
-                        <?php if (is_admin() == 1) : ?>
-                        <?php elseif(is_admin() == 3) : ?>
-                         <?php else : ?>
+                        </div>
+                        <br>
+                        <?= anchor('home/detail_product/'.$pd->id,'<div class="btn btn-detail float-right mx-2 mt-5">Buy now</div>')?>
                         <?= anchor('home/add_to_cart/'.$pd->id,'<div class="add_cart btn btn-cart float-right mx-2 mt-5">Add to Cart</div>')?>
-                        <?php endif; ?>
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -121,11 +115,7 @@
                                                 </ul>
                                             </div>
                                             <p class="item-price"> <b>RM<?= $c->price;?></b></p>
-                                            <?php if (is_admin() == 1) : ?>
-                                            <?php elseif(is_admin() == 3) : ?>
-                                            <?php else : ?>
-                                            <?= anchor('home/add_to_cart/'.$c->id,'<div class="btn btn-cart">Add to Cart</div>')?>
-                                            <?php endif;?>
+                                            <?= anchor('home/detail_product/'.$c->id,'<div class="btn btn-cart">Add to Cart</div>')?>
                                             <?= anchor('home/detail_product/'.$c->id,'<div class="btn-detail">Detail</div>')?>
                                         </div>						
                                     </div>

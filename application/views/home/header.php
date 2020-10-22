@@ -78,13 +78,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 </div>
                                             </form> 
                                         </li>
-                                        <?php if (is_admin() == 1) : ?>
-                                        <?php elseif(is_admin() == 3) : ?>
-                                        <?php else : ?>
                                         <li>
                                             <a href="<?= base_url('Home/cart'); ?>" class="nav-link "><span class="fa fa-shopping-cart fa-2x"></span>[<span class="cart-item-total"><?php echo $this->cart->total_items();?></span>]</a>
                                         </li>
-                                        <?php endif; ?>
                                     </ul>
                                 </nav>
                             </div>
