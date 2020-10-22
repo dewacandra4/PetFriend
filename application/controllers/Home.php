@@ -293,14 +293,6 @@ class Home extends CI_Controller {
         $this->load->view('home/services',$data);
         $this->load->view('home/footer');
     }
-    public function detail_services($id)
-	{
-		$data['services'] = $this->model_services->detail_service($id);
-		$data['title'] = 'Services';
-        $this->load->view('home/header',$data);
-        $this->load->view('home/detail_services',$data);
-        $this->load->view('home/footer');
-    }
     public function diagnosis()
     {
         if(!$this->session->userdata('username')){ 
@@ -409,17 +401,22 @@ class Home extends CI_Controller {
         }
     }
 
-    public function pethotelo ()
+    public function detail_services($id)
     {
-        $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
-        $lol = $this->session->userdata('username');
-        $result= $this->db->query("SELECT `id` FROM `user` WHERE `username` = '$lol'")->row()->id;
-        $query = $this->db->query("SELECT * FROM `user` WHERE `id` = $result");
-        $row = $query->row_array();
-        $data['customer']= $row;
-        $data['title'] = 'Pet Hotel';
-        $this->load->view('home/header',$data);
-        $this->load->view('Home/pethotelo',$data);
-        $this->load->view('home/footer');
+        if($id == 1)
+        {
+            $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
+            $lol = $this->session->userdata('username');
+            $result= $this->db->query("SELECT `id` FROM `user` WHERE `username` = '$lol'")->row()->id;
+            $query = $this->db->query("SELECT * FROM `user` WHERE `id` = $result");
+            $row = $query->row_array();
+            $data['customer']= $row;
+            $data['title'] = 'Pet Hotel';
+            $data['services'] = $this->model_services->detail_service($id);
+            $this->load->view('home/header',$data);
+            $this->load->view('Home/pethotelo',$data);
+            $this->load->view('home/footer');
+        }
+
     }
 }

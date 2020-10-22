@@ -16,10 +16,15 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-12 p-10 bg-white rounded shadow-sm mb-5">
-
+        <?php if(empty($this->cart->contents())) :?>
+                  <div class="alert alert-warning" role="alert">
+                  There is no items in your cart, if you like to check our available products click <a href="<?=base_url('home/products');?>" class="alert-link">Here</a>
+                </div>
           <!-- Shopping cart table -->
-            <table class="table table-bordered table-responsive">
-            <?= $this->session->flashdata('message'); ?>
+          <?= $this->session->flashdata('message'); ?>
+          <?php else:?>
+            <div class="table-responsive">
+            <table class="table table-bordered">
               <thead>
                     <tr>
                   <th>NO</th>
@@ -62,14 +67,10 @@
               <?php endforeach; ?>
               </tbody>
             </table>
-          <?php if(empty($this->cart->contents())) :?>
-                  <div class="alert alert-warning" role="alert">
-                  There is no items in your cart, if you like to check our available products click <a href="<?=base_url('home/products');?>" class="alert-link">Here</a>
-                </div>
           <!-- End -->
         </div>
       </div>
-                <?php else:?>
+      </div>
       <div class="row py-3 p-6 bg-white rounded shadow-sm">
         <div class="col-lg-12">
           <div class="card-header back-head text-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Order summary </div>

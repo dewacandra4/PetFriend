@@ -19,13 +19,13 @@
                     <?php 
                     if($s->name == "Pet Health")
                     {
-                        echo anchor('home/detail_services/'.$s->id,'<div class="btn btn-lg btn-block btn-contact">Contact us</div>');
+                        echo anchor('home/detail_services/'.$s->id,'<div class="btn btn-lg btn-block btn-contact">View Detail</div>');
                         echo "OR";
                         echo anchor('home/diagnosis','<div class="btn btn-lg btn-block btn-success">Diagnosis First!</div>');
                     }
                     else
                     {
-                        echo anchor('home/detail_services/'.$s->id,'<div class="btn btn-lg btn-block btn-contact">Contact us</div>');
+                        echo anchor('home/detail_services/'.$s->id,'<div class="btn btn-lg btn-block btn-contact">View Detail</div>');
                     }
                     ?>
                     
