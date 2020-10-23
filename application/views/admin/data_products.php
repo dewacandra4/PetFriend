@@ -44,6 +44,7 @@
                           data-name="<?php echo $product['name'] ?>"
                           data-description="<?php echo $product['description'] ?>"
                           data-category="<?php echo $product['category'] ?>"
+                          data-category_id="<?php echo $product['category_id'] ?>"
                           data-price="<?php echo $product['price'] ?>"
                           data-stock="<?php echo $product['stock'] ?>"
                           data-toggle="modal" data-target="#edit">
@@ -78,12 +79,12 @@
             </div>
             <div class="form-grup">
                 <label>Category</label>
-                <select class="browser-default custom-select mb-4" id="category" name="category" >
+                <select class="browser-default custom-select mb-4" id="category_id" name="category_id" >
                     <option value="" disabled selected>Choose Category Product</option>
-                    <option value="Cat"  >Cat</option>
-                    <option value="Dog" >Dog</option>
-                    <option value="Birds">Birds</option>
-                    <option value="Small Pets">Small Pets</option>
+                    <option value="1"  >Cat</option>
+                    <option value="2" >Dog</option>
+                    <option value="3">Birds</option>
+                    <option value="4">Small Pets</option>
                 </select>
             </div>
             <div class="form-grup">
@@ -120,6 +121,7 @@
         $description= ($product['description']);
         $img= ($product['img']);
         $category=($product['category']);
+        $category_id=$product['category_id'];
         $price= ($product['price']);
         $stock= ($product['stock']);
         
@@ -147,17 +149,16 @@
                 </div>
                 <div class="form-group">
                 <label for="category">Category</label>
-                        <select class="browser-default custom-select mb-4" id="category" name="category">
-                            <option value="" disabled >Choose option</option>
-                            <option value="Cat"  >Cat</option>
-                            <option value="Dog" >Dog</option>
-                            <option value="Birds"  >Birds</option>
-                            <option value="Small Pets" >Small Pets</option>
-                        </select>
+                  <select class="browser-default custom-select mb-4" id="category_id" name="category_id">
+                    <option value="" disabled selected>Choose option</option>
+                    <option value="1">Cat</option>
+                    <option value="2">Dog</option>
+                    <option value="3">Birds</option>
+                    <option value="4">Small Pets</option>
+                  </select>
                 </div>
                 <div class="form-group">
                     <label for="name">Price</label>
-                    <!-- <input class="form-control mb-4" type="text" id="price" name="price" value="<?= $price;?>"> -->
                     <div class="input-group mb-3">
                       <div class="input-group-prepend">
                         <span class="input-group-text">RM</span>
@@ -174,7 +175,7 @@
                 </div>
                 <div class="form-grup">
                   <label>Images</label><br>
-                  <input class="form-control mb-4"  type="file" name="img" id="img" class="form-control">               
+                  <input class="form-control mb-4"  type="file" name="img" id="img" value="<?php echo $img;?>">               
               </div>
                     </div>
                     <div class="modal-footer">
@@ -202,6 +203,7 @@
             modal.find('#id').attr("value",div.data('id'));
             modal.find('#name').attr("value",div.data('name'));
             modal.find('#description').attr("value",div.data('description'));
+            modal.find('#category_id').attr("value",div.data('category_id'));
             modal.find('#category').attr("value",div.data('category'));
             modal.find('#img').attr("value",div.data('img'));
             modal.find('#price').attr("value",div.data('price'));

@@ -64,17 +64,17 @@ function is_category()
     $ci = get_instance();
     $id = $ci->uri->segment(3);
     $queryRole = $ci->db->get_where('products', ['id' => $id])->row_array();
-    $cate = $queryRole['category'];
+    $category = $queryRole['category_id'];
 
-    if($cate == "cat")
+    if($category == 1)
     {
         return 1;
     }
-    else if($cate == "dog")
+    else if($category == 2)
     {
         return 2;
     }
-    else if($cate == "birds")
+    else if($category == 3)
     {
         return 3;
     }

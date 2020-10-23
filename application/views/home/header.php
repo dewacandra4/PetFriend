@@ -26,6 +26,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link rel="stylesheet" href="<?= base_url()?>assets/anipat/css/slicknav.css">
     <link rel="stylesheet" href="<?= base_url()?>assets/anipat/css/style.css">
     <link rel="stylesheet" href="<?= base_url()?>assets/default/css/style.css">
+    <!-- Custom fonts for this template-->
+    <link href="<?= base_url()?>assets/sbadmin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>

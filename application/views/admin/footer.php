@@ -68,7 +68,7 @@
       "aaSorting": [],
       columnDefs: [{
       orderable: false,
-      targets: 5
+      targets: 7
       }],
       "lengthMenu": [[5, 10, 50, -1], [5, 10, 50, "All"]]
     });

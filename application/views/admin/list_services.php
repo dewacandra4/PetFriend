@@ -5,7 +5,7 @@
 <?= $this->session->flashdata('message');?>
     <div class="card shadow px-0 mb-5 mt-5" >
         <div class="card-header py-4">
-            <h5 class="m-0 font-weight-bold text-dark text-center ml-4">Products Order List</h5>
+            <h5 class="m-0 font-weight-bold text-dark text-center ml-4">Servicess Order List</h5>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -13,7 +13,7 @@
                     <thead class="text-center">
                         <tr>
                             <th>NO</th>
-                            <th >Product Order Id</th>
+                            <th >Service Order Id</th>
                             <th >Order Date</th>
                             <th >Order Status</th>
                             <th >Customer Id</th>
@@ -25,22 +25,22 @@
                     <tbody>
                         <?php
                     
-                        foreach($order as $product) {?>
+                        foreach($order as $services) {?>
                         <tr>
                             <td><?= ++$start?></td>
-                            <td><?= $product['order_id']?></td>
-                            <td><?= date('d F yy', $product['order_date']);?></td>
-                            <td><?= $product['order_status']?></td>
-                            <td><?= $product['user_id']?></td>
-                            <td><?= $product['payment_method']?></td>
-                            <td>RM <?= $product['total_price']?></td>
+                            <td><?= $services['sorder_id']?></td>
+                            <td><?= date('d F yy', $services['order_date']);?></td>
+                            <td><?= $services['order_status']?></td>
+                            <td><?= $services['user_id']?></td>
+                            <td><?= $services['payment_method']?></td>
+                            <td>RM <?= $services['total_price']?></td>
                             <td>
                                 <div class="d-flex p-2">
-                                    <?= anchor('admin/list_order/view_detail/'.$product['order_id'],'<div class="btn btn-success btn-sm"><i class="fas fa-search-plus"></i></div>')?>
+                                    <?= anchor('admin/list_order/view_detail/'.$services['sorder_id'],'<div class="btn btn-success btn-sm"><i class="fas fa-search-plus"></i></div>')?>
                                     <a 
                                         href="javascript:;"
-                                        data-order_id="<?php echo $product['order_id'] ?>"
-                                        data-order_status="<?php echo $product['order_status'] ?>"
+                                        data-sorder_id="<?php echo $services['sorder_id'] ?>"
+                                        data-order_status="<?php echo $services['order_status'] ?>"
                                         data-toggle="modal" data-target="#confirm">
 
                                         <button class="btn btn-primary btn-sm text-light" data-toggle="modal" data-target="#ubah-data"> Confirm Payment</button>
@@ -59,9 +59,9 @@
 
 <!-- Modal -->
 <?php 
-    foreach($order as $product):
-        $order_id= $product['order_id'];
-        $order_status= $product['order_status'];
+    foreach($order as $services):
+        $sorder_id= $services['sorder_id'];
+        $order_status= $services['order_status'];
     ?>
 <div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="modal"
   aria-hidden="true">
@@ -81,7 +81,7 @@
                 </div>
                     <div class="form-group">
                     <label for="order_status">Change Status</label>
-                        <input type="hidden" id="order_id" name="order_id" value="<?php echo $order_id;?>">
+                        <input type="hidden" id="sorder_id" name="sorder_id" value="<?php echo $sorder_id;?>">
                             <select class="browser-default custom-select mb-4" id="order_status" name="order_status" >
                                 <option value="" disabled selected>Choose option</option>
                                 <option value="Awaiting Payment"  >Awaiting Payment</option>
@@ -114,10 +114,11 @@
             var modal          = $(this)
  
             // Isi nilai pada field
-            modal.find('#order_id').attr("value",div.data('order_id'));
+            modal.find('#sorder_id').attr("value",div.data('sorder_id'));
             modal.find('#order_status').attr("value",div.data('order_status'));
         });
     });
 </script>
+</div>
 </div>
 </div>

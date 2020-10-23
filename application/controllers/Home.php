@@ -57,7 +57,7 @@ class Home extends CI_Controller {
         $this->pagination->initialize($config);
         
         
-        $data['products'] = $this->model_products->getProducts($config['per_page'],$data['start']);
+        $data['products'] = $this->model_products->getProductsPagination($config['per_page'],$data['start']);
         $this->load->view('home/header',$data);
         $this->load->view('home/products',$data);
         $this->load->view('home/footer');
@@ -275,7 +275,10 @@ class Home extends CI_Controller {
 
 	public function detail_product($id)
 	{
-		$data['products'] = $this->model_products->detail_product($id);
+		$data['products'] = $this->db->select('*')
+        ->from('products')
+        ->join('category', 'category.cid = products.category_id')
+        ->where('products.id',$id)->get()->result();
 		$data['dog'] = $this->model_category->data_dog()->result();
 		$data['cat'] = $this->model_category->data_cat()->result();
 		$data['birds'] = $this->model_category->data_birds()->result();

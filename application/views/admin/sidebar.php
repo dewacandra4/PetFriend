@@ -90,8 +90,8 @@
       </li>
 
       <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="#">
+      <li class="nav-item  <?php if($uri=='admin/list_sorder'){ echo 'active';}?>">
+        <a class="nav-link" href="<?=base_url('admin/list_sorder');?>">
           <i class="fas fa-fw fa-heart"></i>
           <span>Services Order</span></a>
       </li>

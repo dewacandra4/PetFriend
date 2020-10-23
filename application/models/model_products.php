@@ -22,7 +22,10 @@ class Model_products extends CI_Model{
     }
     public function detail_product($id)
     {
-        $result = $this->db->where('id',$id)->get('products');
+        $result =  $this->db->select('*')
+        ->from('products')
+        ->join('category', 'category.id = products.category_id')
+        ->where('products.id',$id)->get();
         if($result->num_rows()>0)
         {
             return $result->result();
@@ -45,6 +48,10 @@ class Model_products extends CI_Model{
     public function getProducts()
     {
         return $this->db->get('products')->result_array();
+    }
+    public function getProductsPagination($limit, $start)
+    {
+        return $this->db->get('products',$limit, $start)->result_array();
     }
 
     public function getListProducts()

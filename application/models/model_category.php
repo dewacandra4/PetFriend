@@ -2,17 +2,33 @@
 
 class Model_category extends CI_Model{
     public function data_dog(){
-        return $this->db->get_where("products", array('category'=>'dog'));
+        $query = $this->db->select('*')
+        ->from('products')
+        ->join('category', 'category.cid = products.category_id')
+        ->where('category.cid= 2')->get(); 
+        return $query;
     }
     
     public function data_cat(){
-        return $this->db->get_where("products", array('category'=>'cat'));
+        $query = $this->db->select('*')
+        ->from('products')
+        ->join('category', 'category.cid = products.category_id')
+        ->where('category.cid= 1')->get(); 
+        return $query;
     }
     public function data_birds(){
-        return $this->db->get_where("products", array('category'=>'birds'));
+        $query = $this->db->select('*')
+        ->from('products')
+        ->join('category', 'category.cid = products.category_id')
+        ->where('category.cid= 3')->get(); 
+        return $query;
     }
     public function data_smallpet(){
-        return $this->db->get_where("products", array('category'=>'small pet'));
+        $query = $this->db->select('*')
+        ->from('products')
+        ->join('category', 'category.cid = products.category_id')
+        ->where('category.cid= 4')->get(); 
+        return $query;
     }
 
 }

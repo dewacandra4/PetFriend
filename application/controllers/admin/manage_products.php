@@ -17,8 +17,13 @@ class Manage_products extends CI_Controller
         $query = $this->db->query("SELECT * FROM `user` WHERE `id` = $result");
         $row = $query->row_array();
         $data['admin']= $row;
-        $data['start'] = $this->uri->segment(4);    
-        $data['barang'] = $this->db->get('products')->result_array();
+        $data['start'] = $this->uri->segment(4);
+        $data['barang'] = $this->db->select('*')
+        ->from('category')
+        ->join('products', 'category.cid = products.category_id')->get()->result_array(); 
+        $data['cate'] =  $this->db->get('category')->result_array();
+        // var_dump($data['barang']);
+        // $this->db->get('products')->result_array();
         $this->load->view('admin/header',$data);
         $this->load->view('admin/sidebar',$data);
         $this->load->view('admin/data_products',$data);
@@ -28,7 +33,7 @@ class Manage_products extends CI_Controller
     {
         $name = $this->input->post('name');
         $description = $this->input->post('description');
-        $category = $this->input->post('category');
+        $category_id = $this->input->post('category_id');
         $price = $this->input->post('price');
         $stock = $this->input->post('stock');
         $upload_image = $_FILES['img']['name'];
@@ -58,7 +63,7 @@ class Manage_products extends CI_Controller
                 'name' => $name,
                 'description' => $description,
                 'img' => $new_image,
-                'category' => $category,
+                'category_id' => $category_id,
                 'price' => $price,
                 'stock' => $stock,
                 'is_available' => 1,
@@ -86,11 +91,10 @@ class Manage_products extends CI_Controller
         $this->form_validation->set_rules('name', 'Product Name', 'required');
         $this->form_validation->set_rules('description', 'Description', 'required');
         $this->form_validation->set_rules('price', 'Price', 'required|numeric');
-        $this->form_validation->set_rules('category', 'Category', 'required');
+        $this->form_validation->set_rules('category_id', 'Category', 'required');
         $this->form_validation->set_rules('stock', 'Stock', 'required|numeric');
         if($this->form_validation->run() == false)
         {
-            var_dump($upload_image);
             $data['title'] = 'Manage Products';
             $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
             $user = $this->session->userdata('username');
@@ -98,8 +102,13 @@ class Manage_products extends CI_Controller
             $query = $this->db->query("SELECT * FROM `user` WHERE `id` = $result");
             $row = $query->row_array();
             $data['admin']= $row;
-            $data['start'] = $this->uri->segment(4);    
-            $data['barang'] = $this->db->get('products')->result_array();
+            $data['start'] = $this->uri->segment(4);
+            $data['barang'] = $this->db->select('*')
+            ->from('category')
+            ->join('products', 'category.cid = products.category_id')->get()->result_array(); 
+            $data['cate'] =  $this->db->get('category')->result_array();
+            // var_dump($data['barang']);
+            // $this->db->get('products')->result_array();
             $this->load->view('admin/header',$data);
             $this->load->view('admin/sidebar',$data);
             $this->load->view('admin/data_products',$data);
@@ -111,7 +120,7 @@ class Manage_products extends CI_Controller
             $name = $this->input->post('name');
             $description = $this->input->post('description');
             $price = $this->input->post('price');
-            $category = $this->input->post('category');
+            $category_id = $this->input->post('category_id');
             $stock = $this->input->post('stock');
             $upload_image = $_FILES['img']['name'];
             
@@ -127,6 +136,7 @@ class Manage_products extends CI_Controller
                 if($this->upload->do_upload('img'))
                 {
                     $new_image = $this->upload->data('file_name');
+                    $this->db->set('img', $new_image);
                 }
                 
                 else
@@ -143,8 +153,8 @@ class Manage_products extends CI_Controller
             $data = array(
                 'name' => $name,
                 'description' => $description,
-                'img' => $new_image,
-                'category' => $category,
+                // 'img' => $new_image,
+                'category_id' => $category_id,
                 'price' => $price,
                 'stock' => $stock,
             );
@@ -152,11 +162,19 @@ class Manage_products extends CI_Controller
             $where = array(
                 'id' =>$id
             );
-            $this->model_products->update_data($where,$data, 'products');
+            $this->db->where($where);
+            $this->db->update('products', $data);
             $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Successfully Edited! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button></div>');
             redirect('admin/manage_products/index');
+            // else{
+            //     $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" 
+            //     role="alert">Image Field cannot be empty<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            //     <span aria-hidden="true">&times;</span>
+            //     </button></div>');
+            //     redirect('admin/manage_products/index');
+            // }
         }
     }
     public function delete($id)
