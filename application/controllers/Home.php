@@ -234,6 +234,8 @@ class Home extends CI_Controller {
             $row = $query->row_array();
             $data['customer']= $row;
             $data['title'] = 'Payment';
+            $d= $this->input->post ('check-in');
+            $strd=strtotime($d);
             $p= $this->input->post ('base_price');
             if($this->input->post ('roomtype') == "Royale")
             {
@@ -244,7 +246,7 @@ class Home extends CI_Controller {
                 $p = ( $p + 10);
             }
             $book = [
-                'check_in' => $this->input->post ('check_in'),
+                'check_in' => $strd,
                 'days' => $this->input->post ('days'),
                 'pet_kind' => $this->input->post ('petkind'),
                 'price' => $p,

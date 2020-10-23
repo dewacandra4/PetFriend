@@ -6,6 +6,9 @@
       <!-- Heading -->
       <h2 class="my-5 h2 text-center">Checkout form</h2>
       <?php date_default_timezone_set('Asia/Singapore');?>
+      <?php $sub_total=  $book['price'] * $book['days'];
+              $tax=$sub_total*0.05;
+              $total = $tax + $sub_total;?>
       <!--Grid row-->
       <div class="pb-5">
     <div class="container">
@@ -106,8 +109,7 @@
                       </div>
                     </div>
                     <p>The total amount that you have to transfer is as follows : <input readonly class="form-control w-50 mt-1" type="text" 
-                    value="RM <?php echo $this->cart->format_number(($this->cart->total()*0.05) + $this->cart->total()); ?>">
-                    <br><strong>We will verify your payment soon, and if within 24 hours the payment has not been made, the order will be canceled automatically.</strong>
+                    value="RM <?=number_format($total,2,",",".");?>">
                     </p>
                     </blockquote>
                   </div>
@@ -129,8 +131,7 @@
                       </div>
                     </div>
                     <p>The total amount that you have to transfer is as follows : <input readonly class="form-control w-50 mt-1" type="text" 
-                    value="RM <?php echo $this->cart->format_number(($this->cart->total()*0.05) + $this->cart->total()); ?>">
-                    <br><strong>We will verify your payment soon, and if within 24 hours the payment has not been made, the order will be canceled automatically.</strong>
+                    value="RM <?=number_format($total,2,",",".");?>">
                     </p>
                     </blockquote>
                   </div>
@@ -146,10 +147,10 @@
                   <div class="card-body">
                     <blockquote class="blockquote mb-0">
                     <img src="<?= base_url().'assets/img/c.png'?>"class="img-fluid mb-3" width="35%">
-                      <p>You can place an order, then pay when the product has been received</p>
+                      <p>You can book a room, then pay when you check-in</p>
                     <p>The amount of money that needs to be prepared : <input readonly class="form-control w-50 mt-1" type="text" 
-                    value="RM <?php echo $this->cart->format_number(($this->cart->total()*0.05) + $this->cart->total()); ?>">
-                    <br><strong>Please make sure that address you entered is correct, and fill delivery note if products must be delivered at a specific location</strong>
+                    value="RM <?=number_format($total,2,",",".");?>">
+                    <br><strong>If you check in after 2.00 pm it will be counted as the 2nd night</strong>
                     </p>
                     </blockquote>
                   </div>
@@ -159,8 +160,6 @@
               <input type="hidden" name="user_id" value="<?=$user['id'];?>">
               <input type="hidden" name="order_status1" value="On Process">
               <input type="hidden" name="order_status2" value="Awaiting Payment">
-              <input type="hidden" name="total_price" value="<?php echo $this->cart->total()*0.05 + $this->cart->total(); ?>">
-              <input type="hidden" name="total_items" value="<?php echo $this->cart->total_items();?>">
               <button class="add_cart btn btn-cart  rounded py-3 btn-block" type="submit">Continue to checkout</button>
 
             </form>
@@ -183,21 +182,26 @@
           <ul class="list-group mb-3 z-depth-1">
             <li class="list-group-item d-flex justify-content-between lh-condensed">
               <div>
-                <h4 class="my-0"><?php echo $book['room_type']; ?> Room</h4><br>
+                <h4 class="my-0"><?php echo $book['room_type']; ?> Room (<?php echo $book['pet_kind']; ?>)</h4><br>
                 <small class="text-muted">Price per Night : <?php echo $book['price']; ?> RM </small><br>
                 <small class="text-muted">Duration :  <?php echo $book['days']; ?> Night </small><br>
-                <small class="text-muted">Check In : <?= date('d F yy',$book['check_in']);?></small>
+                <small class="text-muted">Check In : <?= date('d F yy',$book['check_in']);?></small><br>
+                <?php $stop_date = date('d F yy',$book['check_in']);
+                $days =$book['days'];
+                $stop_date2 = date('d F yy', strtotime($stop_date . ' +'.$book['days'].'day'));
+                ?>
+                <small class="text-muted">Check Out : <?php echo $stop_date2;?></small>
               </div>
-              <span class="text-muted">RM</span>
+              <span class="text-muted">RM <?=number_format($sub_total,2,",",".");?> </span>
             </li>
             <li class="list-group-item d-flex justify-content-between bg-light">
               <div class="text-success">
                 <h6 class="my-0">Tax and Service (5%)</h6>
               </div>
-              <span class="text-success">+ RM </span>
+              <span class="text-success">+ RM <?=number_format($tax,2,",",".");?>  </span>
             </li>
             <li class="list-group-item d-flex justify-content-between">
-              <span>Total (RM)</span>
+              <span>Total <?=number_format($total,2,",",".");?> (RM)</span>
               <strong></strong>
             </li>
           </ul>
