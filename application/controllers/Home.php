@@ -68,7 +68,8 @@ class Home extends CI_Controller {
         $q1 = $this->db->query("SELECT`name`FROM `products` WHERE `id` = $id")->row()->name;
         $q2 = $this->db->query("SELECT`price`FROM `products` WHERE `id` = $id")->row()->price;
         $q3 = $this->db->query("SELECT`img`FROM `products` WHERE `id` = $id")->row()->img;
-        $q4 = $this->db->query("SELECT`category`FROM `products` WHERE `id` = $id")->row()->category;
+        $q41 = $this->db->query("SELECT`category_id`FROM `products` WHERE `id` = $id")->row()->category_id;
+        $q4 = $this->db->query("SELECT`category`FROM `category` WHERE `id` = $q41")->row()->category;
         $q5 = $this->db->query("SELECT`stock`FROM `products` WHERE `id` = $id")->row()->stock;
         $data = array(
             'id' => $id, 
@@ -184,7 +185,7 @@ class Home extends CI_Controller {
         $this->load->view('home/searchP',$data);
         $this->load->view('home/footer');
     }
-
+//customer must login before check out from cart
     public function check_out()
     {
         $lol = $this->session->userdata('username');
@@ -198,23 +199,63 @@ class Home extends CI_Controller {
         } 
         else
         {
-            redirect('home/payment');
+            $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
+            $lol = $this->session->userdata('username');
+            $result= $this->db->query("SELECT `id` FROM `user` WHERE `username` = '$lol'")->row()->id;
+            $query = $this->db->query("SELECT * FROM `user` WHERE `id` = $result");
+            $row = $query->row_array();
+            $data['customer']= $row;
+            $data['title'] = 'Payment';
+            $this->load->view('home/header',$data);
+            $this->load->view('customer/payment',$data);
+            $this->load->view('home/footer');
         }
     }
-//viewing the checkout form for products
-    public function payment()
+
+    //customer must login before book a pet hotel
+    public function check_out_hotel()
     {
-        $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
         $lol = $this->session->userdata('username');
-        $result= $this->db->query("SELECT `id` FROM `user` WHERE `username` = '$lol'")->row()->id;
-        $query = $this->db->query("SELECT * FROM `user` WHERE `id` = $result");
-        $row = $query->row_array();
-        $data['customer']= $row;
-        $data['title'] = 'Payment';
-        $this->load->view('home/header',$data);
-        $this->load->view('customer/payment',$data);
-        $this->load->view('home/footer');
+        if ($lol==null) 
+        {
+            $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">You have to logged in 
+            before Book a room <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button></div>');
+            redirect('auth/login');
+        } 
+        else
+        {
+            $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
+            $lol = $this->session->userdata('username');
+            $result= $this->db->query("SELECT `id` FROM `user` WHERE `username` = '$lol'")->row()->id;
+            $query = $this->db->query("SELECT * FROM `user` WHERE `id` = $result");
+            $row = $query->row_array();
+            $data['customer']= $row;
+            $data['title'] = 'Payment';
+            $p= $this->input->post ('base_price');
+            if($this->input->post ('roomtype') == "Royale")
+            {
+                $p = ( $p + 20);
+            }
+            if($this->input->post ('roomtype') == "Standard")
+            {
+                $p = ( $p + 10);
+            }
+            $book = [
+                'check_in' => $this->input->post ('check_in'),
+                'days' => $this->input->post ('days'),
+                'pet_kind' => $this->input->post ('petkind'),
+                'price' => $p,
+                'room_type' => $this->input->post ('roomtype')
+            ];
+            $data['book']= $book;
+            $this->load->view('home/header',$data);
+            $this->load->view('customer/payment_hotel',$data);
+            $this->load->view('home/footer');
+        }
     }
+
 //ordering the products
     public function order_products()
     {
@@ -405,12 +446,6 @@ class Home extends CI_Controller {
     {
         if($id == 1)
         {
-            $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
-            $lol = $this->session->userdata('username');
-            $result= $this->db->query("SELECT `id` FROM `user` WHERE `username` = '$lol'")->row()->id;
-            $query = $this->db->query("SELECT * FROM `user` WHERE `id` = $result");
-            $row = $query->row_array();
-            $data['customer']= $row;
             $data['title'] = 'Pet Hotel';
             $data['services'] = $this->model_services->detail_service($id);
             $this->load->view('home/header',$data);
