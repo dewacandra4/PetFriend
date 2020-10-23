@@ -2,6 +2,7 @@
 <html lang="en">
   
 <body>
+<?php date_default_timezone_set('Asia/Singapore');?>
   <!-- Masthead -->
   <header class="masthead text-white text-center" style="background-image: url(<?= base_url().'/assets/img/bg-masterhead.jpg'?>);">
     <div class="overlay"></div>
@@ -23,7 +24,12 @@
     <?php foreach ($services as $s) : ?>
     <p class="lead mb-0"><?= $s->description ?>
     <br>We provide various types of room types, with prices starting from RM <?= $s->price ?> / Night</p>
-    <br><a href="#order" class="add_cart btn btn-cart  rounded py-3">Book Now</a>
+    <br>
+    <?php if(is_admin() == 1) :?>
+  <?php elseif(is_admin() == 3) : ?>
+  <?php else : ?>
+    <a href="#order" class="add_cart btn btn-cart  rounded py-3">Book Now</a>
+    <?php endif; ?>
     </div>
   </section>
 
@@ -87,6 +93,9 @@
   </section>
 
   <!-- Keuntungan -->
+  <?php if(is_admin() == 1) :?>
+  <?php elseif(is_admin() == 3) : ?>
+  <?php else : ?>
   <section class="features-icons bg-white text-center" id="order" style="background-image: url(<?= base_url().'/assets/img/bg2.jpg'?>);">
   <h2>Booking Form</h2> 
   <?php if($s->is_available == 0) :?>
@@ -105,22 +114,22 @@
                   <div class="text-center">
                   </div>
                   <br>
-                  <form method="post" action="<?= base_url('auth/login')?>" class="user">
-
+                  <form method="post" action="<?= base_url('Home/check_out_hotel')?>" class="user">
                   <div class="row">
 
                     <div class="col">
                     <div class="form-group">
                     <h5><i class="fa fa-calendar" aria-hidden="true"></i>
                     Check-in Date: </h5>
-                    <input type="date" class="form-control " id="fromDate" name="check-in" placeholder="From Date" min="<?php echo date('Y-m-d'); ?>">
+                    <input type="date" class="form-control " id="fromDate" name="check-in" placeholder="From Date" min="<?php echo date('Y-m-d'); ?>"
+                    value="<?php echo date('Y-m-d'); ?>">
                     </div>
                     </div>
 
                     <div class="col">
                     <div class="form-group">
                     <h5> <i class="fa fa-moon-o" aria-hidden="true"></i>
-                    How Many Days : </h5>
+                    How Many Night : </h5>
                     <input type="number" name="days" id="days" class="form-control" value="" min="1" required>
                     </div>
                     </div>
@@ -147,6 +156,7 @@
                     </div>
 
                     <br>
+                      <input type="hidden" name="base_price" value="<?= $s->price ?>">
                       <button type="submit" class="btn genric-btn danger-border circle btn-block">Book</button>
                     <br>
                   </form>
@@ -155,6 +165,7 @@
               <div class="col-lg-5 d-none d-lg-block"> <img class="rounded" src="<?= base_url()?>assets/img/Order.jpg" alt="beauty_dog" height="500px"></div>
             </div>
           </div>
+          <?php endif; ?>
     </div>
   </section>
   <?php endif; ?>
