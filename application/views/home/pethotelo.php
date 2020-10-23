@@ -36,7 +36,7 @@
         <div class="col-lg-6 order-lg-1 my-auto showcase-text">
           <h2>Standar Room</h2>
           <p class="lead mb-0">
-          There are many facilities that your pet will get in the standard room, such as : <br><br>
+          Base Price for the standard room, with facilities such as : <br><br>
             + Wide Playing Field<br>
             + Breakfast and Dinner<br>
             + Room with AC<br>
@@ -52,7 +52,7 @@
         <div class="col-lg-6 my-auto showcase-text">
           <h2>Deluxe Room</h2>
           <p class="lead mb-0">
-          We also offer a Deluxe Room, with more facilities such as : <br><br>
+          Pay additional RM 10.00 for Deluxe Room, with more facilities such as : <br><br>
             + Wide Playing Field<br>
             + Swiming Pool (For dog)<br>
             + Sand Box (For cat)<br>
@@ -61,7 +61,7 @@
             + Walk Session Every Morning<br>
             + Free Snack<br>
             <br>
-            Price : RM 15.00 / Night (For Cat or Dog)
+            Price : RM <?= $s->price + 10 ?>.00 / Night (For Cat or Dog)
           </p>
         </div>
       </div>
@@ -70,7 +70,7 @@
         <div class="col-lg-6 order-lg-1 my-auto showcase-text">
           <h2>Royale Room</h2>
           <p class="lead mb-0">
-          We also offer a Royale Room, with more facilities such as : <br><br>
+          Pay additional RM 20.00 for Royale Room, with more facilities such as : <br><br>
             + Individual Playing Field<br>
             + Swiming Pool (For dog)<br>
             + Sand Box (For cat)<br>
@@ -79,7 +79,7 @@
             + Walk Session Every Morning and Pet Salon<br>
             + Free Snack<br>
             <br>
-            Price : RM 25.00 / Night (For Cat or Dog)
+            Price : RM <?= $s->price + 20 ?>.00 / Night (For Cat or Dog)
           </p>
         </div>
       </div>
