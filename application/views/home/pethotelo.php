@@ -2,6 +2,7 @@
 <html lang="en">
   
 <body>
+<?php date_default_timezone_set('Asia/Singapore');?>
   <!-- Masthead -->
   <header class="masthead text-white text-center" style="background-image: url(<?= base_url().'/assets/img/bg-masterhead.jpg'?>);">
     <div class="overlay"></div>
@@ -120,7 +121,8 @@
                     <div class="form-group">
                     <h5><i class="fa fa-calendar" aria-hidden="true"></i>
                     Check-in Date: </h5>
-                    <input type="date" class="form-control " id="fromDate" name="check-in" placeholder="From Date" min="<?php echo date('Y-m-d'); ?>">
+                    <input type="date" class="form-control " id="fromDate" name="check-in" placeholder="From Date" min="<?php echo date('Y-m-d'); ?>"
+                    value="<?php echo date('Y-m-d'); ?>">
                     </div>
                     </div>
 

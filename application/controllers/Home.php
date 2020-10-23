@@ -215,6 +215,7 @@ class Home extends CI_Controller {
     //customer must login before book a pet hotel
     public function check_out_hotel()
     {
+        date_default_timezone_set('Asia/Singapore');
         $lol = $this->session->userdata('username');
         if ($lol==null) 
         {
@@ -238,7 +239,7 @@ class Home extends CI_Controller {
             {
                 $p = ( $p + 20);
             }
-            if($this->input->post ('roomtype') == "Standard")
+            if($this->input->post ('roomtype') == "Deluxe")
             {
                 $p = ( $p + 10);
             }

@@ -186,7 +186,7 @@
                 <h4 class="my-0"><?php echo $book['room_type']; ?> Room</h4><br>
                 <small class="text-muted">Price per Night : <?php echo $book['price']; ?> RM </small><br>
                 <small class="text-muted">Duration :  <?php echo $book['days']; ?> Night </small><br>
-                <small class="text-muted">Check In : <?= date('d F yy', $book['check_in']);?></small>
+                <small class="text-muted">Check In : <?= date('d F yy',$book['check_in']);?></small>
               </div>
               <span class="text-muted">RM</span>
             </li>
