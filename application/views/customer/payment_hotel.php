@@ -9,8 +9,15 @@
 
       <?php $sub_total=  $book['price'] * $book['days'];
               $tax=$sub_total*0.05;
-              $total = $tax + $sub_total;?>
-
+              $discount = $sub_total*0.15;
+              if($book['rep'] >=4)
+              {
+                $total = ($tax + $sub_total) - $discount;
+              }
+              else{
+                $total = $tax + $sub_total;
+              }
+              ?> 
       <?php $stop_date = date('d F yy',$book['check_in']);
                 $days =$book['days'];
                 $stop_date2 = strtotime($stop_date . ' +'.$book['days'].'day');
@@ -97,7 +104,7 @@
                 </div>
               </div>
               <div class="Box1" style="display:none">
-              <br><br>
+              <br>
               <div class="card">
                   <div class="card-header">
                   <Strong> Bank Transfer</Strong>
@@ -120,7 +127,7 @@
                 <br><br>
               </div>
               <div class="Box2" style="display:none">
-              <br><br>
+              <br>
               <div class="card">
                   <div class="card-header">
                   <Strong>Mobile Banking</Strong>
@@ -142,6 +149,18 @@
                 </div>
                 <br><br>
               </div>
+              <div class="card">
+                  <div class="card-header">
+                  <Strong>Term & Conditions</Strong>
+                  </div>
+                  <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                      <p>Make sure that your pet is in good health, because we do not accept unhealthy pets when checking in,
+                       we are not responsible if something unexpected happens because you leave a pet that is not in a good condition.</p>
+                    </blockquote>
+                  </div>
+                </div>
+                <br><br>
               <input type="hidden" name="user_id" value="<?=$user['id'];?>">
               <input type="hidden" name="service_id" value="<?=$book['service_id'];?>">
               <input type="hidden" name="total_price" value="<?= $total;?>">
@@ -164,7 +183,13 @@
 
           <!-- Heading -->
           <h4 class="d-flex justify-content-between align-items-center mb-3">
-            <span class="text-muted">Book Detail summary</span>
+            <span class="text-muted">
+            <?php if($book['rep'] >=4) :  ?>
+              Welcome Back!, <?php echo $user['username']; ?><br><br><small>Congratulations on always using our services, so we give you a 15% discount ^^.
+              </small><br><br>
+              <?php endif; ?>
+            Book Detail summary
+            </span>
           </h4>
 
           <!-- Cart -->
@@ -177,7 +202,7 @@
                 <small class="text-muted">Check In : <?= date('d F yy',$book['check_in']);?></small><br>
                 <small class="text-muted">Check Out : <?= date('d F yy', $stop_date2);?></small>
               </div>
-              <span class="text-muted">RM <?=number_format($sub_total,2,",",".");?> </span>
+              <span class="text-muted">RM <?=number_format($sub_total,2,",",".");?></span>
             </li>
             <li class="list-group-item d-flex justify-content-between bg-light">
               <div class="text-success">
@@ -185,6 +210,14 @@
               </div>
               <span class="text-success">+ RM <?=number_format($tax,2,",",".");?>  </span>
             </li>
+            <?php if($book['rep'] >=4) :  ?>
+            <li class="list-group-item d-flex justify-content-between bg-light">
+              <div class="text-danger">
+                <h6 class="my-0"> Reapeter Guest Discount (15%)</h6>
+              </div>
+              <span class="text-danger">- RM <?=number_format($discount,2,",",".");?>  </span>
+            </li>
+            <?php endif; ?>
             <li class="list-group-item d-flex justify-content-between">
               <span>Total <?=number_format($total,2,",",".");?> (RM)</span>
               <strong></strong>

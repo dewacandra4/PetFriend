@@ -98,7 +98,7 @@
                 </div>
               </div>
               <div class="Box1" style="display:none">
-              <br><br>
+              <br>
               <div class="card">
                   <div class="card-header">
                   <Strong> Bank Transfer</Strong>
@@ -121,7 +121,7 @@
                 <br><br>
               </div>
               <div class="Box2" style="display:none">
-              <br><br>
+              <br>
               <div class="card">
                   <div class="card-header">
                   <Strong>Mobile Banking</Strong>
@@ -144,7 +144,7 @@
                 <br><br>
               </div>
               <div class="Box3" style="display:none">
-              <br><br>
+              <br>
               <div class="card">
                   <div class="card-header">
                   <Strong> Cash On Delivery</Strong>
