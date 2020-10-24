@@ -69,7 +69,7 @@
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="<?= base_url('customer/dashboard/my_serviceo');?>">
           <i class="fas fa-fw fa-heart"></i>
           <span>Services Order</span></a>
       </li>
