@@ -156,6 +156,7 @@
 
                     <br>
                       <input type="hidden" name="base_price" value="<?= $s->price ?>">
+                      <input type="hidden" name="service_id" value="<?= $s->id ?>">
                       <button type="submit" class="btn genric-btn danger-border circle btn-block">Book</button>
                     <br>
                   </form>
