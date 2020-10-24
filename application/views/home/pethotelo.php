@@ -121,8 +121,7 @@
                     <div class="form-group">
                     <h5><i class="fa fa-calendar" aria-hidden="true"></i>
                     Check-in Date: </h5>
-                    <input type="date" class="form-control " id="fromDate" name="check-in" placeholder="From Date" min="<?php echo date('Y-m-d'); ?>"
-                    value="<?php echo date('Y-m-d'); ?>">
+                    <input type="date" class="form-control " id="fromDate" name="check-in" placeholder="From Date" min="<?php echo date('Y-m-d'); ?>">
                     </div>
                     </div>
 
@@ -157,6 +156,7 @@
 
                     <br>
                       <input type="hidden" name="base_price" value="<?= $s->price ?>">
+                      <input type="hidden" name="service_id" value="<?= $s->id ?>">
                       <button type="submit" class="btn genric-btn danger-border circle btn-block">Book</button>
                     <br>
                   </form>

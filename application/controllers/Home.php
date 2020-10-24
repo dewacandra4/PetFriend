@@ -69,7 +69,7 @@ class Home extends CI_Controller {
         $q2 = $this->db->query("SELECT`price`FROM `products` WHERE `id` = $id")->row()->price;
         $q3 = $this->db->query("SELECT`img`FROM `products` WHERE `id` = $id")->row()->img;
         $q41 = $this->db->query("SELECT`category_id`FROM `products` WHERE `id` = $id")->row()->category_id;
-        $q4 = $this->db->query("SELECT`category`FROM `category` WHERE `id` = $q41")->row()->category;
+        $q4 = $this->db->query("SELECT`category`FROM `category` WHERE `cid` = $q41")->row()->category;
         $q5 = $this->db->query("SELECT`stock`FROM `products` WHERE `id` = $id")->row()->stock;
         $data = array(
             'id' => $id, 
@@ -234,6 +234,8 @@ class Home extends CI_Controller {
             $row = $query->row_array();
             $data['customer']= $row;
             $data['title'] = 'Payment';
+            $d= $this->input->post ('check-in');
+            $strd=strtotime($d);
             $p= $this->input->post ('base_price');
             if($this->input->post ('roomtype') == "Royale")
             {
@@ -244,9 +246,10 @@ class Home extends CI_Controller {
                 $p = ( $p + 10);
             }
             $book = [
-                'check_in' => $this->input->post ('check_in'),
+                'check_in' => $strd,
                 'days' => $this->input->post ('days'),
                 'pet_kind' => $this->input->post ('petkind'),
+                'service_id' => $this->input->post ('service_id'),
                 'price' => $p,
                 'room_type' => $this->input->post ('roomtype')
             ];
@@ -311,6 +314,41 @@ class Home extends CI_Controller {
         }
         $this->cart->destroy();
         redirect('customer/dashboard/my_producto');
+
+    }
+
+    //ordering Pet Hotel
+    public function order_pethotel()
+    {
+        date_default_timezone_set('Asia/Singapore');
+        $user_id = $this->input->post ('user_id');
+
+        $data = [
+            'service_id' => $this->input->post ('service_id'),
+            'user_id' => $user_id,
+            'order_status' => "Awaiting Payment",
+            'order_date' => time(),
+            'total_price' => $this->input->post ('total_price'),
+            'payment_method' => $this->input->post ('payment_method'),
+            'customer_address' => $this->input->post ('customer_address')
+        ];
+
+        $this->db->insert('services_order', $data);
+
+        $sordert = $this->db->query("SELECT `sorder_id` FROM `services_order` WHERE `user_id` = '$user_id'
+        ORDER BY `sorder_id` DESC LIMIT 1")->row()->sorder_id;
+
+            $data1 = [
+                'sorder_id' => $sordert,
+                'check_in'  => $this->input->post ('check_in'),
+                'check_out' => $this->input->post ('check_out'),
+                'pet_kind'  => $this->input->post ('pet_kind'),
+                'room_type'  => $this->input->post ('room_type')
+            ];
+    
+            $this->db->insert('pethotel_order', $data1);
+
+        //redirect('customer/dashboard/my_producto');
 
     }
 
