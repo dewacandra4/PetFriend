@@ -104,7 +104,7 @@
                 </div>
               </div>
               <div class="Box1" style="display:none">
-              <br><br>
+              <br>
               <div class="card">
                   <div class="card-header">
                   <Strong> Bank Transfer</Strong>
@@ -127,7 +127,7 @@
                 <br><br>
               </div>
               <div class="Box2" style="display:none">
-              <br><br>
+              <br>
               <div class="card">
                   <div class="card-header">
                   <Strong>Mobile Banking</Strong>
@@ -149,6 +149,18 @@
                 </div>
                 <br><br>
               </div>
+              <div class="card">
+                  <div class="card-header">
+                  <Strong>Term & Conditions</Strong>
+                  </div>
+                  <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                      <p>Make sure that your pet is in good health, because we do not accept unhealthy pets when checking in,
+                       we are not responsible if something unexpected happens because you leave a pet that is not in a good condition.</p>
+                    </blockquote>
+                  </div>
+                </div>
+                <br><br>
               <input type="hidden" name="user_id" value="<?=$user['id'];?>">
               <input type="hidden" name="service_id" value="<?=$book['service_id'];?>">
               <input type="hidden" name="total_price" value="<?= $total;?>">

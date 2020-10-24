@@ -23,7 +23,9 @@
     <div class="container">
     <?php foreach ($services as $s) : ?>
     <p class="lead mb-0"><?= $s->description ?>
-    <br>We provide various types of room types, with prices starting from RM <?= $s->price ?> / Night</p>
+    <br>We provide various types of room types, with prices starting from RM <?= $s->price ?> / Night <br>
+    We also give 15% discount to the customer who have used our services more than 3 times.
+    </p>
     <br>
     <?php if(is_admin() == 1) :?>
   <?php elseif(is_admin() == 3) : ?>
