@@ -45,6 +45,13 @@ class Model_products extends CI_Model{
         return $this->db->get('products_order')->num_rows();
     }
 
+    //get count of all product based on user id
+    public function countListProducts_id($id)
+    {
+        $this->db->where('user_id', $id);
+        return $this->db->get('products_order')->num_rows();
+    }
+
     public function getProducts()
     {
         return $this->db->get('products')->result_array();

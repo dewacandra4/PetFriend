@@ -38,6 +38,13 @@ class Model_services extends CI_Model{
         return $this->db->get('services_order')->num_rows();
     }
 
+    //get number of all service order based on user id (displayed on My Order service)
+    public function countListServices_id($id)
+    {
+        $this->db->where('user_id', $id);
+        return $this->db->get('services_order')->num_rows();
+    }
+
     //get all service order based on user id (displayed on My Order service)
     public function get_myserviceo($id, $limit, $start)
     {

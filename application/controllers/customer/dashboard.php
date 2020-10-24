@@ -181,7 +181,7 @@ class dashboard extends CI_Controller
                 $this->load->library('pagination');
                 //config
                 $config['base_url'] = 'http://localhost/PetFriend/customer/dashboard/my_producto';
-                $config['total_rows'] = $this->model_products->countListProducts();
+                $config['total_rows'] = $this->model_products->countListProducts_id($result);
                 $config['per_page'] = 8;
                 //styling
                 $config['full_tag_open'] = '<nav>
@@ -257,7 +257,7 @@ class dashboard extends CI_Controller
                 $this->load->library('pagination');
                 //config
                 $config['base_url'] = 'http://localhost/PetFriend/customer/dashboard/my_serviceo';
-                $config['total_rows'] = $this->model_services->countListServices();
+                $config['total_rows'] = $this->model_services->countListServices_id($result);
                 $config['per_page'] = 8;
                 //styling
                 $config['full_tag_open'] = '<nav>
