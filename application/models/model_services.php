@@ -57,6 +57,7 @@ class Model_services extends CI_Model{
     {
         $this->db->where('user_id', $id);
         $this->db->where('order_status', "Awaiting Payment");
+        $this->db->where('service_id', 1);
         $result = $this->db->get('services_order');
         return $result;
     }
@@ -65,5 +66,29 @@ class Model_services extends CI_Model{
     {
         return $this->db->get('services_order')->result_array();
 
+    }
+
+    //get service order based on service order id
+    public function get_myserviceo_orderid($oid)
+    {
+        return $this->db->get_where("services_order", array('sorder_id'=> $oid));
+    }
+
+    //get Pet Hotel order detail from Service order_id
+    public function get_myhotel_detail($oid)
+    {
+        return $this->db->get_where("pethotel_order", array('sorder_id'=> $oid));
+    }
+    
+   //get Pet salon order detail from Service order_id
+    public function get_mysalon_detail($oid)
+    {
+        return $this->db->get_where("petsalon_order", array('sorder_id'=> $oid));
+    }
+
+    //get Pet Health order detail from Service order_id
+    public function get_myhealth_detail($oid)
+    {
+        return $this->db->get_where("pethealth_order", array('sorder_id'=> $oid));
     }
 }
