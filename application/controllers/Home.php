@@ -188,6 +188,10 @@ class Home extends CI_Controller {
 //customer must login before check out from cart
     public function check_out()
     {
+        if($this->cart->total_items() == 0)
+        {
+            redirect('customer/dashboard/my_producto');
+        }
         $lol = $this->session->userdata('username');
         if ($lol==null) 
         {

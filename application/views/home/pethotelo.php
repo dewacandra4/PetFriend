@@ -123,7 +123,7 @@
                     <div class="form-group">
                     <h5><i class="fa fa-calendar" aria-hidden="true"></i>
                     Check-in Date: </h5>
-                    <input type="date" class="form-control " id="fromDate" name="check-in" placeholder="From Date" min="<?php echo date('Y-m-d'); ?>">
+                    <input type="date" class="form-control " id="fromDate" name="check-in" placeholder="From Date" min="<?php echo date('Y-m-d'); ?>" required>
                     </div>
                     </div>
 
@@ -140,7 +140,7 @@
                     <div class="form-group">
                     <h5> <i class="fa fa-paw" aria-hidden="true"></i>
                     Select Pet Kind :  </h5>
-                    <select class="form-control" name="petkind">
+                    <select class="form-control" name="petkind" required>
                     <option>Dog</option>
                     <option>Cat</option>
                     </select>
@@ -149,7 +149,7 @@
                     <div class="form-group">
                     <h5> <i class="fa fa-cube" aria-hidden="true"></i>
                     Select Room Type :  </h5>
-                    <select class="form-control" name="roomtype">
+                    <select class="form-control" name="roomtype" required>
                     <option>Royale</option>
                     <option>Deluxe</option>
                     <option>Standard</option>
