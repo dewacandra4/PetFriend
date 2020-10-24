@@ -32,7 +32,13 @@ class Model_services extends CI_Model{
             return false;
         }
     }
-
+    function updateStatus($data, $sorder_id)
+    {
+        $this->db->where('sorder_id',$sorder_id);
+        $this->db->update('services_order', $data);
+        return TRUE;
+    }
+    
     public function countListServices()
     {
         return $this->db->get('services_order')->num_rows();

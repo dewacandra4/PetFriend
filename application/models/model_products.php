@@ -54,10 +54,11 @@ class Model_products extends CI_Model{
         return $this->db->get('products',$limit, $start)->result_array();
     }
 
-    public function getListProducts()
-    {
-        return $this->db->get('products_order')->result_array();
-    }
+    // public function getListProducts($status)
+    // {
+    //     $query = $this->db->get_where('products_order', array('order_status' =>$status))->result_array();
+    //     // return $this->db->get('products_order')->result_array();
+    // }
     //update status payment
     function updateStatus($data, $order_id)
     {

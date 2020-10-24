@@ -52,6 +52,7 @@
   <script>
     $(document).ready(function () {
     $('#table-bootstrap').DataTable({
+      "order": [[ 2, "desc" ]],
       "aaSorting": [],
       columnDefs: [{
       orderable: false,
@@ -65,6 +66,7 @@
   <script>
     $(document).ready(function () {
     $('#selectedColumn').DataTable({
+      "order": [[ 0, "desc" ]],
       "aaSorting": [],
       columnDefs: [{
       orderable: false,

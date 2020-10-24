@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mb-5">
 <?php if (validation_errors()) : ?>
 <div class="alert alert-danger text-center alert-dismissible fade show" role="alert"><?= validation_errors(); ?><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>                
 <?php endif; ?>
@@ -35,16 +35,23 @@
                             <td><?= $product['payment_method']?></td>
                             <td>RM <?= $product['total_price']?></td>
                             <td>
-                                <div class="d-flex p-2">
-                                    <?= anchor('admin/list_order/view_detail/'.$product['order_id'],'<div class="btn btn-success btn-sm"><i class="fas fa-search-plus"></i></div>')?>
+                            <div class="text-center">
+                                <div class="d-inline-flex p-0">
+                                    <?= anchor('admin/list_order/view_detail/'.$product['order_id'],'<div class="btn btn-warning btn-sm"><i class="fas fa-search-plus"></i></div>')?>
                                     <a 
                                         href="javascript:;"
                                         data-order_id="<?php echo $product['order_id'] ?>"
                                         data-order_status="<?php echo $product['order_status'] ?>"
                                         data-toggle="modal" data-target="#confirm">
-
-                                        <button class="btn btn-primary btn-sm text-light" data-toggle="modal" data-target="#ubah-data"> Confirm Payment</button>
+                                        <button class="btn btn-primary btn-sm text-light" data-toggle="modal" data-target="#ubah-data"> Confirm</button></a>
+                                    <a 
+                                        href="javascript:;"
+                                        data-order_id="<?php echo $product['order_id'] ?>"
+                                        data-order_status="<?php echo $product['order_status'] ?>"
+                                        data-toggle="modal" data-target="#complete">
+                                        <button class="btn btn-success btn-sm text-light" data-toggle="modal" data-target="#edit-data"><i class="fas fa-check"></i></button></a>
                                 </div>
+                            </div>
                             </td>               
                         </tr>
                         <?php } ?>
@@ -53,50 +60,89 @@
             </div>
         </div>
     </div>
-
+</div>
 
 
 
 <!-- Modal -->
 <?php 
+    foreach($order as $pro):
+        $order_id= $pro['order_id'];
+        $order_status= $pro['order_status'];
+    ?>
+<div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal">Confirm Order</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <form class="form-horizontal text-center" action="<?php echo base_url('admin/list_order/confirm_payment');?>" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="order_status">Current Status</label>
+                        <input class="form-control mb-4" type="text" id="order_status" name="order_status" disabled value="<?php echo $order_status;?>">
+                    </div>
+                        <div class="form-group">
+                        <label for="order_status">Change Status</label>
+                        <input type="hidden" id="order_id" name="order_id" value="<?php echo $order_id;?>">
+                            <select class="browser-default custom-select mb-4" id="order_status" name="order_status" >
+                                <option value="" disabled selected>Choose Status</option>
+                                <option value="Awaiting Payment"  >Awaiting Payment</option>
+                                <option value="On Process" >On Process</option>
+                            </select>
+                        </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-success" type="submit"> Save&nbsp;</button>
+                            <button type="button" class="btn btn-warning" data-dismiss="modal"> Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php endforeach;?>
+<?php 
     foreach($order as $product):
         $order_id= $product['order_id'];
         $order_status= $product['order_status'];
     ?>
-<div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="modal"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="modal">Confirm Payment</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <form class="form-horizontal text-center" action="<?php echo base_url('admin/list_order/confirm_payment');?>" method="post">
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="order_status">Current Status</label>
-                    <input class="form-control mb-4" type="text" id="order_status" name="order_status" disabled value="<?php echo $order_status;?>">
+<div class="modal fade" id="complete" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal">Complete</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
                 </div>
+                <form class="form-horizontal text-center" action="<?php echo base_url('admin/list_order/confirm_payment');?>" method="post">
+                <div class="modal-body">
                     <div class="form-group">
-                    <label for="order_status">Change Status</label>
-                        <input type="hidden" id="order_id" name="order_id" value="<?php echo $order_id;?>">
-                            <select class="browser-default custom-select mb-4" id="order_status" name="order_status" >
-                                <option value="" disabled selected>Choose option</option>
-                                <option value="Awaiting Payment"  >Awaiting Payment</option>
-                                <option value="On Process" >On Process</option>
-                                <option value="Payment Complete">Payment Complete</option>
+                        <label for="order_status">Current Status</label>
+                        <input class="form-control mb-4" type="text" id="order_status" name="order_status" disabled value="<?php echo $order_status;?>">
+                    </div>
+                    <hr>
+                        <div class="">
+                            <p>Do you want to complete this order ?</p>
+                            <input type="hidden" id="order_id" name="order_id" value="<?php echo $order_id;?>">
+                            <select class="browser-default custom-select mb-4" id="order_status" name="order_status" disabled>
+                                <option value="Order Complete" selected>Order Complete</option>
                             </select>
+                        </div>
+                            <button class="btn btn-success" type="submit"> Yes&nbsp;</button>
+                            <button type="button" class="btn btn-warning" data-dismiss="modal"> Cancel</button>
                     </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-success" type="submit"> Save&nbsp;</button>
-                        <button type="button" class="btn btn-warning" data-dismiss="modal"> Cancel</button>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
+    </div>
+</div>
 
 
 
@@ -119,5 +165,17 @@
         });
     });
 </script>
-</div>
-</div>
+<script>
+    $(document).ready(function() {
+        // Untuk sunting
+        $('#complete').on('show.bs.modal', function (event) {
+            var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
+            var modal          = $(this)
+ 
+            // Isi nilai pada field
+            modal.find('#order_id').attr("value",div.data('order_id'));
+            modal.find('#order_status').attr("value",div.data('order_status'));
+        });
+    });
+</script>
+

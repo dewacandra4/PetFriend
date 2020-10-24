@@ -97,6 +97,27 @@
       </li>
 
       <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        History
+      </div>
+      <!-- Nav Item - Charts -->
+      <li class="nav-item <?php if($uri=='admin/history_product'){ echo 'active';}?>">
+        <a class="nav-link" href="<?=base_url('admin/history_product');?>">
+          <i class="fas fa-fw fa-bone"></i>
+          <span>Products Order History</span></a>
+      </li>
+
+      <!-- Nav Item - Tables -->
+      <li class="nav-item  <?php if($uri=='admin/history_service'){ echo 'active';}?>">
+        <a class="nav-link" href="<?=base_url('admin/history_service');?>">
+          <i class="fas fa-fw fa-heart"></i>
+          <span>Services Order History</span></a>
+      </li>
+
+      <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 
       <!-- Sidebar Toggler (Sidebar) -->
