@@ -69,7 +69,7 @@ class Home extends CI_Controller {
         $q2 = $this->db->query("SELECT`price`FROM `products` WHERE `id` = $id")->row()->price;
         $q3 = $this->db->query("SELECT`img`FROM `products` WHERE `id` = $id")->row()->img;
         $q41 = $this->db->query("SELECT`category_id`FROM `products` WHERE `id` = $id")->row()->category_id;
-        $q4 = $this->db->query("SELECT`category`FROM `category` WHERE `id` = $q41")->row()->category;
+        $q4 = $this->db->query("SELECT`category`FROM `category` WHERE `cid` = $q41")->row()->category;
         $q5 = $this->db->query("SELECT`stock`FROM `products` WHERE `id` = $id")->row()->stock;
         $data = array(
             'id' => $id, 
