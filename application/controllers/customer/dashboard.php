@@ -163,7 +163,7 @@ class dashboard extends CI_Controller
         date_default_timezone_set('Asia/Singapore');
         foreach ($p as $po)
         {
-            if($po->payment_method == "Bank Transfer" || $po->payment_method == "M-Banking" && $po->order_status == "Awaiting Payment")
+            if($po->payment_method == "Bank Transfer" || $po->payment_method == "M-Banking")
             {
                 if(time() - $po->order_date > (60 * 60 * 24))
                 {
@@ -171,7 +171,7 @@ class dashboard extends CI_Controller
                     $this->db->set('order_status', "Cancelled");
                     $this->db->where('order_id', $po->order_id);
                     $this->db->update('products_order');
-                    $this->_sendEmail($poid,$email,$namee);
+                    $this->_sendEmail($poid,$email,$namee,'product');
                     redirect('customer/dashboard/my_producto');
                 }
             }
@@ -222,6 +222,82 @@ class dashboard extends CI_Controller
         $this->load->view('customer/footer');
     }
 
+    //view the Service Order
+    public function my_serviceo()
+    {
+        $data['title'] = 'My Service Order';
+        $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
+        $lol = $this->session->userdata('username');
+        $result= $this->db->query("SELECT `id` FROM `user` WHERE `username` = '$lol'")->row()->id;
+        $query = $this->db->query("SELECT * FROM `user` WHERE `id` = $result");
+        $row = $query->row_array();
+        $data['customer']= $row;
+        $data['start'] = $this->uri->segment(4);
+        $s = $this->model_services->get_myserviceo2($result)->result();//to verify the payment due date
+        $email= $this->db->query("SELECT `email` FROM `user` WHERE `username` = '$lol'")->row()->email;
+        $namee= $this->db->query("SELECT `name` FROM `user` WHERE `username` = '$lol'")->row()->name;
+        
+        date_default_timezone_set('Asia/Singapore');
+        foreach ($s as $so)
+        {
+            if($so->payment_method == "Bank Transfer" || $so->payment_method == "M-Banking")
+            {
+                if(time() - $so->order_date > (60 * 60 * 0.5))
+                {
+                    $soid=$so->order_id;
+                    $this->_sendEmail($soid,$email,$namee,'hotel');
+                    $this->db->where('order_id', $so->order_id);
+                    $this->db->delete('services_order');
+                    redirect('customer/dashboard/my_serviceo');
+                }
+            }
+        }
+
+                //load library
+                $this->load->library('pagination');
+                //config
+                $config['base_url'] = 'http://localhost/PetFriend/customer/dashboard/my_producto';
+                $config['total_rows'] = $this->model_services->countListServices();
+                $config['per_page'] = 8;
+                //styling
+                $config['full_tag_open'] = '<nav>
+                <ul class="pagination justify-content-center">';
+                $config['full_tag_close'] = '</ul>
+                </nav>';
+                $config['first_link'] = 'First';
+                $config['first_tag_open'] = '<li class="page-item">';
+                $config['first_tag_close'] = '</li>';
+        
+                $config['last_link'] = 'Last';
+                $config['last_tag_open'] = '<li class="page-item">';
+                $config['last_tag_close'] = '</li>';
+                
+                $config['next_link'] = '&raquo';
+                $config['next_tag_open'] = '<li class="page-item">';
+                $config['next_tag_close'] = '</li>';
+                
+                $config['prev_link'] = '&laquo';
+                $config['prev_tag_open'] = '<li class="page-item">';
+                $config['prev_tag_close'] = '</li>';
+                
+                $config['cur_tag_open'] = '<li class="page-item active"><a class="page-link" href="#">';
+                $config['cur_tag_close'] = '</a></li>';
+                
+                $config['num_tag_open'] = '<li class="page-item">';
+                $config['num_tag_close'] = '</li>';
+        
+                $config['attributes'] = array('class' => 'page-link');
+        
+                //initialize
+                $this->pagination->initialize($config);
+
+        $data['serviceo'] = $this->model_services->get_myserviceo($result, $config['per_page'], $data['start'])->result();
+        $this->load->view('customer/header',$data);
+        $this->load->view('customer/sidebar',$data);
+        $this->load->view('customer/my_serviceo',$data);
+        $this->load->view('customer/footer');
+    }
+
     public function view_reciept($oid)
     {
         $data['title'] = 'Order Detail';
@@ -241,7 +317,7 @@ class dashboard extends CI_Controller
         $this->load->view('customer/footer');
     }
 
-    private function _sendEmail($poid,$email,$namee)
+    private function _sendEmail($poid,$email,$namee,$type)
     {
         $config = [
             'protocol'  => 'smtp',
@@ -259,10 +335,18 @@ class dashboard extends CI_Controller
         $this->email->from('finalprojectdua@gmail.com', 'PetFriend Admin');
         $this->email->to($email);
 
-            $this->email->subject('Canceled Product Order');
+        if ($type == 'product')
+        {
+            $this->email->subject('Cancelled Product Order');
             $this->email->message('Dear '.$namee.', <br> Your Product Order with ID #'.$poid.' has been canceled because you did not make a payment,<br>
             please visit PetFriend website to see more detailed information, <br>Thank You ^^ ');
-
+        }
+        if ($type == 'hotel')
+        {
+            $this->email->subject('Cancelled Pet Hotel Order');
+            $this->email->message('Dear '.$namee.', <br> Your Pet Hotel Order with ID #'.$poid.' has been canceled because you did not make a payment,<br>
+            please visit PetFriend website to see more detailed information, <br>Thank You ^^ ');
+        }
         if ($this->email->send()) {
             return true;
         } else {

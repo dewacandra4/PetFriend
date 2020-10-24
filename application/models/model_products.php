@@ -117,7 +117,6 @@ class Model_products extends CI_Model{
     {
         $this->db->where('user_id', $id);
         $this->db->where('order_status', "Awaiting Payment");
-        $this->db->or_where('order_status', "On Process");
         $result = $this->db->get('products_order');
         return $result;
     }
