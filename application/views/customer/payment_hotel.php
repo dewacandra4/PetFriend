@@ -171,7 +171,13 @@
 
           <!-- Heading -->
           <h4 class="d-flex justify-content-between align-items-center mb-3">
-            <span class="text-muted">Book Detail summary</span>
+            <span class="text-muted">
+            <?php if($book['rep'] >=4) :  ?>
+              Welcome Back!, <?php echo $user['username']; ?><br><br><small>Congratulations on always using our services, so we give you a 15% discount ^^.
+              </small><br><br>
+              <?php endif; ?>
+            Book Detail summary
+            </span>
           </h4>
 
           <!-- Cart -->
