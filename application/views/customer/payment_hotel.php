@@ -212,7 +212,7 @@
             <?php if($book['rep'] >=4) :  ?>
             <li class="list-group-item d-flex justify-content-between bg-light">
               <div class="text-danger">
-                <h6 class="my-0"> Reapeter Guest Discount (15%)</h6>
+                <h6 class="my-0"> Repeater Guest Discount (15%)</h6>
               </div>
               <span class="text-danger">- RM <?=number_format($discount,2,",",".");?>  </span>
             </li>

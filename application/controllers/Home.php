@@ -267,6 +267,7 @@ class Home extends CI_Controller {
             $this->load->view('customer/payment_hotel',$data);
             $this->load->view('home/footer');
         }
+
     }
 
 //ordering the products
@@ -358,7 +359,7 @@ class Home extends CI_Controller {
     
             $this->db->insert('pethotel_order', $data1);
 
-        redirect('customer/dashboard/my_serviceo');
+            redirect('customer/dashboard/view_reciept_service/'.$sordert);
 
     }
 
