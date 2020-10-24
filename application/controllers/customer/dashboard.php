@@ -244,9 +244,9 @@ class dashboard extends CI_Controller
             {
                 if(time() - $so->order_date > (60 * 60 * 0.5))
                 {
-                    $soid=$so->sorder_id;
+                    $soid=$so->order_id;
                     $this->_sendEmail($soid,$email,$namee,'hotel');
-                    $this->db->where('sorder_id', $so->sorder_id);
+                    $this->db->where('order_id', $so->order_id);
                     $this->db->delete('services_order');
                     redirect('customer/dashboard/my_serviceo');
                 }
@@ -300,7 +300,7 @@ class dashboard extends CI_Controller
 
     public function view_reciept($oid)
     {
-        $data['title'] = 'Product Order Detail';
+        $data['title'] = 'Order Detail';
         $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
         $lol = $this->session->userdata('username');
         $result= $this->db->query("SELECT `id` FROM `user` WHERE `username` = '$lol'")->row()->id;
@@ -316,51 +316,6 @@ class dashboard extends CI_Controller
         $this->load->view('customer/reciept_product',$data);
         $this->load->view('customer/footer');
     }
-
-    public function view_reciept_service($oid)
-    {
-        $data['title'] = 'Service Order Detail';
-        $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
-        $lol = $this->session->userdata('username');
-        $result= $this->db->query("SELECT `id` FROM `user` WHERE `username` = '$lol'")->row()->id;
-        $service_type= $this->db->query("SELECT `service_id` FROM `services_order` WHERE `sorder_id` = '$oid'")->row()->service_id;
-        $query = $this->db->query("SELECT * FROM `user` WHERE `id` = $result");
-        $row = $query->row_array();
-        $data['customer']= $row;
-        $data['serviceo'] = $this->model_services->get_myserviceo_orderid($oid)->result();
-
-        if($service_type == 1)
-        {
-            $data['pethotel'] = $this->model_services->get_myhotel_detail($oid)->result();
-        }
-        
-        if($service_type == 2)
-        {
-            $data['pethealth'] = $this->model_services->get_myhealth_detail($oid)->result();
-        }
-        
-        if($service_type == 3)
-        {
-            $data['petsalon'] = $this->model_services->get_mysalon_detail($oid)->result();
-        }
-
-        //get repeater guest for pet hotel
-        $this->db->where('user_id',$result);
-        $this->db->where('order_status', "Order Complete");
-        $this->db->where('service_id', 1);
-        $rep = $this->db->get('services_order');
-        $comcount = $rep->num_rows();
-        $rept = [
-            'rep' =>  $comcount,
-        ];
-        $data['guest']= $rept;
-
-        $this->load->view('customer/header',$data);
-        $this->load->view('customer/sidebar',$data);
-        $this->load->view('customer/reciept_service',$data);
-        $this->load->view('customer/footer');
-    }
-
 
     private function _sendEmail($poid,$email,$namee,$type)
     {

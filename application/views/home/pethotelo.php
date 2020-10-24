@@ -147,7 +147,7 @@
                     </div>
 
                     <div class="form-group">
-                    <h5> <i class="fa fa-cube" aria-hidden="true"></i>
+                    <h5> <i class="fa fa-joomla" aria-hidden="true"></i>
                     Select Room Type :  </h5>
                     <select class="form-control" name="roomtype">
                     <option>Royale</option>
