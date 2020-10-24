@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class List_order extends CI_Controller 
+class List_sorder extends CI_Controller 
 {
     public function __construct()
     {
@@ -18,11 +18,11 @@ class List_order extends CI_Controller
         $row = $query->row_array();
         $data['admin']= $row;
         $data['start'] = $this->uri->segment(4);
-        $data['product'] = $this->model_products->getListProducts();
-        $data['order']=$this->db->get('products_order')->result_array();
+        $data['product'] = $this->model_services->getListServices();
+        $data['order']=$this->db->get('services_order')->result_array();
         $this->load->view('admin/header',$data);
         $this->load->view('admin/sidebar',$data);
-        $this->load->view('admin/list_products',$data);
+        $this->load->view('admin/list_services',$data);
         $this->load->view('admin/footer');
     }
     public function view_detail($oid)
@@ -34,11 +34,11 @@ class List_order extends CI_Controller
         $query = $this->db->query("SELECT * FROM `user` WHERE `id` = $result");
         $row = $query->row_array();
         $data['admin']= $row;
-        $user_id = $this->db->get_where('products_order', ['order_id'=> $oid ])->row()->user_id;
+        $user_id = $this->db->get_where('services_order', ['order_id'=> $oid ])->row()->user_id;
 
         $data['customer'] = $this->db->get_where('user', ['id'=> $user_id])->row_array();
-        $data['producto_orderid'] = $this->model_products->get_myproducto_orderid($oid)->result();
-        $data['producto_detail'] = $this->model_products->get_myproducto_detail($oid)->result();
+        $data['producto_orderid'] = $this->model_services->get_myproducto_orderid($oid)->result();
+        $data['producto_detail'] = $this->model_services->get_myproducto_detail($oid)->result();
 
         $this->load->view('admin/header',$data);
         $this->load->view('admin/sidebar',$data);
@@ -62,16 +62,16 @@ class List_order extends CI_Controller
             $row = $query->row_array();
             $data['admin']= $row;
             $data['start'] = $this->uri->segment(4);
-            $data['product'] = $this->model_products->getListProducts();
-            $data['order']=$this->db->get('products_order')->result_array();
+            $data['product'] = $this->model_services->getListservices();
+            $data['order']=$this->db->get('services_order')->result_array();
             $this->load->view('admin/header',$data);
             $this->load->view('admin/sidebar',$data);
-            $this->load->view('admin/list_products',$data);
+            $this->load->view('admin/list_services',$data);
             $this->load->view('admin/footer');
         }
         else
         {
-            $this->model_products->updateStatus($data,$order_id);
+            $this->model_services->updateStatus($data,$order_id);
             $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Successfully Edited! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button></div>');

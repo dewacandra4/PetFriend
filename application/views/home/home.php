@@ -86,7 +86,7 @@
                                                 <?php else : ?>
                                             <?= anchor('home/add_to_cart/'.$p->id,'<div class="add_cart btn btn-cart">Add to cart</div>')?>
                                             <?php endif; ?>
-                                            <?= anchor('home/detail_product/'.$p->id,'<div class="btn-detail">Detail</div>')?>
+                                            <?= anchor('home/detail_product/'.$p->id,'<button class="btn btn-success bg-success text-light">Detail</button>')?>
                                         </div>						
                                     </div>
                                 </div>

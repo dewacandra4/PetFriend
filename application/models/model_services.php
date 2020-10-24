@@ -60,4 +60,10 @@ class Model_services extends CI_Model{
         $result = $this->db->get('services_order');
         return $result;
     }
+
+    public function getListServices()
+    {
+        return $this->db->get('services_order')->result_array();
+
+    }
 }

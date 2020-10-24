@@ -1,56 +1,62 @@
 <!-- <body class="bg-gradient-danger"> -->
+    
 <div class="container pb-5 pt-5 my-5">
     <?php foreach($products as $pd): ?>
     <div class="card">
-        <div class="card-header back-head text-light text-center">
-            <strong><?= $pd->name?></strong>
-        </div>
-        <div class="card-body">
+        <div class="card-body pb-4">
+            <h2>Product Detail</h2>
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-5 mx-auto">
                         <img class="img-fluid card-img-top" src="<?= base_url().'/assets/products/'.$pd->img?>">
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-6 mx-auto">
+                        
                         <table class="table">
                             <tr>
-                                <td>Product </td>
-                                <td><strong><?= $pd->name?></strong></td>
+                                <h3 class="h2-responsive text-center text-md-left product-name font-weight-bold dark-grey-text mb-1 ml-xl-0 ml-4">
+                                <strong><?= $pd->name?></strong>
+                                </h3>
                             </tr>
                             <tr>
-                                <td>Price</td>
-                                <td><strong><h3><span class="badge badge-pill badge-success">RM<?= $pd->price?></span></h3></strong></td>
+                                <span class="badge badge-danger product mb-4 ml-xl-0 ml-4 text-center">bestseller</span>
+                                <h3 class="h3-responsive text-center text-md-left mb-3 ml-xl-0 ml-4">
+                                    <span class="text-danger font-weight-bold">
+                                        <strong>RM <?= $pd->price?></strong>
+                                    </span>
+                                    <span class="text-secondary">
+                                        <small>
+                                        <s>RM<?= $pd->price+10;?>.00</s>
+                                        </small>
+                                    </span>
+                                </h3>
                             </tr>
                             <tr>
-                                <td>Stocks</td>
-                                <td><?= $pd->stock?></td>
-                            </tr>
-                            
+                                <td>
+                                <h5 class="text-center text-md-left mb-3 ml-xl-0 ml-4">Description</h5>
+                                </td>       
+                                <td>
+                                    <h5><?= $pd->description?></h5>
+                                </td>
+                            </tr>            
                             <tr>
-                                <td>Category</td>
-                                <td><?= $pd->category?></td>
+                                <td>
+                                    <h5 class="text-center text-md-left mb-3 ml-xl-0 ml-4"> Stocks </h5>
+                                </td> 
+                                <td>
+                                    <h5><?= $pd->stock?> Item</h5>
+                                </td>
                             </tr>
                             <tr>
-                                <td>Description</td>
-                                <td class="text-justify"><?= $pd->description?></td>
-                            </tr>
-
-                            <tr>
-                                <td>Rating</td>
-                                <td><div class="star-rating float-right mr-3">
-                                <ul class="list-inline">
-                                <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                            </ul>
-                        </div></td>
+                                <td><h5 class="text-center text-md-left mb-3 ml-xl-0 ml-4"> Category</h5></td>
+                                <td> <h5><?= $pd->category?></h5></td>
                             </tr>
                         </table>
                         <?php if (is_admin() == 1) : ?>
                         <?php elseif(is_admin() == 3) : ?>
                          <?php else : ?>
-                        <?= anchor('home/add_to_cart/'.$pd->id,'<div class="add_cart btn btn-cart float-right mx-2 mt-5">Add to Cart</div>')?>
+                            <div class="col-md-12 text-center text-md-left text-md-right">
+                                <?= anchor('home/add_to_cart/'.$pd->id,'<div class="add_cart btn btn-cart-det btn-lg float-right mx-2 mt-5"><i class="fas fa-cart-plus mr-2" aria-hidden="true"></i> Add to Cart</div>')?>
+                            </div>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -68,8 +74,8 @@
                 
                 <?php 
                     if(is_category() == 1)
-                    {
-                    $cate=$cat;
+                    {   
+                        $cate =$cat;
                     }
                     elseif (is_category() == 2)
                     {
@@ -126,7 +132,7 @@
                                             <?php else : ?>
                                             <?= anchor('home/add_to_cart/'.$c->id,'<div class="btn btn-cart">Add to Cart</div>')?>
                                             <?php endif;?>
-                                            <?= anchor('home/detail_product/'.$c->id,'<div class="btn-detail">Detail</div>')?>
+                                            <?= anchor('home/detail_product/'.$c->id,'<div class= "btn btn-success bg-success text-light">Detail</div>')?>
                                         </div>						
                                     </div>
                                 </div>
@@ -146,3 +152,8 @@
 </div>
 </div>
 </div>
+<style>
+body {
+    background-color: #eee
+}
+</style>
