@@ -356,7 +356,7 @@ class Home extends CI_Controller {
     
             $this->db->insert('pethotel_order', $data1);
 
-        //redirect('customer/dashboard/my_producto');
+        redirect('customer/dashboard/my_serviceo');
 
     }
 
