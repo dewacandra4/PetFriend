@@ -9,8 +9,15 @@
 
       <?php $sub_total=  $book['price'] * $book['days'];
               $tax=$sub_total*0.05;
-              $total = $tax + $sub_total;?>
-
+              $discount = $sub_total*0.15;
+              if($book['rep'] >=4)
+              {
+                $total = ($tax + $sub_total) - $discount;
+              }
+              else{
+                $total = $tax + $sub_total;
+              }
+              ?> 
       <?php $stop_date = date('d F yy',$book['check_in']);
                 $days =$book['days'];
                 $stop_date2 = strtotime($stop_date . ' +'.$book['days'].'day');
@@ -177,7 +184,7 @@
                 <small class="text-muted">Check In : <?= date('d F yy',$book['check_in']);?></small><br>
                 <small class="text-muted">Check Out : <?= date('d F yy', $stop_date2);?></small>
               </div>
-              <span class="text-muted">RM <?=number_format($sub_total,2,",",".");?> </span>
+              <span class="text-muted">RM <?=number_format($sub_total,2,",",".");?></span>
             </li>
             <li class="list-group-item d-flex justify-content-between bg-light">
               <div class="text-success">
@@ -185,6 +192,14 @@
               </div>
               <span class="text-success">+ RM <?=number_format($tax,2,",",".");?>  </span>
             </li>
+            <?php if($book['rep'] >=4) :  ?>
+            <li class="list-group-item d-flex justify-content-between bg-light">
+              <div class="text-danger">
+                <h6 class="my-0"> Reapeter Guest Discount (15%)</h6>
+              </div>
+              <span class="text-danger">- RM <?=number_format($discount,2,",",".");?>  </span>
+            </li>
+            <?php endif; ?>
             <li class="list-group-item d-flex justify-content-between">
               <span>Total <?=number_format($total,2,",",".");?> (RM)</span>
               <strong></strong>

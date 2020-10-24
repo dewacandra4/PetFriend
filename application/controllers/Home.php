@@ -245,13 +245,21 @@ class Home extends CI_Controller {
             {
                 $p = ( $p + 10);
             }
+
+            $this->db->where('user_id',$result);
+            $this->db->where('order_status', "Order Complete");
+            $rep = $this->db->get('services_order');
+            $comcount = $rep->num_rows();
+
             $book = [
                 'check_in' => $strd,
                 'days' => $this->input->post ('days'),
                 'pet_kind' => $this->input->post ('petkind'),
                 'service_id' => $this->input->post ('service_id'),
                 'price' => $p,
+                'rep' =>  $comcount,
                 'room_type' => $this->input->post ('roomtype')
+                
             ];
             $data['book']= $book;
             $this->load->view('home/header',$data);
