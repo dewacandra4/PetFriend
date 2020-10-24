@@ -6,6 +6,7 @@
       <!-- Heading -->
       <h2 class="my-5 h2 text-center">Checkout form</h2>
       <?php date_default_timezone_set('Asia/Singapore');?>
+
       <?php $sub_total=  $book['price'] * $book['days'];
               $tax=$sub_total*0.05;
               $discount = $sub_total*0.15;

@@ -35,7 +35,7 @@
                     <td><?= $so->name; ?></td>
                     <td><?= date('d F yy', $so->order_date);?></td>
                     <td><?= $so->order_status?></td>
-                    <td><?= anchor('customer/dashboard/view_reciept_service/' .$so->sorder_id,'<div class="btn btn-success"><i class="fa fa-info-circle" aria-hidden="true"></i>
+                    <td><?= anchor('customer/dashboard/view_reciept_hotel/'.$so->sorder_id,'<div class="btn btn-success"><i class="fa fa-info-circle" aria-hidden="true"></i>
                      Detail</div>')?>
                     </tr>
                     <?php $i++; ?>
