@@ -52,7 +52,6 @@ class Model_services extends CI_Model{
         return $result;
     }
 
-}
     //get all pet hotel service order based on user id to verify the payment due date
     public function get_myserviceo2($id)
     {
@@ -61,4 +60,6 @@ class Model_services extends CI_Model{
         $result = $this->db->get('services_order');
         return $result;
     }
+    }
+
 }
