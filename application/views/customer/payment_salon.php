@@ -6,21 +6,8 @@
       <!-- Heading -->
       <h2 class="my-5 h2 text-center">Checkout form</h2>
       <?php date_default_timezone_set('Asia/Singapore');?>
-      <?php $sub_total=  $book['price'] * $book['days'];
-              $tax=$sub_total*0.05;
-              $discount = $sub_total*0.15;
-              if($book['rep'] >=4)
-              {
-                $total = ($tax + $sub_total) - $discount;
-              }
-              else{
-                $total = $tax + $sub_total;
-              }
-              ?> 
-      <?php $stop_date = date('d F yy',$book['check_in']);
-                $days =$book['days'];
-                $stop_date2 = strtotime($stop_date . ' +'.$book['days'].'day');
-                ?>
+      <?php  $tax=$book['price']*0.05;
+             $total = $tax + $book['price'];?> 
       <!--Grid row-->
       <div class="pb-5">
     <div class="container">
@@ -35,7 +22,7 @@
           <div class="card">
 
             <!--Card content-->
-            <form class="card-body"  method="post"  action="<?= base_url('home/order_pethotel');?>" autocomplete="off">
+            <form class="card-body"  method="post"  action="<?= base_url('home/order_petsalon');?>" autocomplete="off">
               <!--Grid row-->
               <div class="row">
 
@@ -101,6 +88,10 @@
                   <input id="M-Bank" name="payment_method" type="radio" class="custom-control-input" value="M-Banking" required>
                   <label class="custom-control-label" for="M-Bank">M-Banking</label>
                 </div>
+                <div class="custom-control custom-radio">
+                  <input id="COD" name="payment_method" type="radio" class="custom-control-input" value="COD" checked required>
+                  <label class="custom-control-label" for="COD">COD (Cash on Delivery)</label>
+                </div>
               </div>
               <div class="Box1" style="display:none">
               <br>
@@ -118,7 +109,7 @@
                     </div>
                     <p>The total amount that you have to transfer is as follows : <input readonly class="form-control w-50 mt-1" type="text" 
                     value="RM <?=number_format($total,2,",",".");?>"> <br>
-                    <Strong>If payment has not been made within 30 minutes, the room order will be canceled automatically</Strong>
+                    <Strong>After payment is made, we will immediately send our officers to pick up your pet to the address you entered</Strong>
                     </p>
                     </blockquote>
                   </div>
@@ -141,7 +132,26 @@
                     </div>
                     <p>The total amount that you have to transfer is as follows : <input readonly class="form-control w-50 mt-1" type="text" 
                     value="RM <?=number_format($total,2,",",".");?>"><br>
-                    <Strong>If payment has not been made within 30 minutes, the room order will be canceled automatically</Strong>
+                    <Strong>After payment is made, we will immediately send our officers to pick up your pet to the address you entered</Strong>
+                    </p>
+                    </blockquote>
+                  </div>
+                </div>
+                <br><br>
+              </div>
+              <div class="Box3" style="display:none">
+              <br>
+              <div class="card">
+                  <div class="card-header">
+                  <Strong> Cash On Delivery</Strong>
+                  </div>
+                  <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                    <img src="<?= base_url().'assets/img/c.png'?>"class="img-fluid mb-3" width="35%">
+                      <p>You can place an order, then pay when our employee pick up your pet</p>
+                    <p>The amount of money that needs to be prepared : <input readonly class="form-control w-50 mt-1" type="text" 
+                    value="RM <?=number_format($total,2,",",".");?>">
+                    <br><strong>Please make sure that address you entered is correct</strong>
                     </p>
                     </blockquote>
                   </div>
@@ -154,7 +164,7 @@
                   </div>
                   <div class="card-body">
                     <blockquote class="blockquote mb-0">
-                      <p>Make sure that your pet is in good health, because we do not accept unhealthy pets when checking in,
+                      <p>Make sure that your pet is in good health, because we do not accept unhealthy pets when pick up,
                        we are not responsible if something unexpected happens because you leave a pet that is not in a good condition.</p>
                     </blockquote>
                   </div>
@@ -163,10 +173,8 @@
               <input type="hidden" name="user_id" value="<?=$user['id'];?>">
               <input type="hidden" name="service_id" value="<?=$book['service_id'];?>">
               <input type="hidden" name="total_price" value="<?= $total;?>">
-              <input type="hidden" name="check_in" value="<?= $book['check_in'];?>">
-              <input type="hidden" name="check_out" value="<?= $stop_date2;?>">
               <input type="hidden" name="pet_kind" value="<?= $book['pet_kind'];?>">
-              <input type="hidden" name="room_type" value="<?= $book['room_type'];?>">
+              <input type="hidden" name="service_type" value="<?= $book['service_type'];?>">
               <button class="add_cart btn btn-cart  rounded py-3 btn-block" type="submit">Continue to checkout</button>
 
             </form>
@@ -183,11 +191,7 @@
           <!-- Heading -->
           <h4 class="d-flex justify-content-between align-items-center mb-3">
             <span class="text-muted">
-            <?php if($book['rep'] >=4) :  ?>
-              Welcome Back!, <?php echo $user['username']; ?><br><br><small>Congratulations on always using our services, so we give you a 15% discount ^^.
-              </small><br><br>
-              <?php endif; ?>
-            Book Detail Summary
+            Order Detail Summary
             </span>
           </h4>
 
@@ -195,13 +199,10 @@
           <ul class="list-group mb-3 z-depth-1">
             <li class="list-group-item d-flex justify-content-between lh-condensed">
               <div>
-                <h4 class="my-0"><?php echo $book['room_type']; ?> Room (<?php echo $book['pet_kind']; ?>)</h4><br>
-                <small class="text-muted">Price per Night : <?php echo $book['price']; ?> RM </small><br>
-                <small class="text-muted">Duration :  <?php echo $book['days']; ?> Night </small><br>
-                <small class="text-muted">Check In : <?= date('d F yy',$book['check_in']);?></small><br>
-                <small class="text-muted">Check Out : <?= date('d F yy', $stop_date2);?></small>
+                <h4 class="my-0"><?php echo $book['service_type']; ?>  for <?php echo $book['pet_kind']; ?></h4><br>
+                <medium class="text-muted">Price per Night : <?php echo $book['price']; ?> RM </medium><br>
               </div>
-              <span class="text-muted">RM <?=number_format($sub_total,2,",",".");?></span>
+              <span class="text-muted">RM <?=number_format($book['price'],2,",",".");?></span>
             </li>
             <li class="list-group-item d-flex justify-content-between bg-light">
               <div class="text-success">
@@ -209,14 +210,6 @@
               </div>
               <span class="text-success">+ RM <?=number_format($tax,2,",",".");?>  </span>
             </li>
-            <?php if($book['rep'] >=4) :  ?>
-            <li class="list-group-item d-flex justify-content-between bg-light">
-              <div class="text-danger">
-                <h6 class="my-0"> Repeater Guest Discount (15%)</h6>
-              </div>
-              <span class="text-danger">- RM <?=number_format($discount,2,",",".");?>  </span>
-            </li>
-            <?php endif; ?>
             <li class="list-group-item d-flex justify-content-between">
               <span>Total <?=number_format($total,2,",",".");?> (RM)</span>
               <strong></strong>
@@ -247,7 +240,12 @@ $('input[type="radio"]').click(function(){
             $(".Box2").show('fast');
             $(".Box1").hide('fast');
             $(".Box3").hide('fast');
-        }        
+        }   
+        if($(this).attr("value")=="COD"){
+            $(".Box3").show('fast');
+            $(".Box1").hide('fast');
+            $(".Box2").hide('fast');
+        }     
     });
 $('input[type="radio"]').trigger('click');
 </Script>

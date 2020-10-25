@@ -48,13 +48,13 @@
 
               <div class="md-form mb-4">
               <label for="address" class="ml-1">Full Name</label>
-                <input type="text" id="address" class="form-control" value="<?=$user['name'];?>">
+                <input type="text" id="address" class="form-control" value="<?=$user['name'];?>" required>
               </div>
 
               <!--email-->
               <div class="md-form mb-4">
               <label for="email" class="ml-1">Email</label>
-                <input type="text" id="email" class="form-control" placeholder="eg: youremail@example.com" value="<?=$user['email'];?>">
+                <input type="text" id="email" class="form-control" placeholder="eg: youremail@example.com" value="<?=$user['email'];?>" required>
               </div>
 
               <div class="md-form mb-4">
@@ -71,7 +71,7 @@
                  <!--address-->
                 <div class="md-form mb-2">
                 <label for="delivery_address" class="ml-1">Address</label>
-                <input type="text" name="delivery_address" class="form-control" placeholder="eg: 1234 Main St" value="<?=$user['address'];?>">
+                <input type="text" name="delivery_address" class="form-control" placeholder="eg: 1234 Main St" value="<?=$user['address'];?>" required>
                 </div>
 
                 </div>

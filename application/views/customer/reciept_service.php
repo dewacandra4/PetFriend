@@ -45,7 +45,9 @@
                 </div>
                 <?php endforeach; ?>
                 <hr>
+
                 <!-- PET HOTEL -->
+                <?php if ($soi->service_id == 1) : ?>
                 <?php foreach ($pethotel as $ph): ?>
                 <!-- get days -->
                 <?php $ci = strtotime(date('d F yy',$ph->check_in));
@@ -102,9 +104,9 @@
                     <div class="col-md-6">
                         <div class="billing">
                             <div class="d-flex justify-content-between"><span>Subtotal</span><span class="font-weight-bold">RM <?php echo number_format($sub_total,2)."<br>";?></span></div>
-                            <div class="d-flex justify-content-between mt-2"><span>Tax</span><span class="font-weight-bold text-success">+RM <?php echo number_format($tax,2)."<br>";?> </span></div>
+                            <div class="d-flex justify-content-between mt-2"><span>Tax (5%)</span><span class="font-weight-bold text-success">+RM <?php echo number_format($tax,2)."<br>";?> </span></div>
                             <?php if($guest['rep'] >=4) :?>
-                            <div class="d-flex justify-content-between mt-2"><span>Repeater Guset Discount</span><span class="font-weight-bold text-danger">-RM <?=number_format($discount,2,",",".")."<br>";?> </span></div>
+                            <div class="d-flex justify-content-between mt-2"><span>Repeater Guset Discount (15%)</span><span class="font-weight-bold text-danger">-RM <?=number_format($discount,2,",",".")."<br>";?> </span></div>
                             <?php endif; ?>
                             <hr>
                             <div class="d-flex justify-content-between mt-1"><span class="font-weight-bold">Total</span><span class="font-weight-bold">
@@ -121,6 +123,47 @@
             <div class="alert alert-warning">
             <p> If the payment has not been made, the order will be canceled in: <strong id="demo"></strong></p>
             </div> 
+            <?php endif; ?>
+            <?php endif; ?>
+
+            <!-- PET SALON -->
+            <?php if ($soi->service_id == 3) : ?>
+                <?php foreach ($petsalon as $ps): ?>
+                <!-- Count Price -->
+                <?php
+                $price= $guest['price'];
+                if($ps->service_type =="All in One") 
+                {
+                    $price= $guest['price'] + 5;
+                }
+                $sub_total= $price;
+                $tax=$sub_total*0.05;
+                $total = $tax + $sub_total;
+                ?> 
+                <div class="d-flex justify-content-between align-items-center product-details">
+                <div>
+                <br>
+                <h3 class="my-0"><i class="fas fa-pump-medical"></i> <?= $ps->service_type; ?></h3><br>
+                <medium class="text-muted"><i class="fas fa-paw"></i> Pet : <?= $ps->pet_kind;?></medium><br>
+                <medium class="text-muted"><i class="fas fa-money-check-alt"></i> Price :  RM <?= number_format($price,2,",",".")?></medium><br>
+              </div>
+              <div class="product-price">
+                        <span class="fs-17">RM <?php echo number_format($sub_total,2)?></span>
+                    </div>
+                </div>
+                <div class="mt-5 amount row">
+                    <div class="d-flex justify-content-center col-md-6 "></div>
+                    <div class="col-md-6">
+                        <div class="billing">
+                            <div class="d-flex justify-content-between"><span>Subtotal</span><span class="font-weight-bold">RM <?php echo number_format($sub_total,2)."<br>";?></span></div>
+                            <div class="d-flex justify-content-between mt-2"><span>Tax (5%)</span><span class="font-weight-bold text-success">+RM <?php echo number_format($tax,2)."<br>";?> </span></div>
+                            <hr>
+                            <div class="d-flex justify-content-between mt-1"><span class="font-weight-bold">Total</span><span class="font-weight-bold">
+                                RM <?php echo number_format($total,2)."<br>";?></span></div>
+                        </div>
+                    </div>
+            </div>
+            <?php endforeach; ?> 
             <?php endif; ?>
         </div>
     </div>
