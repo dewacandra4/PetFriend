@@ -59,7 +59,7 @@
                 </td>
                 <td class="border-1 align-middle"><strong>RM <?php echo $this->cart->format_number($items['subtotal']); ?></strong></td>
                   <td class="border-1 align-middle"><button type="submit" class="btn btn-success"><i class="fa fa-edit"></i> Update Qty</button></td>
-                  <td class="border-1 align-middle"><?= anchor('Home/Remove_cart/'.$items['rowid'],'<div class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"> Remove</i></div>')?>
+                  <td class="border-1 align-middle"><?= anchor('Home/Remove_cart/'.$items['rowid'],'<div class="btn btn-danger"><i class="fas fa-trash"></i> Remove</div>')?>
                 </form>
                 </td>
                 </tr>
