@@ -104,9 +104,9 @@
                     <div class="col-md-6">
                         <div class="billing">
                             <div class="d-flex justify-content-between"><span>Subtotal</span><span class="font-weight-bold">RM <?php echo number_format($sub_total,2)."<br>";?></span></div>
-                            <div class="d-flex justify-content-between mt-2"><span>Tax</span><span class="font-weight-bold text-success">+RM <?php echo number_format($tax,2)."<br>";?> </span></div>
+                            <div class="d-flex justify-content-between mt-2"><span>Tax (5%)</span><span class="font-weight-bold text-success">+RM <?php echo number_format($tax,2)."<br>";?> </span></div>
                             <?php if($guest['rep'] >=4) :?>
-                            <div class="d-flex justify-content-between mt-2"><span>Repeater Guset Discount</span><span class="font-weight-bold text-danger">-RM <?=number_format($discount,2,",",".")."<br>";?> </span></div>
+                            <div class="d-flex justify-content-between mt-2"><span>Repeater Guset Discount (15%)</span><span class="font-weight-bold text-danger">-RM <?=number_format($discount,2,",",".")."<br>";?> </span></div>
                             <?php endif; ?>
                             <hr>
                             <div class="d-flex justify-content-between mt-1"><span class="font-weight-bold">Total</span><span class="font-weight-bold">
@@ -136,7 +136,7 @@
                 {
                     $price= $guest['price'] + 5;
                 }
-                $sub_total= $guest['price'];
+                $sub_total= $price;
                 $tax=$sub_total*0.05;
                 $total = $tax + $sub_total;
                 ?> 
