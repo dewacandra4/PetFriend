@@ -185,9 +185,9 @@ class Home extends CI_Controller {
         $this->load->view('home/searchP',$data);
         $this->load->view('home/footer');
     }
-//customer must login before check out from cart
+
     public function check_out()
-    {
+    {//customer must login before check out from cart
         if($this->cart->total_items() == 0)
         {
             redirect('customer/dashboard/my_producto');
@@ -209,16 +209,15 @@ class Home extends CI_Controller {
             $query = $this->db->query("SELECT * FROM `user` WHERE `id` = $result");
             $row = $query->row_array();
             $data['customer']= $row;
-            $data['title'] = 'Payment';
+            $data['title'] = 'Payment Product';
             $this->load->view('home/header',$data);
             $this->load->view('customer/payment',$data);
             $this->load->view('home/footer');
         }
     }
 
-    //customer must login before book a pet hotel
     public function check_out_hotel()
-    {
+    {    //customer must login before book a pet hotel
         date_default_timezone_set('Asia/Singapore');
         $lol = $this->session->userdata('username');
         if ($lol==null) 
@@ -237,7 +236,7 @@ class Home extends CI_Controller {
             $query = $this->db->query("SELECT * FROM `user` WHERE `id` = $result");
             $row = $query->row_array();
             $data['customer']= $row;
-            $data['title'] = 'Payment';
+            $data['title'] = 'Payment Hotel';
             $d= $this->input->post ('check-in');
             $strd=strtotime($d);
             $p= $this->input->post ('base_price');
@@ -269,6 +268,47 @@ class Home extends CI_Controller {
             $data['book']= $book;
             $this->load->view('home/header',$data);
             $this->load->view('customer/payment_hotel',$data);
+            $this->load->view('home/footer');
+        }
+
+    }
+ 
+    public function check_out_salon()
+    {//customer must login before Order Salon Service
+        date_default_timezone_set('Asia/Singapore');
+        $lol = $this->session->userdata('username');
+        if ($lol==null) 
+        {
+            $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">You have to logged in 
+            before Order Salon Service <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button></div>');
+            redirect('auth/login');
+        } 
+        else
+        {
+            $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
+            $lol = $this->session->userdata('username');
+            $result= $this->db->query("SELECT `id` FROM `user` WHERE `username` = '$lol'")->row()->id;
+            $query = $this->db->query("SELECT * FROM `user` WHERE `id` = $result");
+            $row = $query->row_array();
+            $data['customer']= $row;
+            $data['title'] = 'Payment Salon';
+            $p= $this->input->post ('base_price');
+            if($this->input->post ('service_type') == "All in One")
+            {
+                $p = ( $p + 5);
+            }
+            $book = [
+                'pet_kind' => $this->input->post ('petkind'),
+                'service_id' => $this->input->post ('service_id'),
+                'price' => $p,
+                'service_type' => $this->input->post ('service_type')
+                
+            ];
+            $data['book']= $book;
+            $this->load->view('home/header',$data);
+            $this->load->view('customer/payment_salon',$data);
             $this->load->view('home/footer');
         }
 
@@ -365,6 +405,53 @@ class Home extends CI_Controller {
 
             redirect('customer/dashboard/view_reciept_service/'.$sordert);
 
+    }
+
+    //ordering Pet Salon
+    public function order_petsalon()
+    {
+        date_default_timezone_set('Asia/Singapore');
+        $user_id = $this->input->post ('user_id');
+        $method_pay = $this->input->post ('payment_method');
+        if($method_pay == "COD")
+        {
+            $data = [
+                'service_id' => $this->input->post ('service_id'),
+                'user_id' => $user_id,
+                'order_status' => "On Process",
+                'order_date' => time(),
+                'total_price' => $this->input->post ('total_price'),
+                'payment_method' => $this->input->post ('payment_method'),
+                'customer_address' => $this->input->post ('customer_address')
+            ];
+        }
+        else
+        {
+            $data = [
+                'service_id' => $this->input->post ('service_id'),
+                'user_id' => $user_id,
+                'order_status' => "Awaiting Payment",
+                'order_date' => time(),
+                'total_price' => $this->input->post ('total_price'),
+                'payment_method' => $this->input->post ('payment_method'),
+                'customer_address' => $this->input->post ('customer_address')
+            ];
+        }
+
+        $this->db->insert('services_order', $data);
+
+        $sordert = $this->db->query("SELECT `sorder_id` FROM `services_order` WHERE `user_id` = '$user_id'
+        ORDER BY `sorder_id` DESC LIMIT 1")->row()->sorder_id;
+
+            $data1 = [
+                'sorder_id' => $sordert,
+                'pet_kind'  => $this->input->post ('pet_kind'),
+                'service_type'  => $this->input->post ('service_type')
+            ];
+    
+            $this->db->insert('petsalon_order', $data1);
+
+            redirect('customer/dashboard/view_reciept_service/'.$sordert);
     }
 
 
@@ -507,6 +594,14 @@ class Home extends CI_Controller {
             $data['services'] = $this->model_services->detail_service($id);
             $this->load->view('home/header',$data);
             $this->load->view('Home/pethotelo',$data);
+            $this->load->view('home/footer');
+        }
+        if($id == 3)
+        {
+            $data['title'] = 'Pet Salon';
+            $data['services'] = $this->model_services->detail_service($id);
+            $this->load->view('home/header',$data);
+            $this->load->view('Home/petsalono',$data);
             $this->load->view('home/footer');
         }
 
