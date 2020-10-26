@@ -112,15 +112,12 @@ class Model_services extends CI_Model{
     }
 
     //get the responsible veterinarian based on order
-    public function get_myserviceo($id, $limit, $start)
+    public function get_vet_data($oid)
     {
         $this->db->select('*');
-        $this->db->from('services_order');
-        $this->db->join('services', 'services.id = services_order.service_id');
-        $this->db->where('services_order.user_id', $id);
-        $this->db->where('services_order.order_status', "Awaiting Payment");
-        $this->db->or_where('services_order.order_status', "On Process");
-        $this->db->limit($limit, $start);
+        $this->db->from('user');
+        $this->db->join('pethealth_order', 'pethealth_order.doc_id = user.id');
+        $this->db->where('pethealth_order.sorder_id', $oid);
         $result = $this->db->get();
         return $result;
     }

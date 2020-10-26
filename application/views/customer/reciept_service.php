@@ -169,6 +169,7 @@
             <!-- PET HEALTH -->
             <?php if ($soi->service_id == 2) : ?>
                 <?php foreach ($pethealth as $ps): ?>
+                <?php foreach ($vete as $v): ?>
                 <!-- Count Price -->
                 <?php
                 $price= $guest['price'];
@@ -178,13 +179,26 @@
                 <div class="d-flex justify-content-between align-items-center product-details">
                 <div>
                 <br>
-                <h3 class="my-0"><i class="fas fa-pump-medical"></i> <?= $ps->service_type; ?></h3><br>
-                <medium class="text-muted"><i class="fas fa-paw"></i> Pet : <?= $ps->pet_kind;?></medium><br>
+                <h5 class="my-0"><img src="<?= base_url().'/assets/dp/'.$v->image;?>" width="100"> Responsible Veterinarian : </h5><br>
+                <medium class="text-muted"><i class="fas fa-file-signature"></i> Name : <?= $v->name;?>,PhD</medium><br>
+                <medium class="text-muted"><i class="fas fa-at"></i> Email : <?= $v->email;?></medium><br>
+                <medium class="text-muted"><i class="fas fa-id-card-alt"></i> VET ID : <?= $ps->doc_id;?></medium><br>
                 <medium class="text-muted"><i class="fas fa-money-check-alt"></i> Price :  RM <?= number_format($price,2,",",".")?></medium><br>
+                <hr>
+                <h5 class="my-0">Order Info : </h5><br>
+                <medium class="text-muted"><i class="fas fa-paw"></i> Pet : <?= $ps->pet_kind;?></medium><br>
+                <medium class="text-muted"><i class="fas fa-file-alt"></i> Diagnosis File : 
+                <?= anchor('customer/dashboard/download/'.$ps->diagnosis_file,'<div class="btn btn-danger"><i class="fas fa-trash"></i> Remove</div>')?>
+                </medium><br>
+                <medium class="text-muted"><i class="fas fa-comments"></i> Pet Complaint :</medium><br>
+                <div class="card">
+                <div class="card-body">
+                <?php echo nl2br($ps->pet_complaint);?>
+
+                </div>
+                </div>
+                <hr>
               </div>
-              <div class="product-price">
-                        <span class="fs-17">RM <?php echo number_format($price,2)?></span>
-                    </div>
                 </div>
                 <div class="mt-5 amount row">
                     <div class="d-flex justify-content-center col-md-6 "></div>
@@ -198,6 +212,7 @@
                         </div>
                     </div>
             </div>
+            <?php endforeach; ?> 
             <?php endforeach; ?> 
             <br><br>
             <div class="alert alert-warning">

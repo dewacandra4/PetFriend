@@ -339,8 +339,8 @@ class dashboard extends CI_Controller
         {
             $price=$this->db->query("SELECT `price` FROM `services` WHERE `id` = '2'")->row()->price;
             $data['pethealth'] = $this->model_services->get_myhealth_detail($oid)->result();
-            $doc= $this->db->query("SELECT `doc_id` FROM `pethealth_order` WHERE `sorder_id` = '$oid'")->row()->sorder_id;
-
+            $doc= $this->db->query("SELECT `doc_id` FROM `pethealth_order` WHERE `sorder_id` = '$oid'")->row()->doc_id;
+            $data['vete'] = $this->model_services->get_vet_data($oid)->result();
         }
         
         if($service_type == 3)
@@ -417,6 +417,15 @@ class dashboard extends CI_Controller
         </button></div>');
         redirect('customer/dashboard/my_producto');
 
+    }
+    //to download diagnosis result file
+    public function download($a)
+    {
+        $this->load->helper('download');
+        $Path = './assets/diagnosis/'.$a;
+        $data = file_get_contents($Path);
+        $name = $a;
+        force_download($name, $data);
     }
 
 
