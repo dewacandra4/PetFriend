@@ -604,6 +604,21 @@ class Home extends CI_Controller {
             $this->load->view('Home/petsalono',$data);
             $this->load->view('home/footer');
         }
+        if($id == 2)
+        {
+            $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
+            $lol = $this->session->userdata('username');
+            $result= $this->db->query("SELECT `id` FROM `user` WHERE `username` = '$lol'")->row()->id;
+            $query = $this->db->query("SELECT * FROM `user` WHERE `id` = $result");
+            $row = $query->row_array();
+            $data['customer']= $row;
+            $data['title'] = 'Pet Health';
+            $data['vet'] = $this->model_services->get_vet();
+            $data['services'] = $this->model_services->detail_service($id);
+            $this->load->view('home/header',$data);
+            $this->load->view('Home/pethealtho',$data);
+            $this->load->view('home/footer');
+        }
 
     }
 }
