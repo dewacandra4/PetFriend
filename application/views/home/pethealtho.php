@@ -28,6 +28,7 @@
     <br>
     <?php if(is_admin() == 1) :?>
   <?php elseif(is_admin() == 3) : ?>
+    <?php elseif(is_admin() == null) : ?>
   <?php else : ?>
     <a href="#order" class="add_cart btn btn-cart  rounded py-3">Order Now</a>
     <?php endif; ?>
@@ -60,17 +61,53 @@
       </div>
   </section>
 
-  <!-- Keuntungan -->
+  <section class="features-icons bg-light text-center">
+     <h2>Our Veterinarians</h2> 
+    <div class="container">
+    <div class="table-responsive">
+    <table class="table table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">VET ID</th>
+      <th scope="col">Pic</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+    </tr>
+  </thead>
+  <tbody>
+  <?php $i=1?>
+  <?php foreach ($veterinarian as $v): ?>
+    <tr>
+      <th scope="row"><?php echo $i;?></th>
+      <td><?= $v->id?></td>
+      <td><img src="<?= base_url().'/assets/dp/'.$v->image;?>" width="100"></td>
+      <td><?= $v->name?>, PhD</td>
+      <td><?= $v->email?></td>
+    </tr>
+    <?php $i++;?>
+    <?php endforeach; ?>
+    </tbody>
+    </table>
+    </div>
+    </div>
+  </section>
+
   <?php if(is_admin() == 1) :?>
   <?php elseif(is_admin() == 3) : ?>
+  <?php elseif(is_admin() == null) : ?>
+    <div class="alert alert-warning" role="alert">
+      <h3 class="text-center">Please Log In before order pet health <i class="fa fa-frown-o" aria-hidden="true"></i></h3>
+                </div>
   <?php else : ?>
   <section class="features-icons bg-white text-center" id="order" style="background-image: url(<?= base_url().'/assets/img/bg4.jpg'?>);">
   <h2>Order Form</h2> 
   <?php if($s->is_available == 0) :?>
                   <div class="alert alert-warning" role="alert"><h3>
-                  We are so sorry, there is no available Slot for now <i class="fa fa-frown-o" aria-hidden="true"></i></h3>
+                  We are so sorry, there is no available Veterinarian for now <i class="fa fa-frown-o" aria-hidden="true"></i></h3>
                 </div>
     <?php else:?>
+      <?= $this->session->flashdata('message'); ?>
     <div class="container">
           <div class="card-body p-0">
             <div class="row">
@@ -82,7 +119,7 @@
                   <div class="text-center">
                   </div>
                   <br>
-                  <form method="post" action="<?= base_url('Home/check_out_salon')?>" class="user">
+                  <?=form_open_multipart('home/order_pethealth');?>
                   <div class="row">
                   <div class="col">
                     <div class="form-group">
@@ -111,10 +148,10 @@
 
                     <div class="form-group">
                     <h5> <i class="fas fa-user-nurse"></i>
-                    Select Veterinarians (ID) :  </h5>
+                    Select VET (ID) :  </h5>
                     <select class="form-control" name="doc_id" required>
-                    <?php foreach ($vet as $vetere): ?>
-                    <option><?php echo $vetere->id;?></option>
+                    <?php foreach ($veterinarian as $v): ?>
+                    <option><?=$v->id;?></option>
                     <?php endforeach; ?>
                     </select>
                     </div>
@@ -134,9 +171,17 @@
                     <textarea name="pet_complaint" rows="3" class="form-control"> </textarea>
                     </div>
 
-                    <br>
+                    <h5><i class="fas fa-file-alt"></i>
+                    Attach diagnosis result (Optional) :  </h5>
+                    <div class="custom-file mb-3">
+                    <input type="file" class="custom-file-input" id="diagnosis_file" name="diagnosis_file">
+                    <label class="custom-file-label" for="diagnosis_file">Choose File</label>
+                    </div>
+
+                    <br><br>
                       <input type="hidden" name="base_price" value="<?= $s->price ?>">
                       <input type="hidden" name="service_id" value="<?= $s->id ?>">
+                      <input type="hidden" name="user_id" value="<?=$user['id'];?>">
                       <button type="submit" class="btn genric-btn danger-border circle btn-block">Order</button>
                     <br>
                   </form>
@@ -152,6 +197,15 @@
 </body>
 
 </html>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script>
+$(".custom-file-input").on("change", function() {
+  var fileName = $(this).val().split("\\").pop();
+  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+});
+</script>
 
 <style>
 html {

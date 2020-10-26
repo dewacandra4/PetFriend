@@ -454,6 +454,68 @@ class Home extends CI_Controller {
             redirect('customer/dashboard/view_reciept_service/'.$sordert);
     }
 
+    //ordering Pet Salon
+    public function order_pethealth()
+    {
+            $file="";
+            $user_id = $this->input->post ('user_id');
+            $petkind = $this->input->post ('pet_kind');
+            $petc = $this->input->post ('pet_complaint');
+            $doc = $this->input->post ('doc_id');
+            $upload_file = $_FILES['diagnosis_file']['name'];
+
+			if($upload_file)
+            {
+                $config['upload_path'] = './assets/diagnosis/';
+                $config['max_size']     = '2048';
+                $config['allowed_types'] = 'pdf';
+
+                $this->load->library('upload', $config);//load librari upload
+            
+
+                if (!$this->upload->do_upload('diagnosis_file'))
+                {
+                    $error = array('error' => $this->upload->display_errors());
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Error file extension or file larger than 2MB <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button></div>');
+                    redirect('home/detail_services/2#order');
+                }
+                else
+                {
+                    $file = $this->upload->data('file_name');
+                }
+            
+            }
+            
+
+            date_default_timezone_set('Asia/Singapore');
+            $data = [
+                'service_id' => $this->input->post ('service_id'),
+                'user_id' => $user_id,
+                'order_status' => "On Process",
+                'order_date' => time(),
+                'total_price' => $this->input->post ('base_price'),
+                'payment_method' => "COD",
+                'customer_address' => $this->input->post ('customer_address')
+            ];
+
+            $this->db->insert('services_order', $data);
+
+            $sordert = $this->db->query("SELECT `sorder_id` FROM `services_order` WHERE `user_id` = '$user_id'
+            ORDER BY `sorder_id` DESC LIMIT 1")->row()->sorder_id;
+            
+                
+                $this->db->set('sorder_id', $sordert);
+                $this->db->set('pet_kind', $petkind);
+                $this->db->set('pet_complaint', $petc);
+                $this->db->set('diagnosis_file', $file);
+                $this->db->set('doc_id', $doc);
+                $this->db->insert('pethealth_order');
+
+            redirect('customer/dashboard/view_reciept_service/'.$sordert);
+    }
+
 
 	public function detail_product($id)
 	{
@@ -608,16 +670,29 @@ class Home extends CI_Controller {
         {
             $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
             $lol = $this->session->userdata('username');
-            $result= $this->db->query("SELECT `id` FROM `user` WHERE `username` = '$lol'")->row()->id;
-            $query = $this->db->query("SELECT * FROM `user` WHERE `id` = $result");
-            $row = $query->row_array();
-            $data['customer']= $row;
-            $data['title'] = 'Pet Health';
-            $data['vet'] = $this->model_services->get_vet();
-            $data['services'] = $this->model_services->detail_service($id);
-            $this->load->view('home/header',$data);
-            $this->load->view('Home/pethealtho',$data);
-            $this->load->view('home/footer');
+            if ($lol==null)
+            {
+                $data['veterinarian'] = $this->model_services->get_vet(3)->result();
+                $data['services'] = $this->model_services->detail_service($id);
+                $this->load->view('home/header',$data);
+                $this->load->view('Home/pethealtho',$data);
+                $this->load->view('home/footer');
+            }
+            else
+            {
+                $result= $this->db->query("SELECT `id` FROM `user` WHERE `username` = '$lol'")->row()->id;
+                $query = $this->db->query("SELECT * FROM `user` WHERE `id` = $result");
+                $row = $query->row_array();
+                $data['customer']= $row;
+                $data['title'] = 'Pet Health';
+                $data['veterinarian'] = $this->model_services->get_vet(3)->result();
+                $data['services'] = $this->model_services->detail_service($id);
+                $this->load->view('home/header',$data);
+                $this->load->view('Home/pethealtho',$data);
+                $this->load->view('home/footer');
+
+            }
+            
         }
 
     }

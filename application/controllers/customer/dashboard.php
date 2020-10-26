@@ -339,6 +339,8 @@ class dashboard extends CI_Controller
         {
             $price=$this->db->query("SELECT `price` FROM `services` WHERE `id` = '2'")->row()->price;
             $data['pethealth'] = $this->model_services->get_myhealth_detail($oid)->result();
+            $doc= $this->db->query("SELECT `doc_id` FROM `pethealth_order` WHERE `sorder_id` = '$oid'")->row()->sorder_id;
+
         }
         
         if($service_type == 3)

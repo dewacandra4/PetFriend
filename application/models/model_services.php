@@ -105,10 +105,23 @@ class Model_services extends CI_Model{
         return $this->db->get_where("pethealth_order", array('sorder_id'=> $oid));
     }
 
-    //get all available vetereniarian
-    public function get_vet()
+    //get service order based on service order id
+    public function get_vet($role_id)
     {
-        $this->db->where('role_id', 3);
-        return $this->db->get('user')->result_array();
+        return $this->db->get_where("user", array('role_id'=> $role_id));
+    }
+
+    //get the responsible veterinarian based on order
+    public function get_myserviceo($id, $limit, $start)
+    {
+        $this->db->select('*');
+        $this->db->from('services_order');
+        $this->db->join('services', 'services.id = services_order.service_id');
+        $this->db->where('services_order.user_id', $id);
+        $this->db->where('services_order.order_status', "Awaiting Payment");
+        $this->db->or_where('services_order.order_status', "On Process");
+        $this->db->limit($limit, $start);
+        $result = $this->db->get();
+        return $result;
     }
 }
