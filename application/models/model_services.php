@@ -104,4 +104,21 @@ class Model_services extends CI_Model{
     {
         return $this->db->get_where("pethealth_order", array('sorder_id'=> $oid));
     }
+
+    //get service order based on service order id
+    public function get_vet($role_id)
+    {
+        return $this->db->get_where("user", array('role_id'=> $role_id));
+    }
+
+    //get the responsible veterinarian based on order
+    public function get_vet_data($oid)
+    {
+        $this->db->select('*');
+        $this->db->from('user');
+        $this->db->join('pethealth_order', 'pethealth_order.doc_id = user.id');
+        $this->db->where('pethealth_order.sorder_id', $oid);
+        $result = $this->db->get();
+        return $result;
+    }
 }

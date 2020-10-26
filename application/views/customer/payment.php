@@ -59,7 +59,7 @@
 
               <div class="md-form mb-4">
               <label for="delivery_note" class="ml-1">Devlivery Note (optional)</label>
-                <input type="text" name="delivery_note" class="form-control"  placeholder="eg: left the items at the gate">
+                <textarea rows="3" name="delivery_note" class="form-control" ></textarea>
               </div>
 
               <!--Grid row-->

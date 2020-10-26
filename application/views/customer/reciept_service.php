@@ -165,6 +165,61 @@
             </div>
             <?php endforeach; ?> 
             <?php endif; ?>
+
+            <!-- PET HEALTH -->
+            <?php if ($soi->service_id == 2) : ?>
+                <?php foreach ($pethealth as $ps): ?>
+                <?php foreach ($vete as $v): ?>
+                <!-- Count Price -->
+                <?php
+                $price= $guest['price'];
+                $tax=$price*0.05;
+                $total = $tax + $price;
+                ?> 
+                <div class="d-flex justify-content-between align-items-center product-details">
+                <div>
+                <br>
+                <h5 class="my-0"><img src="<?= base_url().'/assets/dp/'.$v->image;?>" width="100"> Responsible Veterinarian : </h5><br>
+                <medium class="text-muted"><i class="fas fa-file-signature"></i> Name : <?= $v->name;?>,PhD</medium><br>
+                <medium class="text-muted"><i class="fas fa-at"></i> Email : <?= $v->email;?></medium><br>
+                <medium class="text-muted"><i class="fas fa-id-card-alt"></i> VET ID : <?= $ps->doc_id;?></medium><br>
+                <medium class="text-muted"><i class="fas fa-money-check-alt"></i> Price :  RM <?= number_format($price,2,",",".")?></medium><br>
+                <hr>
+                <h5 class="my-0">Order Info : </h5><br>
+                <medium class="text-muted"><i class="fas fa-paw"></i> Pet : <?= $ps->pet_kind;?></medium><br>
+                <medium class="text-muted"><i class="fas fa-comments"></i> Pet Complaint :</medium><br>
+                <div class="card">
+                <div class="card-body">
+                <?php echo nl2br($ps->pet_complaint);?>
+                </div>
+                </div>
+                <hr>
+              </div>
+                </div>
+                <div class="mt-5 amount row">
+                    <div class="d-flex justify-content-center col-md-6 "></div>
+                    <div class="col-md-6">
+                        <div class="billing">
+                            <div class="d-flex justify-content-between"><span>Subtotal</span><span class="font-weight-bold">RM <?php echo number_format($price,2)."<br>";?></span></div>
+                            <div class="d-flex justify-content-between mt-2"><span>Tax (5%)</span><span class="font-weight-bold text-success">+RM <?php echo number_format($tax,2)."<br>";?> </span></div>
+                            <hr>
+                            <div class="d-flex justify-content-between mt-1"><span class="font-weight-bold">Total</span><span class="font-weight-bold">
+                                RM <?php echo number_format($total,2)."<br>";?></span></div>
+                        </div>
+                    </div>
+            </div>
+            <?php if (!$ps->diagnosis_file == null) : ?>
+            <br><br><h6 class="text-muted"><i class="fas fa-file-alt"></i> Diagnosis File : 
+            <?= anchor('customer/dashboard/download/'.$ps->diagnosis_file,'<div class="btn btn-success"><i class="fas fa-download"></i> Download</div>')?></h6>
+            <?php endif; ?>
+            <br>
+            <?php endforeach; ?> 
+            <?php endforeach; ?> 
+            <div class="alert alert-warning">
+            <p> Total price <strong> RM <?php echo number_format($total,2);?></strong>
+            is only a fee for veterinarians, for the cost of treatment and care will vary depending on the type of treatment and treatment</p>
+            </div> 
+            <?php endif; ?>
         </div>
     </div>
 </div>
