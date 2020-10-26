@@ -187,14 +187,10 @@
                 <hr>
                 <h5 class="my-0">Order Info : </h5><br>
                 <medium class="text-muted"><i class="fas fa-paw"></i> Pet : <?= $ps->pet_kind;?></medium><br>
-                <medium class="text-muted"><i class="fas fa-file-alt"></i> Diagnosis File : 
-                <?= anchor('customer/dashboard/download/'.$ps->diagnosis_file,'<div class="btn btn-danger"><i class="fas fa-trash"></i> Remove</div>')?>
-                </medium><br>
                 <medium class="text-muted"><i class="fas fa-comments"></i> Pet Complaint :</medium><br>
                 <div class="card">
                 <div class="card-body">
                 <?php echo nl2br($ps->pet_complaint);?>
-
                 </div>
                 </div>
                 <hr>
@@ -212,9 +208,13 @@
                         </div>
                     </div>
             </div>
+            <?php if (!$ps->diagnosis_file == null) : ?>
+            <br><br><h6 class="text-muted"><i class="fas fa-file-alt"></i> Diagnosis File : 
+            <?= anchor('customer/dashboard/download/'.$ps->diagnosis_file,'<div class="btn btn-success"><i class="fas fa-download"></i> Download</div>')?></h6>
+            <?php endif; ?>
+            <br>
             <?php endforeach; ?> 
             <?php endforeach; ?> 
-            <br><br>
             <div class="alert alert-warning">
             <p> Total price <strong> RM <?php echo number_format($total,2);?></strong>
             is only a fee for veterinarians, for the cost of treatment and care will vary depending on the type of treatment and treatment</p>
