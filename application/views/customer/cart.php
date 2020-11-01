@@ -17,12 +17,12 @@
                   <div class="alert alert-warning" role="alert">
                   There is no items in your cart, if you like to check our available products click <a href="<?=base_url('home/products');?>" class="alert-link">Here</a>
                 </div>
+                <?php else:?>
   <div class="pb-5">
     <div class="container">
       <div class="row">
         <div class="col-lg-12 p-10 bg-white rounded shadow-sm mb-5">
           <!-- Shopping cart table -->
-          <?php else:?>
             <div class="table-responsive">
             <table class="table table-bordered">
               <thead>
