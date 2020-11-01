@@ -245,9 +245,9 @@ class dashboard extends CI_Controller
                 if(time() - $so->order_date > (60 * 60 * 0.5))
                 {
                     $soid=$so->sorder_id;
-                    $this->_sendEmail($soid,$email,$namee,'hotel');
                     $this->db->where('sorder_id', $so->sorder_id);
                     $this->db->delete('services_order');
+                    $this->_sendEmail($soid,$email,$namee,'hotel');
                     redirect('customer/dashboard/my_serviceo');
                 }
             }
