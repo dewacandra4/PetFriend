@@ -13,14 +13,14 @@
     </p>
   </div>
   <?= $this->session->flashdata('message'); ?>
+  <?php if(empty($this->cart->contents())) :?>
+                  <div class="alert alert-warning" role="alert">
+                  There is no items in your cart, if you like to check our available products click <a href="<?=base_url('home/products');?>" class="alert-link">Here</a>
+                </div>
   <div class="pb-5">
     <div class="container">
       <div class="row">
         <div class="col-lg-12 p-10 bg-white rounded shadow-sm mb-5">
-        <?php if(empty($this->cart->contents())) :?>
-                  <div class="alert alert-warning" role="alert">
-                  There is no items in your cart, if you like to check our available products click <a href="<?=base_url('home/products');?>" class="alert-link">Here</a>
-                </div>
           <!-- Shopping cart table -->
           <?php else:?>
             <div class="table-responsive">
