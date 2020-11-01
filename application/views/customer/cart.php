@@ -12,6 +12,7 @@
 <br>select "Update Qty" button to update the quantity and recalculate the cost</p>
     </p>
   </div>
+  <?= $this->session->flashdata('message'); ?>
   <div class="pb-5">
     <div class="container">
       <div class="row">
@@ -21,7 +22,6 @@
                   There is no items in your cart, if you like to check our available products click <a href="<?=base_url('home/products');?>" class="alert-link">Here</a>
                 </div>
           <!-- Shopping cart table -->
-          <?= $this->session->flashdata('message'); ?>
           <?php else:?>
             <div class="table-responsive">
             <table class="table table-bordered">
