@@ -179,14 +179,18 @@
                 <div class="d-flex justify-content-between align-items-center product-details">
                 <div>
                 <br>
-                <h5 class="my-0"><img src="<?= base_url().'/assets/dp/'.$v->image;?>" width="100"> Responsible Veterinarian : </h5><br>
+                <h6 class="my-0"><strong>Responsible Veterinarian : </strong></h6><br>
+                <img src="<?= base_url().'/assets/dp/'.$v->image;?>" width="100"> <br><br>
                 <medium class="text-muted"><i class="fas fa-file-signature"></i> Name : <?= $v->name;?>,PhD</medium><br>
                 <medium class="text-muted"><i class="fas fa-at"></i> Email : <?= $v->email;?></medium><br>
                 <medium class="text-muted"><i class="fas fa-id-card-alt"></i> VET ID : <?= $ps->doc_id;?></medium><br>
                 <medium class="text-muted"><i class="fas fa-money-check-alt"></i> Price :  RM <?= number_format($price,2,",",".")?></medium><br>
                 <hr>
-                <h5 class="my-0">Order Info : </h5><br>
+                <h6 class="my-0"><strong>Order Info : </strong></h6><br>
                 <medium class="text-muted"><i class="fas fa-paw"></i> Pet : <?= $ps->pet_kind;?></medium><br>
+                <?php if ($ps->pet_complaint == ""||$ps->pet_complaint == " ") : ?>
+                <medium class="text-muted"><i class="fas fa-comments"></i> Pet Complaint : - </medium><br>
+                <?php else : ?>
                 <medium class="text-muted"><i class="fas fa-comments"></i> Pet Complaint :</medium><br>
                 <div class="card">
                 <div class="card-body">
@@ -194,6 +198,7 @@
                 </div>
                 </div>
                 <hr>
+                <?php endif; ?>
               </div>
                 </div>
                 <div class="mt-5 amount row">
@@ -217,7 +222,7 @@
             <?php endforeach; ?> 
             <div class="alert alert-warning">
             <p> Total price <strong> RM <?php echo number_format($total,2);?></strong>
-            is only a fee for veterinarians, for the cost of treatment and care will vary depending on the type of treatment and treatment</p>
+            is only a fee for veterinarians, for the cost of treatment and care will vary depending on the type of treatment</p>
             </div> 
             <?php endif; ?>
         </div>
