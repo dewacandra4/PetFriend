@@ -121,4 +121,13 @@ class Model_services extends CI_Model{
         $result = $this->db->get();
         return $result;
     }
+
+    //get all service order count based on user id with status awaiting payment (displayed on Customer Dashboard)
+    public function get_myserviceo_await($id)
+    {
+        $this->db->where('user_id', $id);
+        $this->db->where('order_status', "Awaiting Payment");
+        $result = $this->db->get('services_order')->num_rows();
+        return $result;
+    }
 }

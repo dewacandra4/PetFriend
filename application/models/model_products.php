@@ -45,7 +45,7 @@ class Model_products extends CI_Model{
         return $this->db->get('products_order')->num_rows();
     }
 
-    //get count of all product based on user id
+    //get count of all product order based on user id
     public function countListProducts_id($id)
     {
         $this->db->where('user_id', $id);
@@ -61,11 +61,6 @@ class Model_products extends CI_Model{
         return $this->db->get('products',$limit, $start)->result_array();
     }
 
-    // public function getListProducts($status)
-    // {
-    //     $query = $this->db->get_where('products_order', array('order_status' =>$status))->result_array();
-    //     // return $this->db->get('products_order')->result_array();
-    // }
     //update status payment
     function updateStatus($data, $order_id)
     {
@@ -133,6 +128,15 @@ class Model_products extends CI_Model{
         $this->db->where('user_id', $id);
         $this->db->where('order_status', "Awaiting Payment");
         $result = $this->db->get('products_order');
+        return $result;
+    }
+
+    //get all product order count based on user id with status awaiting payment (displayed on Customer Dashboard)
+    public function get_myproducto_await($id)
+    {
+        $this->db->where('user_id', $id);
+        $this->db->where('order_status', "Awaiting Payment");
+        $result = $this->db->get('products_order')->num_rows();
         return $result;
     }
 
