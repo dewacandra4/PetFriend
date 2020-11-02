@@ -36,7 +36,8 @@
                     <td>RM<?= $product['price']?></td>
                     <td><?= $product['stock']?></td>
                     <td>
-                      <div class="d-flex p-2">
+                    <div class="text-center">
+                      <div class="d-inline-flex p-0">
                         <?= anchor('home/detail_product/'.$product['id'],'<div class="btn btn-success btn-sm glyphicon-object-align-horizontal"><i class="fas fa-search-plus"></i></div>')?>
                         <a 
                           href="javascript:;"
@@ -49,8 +50,14 @@
                           data-stock="<?php echo $product['stock'] ?>"
                           data-toggle="modal" data-target="#edit">
                         <button class="btn btn-primary btn-sm glyphicon-object-align-horizontal" data-toggle="modal" data-target="#ubah-data"><i class="fa fa-edit"></i></button>
-                        <?= anchor('admin/manage_products/delete/'.$product['id'],'<div class="btn btn-danger btn-sm glyphicon-object-align-horizontal"><i class="fa fa-trash"></i></div>')?>
+                        <a 
+                          href="javascript:;"
+                          data-id="<?php echo $product['id'] ?>"
+                          data-name="<?php echo $product['name'] ?>"
+                          data-toggle="modal" data-target="#delete">
+                          <button class="btn btn-danger btn-sm text-light" data-toggle="modal" data-target="#edit-data"><i class="fa fa-trash"></i></button></a>
                       </div>
+                    </div>
                     </td>
                 </tr>
                 <?php } ?>
@@ -145,7 +152,7 @@
                 </div>
                 <div class="form-group">
                     <label for="name">Description</label>
-                    <textarea class="form-control rounded-0" type="text" name="description" rows="5" cols="40"><?php echo($description);?></textarea>
+                    <textarea class="form-control rounded-0" type="text" name="description" id="description" rows="5" cols="40"><?php echo($description);?></textarea>
                 </div>
                 <div class="form-group">
                 <label for="category">Category</label>
@@ -189,6 +196,51 @@
     </div>
 
 <?php endforeach;?>
+
+
+<?php 
+    foreach($barang as $pro):
+        $id= $pro['id'];
+        $name = $pro['name'];
+?>
+
+
+<!--Modal: modalPush-->
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+    <div class="modal-dialog modal-notify modal-info" role="document">
+        <!--Content-->
+        <div class="modal-content text-center">
+        <!--Header-->
+            <div class="modal-header d-flex justify-content-center bg-danger">
+                <p class="heading"><strong>Delete Product</strong></p>
+            </div>
+
+        <!--Body-->
+            <div class="modal-body">
+
+                <i class="fa fa-trash fa-5x text-danger animated jackInTheBox mb-4"></i>
+                <div class="form-group ">
+                    <div class="text-center">
+                        <form action="<?php echo base_url('admin/manage_products/delete/');?>" method="post">
+                            <p>Do you want to delete this product #<strong id="name"><?php echo $name;?></strong>?</p>
+                            <input type="hidden" id="id" name="id" value="<?php echo $id;?>"> 
+                    </div>
+                </div>
+            
+            <hr/>
+            <!--Footer-->
+            <div class="text-center">
+                <button class="btn btn-danger" type="submit"> Yes&nbsp;</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal"> Cancel</button>
+            </div>
+            </div>
+            </form>
+        </div>
+        <!--/.Content-->
+    </div>
+</div>
+
+<?php endforeach;?>
 <!-- END Modal edit -->
 <script src="<?php echo base_url('assets/js/jquery.min.js');?>"></script>
 <script src="<?= base_url()?>assets/sbadmin/vendor/jquery/jquery.min.js"></script>
@@ -198,16 +250,29 @@
         $('#edit').on('show.bs.modal', function (event) {
             var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
             var modal          = $(this)
- 
+
             // Isi nilai pada field
             modal.find('#id').attr("value",div.data('id'));
             modal.find('#name').attr("value",div.data('name'));
-            modal.find('#description').attr("value",div.data('description'));
+            modal.find('#description').html(div.data('description'));
             modal.find('#category_id').attr("value",div.data('category_id'));
             modal.find('#category').attr("value",div.data('category'));
             modal.find('#img').attr("value",div.data('img'));
             modal.find('#price').attr("value",div.data('price'));
             modal.find('#stock').attr("value",div.data('stock'));
+        });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        // Untuk sunting
+        $('#delete').on('show.bs.modal', function (event) {
+            var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
+            var modal          = $(this)
+ 
+            // Isi nilai pada field
+            modal.find('#id').attr("value",div.data('id'));
+            modal.find('#name').html(div.data('name'));
         });
     });
 </script>

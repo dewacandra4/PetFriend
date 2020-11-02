@@ -36,7 +36,7 @@
   <script src="<?= base_url()?>assets/sbadmin/js/demo/chart-area-demo.js"></script>
   <script src="<?= base_url()?>assets/sbadmin/js/demo/chart-pie-demo.js"></script>
   <!-- JQuery -->
-
+  <script src="<?= base_url()?>assets/js/date-eu.js"></script>
   <script src="<?= base_url()?>assets/js/addons/datatables.min.js"></script>
   <script>
       import { mdbTbl, mdbTblHead, mdbTblBody } from 'mdbvue';
@@ -53,6 +53,9 @@
     $(document).ready(function () {
     $('#table-bootstrap').DataTable({
       "order": [[ 2, "desc" ]],
+      "language": {
+        "emptyTable": "You have no orders at this time"
+      },
       "aaSorting": [],
       columnDefs: [{
       orderable: false,
@@ -63,6 +66,43 @@
     $('.dataTables_length').addClass('bs-select');
     });
   </script>
+  
+  <script>
+    $(document).ready(function () {
+    $('#table-bootstrap-services').DataTable({
+      "order": [[ 2, "desc" ]],
+      "language": {
+        "emptyTable": "You have no orders at this time"
+      },
+      "aaSorting": [],
+      columnDefs: [{
+      orderable: false,
+      targets: 7
+      }],
+      "lengthMenu": [[5, 10, 50, -1], [5, 10, 50, "All"]]
+    });
+    $('.dataTables_length').addClass('bs-select');
+    });
+  </script>
+
+  <script>
+    $(document).ready(function () {
+    $('#table-bootstrap-history').DataTable({
+      "order": [[ 4, "desc" ]],
+      "language": {
+        "emptyTable": "You have no orders at this time"
+      },
+      "aaSorting": [],
+      columnDefs: [{
+      orderable: false,
+      targets: 7
+      }],
+      "lengthMenu": [[5, 10, 50, -1], [5, 10, 50, "All"]]
+    });
+    $('.dataTables_length').addClass('bs-select');
+    });
+  </script>
+
   <script>
     $(document).ready(function () {
     $('#selectedColumn').DataTable({

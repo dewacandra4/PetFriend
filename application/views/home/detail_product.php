@@ -13,17 +13,17 @@
                         
                         <table class="table">
                             <tr>
-                                <h3 class="h2-responsive text-center text-md-left product-name font-weight-bold dark-grey-text mb-1 ml-xl-0 ml-4">
+                                <h3 class="h2-responsive text-md-left product-name font-weight-bold dark-grey-text mb-1 ml-xl-0 ml-4">
                                 <strong><?= $pd->name?></strong>
                                 </h3>
                             </tr>
                             <tr>
-                                <span class="badge badge-danger product mb-4 ml-xl-0 ml-4 text-center">bestseller</span>
-                                <h3 class="h3-responsive text-center text-md-left mb-3 ml-xl-0 ml-4">
-                                    <span class="text-danger font-weight-bold">
-                                        <strong>RM <?= $pd->price?></strong>
+                                <span class="badge badge-danger product mb-4 ml-xl-0 ml-4 text-md-right">bestseller</span>
+                                <h3 class="h3-responsive text-center text-md-right mb-3 ml-xl-0 ml-4">
+                                    <span class="text-danger font-weight-bold ">
+                                        <strong>RM <?= $pd->price?> </strong>
                                     </span>
-                                    <span class="text-secondary">
+                                    <span class="text-secondary ">
                                         <small>
                                         <s>RM<?= $pd->price+10;?>.00</s>
                                         </small>
@@ -54,9 +54,15 @@
                         <?php if (is_admin() == 1) : ?>
                         <?php elseif(is_admin() == 3) : ?>
                          <?php else : ?>
-                            <div class="col-md-12 text-center text-md-left text-md-right">
-                                <?= anchor('home/add_to_cart/'.$pd->id,'<div class="add_cart btn btn-cart-det btn-lg float-right mx-2 mt-5"><i class="fas fa-cart-plus mr-2" aria-hidden="true"></i> Add to Cart</div>')?>
+                            <?php if($pd->stock >=1){?>
+                            <div class="col-md-12 mt-5text-center">
+                                <?= anchor('home/add_to_cart/'.$pd->id,'<div class="add_cart btn btn-cart-det btn-lg  float-right mx-auto mt-5"><i class="fas fa-cart-plus mr-2" aria-hidden="true"></i> Add to Cart</div>')?>
                             </div>
+                            <?php } else{?>
+                                <div class="alert alert-warning" role="alert">
+                                    <strong>Sorry we are out of stock for this product!</strong>
+                                </div>
+                            <?php }?>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -126,13 +132,17 @@
                                                     <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
                                                 </ul>
                                             </div>
-                                            <p class="item-price"> <b>RM<?= $c->price;?></b></p>
+                                            <p class="item-price "> <b>RM<?= $c->price;?></b></p>
                                             <?php if (is_admin() == 1) : ?>
-                                            <?php elseif(is_admin() == 3) : ?>
-                                            <?php else : ?>
-                                            <?= anchor('home/add_to_cart/'.$c->id,'<div class="btn btn-cart">Add to Cart</div>')?>
-                                            <?php endif;?>
-                                            <?= anchor('home/detail_product/'.$c->id,'<div class= "btn btn-success bg-success text-light">Detail</div>')?>
+                                                <?php elseif(is_admin() == 3) : ?>
+                                                <?php else : ?>
+                                                    <?php if($c->stock >=1) {?>
+                                                        <?= anchor('home/add_to_cart/'.$c->id,'<div class="add_cart btn btn-cart">Add to cart</div>')?>
+                                                    <?php }else{?>
+                                                        <span class="badge badge-warning">Out of Stock</span><br>
+                                                    <?php }?>
+                                                <?php endif;?>
+                                                    <?= anchor('home/detail_product/'.$c->id,'<div class="btn btn-detail">Detail</div>')?>
                                         </div>						
                                     </div>
                                 </div>
@@ -154,6 +164,6 @@
 </div>
 <style>
 body {
-    background-color: #eee
+    background-color: #fdfcfc
 }
 </style>

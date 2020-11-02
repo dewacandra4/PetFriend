@@ -39,6 +39,11 @@ class Model_products extends CI_Model{
     {
         return $this->db->get('products')->num_rows();
     }
+    public function countAllProductsAvail()
+    {
+        return $this->db->get('products')->num_rows();
+        
+    }
 
     public function countListProducts()
     {

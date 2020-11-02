@@ -5,15 +5,15 @@
         <div class="card-deck mb-3 mx-2 text-center">
         <?php foreach ($services as $s) : ?>
             <div class="card mb-4 shadow-sm single_service">
-                <div class="card-header back-head text-light">
+                <div class="card-header back-head text-light h5">
                     <strong class="my-0"><?= $s->name ?></strong>
                 </div>
                 <div class="card-body">
-                    <h1 class="card-title pricing-card-title">$<?= $s->price ?> <small class="text-muted">/ mo</small></h1>
+                    <h3 class="card-title pricing-card-title"><small class="text-muted">Starting from</small> <br>RM<?= $s->price?></h3>
                     <div class="img-services">
                         <img src="<?= base_url().'/assets/services/'.$s->img ?>" class="img-fluid">
                     </div>
-                    <ul class="list-unstyled mt-3 mb-4">
+                    <ul class="list-unstyled mt-0 mb-4">
                         <li><?= $s->description ?></li>
                     </ul>
                     <?php 

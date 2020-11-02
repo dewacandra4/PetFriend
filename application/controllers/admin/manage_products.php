@@ -91,7 +91,7 @@ class Manage_products extends CI_Controller
         $this->form_validation->set_rules('name', 'Product Name', 'required');
         $this->form_validation->set_rules('description', 'Description', 'required');
         $this->form_validation->set_rules('price', 'Price', 'required|numeric');
-        $this->form_validation->set_rules('category_id', 'Category', 'required');
+        // $this->form_validation->set_rules('category_id', 'Category', 'required');
         $this->form_validation->set_rules('stock', 'Stock', 'required|numeric');
         if($this->form_validation->run() == false)
         {
@@ -150,14 +150,28 @@ class Manage_products extends CI_Controller
                   
                 }
             }
-            $data = array(
-                'name' => $name,
-                'description' => $description,
-                // 'img' => $new_image,
-                'category_id' => $category_id,
-                'price' => $price,
-                'stock' => $stock,
-            );
+            if($category_id)
+            {
+                $data = array(
+                    'name' => $name,
+                    'description' => $description,
+                    // 'img' => $new_image,
+                    'category_id' => $category_id,
+                    'price' => $price,
+                    'stock' => $stock,
+                );
+            }
+            else
+            {
+                $data = array(
+                    'name' => $name,
+                    'description' => $description,
+                    // 'img' => $new_image,
+                    // 'category_id' => $category_id,
+                    'price' => $price,
+                    'stock' => $stock,
+                );
+            }
     
             $where = array(
                 'id' =>$id
@@ -177,8 +191,9 @@ class Manage_products extends CI_Controller
             // }
         }
     }
-    public function delete($id)
+    public function delete()
     {
+        $id = $this->input->post('id');
         $where = array('id' => $id);
         $this->model_products->delete_data($where,'products');
         redirect('admin/manage_products/index');

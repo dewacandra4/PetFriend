@@ -4,15 +4,29 @@
         <div class="col-md-10">
         <?php foreach ($producto_orderid as $poi): ?>
             <div class="receipt bg-white p-3 rounded"><img width="160" src="<?= base_url()?>assets/img/logo_trans.png" alt="PetFriend">
-                <h4 class="mt-2 mb-3">Order Status : <a> <?=$poi->order_status?><a></h4>
+                <h4 class="mt-2 mb-3">Order Status : <?php if($poi->order_status == "Awaiting Payment"){
+                    echo '<strong class="text-warning"> Awaiting Payment </strong>';
+                }elseif($poi->order_status == "On Process"){
+                    echo '<strong class="text-success"> On Process </strong>';
+                }
+                ?></h4>
                 
                 <h6 class="name">Customer Name: <?=$customer['name'];?>,</h6><span class="fs-20 text-black-50">Customer ID: <strong><?=$customer['id'];?></strong></span>
                 <hr>
                 <div class="d-flex flex-row justify-content-between align-items-center order-details">
-                    <div><span class="d-block fs-12">Order date</span><span class="font-weight-bold"><?= date('d F yy', $poi->order_date);?></span></div>
+                    <div><span class="d-block fs-12">Order date</span><span class="font-weight-bold"><i class="fa fa-calendar" aria-hidden="true">&nbsp;</i><?= date('d F yy', $poi->order_date);?></span></div>
                     <div><span class="d-block fs-12">Product Order ID</span><span class="font-weight-bold">#<?=$poi->order_id?></span></div>
-                    <div><span class="d-block fs-12">Payment method</span><span class="font-weight-bold"><?=$poi->payment_method?></span><img class="ml-1 mb-1" src="https://i.imgur.com/ZZr3Yqj.png" width="20"></div>
-                    <div><span class="d-block fs-12">Shipping Address</span><span class="font-weight-bold text-success"><?=$poi->delivery_address?></span></div>
+                    <div><span class="d-block fs-12">Payment method</span><span class="font-weight-bold"><?=$poi->payment_method?></span>
+                    <?php if ($poi->payment_method == "Bank Transfer") : ?>
+                    <img class="ml-1 mb-1" src="<?= base_url().'assets/img/b.png'?>" width="20"></div>
+                    <?php endif; ?>
+                    <?php if ($poi->payment_method == "COD") : ?>
+                    <img class="ml-1 mb-1" src="<?= base_url().'assets/img/c.png'?>" width="20"></div>
+                    <?php endif; ?>
+                    <?php if ($poi->payment_method == "M-Banking") : ?>
+                    <img class="ml-1 mb-1" src="<?= base_url().'assets/img/m.png'?>" width="20"></div>
+                    <?php endif; ?>
+                    <div><span class="d-block fs-12">Shipping Address</span><span class="font-weight-bold "><i class="fa fa-map-marker" aria-hidden="true">&nbsp;</i><?=$poi->delivery_address?></span></div>
                 </div>
                 <?php endforeach; ?>
                 <hr>

@@ -5,18 +5,16 @@
 <?= $this->session->flashdata('message');?>
     <div class="card shadow px-0 mb-5 mt-5" >
         <div class="card-header py-4">
-            <h5 class="m-0 font-weight-bold text-dark text-center ml-4">Products Order List</h5>
+            <h5 class="m-0 font-weight-bold text-dark text-center ml-4">Services Order List</h5>
         </div>
         <div class="card-body mb-5">
             <div class="table-responsive">
-                <table id="table-bootstrap-history" class="table table-bordered table-hover" cellspacing="0" width="100%">
+                <table id="table-bootstrap-services" class="table table-bordered table-hover" cellspacing="0" width="100%">
                     <thead class="text-center">
                         <tr>
                             <th>NO</th>
-                            <th >Product Order Id</th>
+                            <th >Service Order Id</th>
                             <th >Order Date</th>
-                            <th>Delivery Date</th>
-                            <th >Finish Date</th>
                             <th >Order Status</th>
                             <th >Customer Id</th>
                             <th >Payment Method</th>
@@ -26,30 +24,19 @@
                     </thead>
                     <tbody>
                         <?php
-                            foreach($order as $product) {?>
+                            foreach($order as $service) {?>
                         <tr>
                             <td><?= ++$start?></td>
-                            <td><?= $product['order_id']?></td>
-                            <td><?= date('Y/m/d H:i:s', $product['order_date']);?></td>
-                            <td><?= date('Y/m/d H:i:s', $product['delivery_date']);?></td>
-                            <td><?php 
-                            if(empty(($product['finish_date'])))
-                            {
-                                echo "-";
-                            }
-                            else
-                            {
-                                echo date('Y/m/d H:i:s', $product['finish_date']);
-                            }
-                            ?></td>
-                            <td><?= $product['order_status']?></td>
-                            <td><?= $product['user_id']?></td>
-                            <td><?= $product['payment_method']?></td>
-                            <td>RM <?= $product['total_price']?></td>
+                            <td><?= $service['sorder_id']?></td>
+                            <td><?= date('Y/m/d H:i:s', $service['order_date']);?></td>
+                            <td><?= $service['order_status']?></td>
+                            <td><?= $service['user_id']?></td>
+                            <td><?= $service['payment_method']?></td>
+                            <td>RM <?= $service['total_price']?></td>
                             <td>
                             <div class="text-center">
                                 <div class="d-inline-flex p-0">
-                                    <?= anchor('admin/list_order/view_detail/'.$product['order_id'],'<div class="btn btn-deep-orange btn-sm text-light"><i class="fas fa-search-plus"></i></div>')?>
+                                    <?= anchor('admin/list_sorder/view_detail/'.$service['sorder_id'],'<div class="btn btn-deep-orange btn-sm text-light"><i class="fas fa-search-plus"></i></div>')?>
                                 </div>
                             </div>
                             </td>               

@@ -4,26 +4,30 @@
     <div class="row">
         <div class="col-lg-2">
             <div class="sidebar_left mx-auto mb-4" style="width: 18rem;">
-                <div class="card-header text-center back-head text-light">
-                    <strong>CATEGORY</strong>
+                <div class="card">
+                    <div class="card-header text-center back-head text-light">
+                        <strong>CATEGORY</strong>
+                    </div>
+                    <div class="">
+                        <ul class="nav flex-column text-center border">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark " href="<?= base_url('home/products') ;?>">All Products</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark " href="<?= base_url('category/dog') ;?>">Dog</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="<?= base_url('category/cat') ;?>">Cat</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="<?= base_url('category/birds') ;?>">Birds</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link  text-orange active" href="<?= base_url('category/smallp') ;?>" >Small Pets</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <ul class="nav flex-column text-center border ">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="<?= base_url('home/products') ;?>">All Products</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark " href="<?= base_url('category/dog') ;?>">Dog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="<?= base_url('category/cat') ;?>">Cat</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="<?= base_url('category/birds') ;?>">Birds</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-orange active" href="<?= base_url('category/smallp') ;?>" >Small Pets</a>
-                    </li>
-                </ul>
             </div>
         </div>
         <div class="col-lg-10 mb-5 mb-lg-0">
@@ -49,9 +53,13 @@
                                                 <?php if (is_admin() == 1) : ?>
                                                 <?php elseif(is_admin() == 3) : ?>
                                                 <?php else : ?>
-                                                <?= anchor('home/add_to_cart/'.$pd->id,'<div class="add_cart btn btn-cart">Add to cart</div>')?>
+                                                    <?php if($pd->stock >=1) {?>
+                                                        <?= anchor('home/add_to_cart/'.$pd->id,'<div class="add_cart btn btn-cart">Add to cart</div>')?>
+                                                    <?php }else{?>
+                                                    <span class="badge badge-warning">Out of Stock</span><br>
+                                                <?php }?>
                                                 <?php endif;?>
-                                                <?= anchor('home/detail_product/'.$pd->id,'<div class="btn btn-detail">Detail</div>')?>
+                                                    <?= anchor('home/detail_product/'.$pd->id,'<div class="btn btn-detail">Detail</div>')?>
                                             </div>
                                         </div>
                                 <?php endforeach; ?>

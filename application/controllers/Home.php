@@ -20,7 +20,7 @@ class Home extends CI_Controller {
         $this->load->library('pagination');
         //config
         $config['base_url'] = 'http://localhost/PetFriend/home/products/index';
-        $config['total_rows'] = $this->model_products->countAllProducts();
+        $config['total_rows'] = $this->model_products->countAllProductsAvail();
         $config['per_page'] = 10;
         
         //styling

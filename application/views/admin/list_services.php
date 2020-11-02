@@ -5,11 +5,11 @@
 <?= $this->session->flashdata('message');?>
     <div class="card shadow px-0 mb-5 mt-5" >
         <div class="card-header py-4">
-            <h5 class="m-0 font-weight-bold text-dark text-center ml-4">Servicess Order List</h5>
+            <h5 class="m-0 font-weight-bold text-dark text-center ml-4">Services Order List</h5>
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table id="table-bootstrap" class="table table-bordered table-hover" cellspacing="0" width="100%">
+                <table id="table-bootstrap-services" class="table table-bordered table-hover" cellspacing="0" width="100%">
                     <thead class="text-center">
                         <tr>
                             <th>NO</th>
@@ -25,32 +25,34 @@
                     <tbody>
                         <?php
                     
-                        foreach($sorder as $services) {?>
+                        foreach($sorder as $s) {?>
                         <tr>
                             <td><?= ++$start?></td>
-                            <td><?= $services['sorder_id']?></td>
-                            <td><?= date('d F yy', $services['order_date']);?></td>
-                            <td><?= $services['order_status']?></td>
-                            <td><?= $services['user_id']?></td>
-                            <td><?= $services['payment_method']?></td>
-                            <td>RM <?= $services['total_price']?></td>
+                            <td><?= $s['sorder_id']?></td>
+                            <td><?= date('Y/m/d H:i:s', $s['order_date']);?></td>
+                            <td><?= $s['order_status']?></td>
+                            <td><?= $s['user_id']?></td>
+                            <td><?= $s['payment_method']?></td>
+                            <td>RM <?= $s['total_price']?></td>
                             <td>
-                                <div class="d-flex p-2">
-                                    <?= anchor('admin/list_sorder/view_detail/'.$services['sorder_id'],'<div class="btn btn-success btn-sm"><i class="fas fa-search-plus"></i></div>')?>
+                            <div class="text-center">
+                                <div class="d-inline-flex p-0">
+                                    <?= anchor('admin/list_sorder/view_detail/'.$s['sorder_id'],'<div class="btn btn-deep-orange btn-sm text-light"><i class="fas fa-search-plus"></i></div>')?>
                                     <a 
-                                    href="javascript:;"
-                                    data-sorder_id="<?php echo $services['sorder_id'] ?>"
-                                    data-order_status="<?php echo $services['order_status'] ?>"
-                                    data-toggle="modal" data-target="#confirm">
-                                    <button class="btn btn-primary btn-sm text-light" data-toggle="modal" data-target="#ubah-data"> Confirm Payment</button></a>
+                                        href="javascript:;"
+                                        data-sorder_id="<?php echo $s['sorder_id'] ?>"
+                                        data-order_status="<?php echo $s['order_status'] ?>"
+                                        data-toggle="modal" data-target="#confirm">
+                                        <button class="btn btn-primary btn-sm text-light" data-toggle="modal" data-target="#ubah-data"> Confirm </button></a>
 
                                     <a 
-                                    href="javascript:;"
-                                    data-order_id="<?php echo $services['sorder_id'] ?>"
-                                    data-order_status="<?php echo $services['order_status'] ?>"
-                                    data-toggle="modal" data-target="#complete">
-                                    <button class="btn btn-success btn-sm text-light" data-toggle="modal" data-target="#edit-data"><i class="fas fa-check"></i></button></a>
+                                        href="javascript:;"
+                                        data-sorder_id="<?php echo $s['sorder_id'] ?>"
+                                        data-order_status="<?php echo $s['order_status'] ?>"
+                                        data-toggle="modal" data-target="#complete">
+                                        <button class="btn btn-success btn-sm text-light" data-toggle="modal" data-target="#edit-data"><i class="fas fa-check"></i></button></a>
                                 </div>
+                            </div>
                             </td>               
                         </tr>
                         <?php } ?>
@@ -59,9 +61,7 @@
             </div>
         </div>
     </div>
-
-
-
+</div>
 
 <!-- Modal -->
 <?php 
@@ -106,48 +106,53 @@
     </div>
 </div>
 
-
 <?php endforeach;?>
+
+
 <?php 
-    foreach($sorder as $services):
-        $sorder_id= $services['sorder_id'];
-        $order_status= $services['order_status'];
+    foreach($sorder as $servis):
+        $sorder_id= $servis['sorder_id'];
+        $order_status= $servis['order_status'];
     ?>
+
+<!--Modal: modalPush-->
 <div class="modal fade" id="complete" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modal">Complete</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-                </div>
-                <form class="form-horizontal text-center" action="<?php echo base_url('admin/list_sorder/confirm_payment');?>" method="post">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="order_status">Current Status</label>
-                        <input class="form-control mb-4" type="text" id="order_status" name="order_status" disabled value="<?php echo $order_status;?>">
-                    </div>
-                    <hr>
-                        <div class="">
+    <div class="modal-dialog modal-notify modal-info" role="document">
+        <!--Content-->
+        <div class="modal-content text-center">
+        <!--Header-->
+            <div class="modal-header d-flex justify-content-center bg-success">
+                <p class="heading"><strong>Complete The Order</strong></p>
+            </div>
+
+        <!--Body-->
+            <div class="modal-body">
+
+                <i class="fas fa-check fa-5x text-success animated jackInTheBox mb-4"></i>
+                <div class="form-group ">
+                    <div class="text-center">
+                        <form action="<?php echo base_url('admin/list_sorder/complete_order');?>" method="post">
                             <p>Do you want to complete this order ?</p>
-                            <input type="hidden" id="sorder_id" name="sorder_id" value="<?php echo $sorder_id;?>">
-                            <select class="browser-default custom-select mb-4" id="order_status" name="order_status" disabled>
-                                <option value="Order Complete" selected>Order Complete</option>
-                            </select>
-                        </div>
-                            <button class="btn btn-success" type="submit"> Yes&nbsp;</button>
-                            <button type="button" class="btn btn-warning" data-dismiss="modal"> Cancel</button>
+                            <input type="hidden" id="sorder_id" name="sorder_id" value="<?php echo $sorder_id;?>"> 
                     </div>
+                </div>
+            
+            <hr/>
+            <!--Footer-->
+            
+                <div class="text-center">
+                    <button class="btn btn-success" type="submit"> Yes&nbsp;</button>
+                    <button type="button" class="btn btn-warning" data-dismiss="modal"> Cancel</button>
+                </div>
                 </form>
             </div>
         </div>
+        <!--/.Content-->
     </div>
 </div>
 
-
-
 <?php endforeach;?>
+
 <!-- END Modal edit -->
 <script src="<?php echo base_url('assets/js/jquery.min.js');?>"></script>
 <script src="<?= base_url()?>assets/sbadmin/vendor/jquery/jquery.min.js"></script>
@@ -177,4 +182,4 @@
         });
     });
 </script>
-
+</div>

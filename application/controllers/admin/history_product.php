@@ -18,8 +18,9 @@ class History_product extends CI_Controller
         $row = $query->row_array();
         $data['admin']= $row;
         $data['start'] = $this->uri->segment(4);
+        date_default_timezone_set('Asia/Singapore');
         // $data['product'] = $this->model_products->getListProducts("Awaiting Payment");
-        $status = array('Order Complete');
+        $status = array('Order Complete','Cancelled');
         $this->db->or_where_in('order_status', $status);
         $data['order']= $this->db->get('products_order')->result_array();
         $this->load->view('admin/header',$data);
