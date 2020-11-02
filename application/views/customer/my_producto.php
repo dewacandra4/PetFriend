@@ -10,7 +10,7 @@
         </div>
                 <div class="card-body">
                 <div class="table-responsive">
-                <table class="table">
+                <table class="table table-hover">
                 <thead>
                     <tr>
                     <th scope="col">#</th>
@@ -32,7 +32,7 @@
                     <tr>
                     <td><?php echo $i; ?></td>
                     <td><?= $po->order_id?></td>
-                    <td><?= date('d F yy', $po->order_date);?> || <?= date('H:i:s', $po->order_date);?></td>
+                    <td><?= date('d F yy', $po->order_date);?>
                     <td><?= $po->order_status?></td>
                     <?php if($po->order_status == "On Process") :?>
                       <td> - </td>
