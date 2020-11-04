@@ -21,7 +21,16 @@
                   <h6 class="m-0 font-weight-bold text-danger">More Information</h6>
                 </div>
                 <div class="card-body">
-                  <p></p>
+                <?php if (!$info1 == null) :?>
+                <h6><Strong>Product Order Information : </Strong></h6>
+                  <p class="alert alert-warning alert-dismissible fade show" role="alert">Currently You Have : <Strong><?=$info1;?></Strong> Product Order(s) to be paid,
+                   please check My Product Order for more detailed information ^^</p>
+                <?php endif;?>
+                <?php if (!$info2 == null) :?>
+                <h6><Strong>Service Order Information : </Strong></h6>
+                  <p class="alert alert-warning alert-dismissible fade show" role="alert">Currently You Have : <Strong><?=$info2;?></Strong> Service Order(s) to be paid,
+                   please check My Service Order for more detailed information ^^</p>
+                <?php endif;?>
                 </div>
                 </div>
         </div>
