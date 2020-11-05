@@ -10,7 +10,7 @@ class History_product extends CI_Controller
     }
     public function index()
     {
-        $data['title'] = 'Order List';
+        $data['title'] = 'Products Order History';
         $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
         $user = $this->session->userdata('username');
         $result= $this->db->query("SELECT `id` FROM `user` WHERE `username` = '$user'")->row()->id;

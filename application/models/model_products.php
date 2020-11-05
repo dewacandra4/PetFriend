@@ -44,7 +44,10 @@ class Model_products extends CI_Model{
         return $this->db->get('products')->num_rows();
         
     }
-
+    public function sumSoldproduct()
+    {
+        return $this->db->query("SELECT sum(sold) AS total from products ");
+    }
     public function countListProducts()
     {
         return $this->db->get('products_order')->num_rows();

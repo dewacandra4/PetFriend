@@ -18,7 +18,12 @@
                                 </h3>
                             </tr>
                             <tr>
+                            <?php if($pd->sold >100){?>
                                 <span class="badge badge-danger product mb-4 ml-xl-0 ml-4 text-md-right">bestseller</span>
+                            <?php }
+                            if(date('Y-m-d',(($pd->date_added)))<=time() && date('Y-m-d',strtotime('-30day',((time()))))<date('Y-m-d',(($pd->date_added)))) {?>&nbsp;
+                                <span class="badge badge-success product mb-4 ml-xl-0 ml-4 text-md-right">newproduct</span>
+                            <?php } ;?>
                                 <h3 class="h3-responsive text-center text-md-right mb-3 ml-xl-0 ml-4">
                                     <span class="text-danger font-weight-bold ">
                                         <strong>RM <?= $pd->price?> </strong>

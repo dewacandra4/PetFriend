@@ -3,6 +3,7 @@
 <div class="alert alert-danger text-center alert-dismissible fade show" role="alert"><?= validation_errors(); ?><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>                
 <?php endif; ?>
 <?= $this->session->flashdata('message');?>
+<?= $this->session->flashdata('error');?>
     <div class="card shadow px-0 mb-5 mt-5" >
         <div class="card-header py-4">
             <h5 class="m-0 font-weight-bold text-dark text-center ml-4">Services Order List</h5>
@@ -71,14 +72,11 @@
     ?>
 <div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="modal"
   aria-hidden="true">
-    <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-notify modal-info" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modal">Confirm Payment</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-                </div>
+            <div class="modal-header text-white  d-flex justify-content-center bg-primary">
+                <h5 class="modal-title" id="modal">Confirm Order</h5>
+            </div>
                 <form class="form-horizontal text-center" action="<?php echo base_url('admin/list_sorder/confirm_payment');?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
@@ -90,13 +88,13 @@
                             <input type="hidden" id="sorder_id" name="sorder_id" value="<?php echo $sorder_id;?>">
                                 <select class="browser-default custom-select mb-4" id="order_status" name="order_status" >
                                     <option value="" disabled selected>Choose Status</option>
-                                    <option value="Awaiting Payment"  >Awaiting Payment</option>
                                     <option value="On Process" >On Process</option>
+                                    <option value="Awaiting Payment"  >Awaiting Payment</option>
                                 </select>
                         </div>
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-success" type="submit"> Save&nbsp;</button>
+                            <button class="btn btn-primary" type="submit"> Save&nbsp;</button>
                             <button type="button" class="btn btn-warning" data-dismiss="modal"> Cancel</button>
                         </div>
                     </div>

@@ -56,14 +56,11 @@
     ?>
 <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="modal"
   aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-notify modal-info" role="document">
     <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header text-white  d-flex justify-content-center bg-primary">
             <h5 class="modal-title" id="modal">Edit Service</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
+        </div>
             <form action="<?= base_url().'admin/manage_services/update';?>" method="post"  enctype="multipart/form-data">
             <div class="modal-body">
                 <div class="form-group">
@@ -107,7 +104,7 @@
                 </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-success" type="submit"> Save&nbsp;</button>
+                        <button class="btn btn-primary" type="submit"> Save&nbsp;</button>
                         <button type="button" class="btn btn-warning" data-dismiss="modal"> Cancel</button>
                     </div>
                 </div>

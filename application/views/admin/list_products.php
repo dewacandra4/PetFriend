@@ -72,14 +72,11 @@
         $order_status= $pro['order_status'];
     ?>
 <div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-notify modal-info" role="document">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header text-white  d-flex justify-content-center bg-primary">
                 <h5 class="modal-title" id="modal">Confirm Order</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-                </div>
+            </div>
                 <form class="form-horizontal text-center" action="<?php echo base_url('admin/list_order/confirm_payment');?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
@@ -91,13 +88,13 @@
                         <input type="hidden" id="order_id" name="order_id" value="<?php echo $order_id;?>">
                             <select class="browser-default custom-select mb-4" id="order_status" name="order_status" >
                                 <option value="" disabled selected>Choose Status</option>
-                                <option value="Awaiting Payment"  >Awaiting Payment</option>
                                 <option value="On Process" >On Process</option>
+                                <option value="Awaiting Payment"  >Awaiting Payment</option>
                             </select>
                         </div>
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-success" type="submit"> Save&nbsp;</button>
+                            <button class="btn btn-primary" type="submit"> Save&nbsp;</button>
                             <button type="button" class="btn btn-warning" data-dismiss="modal"> Cancel</button>
                         </div>
                     </div>

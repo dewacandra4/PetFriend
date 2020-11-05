@@ -18,10 +18,11 @@
                     <th class="th-lg">Description</th>
                     <th class="th-lg">Category</th>
                     <th class="th-lg">Image Name</th>
-                    <th class="th-lg">Price</th>
                     <th class="th-lg">Stocks</th>
+                    <th class="th-lg">Price</th>
+                    <th class="th-lg">Sold</th>
+                    <th class="th-lg">Date Added</th>
                     <th class="th-lg">Action</th>
-                    
                 </tr>
               </thead>
               <tbody>
@@ -33,12 +34,14 @@
                     <td><?= $product['description']?></td>
                     <td><?= $product['category']?></td>
                     <td><?= $product['img']?></td>
-                    <td>RM<?= $product['price']?></td>
                     <td><?= $product['stock']?></td>
+                    <td>RM<?= $product['price']?></td>
+                    <td><?= $product['sold']?></td>
+                    <td><?= date("Y-m-d H:i:s",$product['date_added'])?></td>
                     <td>
                     <div class="text-center">
                       <div class="d-inline-flex p-0">
-                        <?= anchor('home/detail_product/'.$product['id'],'<div class="btn btn-success btn-sm glyphicon-object-align-horizontal"><i class="fas fa-search-plus"></i></div>')?>
+                        <?= anchor('home/detail_product/'.$product['id'],'<div class="btn btn-deep-orange text-light btn-sm glyphicon-object-align-horizontal"><i class="fas fa-search-plus"></i></div>')?>
                         <a 
                           href="javascript:;"
                           data-id="<?php echo $product['id'] ?>"
@@ -70,13 +73,10 @@
 
 
 <div class="modal fade" id="modalProduct" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-notify modal-info" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modalProductLabel">FORM ADD PRODUCTS</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+      <div class="modal-header text-white  d-flex justify-content-center bg-primary"> 
+        <h5 class="modal-title" id="modalProductLabel">Add product</h5>
       </div>
       <div class="modal-body">
         <form action="<?= base_url().'admin/manage_products/add_action';?>" method="post" enctype="multipart/form-data">
@@ -96,7 +96,7 @@
             </div>
             <div class="form-grup">
                 <label>Description</label>
-                <input class="form-control mb-4" type="text" name="description" class="form-control">
+                <textarea class="form-control rounded-0" type="text" name="description" id="description" rows="5" cols="40"></textarea>
             </div>
             <div class="form-grup">
                 <label>Price</label>
@@ -112,8 +112,8 @@
             </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
       </div>
         </form>
     </div>
@@ -135,14 +135,11 @@
     ?>
 <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="modal"
   aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-notify modal-info" role="document">
     <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="modal">Edit Product</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
+        <div class="modal-header text-white  d-flex justify-content-center bg-primary"> 
+            <h5><strong>Edit Product</strong></h5>
+        </div>   
             <form action="<?= base_url().'admin/manage_products/update';?>" method="post"  enctype="multipart/form-data">
             <div class="modal-body">
                 <div class="form-group">
@@ -186,7 +183,7 @@
               </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-success" type="submit"> Save&nbsp;</button>
+                        <button class="btn btn-primary" type="submit"> Save&nbsp;</button>
                         <button type="button" class="btn btn-warning" data-dismiss="modal"> Cancel</button>
                     </div>
                 </div>
@@ -215,7 +212,7 @@
                 <p class="heading"><strong>Delete Product</strong></p>
             </div>
 
-        <!--Body-->
+            <!--Body-->
             <div class="modal-body">
 
                 <i class="fa fa-trash fa-5x text-danger animated jackInTheBox mb-4"></i>
@@ -233,7 +230,7 @@
                 <button class="btn btn-danger" type="submit"> Yes&nbsp;</button>
                 <button type="button" class="btn btn-warning" data-dismiss="modal"> Cancel</button>
             </div>
-            </div>
+          </div>
             </form>
         </div>
         <!--/.Content-->

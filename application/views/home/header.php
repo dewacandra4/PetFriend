@@ -48,9 +48,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="col-xl-9 col-lg-9">
                             <div class="main-menu  d-none d-lg-block">
                                 <nav>
+                                <?php $uri=$this->uri->segment(1).'/'.$this->uri->segment(2);
+                                    $uri2=$this->uri->segment(1).'/'.$this->uri->segment(2).'/'.$this->uri->segment(3);
+                                ?>
                                     <ul id="navigation">
-                                        <li><a href="<?=base_url('home/products');?>" class="scroll">Products</a></li>
-                                        <li><a href="<?=base_url('home/services');?>" class="scroll">Services</a></li>
+                                        <li><a href="<?=base_url('home/products');?>" class="scroll <?php if($uri=='home/products'){ echo 'text-danger';}?>">Products</a></li>
+                                        <li><a href="<?=base_url('home/services');?>" class="scroll <?php if($uri=='home/services'){ echo 'text-danger';}?>">Services</a></li>
                                         <li><a href="#">Account <i class="fa fa-angle-down fa-5x" aria-hidden="true"></i></a>
                                             <ul class="submenu">
                                                 <?php if (is_admin() == 1) : ?>

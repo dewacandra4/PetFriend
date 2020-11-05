@@ -265,6 +265,11 @@ h2::after {
 	color: #ffffff;
 	background:rgb(228, 116, 11);
 }
+.btn-contact:hover {
+	color: #fff;
+	background:rgb(237, 86, 17);
+}
+
 .carousel .thumb-content .btn-detail {
 	color: #ffffff;
 	font-size: 11px;

@@ -11,7 +11,14 @@ class dashboard extends CI_Controller
     public function index()
 	{
         $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
-		$data['title']= 'Dashboard';
+        $data['title']= 'Dashboard';
+        $query = $this->db->query('SELECT * FROM products_order WHERE `order_status` = "Awaiting payment" OR `order_status` = "On Process"');
+        $queryS = $this->db->query('SELECT * FROM services_order WHERE `order_status` = "Awaiting payment" OR `order_status` = "On Process"');
+        $queryT = $this->db->query('SELECT * FROM products');
+        $data['order']= $query->num_rows();
+        $data['sorder']= $queryS->num_rows();
+        $data['totalP']= $queryT->num_rows();
+        $data['total_sold'] = $this->model_products->sumSoldproduct()->row()->total;
         $this->load->view('admin/header',$data);
         $this->load->view('admin/sidebar');
 		$this->load->view('admin/dashboard');

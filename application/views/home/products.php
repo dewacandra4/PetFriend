@@ -48,7 +48,7 @@
                                         <h5 class="card-title mb-1"><?= $product['name'] ?></h5>
                                         <!-- <small><?= $product['description'] ?></small> -->
                                         <br>
-                                        <span class="badge badge-pill badge-success mb-3">RM <?= $product['price'] ?></span>
+                                        <h3><span class="badge badge-success">RM <?= $product['price'] ?></span></h3>
                                         <br>
                                         <?php if (is_admin() == 1) : ?>
                                         <?php elseif(is_admin() == 3) : ?>

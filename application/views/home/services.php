@@ -9,7 +9,7 @@
                     <strong class="my-0"><?= $s->name ?></strong>
                 </div>
                 <div class="card-body">
-                    <h3 class="card-title pricing-card-title"><small class="text-muted">Starting from</small> <br>RM<?= $s->price?></h3>
+                    <h3 class="card-title pricing-card-title"><small class="text-muted">Starting from</small> <br><strong>RM<?= $s->price?></strong></h3>
                     <div class="img-services">
                         <img src="<?= base_url().'/assets/services/'.$s->img ?>" class="img-fluid">
                     </div>
@@ -19,7 +19,7 @@
                     <?php 
                     if($s->name == "Pet Health")
                     {
-                        echo anchor('home/detail_services/'.$s->id,'<div class="btn btn-lg btn-block btn-contact">View Detail</div>');
+                        echo anchor('home/detail_services/'.$s->id,'<div class="btn btn-lg btn-contact btn-block">View Detail</div>');
                         echo "OR";
                         echo anchor('home/diagnosis','<div class="btn btn-lg btn-block btn-success">Diagnosis First!</div>');
                     }
