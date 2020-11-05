@@ -175,7 +175,7 @@
                     Attach diagnosis result (Optional) :  </h5>
                     <div class="custom-file mb-3">
                     <input type="file" class="custom-file-input" id="diagnosis_file" name="diagnosis_file">
-                    <label class="custom-file-label" for="diagnosis_file">Choose File</label>
+                    <label class="custom-file-label" for="diagnosis_file">Choose File (PDF)</label>
                     </div>
 
                     <br><br>
