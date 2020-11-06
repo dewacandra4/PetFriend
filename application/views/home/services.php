@@ -9,6 +9,12 @@
                     <strong class="my-0"><?= $s->name ?></strong>
                 </div>
                 <div class="card-body">
+                    <?php 
+                    if($s->resource <1 || $s->is_available == 0)
+                    {
+                        echo '<div class="alert alert-warning" role="alert"> This services is not available. Please try again later </div>';
+                    }   
+                    ?>
                     <h3 class="card-title pricing-card-title"><small class="text-muted">Starting from</small> <br><strong>RM<?= $s->price?></strong></h3>
                     <div class="img-services">
                         <img src="<?= base_url().'/assets/services/'.$s->img ?>" class="img-fluid">

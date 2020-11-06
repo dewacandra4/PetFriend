@@ -19,7 +19,6 @@ class History_service extends CI_Controller
         $data['admin']= $row;
         $data['start'] = $this->uri->segment(4);
         date_default_timezone_set('Asia/Singapore');
-        // $data['product'] = $this->model_products->getListProducts("Awaiting Payment");
         $status = array('Order Complete');
         $this->db->or_where_in('order_status', $status);
         $data['order']= $this->db->get('services_order')->result_array();

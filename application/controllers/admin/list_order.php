@@ -18,7 +18,6 @@ class List_order extends CI_Controller
         $row = $query->row_array();
         $data['admin']= $row;
         $data['start'] = $this->uri->segment(4);
-        // $data['product'] = $this->model_products->getListProducts("Awaiting Payment");
         $status = array('Awaiting Payment', 'On Process');
         date_default_timezone_set('Asia/Singapore');
         $this->db->or_where_in('order_status', $status);
@@ -48,12 +47,10 @@ class List_order extends CI_Controller
         $this->load->view('admin/detail_product',$data);
         $this->load->view('admin/footer');
     }
-    public function confirm_payment()
-    {
+    public function confirm_order(){
         $this->form_validation->set_rules('order_status', 'Order Status', 'required');
         $order_id = $this->input->post('order_id');
-        if($this->form_validation->run() == false)
-        {
+        if($this->form_validation->run() == false){
             $data['title'] = 'Order List';
             $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
             $user = $this->session->userdata('username');
@@ -62,7 +59,6 @@ class List_order extends CI_Controller
             $row = $query->row_array();
             $data['admin']= $row;
             $data['start'] = $this->uri->segment(4);
-            // $data['product'] = $this->model_products->getListProducts("Awaiting Payment");
             $status = array('Awaiting Payment', 'On Process');
             $this->db->or_where_in('order_status', $status);
             $data['order']= $this->db->get('products_order')->result_array();
@@ -71,32 +67,46 @@ class List_order extends CI_Controller
             $this->load->view('admin/list_products',$data);
             $this->load->view('admin/footer');
         }
-        else
-        {
+        else{
             $user_id = $this->db->get_where('products_order', ['order_id'=> $order_id])->row()->user_id;
             $email =  $this->db->get_where('user', ['id'=> $user_id])->row()->email;
-            if($this->input->post('order_status') == "On Process")
-            {
+            if($this->input->post('order_status') == "On Process"){
                 $waktu = time();
                 $data_array = array(
                     'delivery_date' => $waktu,
                     'order_status'=> $this->input->post('order_status')
                 );
-               
-                $this->model_products->updateStatus($data_array,$order_id);
-                $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Customer order processing! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button></div>');
-                $this->_sendEmail($order_id,$email, 'process');
-                redirect('admin/list_order');
+                $send = $this->_sendEmail($order_id,$email, 'process');
+                if($send == true){
+                    $update = $this->model_products->updateStatus($data_array,$order_id);
+                    if($update == true){
+                        $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show"
+                         role="alert">Customer order processing! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button></div>');
+                        redirect('admin/list_order');
+                    }
+                    else{
+                        $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Failed to Process the order<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button></div>');
+                        redirect('admin/list_order');
+                    }
+                }
+                else{
+                    $this->session->set_flashdata('error', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Failed to send the email, please check the admin email configuration<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button></div>');
+                    redirect('admin/list_order');
+                }
             }
-            elseif($this->input->post('order_status') == "Awaiting Payment")
-            {
+            elseif($this->input->post('order_status') == "Awaiting Payment"){
                 $data_array = array(
                     'order_status'=> $this->input->post('order_status')
                 );
                 $this->model_products->updateStatus($data_array,$order_id);
-                $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Awaiting Payment ! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" 
+                role="alert">Awaiting Payment ! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button></div>');
                 redirect('admin/list_order');
@@ -111,29 +121,32 @@ class List_order extends CI_Controller
             "finish_date"=>  $waktu,
             'order_status'=> "Order Complete"
         );
-        $update = $this->model_products->updateStatus($status,$order_id);
         $user_id = $this->db->get_where('products_order', ['order_id'=> $order_id])->row()->user_id;
         $email =  $this->db->get_where('user', ['id'=> $user_id])->row()->email;
-        if($update == TRUE)
+        $send= $this->_sendEmail($order_id,$email, 'complete');
+        if($send == true)
         {
-            $sql = "UPDATE products AS p JOIN products_order_detail AS po ON p.id = po.product_id JOIN products_order as pd ON po.order_id = pd.order_id SET p.stock = p.stock-po.order_qty, p.sold = po.order_qty WHERE p.id = po.product_id AND po.order_id = $order_id ";
-            $this->db->query($sql);
-            $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Order Completed! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button></div>');
-            $send= $this->_sendEmail($order_id,$email, 'complete');
-            if($send == false)
+            $update = $this->model_products->updateStatus($status,$order_id);
+            if($update == TRUE)
             {
-                $this->session->set_flashdata('error', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Failed to send the email, please check the admin email setting<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                $sql = "UPDATE products AS p JOIN products_order_detail AS po ON p.id = po.product_id JOIN products_order as pd ON po.order_id = pd.order_id SET p.stock = p.stock-po.order_qty, p.sold = po.order_qty WHERE p.id = po.product_id AND po.order_id = $order_id ";
+                $this->db->query($sql);
+                $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Order Completed! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button></div>');
                 redirect('admin/list_order');
             }
-            redirect('admin/list_order');
+            else
+            {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Failed to Complete the order<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button></div>');
+                redirect('admin/list_order');
+            }
         }
-        else
+        elseif($send == false)
         {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Failed to Complete the order<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            $this->session->set_flashdata('error', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Failed to send the email, please check the admin email configuration<button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button></div>');
             redirect('admin/list_order');
@@ -166,11 +179,9 @@ class List_order extends CI_Controller
             'charset'   => 'utf-8',
             'newline'   => "\r\n"
         ];
-
         $this->email->initialize($config);
         $this->email->from('finalprojectdua@gmail.com', 'PetFriend Admin');
         $this->email->to($email);
-
         if ($type == 'complete') {
             $body = $this->load->view('message/complete.php',$data,TRUE);
             $this->email->subject('Order Complete');
@@ -182,7 +193,6 @@ class List_order extends CI_Controller
             $this->email->subject('Your Order Has Been Processed!');
             $this->email->message($body);
         } 
-
         if ($this->email->send()) {
             return true;
         } else {

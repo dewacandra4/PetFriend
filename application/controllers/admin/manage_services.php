@@ -24,18 +24,6 @@ class Manage_services extends CI_Controller
         $this->load->view('admin/data_services',$data);
         $this->load->view('admin/footer');
     }
-    public function edit($id)
-    {
-        $data['title'] = 'Edit Services';
-        $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
-        $where = array('id' => $id);
-        $data['services'] = $this->model_services->edit_services($where, 'services')->result();
-        $this->load->view('admin/header',$data);
-        $this->load->view('admin/sidebar',$data);
-        $this->load->view('admin/edit_services',$data);
-        $this->load->view('admin/footer');
-
-    }
     public function update()
     {
         $this->form_validation->set_rules('name', 'Services Name', 'required');
@@ -110,6 +98,10 @@ class Manage_services extends CI_Controller
                 'id' =>$id
             );
             $this->model_services->update_data($where,$data, 'services');
+            $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible 
+            fade show" role="alert">Successfully Edited! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button></div>');
             redirect('admin/manage_services/index');
         }
     }

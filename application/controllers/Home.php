@@ -13,17 +13,14 @@ class Home extends CI_Controller {
 	public function products()
 	{
 		$data['title'] = 'Products';
-
 		$data['start'] = $this->uri->segment(4);
-        //load library
         
-        $this->load->library('pagination');
         //config
         $config['base_url'] = 'http://localhost/PetFriend/home/products/index';
         $config['total_rows'] = $this->model_products->countAllProductsAvail();
         $config['per_page'] = 10;
-        
-        //styling
+
+        //start styling pagination
         $config['full_tag_open'] = '<nav>
         <ul class="pagination justify-content-center">';
         $config['full_tag_close'] = '</ul>
@@ -50,12 +47,11 @@ class Home extends CI_Controller {
         $config['num_tag_open'] = '<li class="page-item">';
         $config['num_tag_close'] = '</li>';
 
-        
         $config['attributes'] = array('class' => 'page-link');
+        //end styling pagination
 
         //initialize
         $this->pagination->initialize($config);
-        
         
         $data['products'] = $this->model_products->getProductsPagination($config['per_page'],$data['start']);
         $this->load->view('home/header',$data);
@@ -523,10 +519,10 @@ class Home extends CI_Controller {
         ->from('products')
         ->join('category', 'category.cid = products.category_id')
         ->where('products.id',$id)->get()->result();
-		$data['dog'] = $this->model_category->data_dog()->result();
-		$data['cat'] = $this->model_category->data_cat()->result();
-		$data['birds'] = $this->model_category->data_birds()->result();
-		$data['smallp'] = $this->model_category->data_smallpet()->result();
+		$data['dog'] = $this->model_category->show_dog()->result();
+		$data['cat'] = $this->model_category->show_cat()->result();
+		$data['birds'] = $this->model_category->show_birds()->result();
+		$data['smallp'] = $this->model_category->show_smallpet()->result();
 		$data['title'] = 'Products';
         $this->load->view('home/header',$data);
         $this->load->view('home/detail_product',$data);

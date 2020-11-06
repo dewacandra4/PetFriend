@@ -123,7 +123,6 @@ class Manage_products extends CI_Controller
         $this->form_validation->set_rules('name', 'Product Name', 'required');
         $this->form_validation->set_rules('description', 'Description', 'required');
         $this->form_validation->set_rules('price', 'Price', 'required|numeric');
-        // $this->form_validation->set_rules('category_id', 'Category', 'required');
         $this->form_validation->set_rules('stock', 'Stock', 'required|numeric');
         if($this->form_validation->run() == false)
         {
@@ -139,8 +138,6 @@ class Manage_products extends CI_Controller
             ->from('category')
             ->join('products', 'category.cid = products.category_id')->get()->result_array(); 
             $data['cate'] =  $this->db->get('category')->result_array();
-            // var_dump($data['barang']);
-            // $this->db->get('products')->result_array();
             $this->load->view('admin/header',$data);
             $this->load->view('admin/sidebar',$data);
             $this->load->view('admin/data_products',$data);
@@ -155,14 +152,12 @@ class Manage_products extends CI_Controller
             $category_id = $this->input->post('category_id');
             $stock = $this->input->post('stock');
             $upload_image = $_FILES['img']['name'];
-            
             $data['product'] = $this->model_products->show_data()->result();
             if($upload_image)
             {
                 $config['upload_path'] = './assets/products';
                 $config['allowed_types'] = 'gif|jpg|png';
                 $config['max_size']     = '2048';
-    
                 $this->load->library('upload', $config);//load librari upload
             
                 if($this->upload->do_upload('img'))
@@ -170,7 +165,6 @@ class Manage_products extends CI_Controller
                     $new_image = $this->upload->data('file_name');
                     $this->db->set('img', $new_image);
                 }
-                
                 else
                 {
                     $error = array('error' => $this->upload->display_errors());
@@ -179,7 +173,6 @@ class Manage_products extends CI_Controller
                     <span aria-hidden="true">&times;</span>
                     </button></div>');
                     redirect('admin/manage_products/index');
-                  
                 }
             }
             if($category_id)
@@ -187,7 +180,6 @@ class Manage_products extends CI_Controller
                 $data = array(
                     'name' => $name,
                     'description' => $description,
-                    // 'img' => $new_image,
                     'category_id' => $category_id,
                     'price' => $price,
                     'stock' => $stock,
@@ -198,8 +190,6 @@ class Manage_products extends CI_Controller
                 $data = array(
                     'name' => $name,
                     'description' => $description,
-                    // 'img' => $new_image,
-                    // 'category_id' => $category_id,
                     'price' => $price,
                     'stock' => $stock,
                 );
@@ -214,13 +204,6 @@ class Manage_products extends CI_Controller
             <span aria-hidden="true">&times;</span>
             </button></div>');
             redirect('admin/manage_products/index');
-            // else{
-            //     $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" 
-            //     role="alert">Image Field cannot be empty<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            //     <span aria-hidden="true">&times;</span>
-            //     </button></div>');
-            //     redirect('admin/manage_products/index');
-            // }
         }
     }
     public function delete()

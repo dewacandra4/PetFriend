@@ -48,7 +48,7 @@
                                                 <h5 class="card-title mb-1"><?= $pd->name ?></h5>
                                                 <!-- <small><?= $pd->description ?></small> -->
                                                 <br>
-                                                <span class="badge badge-pill badge-success mb-3">RM <?= $pd->price ?></span>
+                                                <h3><span class="badge badge-success">RM <?= $pd->price ?></span></h3>
                                                 <br>
                                                 <?php if (is_admin() == 1) : ?>
                                                 <?php elseif(is_admin() == 3) : ?>
@@ -65,7 +65,7 @@
                                 <?php endforeach; ?>
                             <?php endif; ?>
                         </div>
-                        
+                        <?= $this->pagination->create_links();?>
                     </div>
                 </div>
             </div>

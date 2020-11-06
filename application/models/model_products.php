@@ -39,11 +39,8 @@ class Model_products extends CI_Model{
     {
         return $this->db->get('products')->num_rows();
     }
-    public function countAllProductsAvail()
-    {
-        return $this->db->get('products')->num_rows();
-        
-    }
+    
+
     public function sumSoldproduct()
     {
         return $this->db->query("SELECT sum(sold) AS total from products ");
@@ -67,6 +64,11 @@ class Model_products extends CI_Model{
     public function getProductsPagination($limit, $start)
     {
         return $this->db->get('products',$limit, $start)->result_array();
+    }
+    public function countAllProductsAvail()
+    {
+        return $this->db->get('products')->num_rows();
+        
     }
 
     //update status payment

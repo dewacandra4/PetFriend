@@ -18,7 +18,6 @@ class List_sorder extends CI_Controller
         $row = $query->row_array();
         $data['admin']= $row;
         $data['start'] = $this->uri->segment(4);
-        // $data['product'] = $this->model_services->getListServices();
         $status = array('Awaiting Payment', 'On Process');
         date_default_timezone_set('Asia/Singapore');
         $this->db->or_where_in('order_status', $status);
@@ -35,8 +34,6 @@ class List_sorder extends CI_Controller
         $lol = $this->session->userdata('username');
         $result= $this->db->query("SELECT `id` FROM `user` WHERE `username` = '$lol'")->row()->id;
         $service_type= $this->db->query("SELECT `service_id` FROM `services_order` WHERE `sorder_id` = '$oid'")->row()->service_id;
-        // $query = $this->db->query("SELECT * FROM `user` WHERE `id` = $result");
-        // $row = $query->row_array();
         $query = $this->db->query("SELECT `user_id` FROM `services_order` WHERE `sorder_id` = '$oid'")->row()->user_id;
         $customer = $this->db->query("SELECT * FROM `user` WHERE `id` = $query");
         $row= $customer->row_array();
@@ -48,7 +45,6 @@ class List_sorder extends CI_Controller
             $price=$this->db->query("SELECT `price` FROM `services` WHERE `id` = '1'")->row()->price;
             $data['pethotel'] = $this->model_services->get_myhotel_detail($oid)->result();
         }
-        
         if($service_type == 2)
         {
             $price=$this->db->query("SELECT `price` FROM `services` WHERE `id` = '2'")->row()->price;
@@ -56,13 +52,11 @@ class List_sorder extends CI_Controller
             $doc= $this->db->query("SELECT `doc_id` FROM `pethealth_order` WHERE `sorder_id` = '$oid'")->row()->doc_id;
             $data['vete'] = $this->model_services->get_vet_data($oid)->result();
         }
-        
         if($service_type == 3)
         {
             $price=$this->db->query("SELECT `price` FROM `services` WHERE `id` = '3'")->row()->price;
             $data['petsalon'] = $this->model_services->get_mysalon_detail($oid)->result();
         }
-
         //get repeater guest for pet hotel
         $this->db->where('user_id',$result);
         $this->db->where('order_status', "Order Complete");
@@ -80,13 +74,10 @@ class List_sorder extends CI_Controller
         $this->load->view('admin/detail_service',$data);
         $this->load->view('admin/footer');
     }
-    public function confirm_payment()
-    {
+    public function confirm_order(){
         $this->form_validation->set_rules('order_status', 'Order Status', 'required');
         $sorder_id = $this->input->post('sorder_id');
-
-        if($this->form_validation->run() == false)
-        {
+        if($this->form_validation->run() == false){
             $data['title'] = 'Order List';
             $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
             $user = $this->session->userdata('username');
@@ -95,7 +86,6 @@ class List_sorder extends CI_Controller
             $row = $query->row_array();
             $data['admin']= $row;
             $data['start'] = $this->uri->segment(4);
-            // $data['product'] = $this->model_services->getListServices();
             $status = array('Awaiting Payment', 'On Process');
             $this->db->or_where_in('order_status', $status);
             $data['sorder']=$this->db->get('services_order')->result_array();
@@ -104,24 +94,38 @@ class List_sorder extends CI_Controller
             $this->load->view('admin/list_services',$data);
             $this->load->view('admin/footer');
         }
-        else
-        {
-            
+        else{
             $user_id = $this->db->get_where('services_order', ['sorder_id'=> $sorder_id])->row()->user_id;
             $email =  $this->db->get_where('user', ['id'=> $user_id])->row()->email;
             if($this->input->post('order_status') == "On Process")
             {
-                // $waktu = time();
                 $data_array = array(
-                    // 'delivery_date' => $waktu,
                     'order_status'=> $this->input->post('order_status')
                 );
-                $this->model_services->updateStatus($data_array,$sorder_id);
-                $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Customer order processing! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button></div>');
-                $this->_sendEmail($sorder_id,$email, 'process');
-                redirect('admin/list_sorder');
+                
+                $send = $this->_sendEmail($sorder_id,$email, 'process');
+                if($send == true){
+                    $update = $this->model_services->updateStatus($data_array,$sorder_id);
+                    if($update == TRUE){
+                        $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" 
+                        role="alert">Customer order processing! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button></div>');
+                        redirect('admin/list_sorder');
+                    }
+                    else{
+                        $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Failed to Process the order<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button></div>');
+                        redirect('admin/list_sorder');
+                    }
+                }
+                elseif($send == false){
+                    $this->session->set_flashdata('error', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Failed to send the email, please check the admin email configuration<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button></div>');
+                    redirect('admin/list_sorder');
+                }
             }
             elseif($this->input->post('order_status') == "Awaiting Payment")
             {
@@ -129,7 +133,8 @@ class List_sorder extends CI_Controller
                     'order_status'=> $this->input->post('order_status')
                 );
                 $this->model_products->updateStatus($data_array,$order_id);
-                $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Awaiting Payment ! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" 
+                role="alert">Awaiting Payment ! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button></div>');
                 redirect('admin/list_sorder');
@@ -138,37 +143,39 @@ class List_sorder extends CI_Controller
     }
     public function complete_order()
     {
-        // $waktu = time();
         $sorder_id = $this->input->post('sorder_id');
         $status = array(
-            // "finish_date"=>  $waktu,
             'order_status'=> "Order Complete"
         );
-        $update = $this->model_services->updateStatus($status,$sorder_id);
         $user_id = $this->db->get_where('services_order', ['sorder_id'=> $sorder_id])->row()->user_id;
         $email =  $this->db->get_where('user', ['id'=> $user_id])->row()->email;
-        if($update == TRUE)
+        $send = $this->_sendEmail($sorder_id,$email, 'complete');
+        if($send == true)
         {
-            $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Order Completed! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button></div>');
-            $send = $this->_sendEmail($sorder_id,$email, 'complete');
-            if($send == false)
+            $update = $this->model_services->updateStatus($status,$sorder_id);
+            if($update == TRUE)
             {
-                $this->session->set_flashdata('error', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Failed to send the email, please check the admin email setting<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Order Completed! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button></div>');
                 redirect('admin/list_sorder');
             }
-            redirect('admin/list_sorder');
+            else
+            {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Failed to Complete the order<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button></div>');
+                redirect('admin/list_sorder');
+            }
         }
-        else
+        elseif($send == false)
         {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Failed to Complete the order<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            $this->session->set_flashdata('error', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Failed to send the email, please check the admin email configuration<button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button></div>');
             redirect('admin/list_sorder');
         }
+        
     }
     private function _sendEmail($sorder_id, $email, $type)
     {

@@ -77,7 +77,7 @@
             <div class="modal-header text-white  d-flex justify-content-center bg-primary">
                 <h5 class="modal-title" id="modal">Confirm Order</h5>
             </div>
-                <form class="form-horizontal text-center" action="<?php echo base_url('admin/list_sorder/confirm_payment');?>" method="post">
+                <form class="form-horizontal text-center" action="<?php echo base_url('admin/list_sorder/confirm_order');?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="order_status">Current Status</label>
