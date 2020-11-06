@@ -118,6 +118,22 @@ class Home extends CI_Controller {
 
     public function cart()
     {
+        if(!$this->session->userdata('username')==null)
+        {
+            $lol = $this->session->userdata('username');
+            $result= $this->db->query("SELECT `role_id` FROM `user` WHERE `username` = '$lol'")->row()->role_id;
+            if($result == 1 || $result == 3)
+            {
+                redirect('Home');
+            }
+            if($result == 2)
+            {
+                $data['title'] = 'Shopping Cart';
+                $this->load->view('home/header',$data);
+                $this->load->view('customer/cart');
+                $this->load->view('home/footer');
+            }
+        }
         $data['title'] = 'Shopping Cart';
         $this->load->view('home/header',$data);
         $this->load->view('customer/cart');
