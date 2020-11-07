@@ -490,7 +490,7 @@ class Home extends CI_Controller {
 
         if ($type == 'doc') {
             $this->email->subject('Pet Health Order');
-            $this->email->message('Dear '.$namee.', <br> There is a Pet Health Order for you,<br>
+            $this->email->message('Dear '.$name.', <br> There is a Pet Health Order for you,<br>
             please visit PetFriend website to see more detailed information, <br>Thank You ^^ ');
         } 
 
