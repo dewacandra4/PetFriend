@@ -89,7 +89,7 @@ class Home extends CI_Controller {
         redirect('Home/cart');
     }
 
-    //to remove an item from cart
+    //to remove a product from cart
     public function Remove_cart($rowid)
     {
         $this->cart->remove($rowid); 
@@ -100,7 +100,7 @@ class Home extends CI_Controller {
             redirect('Home/cart');
 
     }
-
+    //to update qty of product order in cart
     public function update_cart()
     {
         $data = array(
