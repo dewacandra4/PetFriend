@@ -202,6 +202,7 @@ class Home extends CI_Controller {
         $this->load->view('home/footer');
     }
 
+//checkout Product
     public function check_out()
     {//customer must login before check out from cart
         if($this->cart->total_items() == 0)
@@ -231,7 +232,7 @@ class Home extends CI_Controller {
             $this->load->view('home/footer');
         }
     }
-
+//checkout hotel
     public function check_out_hotel()
     {    //customer must login before book a pet hotel
         date_default_timezone_set('Asia/Singapore');
@@ -288,7 +289,7 @@ class Home extends CI_Controller {
         }
 
     }
- 
+ //checkout salon
     public function check_out_salon()
     {//customer must login before Order Salon Service
         date_default_timezone_set('Asia/Singapore');
