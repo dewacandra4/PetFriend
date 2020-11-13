@@ -81,12 +81,16 @@
                                                 </ul>
                                             </div>
                                             <p class="item-price"> <b>$<?= $p->price;?></b></p>
-                                                <?php if (is_admin() == 1) : ?>
-                                                <?php elseif(is_admin() == 3) : ?>
-                                                <?php else : ?>
-                                            <?= anchor('home/add_to_cart/'.$p->id,'<div class="add_cart btn btn-cart">Add to cart</div>')?>
-                                            <?php endif; ?>
-                                            <?= anchor('home/detail_product/'.$p->id,'<button class="btn btn-success bg-success text-light">Detail</button>')?>
+                                            <?php if (is_admin() == 1) : ?>
+                                            <?php elseif(is_admin() == 3) : ?>
+                                            <?php else : ?>
+                                            <?php if($p->stock >=1) {?>
+                                                <?= anchor('home/add_to_cart/'.$p->id,'<div class="add_cart btn btn-cart">Add to cart</div>')?>
+                                            <?php }else{?>
+                                                    <span class="badge badge-warning">Out of Stock</span><br>
+                                                <?php }?>
+                                            <?php endif;?>
+                                            <?= anchor('home/detail_product/'.$p->id,'<div class="btn btn-detail">Detail</div>')?>
                                         </div>						
                                     </div>
                                 </div>

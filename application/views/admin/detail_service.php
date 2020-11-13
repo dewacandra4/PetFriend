@@ -8,6 +8,12 @@
                 }elseif($soi->order_status == "On Process"){
                     echo '<strong class="text-success"> On Process </strong>';
                 }
+                elseif($soi->order_status == "Order Complete"){
+                    echo '<strong class="text-success"> Order Complete </strong>';
+                }
+                elseif($soi->order_status == "Cancelled"){
+                    echo '<strong class="text-danger"> Cancelled </strong>';
+                }
                 ?></h4>
                 
                 <h6 class="name">Customer Name: <?=$customer['name'];?>,</h6>
