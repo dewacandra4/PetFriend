@@ -198,6 +198,7 @@ class Home extends CI_Controller {
         $this->load->view('home/footer');
     }
 
+//checkout Product
     public function check_out()
     {//customer must login before check out from cart
         if($this->cart->total_items() == 0)
@@ -227,7 +228,7 @@ class Home extends CI_Controller {
             $this->load->view('home/footer');
         }
     }
-
+//checkout hotel
     public function check_out_hotel()
     {    //customer must login before book a pet hotel
         date_default_timezone_set('Asia/Singapore');
@@ -284,7 +285,7 @@ class Home extends CI_Controller {
         }
 
     }
- 
+ //checkout salon
     public function check_out_salon()
     {//customer must login before Order Salon Service
         date_default_timezone_set('Asia/Singapore');
@@ -466,7 +467,39 @@ class Home extends CI_Controller {
             redirect('customer/dashboard/view_reciept_service/'.$sordert);
     }
 
-    //ordering Pet Salon
+    private function _sendEmail($type,$name,$email)
+    {
+        $config = [
+            'protocol'  => 'smtp',
+            'smtp_host' => 'ssl://smtp.googlemail.com',
+            'smtp_user' => 'finalprojectdua@gmail.com',
+            'smtp_pass' => 'WEJANCUKAPAINAKUNK0S0NGGNIDIH4CK',
+            'smtp_port' => 465,
+            'mailtype'  => 'html',
+            'charset'   => 'utf-8',
+            'newline'   => "\r\n"
+        ];
+
+        $this->email->initialize($config);
+
+        $this->email->from('finalprojectdua@gmail.com', 'PetFriend Admin');
+        $this->email->to($email);
+
+        if ($type == 'doc') {
+            $this->email->subject('Pet Health Order');
+            $this->email->message('Dear '.$name.', <br> There is a Pet Health Order for you,<br>
+            please visit PetFriend website to see more detailed information, <br>Thank You ^^ ');
+        } 
+
+        if ($this->email->send()) {
+            return true;
+        } else {
+            echo $this->email->print_debugger();
+            die;
+        }
+    }
+
+    //ordering Pet Health
     public function order_pethealth()
     {
             $file="";
@@ -475,6 +508,8 @@ class Home extends CI_Controller {
             $petc = $this->input->post ('pet_complaint');
             $doc = $this->input->post ('doc_id');
             $upload_file = $_FILES['diagnosis_file']['name'];
+            $name_doc = $this->db->query("SELECT `name` FROM `user` WHERE `id` = '$doc'")->row()->name;
+            $email_doc = $this->db->query("SELECT `email` FROM `user` WHERE `id` = '$doc'")->row()->email;
 
 			if($upload_file)
             {
@@ -524,7 +559,8 @@ class Home extends CI_Controller {
                 $this->db->set('diagnosis_file', $file);
                 $this->db->set('doc_id', $doc);
                 $this->db->insert('pethealth_order');
-
+            
+            $this->_sendEmail('doc',$name_doc,$email_doc);
             redirect('customer/dashboard/view_reciept_service/'.$sordert);
     }
 
