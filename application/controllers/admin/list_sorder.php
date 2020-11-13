@@ -102,10 +102,10 @@ class List_sorder extends CI_Controller
                 $data_array = array(
                     'order_status'=> $this->input->post('order_status')
                 );
-                $update = $this->model_services->updateStatus($data_array,$sorder_id);
+                
                 $send = $this->_sendEmail($sorder_id,$email, 'process');
                 if($send == true){
-                   
+                    $update = $this->model_services->updateStatus($data_array,$sorder_id);
                     if($update == TRUE){
                         $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" 
                         role="alert">Customer order processing! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -132,20 +132,12 @@ class List_sorder extends CI_Controller
                 $data_array = array(
                     'order_status'=> $this->input->post('order_status')
                 );
-                $update = $this->model_services->updateStatus($data_array,$sorder_id);
-                if($update == TRUE){
-                    $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" 
-                    role="alert">Awaiting Payment ! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button></div>');
-                    redirect('admin/list_sorder');
-                }
-                else{
-                    $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Failed to Process the order<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button></div>');
-                    redirect('admin/list_sorder');
-                }
+                $this->model_products->updateStatus($data_array,$order_id);
+                $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" 
+                role="alert">Awaiting Payment ! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button></div>');
+                redirect('admin/list_sorder');
             }
         }
     }
@@ -157,11 +149,10 @@ class List_sorder extends CI_Controller
         );
         $user_id = $this->db->get_where('services_order', ['sorder_id'=> $sorder_id])->row()->user_id;
         $email =  $this->db->get_where('user', ['id'=> $user_id])->row()->email;
-        $update = $this->model_services->updateStatus($status,$sorder_id);
         $send = $this->_sendEmail($sorder_id,$email, 'complete');
         if($send == true)
         {
-            
+            $update = $this->model_services->updateStatus($status,$sorder_id);
             if($update == TRUE)
             {
                 $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Order Completed! <button type="button" class="close" data-dismiss="alert" aria-label="Close">

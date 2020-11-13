@@ -106,7 +106,7 @@
   <script>
     $(document).ready(function () {
     $('#selectedColumn').DataTable({
-      "order": [[ 8, "desc" ]],
+      "order": [[ 0, "desc" ]],
       "aaSorting": [],
       columnDefs: [{
       orderable: false,

@@ -89,7 +89,7 @@
                                 <select class="browser-default custom-select mb-4" id="order_status" name="order_status" >
                                     <option value="" disabled selected>Choose Status</option>
                                     <option value="On Process" >On Process</option>
-                                    <option value="Awaiting Payment" >Awaiting Payment</option>
+                                    <option value="Awaiting Payment"  >Awaiting Payment</option>
                                 </select>
                         </div>
                         </div>
@@ -130,7 +130,7 @@
                 <div class="form-group ">
                     <div class="text-center">
                         <form action="<?php echo base_url('admin/list_sorder/complete_order');?>" method="post">
-                            <p>Do you want to complete this order ID#<strong id="order_id"><?php echo $sorder_id;?></strong>?</p>
+                            <p>Do you want to complete this order ?</p>
                             <input type="hidden" id="sorder_id" name="sorder_id" value="<?php echo $sorder_id;?>"> 
                     </div>
                 </div>
@@ -176,7 +176,6 @@
  
             // Isi nilai pada field
             modal.find('#sorder_id').attr("value",div.data('sorder_id'));
-            modal.find('#order_id').html(div.data('sorder_id'));
             modal.find('#order_status').attr("value",div.data('order_status'));
         });
     });

@@ -9,12 +9,6 @@
                 }elseif($poi->order_status == "On Process"){
                     echo '<strong class="text-success"> On Process </strong>';
                 }
-                elseif($poi->order_status == "Order Complete"){
-                    echo '<strong class="text-success"> Order Complete </strong>';
-                }
-                elseif($poi->order_status == "Cancelled"){
-                    echo '<strong class="text-danger"> Cancelled </strong>';
-                }
                 ?></h4>
                 
                 <h6 class="name">Customer Name: <?=$customer['name'];?>,</h6><span class="fs-20 text-black-50">Customer ID: <strong><?=$customer['id'];?></strong></span>

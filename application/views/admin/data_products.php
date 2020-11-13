@@ -221,7 +221,6 @@
                         <form action="<?php echo base_url('admin/manage_products/delete/');?>" method="post">
                             <p>Do you want to delete this product #<strong id="name"><?php echo $name;?></strong>?</p>
                             <input type="hidden" id="id" name="id" value="<?php echo $id;?>"> 
-                            <input type="hidden" id="name" name="name" value="<?php echo $name;?>"> 
                     </div>
                 </div>
             
@@ -271,8 +270,6 @@
             // Isi nilai pada field
             modal.find('#id').attr("value",div.data('id'));
             modal.find('#name').html(div.data('name'));
-            modal.find('#name').attr("value",div.data('name'));
-            
         });
     });
 </script>

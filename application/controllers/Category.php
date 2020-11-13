@@ -5,6 +5,7 @@ class Category extends CI_Controller
 {
     public function dog()
     {
+        
         $data['title'] = 'Products';
         
         $data['start'] = $this->uri->segment(4);
@@ -151,6 +152,7 @@ class Category extends CI_Controller
     public function smallp()
     {
         $data['title'] = 'Products';
+
         $data['start'] = $this->uri->segment(4);
 
         //config

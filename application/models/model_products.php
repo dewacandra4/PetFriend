@@ -4,11 +4,6 @@ class Model_products extends CI_Model{
     public function show_data(){
         return $this->db->get('products');
     }
-    public function show_bestProduct()
-    {
-        $this->db->where('sold >', 100);
-        return $this->db->get('products');
-    }
     public function add_products($data,$table){
         $this->db->insert($table,$data);
     }
@@ -44,6 +39,8 @@ class Model_products extends CI_Model{
     {
         return $this->db->get('products')->num_rows();
     }
+    
+
     public function sumSoldproduct()
     {
         return $this->db->query("SELECT sum(sold) AS total from products ");

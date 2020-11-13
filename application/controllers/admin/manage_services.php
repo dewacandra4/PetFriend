@@ -52,6 +52,7 @@ class Manage_services extends CI_Controller
             $description = $this->input->post('description');
             $price = $this->input->post('price');
             $resource = $this->input->post('resource');
+            // $is_available = $this->input->post('is_available');
             $upload_image = $_FILES['img']['name'];
             if($upload_image)
             {
