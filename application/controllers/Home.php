@@ -469,6 +469,9 @@ class Home extends CI_Controller {
 
     private function _sendEmail($type,$name,$email)
     {
+        $data = array(
+            'name'=>$name,
+        );
         $config = [
             'protocol'  => 'smtp',
             'smtp_host' => 'ssl://smtp.googlemail.com',
@@ -486,9 +489,9 @@ class Home extends CI_Controller {
         $this->email->to($email);
 
         if ($type == 'doc') {
+            $body = $this->load->view('message/doc.php',$data,TRUE);
             $this->email->subject('Pet Health Order');
-            $this->email->message('Dear '.$name.', <br> There is a Pet Health Order for you,<br>
-            please visit PetFriend website to see more detailed information, <br>Thank You ^^ ');
+            $this->email->message($body);
         } 
 
         if ($this->email->send()) {
