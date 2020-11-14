@@ -129,7 +129,7 @@
                 <div class="form-group ">
                     <div class="text-center">
                         <form action="<?php echo base_url('admin/list_order/complete_order');?>" method="post">
-                            <p>Do you want to complete this order ?</p>
+                            <p>Do you want to complete this order ID#<strong id="order_id"><?php echo $order_id;?></strong>?</p>
                             <input type="hidden" id="order_id" name="order_id" value="<?php echo $order_id;?>"> 
                         
                     </div>
@@ -175,6 +175,7 @@
  
             // Isi nilai pada field
             modal.find('#order_id').attr("value",div.data('order_id'));
+            modal.find('#order_id').html(div.data('order_id'));
             modal.find('#order_status2').attr("value",div.data('order_status'));
         });
     });

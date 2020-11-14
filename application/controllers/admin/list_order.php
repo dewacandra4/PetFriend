@@ -76,6 +76,7 @@ class List_order extends CI_Controller
                     'delivery_date' => $waktu,
                     'order_status'=> $this->input->post('order_status')
                 );
+                $update = $this->model_products->updateStatus($data_array,$order_id);
                 $send = $this->_sendEmail($order_id,$email, 'process');
                 if($send == true){
                     $update = $this->model_products->updateStatus($data_array,$order_id);
@@ -123,13 +124,13 @@ class List_order extends CI_Controller
         );
         $user_id = $this->db->get_where('products_order', ['order_id'=> $order_id])->row()->user_id;
         $email =  $this->db->get_where('user', ['id'=> $user_id])->row()->email;
+        $update = $this->model_products->updateStatus($status,$order_id);
         $send= $this->_sendEmail($order_id,$email, 'complete');
         if($send == true)
         {
-            $update = $this->model_products->updateStatus($status,$order_id);
             if($update == TRUE)
             {
-                $sql = "UPDATE products AS p JOIN products_order_detail AS po ON p.id = po.product_id JOIN products_order as pd ON po.order_id = pd.order_id SET p.stock = p.stock-po.order_qty, p.sold = po.order_qty WHERE p.id = po.product_id AND po.order_id = $order_id ";
+                $sql = "UPDATE products AS p JOIN products_order_detail AS po ON p.id = po.product_id JOIN products_order as pd ON po.order_id = pd.order_id SET p.stock = p.stock-po.order_qty, p.sold = p.sold+po.order_qty WHERE p.id = po.product_id AND po.order_id = $order_id ";
                 $this->db->query($sql);
                 $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Order Completed! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>

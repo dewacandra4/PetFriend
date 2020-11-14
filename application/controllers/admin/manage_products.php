@@ -8,9 +8,11 @@ class Manage_products extends CI_Controller
         parent::__construct();
         is_logged_in();
     }
+    //view products
     public function index()
     {
         $data['title'] = 'Manage Products';
+        date_default_timezone_set('Asia/Singapore');
         $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
         $user = $this->session->userdata('username');
         $result= $this->db->query("SELECT `id` FROM `user` WHERE `username` = '$user'")->row()->id;
@@ -22,13 +24,12 @@ class Manage_products extends CI_Controller
         ->from('category')
         ->join('products', 'category.cid = products.category_id')->get()->result_array(); 
         $data['cate'] =  $this->db->get('category')->result_array();
-        // var_dump($data['barang']);
-        // $this->db->get('products')->result_array();
         $this->load->view('admin/header',$data);
         $this->load->view('admin/sidebar',$data);
         $this->load->view('admin/data_products',$data);
         $this->load->view('admin/footer');
     }
+    //add product
     public function add_action()
     {
         $this->form_validation->set_rules('name', 'Product Name', 'required');
@@ -116,7 +117,7 @@ class Manage_products extends CI_Controller
             }
         }
     }
-
+    //update products
     public function update()
     {
         //rules validation
@@ -194,7 +195,6 @@ class Manage_products extends CI_Controller
                     'stock' => $stock,
                 );
             }
-    
             $where = array(
                 'id' =>$id
             );
@@ -206,11 +206,27 @@ class Manage_products extends CI_Controller
             redirect('admin/manage_products/index');
         }
     }
+    //delete product
     public function delete()
     {
         $id = $this->input->post('id');
+        $name = $this->input->post('name');
         $where = array('id' => $id);
         $this->model_products->delete_data($where,'products');
-        redirect('admin/manage_products/index');
+        if($this->db->affected_rows())
+        {
+            $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Products #'.$name.' removed! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button></div>');
+            redirect('admin/manage_products/index');
+        }
+        elseif(!$this->db->affected_rows())
+        {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Failed to remove the product #'.$name.'! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button></div>');
+            redirect('admin/manage_products/index');
+        }
+        
     }
 }

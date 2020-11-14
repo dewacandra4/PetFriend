@@ -31,7 +31,16 @@
                             <td><?= ++$start?></td>
                             <td><?= $product['order_id']?></td>
                             <td><?= date('Y/m/d H:i:s', $product['order_date']);?></td>
-                            <td><?= date('Y/m/d H:i:s', $product['delivery_date']);?></td>
+                            <td><?php 
+                            if(empty(($product['delivery_date'])))
+                            {
+                                echo "-";
+                            }
+                            else
+                            {
+                                echo date('Y/m/d H:i:s', $product['delivery_date']);
+                            }
+                            ?></td>
                             <td><?php 
                             if(empty(($product['finish_date'])))
                             {
@@ -49,7 +58,7 @@
                             <td>
                             <div class="text-center">
                                 <div class="d-inline-flex p-0">
-                                    <?= anchor('admin/list_order/view_detail/'.$product['order_id'],'<div class="btn btn-deep-orange btn-sm text-light"><i class="fas fa-search-plus"></i></div>')?>
+                                    <?= anchor('admin/history_product/view_detail/'.$product['order_id'],'<div class="btn btn-deep-orange btn-sm text-light"><i class="fas fa-search-plus"></i></div>')?>
                                 </div>
                             </div>
                             </td>               
