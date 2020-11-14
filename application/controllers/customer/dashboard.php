@@ -374,6 +374,20 @@ class dashboard extends CI_Controller
 
     private function _sendEmail($poid,$email,$namee,$type)
     {
+        $date_created = $this->db->query("SELECT `order_date` FROM `products_order` WHERE `order_id` = $poid")->row()->order_date;
+        $order_date = date('d F yy', $date_created);
+        $date_created2 = $this->db->query("SELECT `order_date` FROM `services_order` WHERE `sorder_id` = $poid")->row()->order_date;
+        $order_date2 = date('d F yy', $date_created2);
+        $datap = array(
+            'order_date'=> $order_date,
+            'order_id' => $poid,
+            'name'=>$namee,
+        );
+        $datas = array(
+            'order_date'=> $order_date2,
+            'order_id' => $poid,
+            'name'=>$namee,
+        );
         $config = [
             'protocol'  => 'smtp',
             'smtp_host' => 'ssl://smtp.googlemail.com',
@@ -392,12 +406,14 @@ class dashboard extends CI_Controller
 
         if ($type == 'product')
         {
+            $body = $this->load->view('message/product.php',$datap,TRUE);
             $this->email->subject('Cancelled Product Order');
             $this->email->message('Dear '.$namee.', <br> Your Product Order with ID #'.$poid.' has been canceled because you did not make a payment,<br>
             please visit PetFriend website to see more detailed information, <br>Thank You ^^ ');
         }
         if ($type == 'hotel')
         {
+            $body = $this->load->view('message/hotel.php',$datas,TRUE);
             $this->email->subject('Cancelled Pet Hotel Order');
             $this->email->message('Dear '.$namee.', <br> Your Pet Hotel Order with ID #'.$poid.' has been canceled because you did not make a payment,<br>
             please visit PetFriend website to see more detailed information, <br>Thank You ^^ ');
