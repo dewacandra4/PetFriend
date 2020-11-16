@@ -17,6 +17,9 @@
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
 
+      <?php $uri=$this->uri->segment(1).'/'.$this->uri->segment(2);
+      $uri2=$this->uri->segment(1).'/'.$this->uri->segment(2).'/'.$this->uri->segment(3);
+      ?>
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
         <a class="nav-link" href="<?=base_url('customer/dashboard');?>">
@@ -72,6 +75,12 @@
         <a class="nav-link" href="<?= base_url('customer/dashboard/my_serviceo');?>">
           <i class="fas fa-fw fa-heart"></i>
           <span>Services Order</span></a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="<?=base_url('customer/historyp');?>">
+          <i class="fas fa-fw fa-bone"></i>
+          <span>My Products Order History</span></a>
       </li>
 
       <!-- Divider -->
