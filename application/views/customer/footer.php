@@ -103,6 +103,24 @@
     });
   </script>
 
+<script>
+    $(document).ready(function () {
+    $('#table-bootstrap-history2').DataTable({
+      "order": [[ 4, "desc" ]],
+      "language": {
+        "emptyTable": "You have no orders at this time"
+      },
+      "aaSorting": [],
+      columnDefs: [{
+      orderable: false,
+      targets: 7
+      }],
+      "lengthMenu": [[5, 10, 50, -1], [5, 10, 50, "All"]]
+    });
+    $('.dataTables_length').addClass('bs-select');
+    });
+  </script>
+
   <script>
     $(document).ready(function () {
     $('#selectedColumn').DataTable({

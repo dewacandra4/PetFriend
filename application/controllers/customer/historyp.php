@@ -17,6 +17,7 @@ class historyp extends CI_Controller
         $query = $this->db->query("SELECT * FROM `user` WHERE `id` = $result");
         $row = $query->row_array();
         $data['customer']= $row;
+        $data['start'] = $this->uri->segment(4);
         date_default_timezone_set('Asia/Singapore');
         $status = array('Order Complete','Cancelled');
         $this->db->where('user_id', $result);
@@ -55,7 +56,7 @@ class historyp extends CI_Controller
         $this->db->where('order_id', $oid);
         $this->db->update('products_order');
         $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">
-        Order with Order id : #'.$oid.' successfully Re-ordered<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        Order with Order id : #'.$oid.' successfully re-ordered<button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
         </button></div>');
         redirect('customer/dashboard/my_producto');

@@ -36,7 +36,8 @@
                             <td>
                             <div class="text-center">
                                 <div class="d-inline-flex p-0">
-                                    <?= anchor('admin/history_service/view_detail/'.$service['sorder_id'],'<div class="btn btn-deep-orange btn-sm text-light"><i class="fas fa-search-plus"></i></div>')?>
+                                    <?= anchor('customer/historys/view_reciept_service/'.$service['sorder_id'],'<div class="btn btn-success"><i class="fa fa-info-circle" aria-hidden="true"></i>
+                     Detail</div>')?>
                                 </div>
                             </div>
                             </td>               

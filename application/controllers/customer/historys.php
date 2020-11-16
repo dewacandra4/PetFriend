@@ -17,6 +17,7 @@ class historys extends CI_Controller
         $query = $this->db->query("SELECT * FROM `user` WHERE `id` = $result");
         $row = $query->row_array();
         $data['customer']= $row;
+        $data['start'] = $this->uri->segment(4);
         date_default_timezone_set('Asia/Singapore');
         $status = array('Order Complete');
         $this->db->where('user_id', $result);
@@ -30,7 +31,7 @@ class historys extends CI_Controller
 
     public function view_reciept_service($oid)
     {
-        $data['title'] = 'Service Order Detail';
+        $data['title'] = 'Service Order Detail (History)';
         $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
         $lol = $this->session->userdata('username');
         $result= $this->db->query("SELECT `id` FROM `user` WHERE `username` = '$lol'")->row()->id;

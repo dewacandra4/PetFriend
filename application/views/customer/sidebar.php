@@ -76,11 +76,22 @@
           <i class="fas fa-fw fa-heart"></i>
           <span>Services Order</span></a>
       </li>
+      
+      <hr class="sidebar-divider">
+      <div class="sidebar-heading">
+        My Order History
+      </div>
 
       <li class="nav-item">
         <a class="nav-link" href="<?=base_url('customer/historyp');?>">
           <i class="fas fa-fw fa-bone"></i>
-          <span>My Products Order History</span></a>
+          <span>Products Order History</span></a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="<?=base_url('customer/historys');?>">
+          <i class="fas fa-fw fa-heart"></i>
+          <span>Services Order History</span></a>
       </li>
 
       <!-- Divider -->
