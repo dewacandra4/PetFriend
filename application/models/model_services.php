@@ -123,4 +123,17 @@ class Model_services extends CI_Model{
         $result = $this->db->get('services_order')->num_rows();
         return $result;
     }
+
+    //get all pet health order count based on doctor id with status on process (displayed on veterinarian Dashboard)
+    public function get_mypethealtho_on($id)
+    {
+        $names = array('On Process');
+        $this->db->select('*');
+        $this->db->from('services_order');
+        $this->db->join('pethealth_order', 'pethealth_order.sorder_id = services_order.sorder_id');
+        $this->db->where('pethealth_order.doc_id', $id);
+        $this->db->where_in('services_order.order_status', $names);
+        $result = $this->db->get()->num_rows();
+        return $result;
+    }
 }

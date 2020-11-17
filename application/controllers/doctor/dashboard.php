@@ -11,10 +11,13 @@ class dashboard extends CI_Controller
     public function index()
 	{
         $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
-		$data['title']= 'Dashboard';
+        $lol = $this->session->userdata('username');
+        $result= $this->db->query("SELECT `id` FROM `user` WHERE `username` = '$lol'")->row()->id;
+        $data['title']= 'Dashboard';
+        $data['info1']= $this->model_services-> get_mypethealtho_on($result);
         $this->load->view('doctor/header',$data);
         $this->load->view('doctor/sidebar');
-		$this->load->view('doctor/dashboard');
+		$this->load->view('doctor/dashboard',$data);
 		$this->load->view('doctor/footer');
 	}
 	public function change_password()
