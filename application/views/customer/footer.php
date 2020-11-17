@@ -10,7 +10,7 @@
 
     </div>
     <!-- End of Content Wrapper -->
-
+    
   </div>
   <!-- End of Page Wrapper -->
 
@@ -18,7 +18,6 @@
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
   </a>
-
 
 <!-- Bootstrap core JavaScript-->
 <script src="<?= base_url()?>assets/sbadmin/vendor/jquery/jquery.min.js"></script>
@@ -36,6 +35,108 @@
   <!-- Page level custom scripts -->
   <script src="<?= base_url()?>assets/sbadmin/js/demo/chart-area-demo.js"></script>
   <script src="<?= base_url()?>assets/sbadmin/js/demo/chart-pie-demo.js"></script>
+  <!-- JQuery -->
+  <script src="<?= base_url()?>assets/js/date-eu.js"></script>
+  <script src="<?= base_url()?>assets/js/addons/datatables.min.js"></script>
+  <script>
+      import { mdbTbl, mdbTblHead, mdbTblBody } from 'mdbvue';
+      export default {
+        name: 'TableResponsivePage',
+        components: {
+          mdbTbl,
+          mdbTblHead,
+          mdbTblBody
+        }
+      }
+  </script>
+  <script>
+    $(document).ready(function () {
+    $('#table-bootstrap').DataTable({
+      "order": [[ 2, "desc" ]],
+      "language": {
+        "emptyTable": "You have no orders at this time"
+      },
+      "aaSorting": [],
+      columnDefs: [{
+      orderable: false,
+      targets: 7
+      }],
+      "lengthMenu": [[5, 10, 50, -1], [5, 10, 50, "All"]]
+    });
+    $('.dataTables_length').addClass('bs-select');
+    });
+  </script>
+  
+  <script>
+    $(document).ready(function () {
+    $('#table-bootstrap-services').DataTable({
+      "order": [[ 2, "desc" ]],
+      "language": {
+        "emptyTable": "You have no orders at this time"
+      },
+      "aaSorting": [],
+      columnDefs: [{
+      orderable: false,
+      targets: 7
+      }],
+      "lengthMenu": [[5, 10, 50, -1], [5, 10, 50, "All"]]
+    });
+    $('.dataTables_length').addClass('bs-select');
+    });
+  </script>
+
+  <script>
+    $(document).ready(function () {
+    $('#table-bootstrap-history').DataTable({
+      "order": [[ 4, "desc" ]],
+      "language": {
+        "emptyTable": "You have no orders at this time"
+      },
+      "aaSorting": [],
+      columnDefs: [{
+      orderable: false,
+      targets: 7
+      }],
+      "lengthMenu": [[5, 10, 50, -1], [5, 10, 50, "All"]]
+    });
+    $('.dataTables_length').addClass('bs-select');
+    });
+  </script>
+
+<script>
+    $(document).ready(function () {
+    $('#table-bootstrap-history2').DataTable({
+      "order": [[ 4, "desc" ]],
+      "language": {
+        "emptyTable": "You have no orders at this time"
+      },
+      "aaSorting": [],
+      columnDefs: [{
+      orderable: false,
+      targets: 7
+      }],
+      "lengthMenu": [[5, 10, 50, -1], [5, 10, 50, "All"]]
+    });
+    $('.dataTables_length').addClass('bs-select');
+    });
+  </script>
+
+  <script>
+    $(document).ready(function () {
+    $('#selectedColumn').DataTable({
+      "order": [[ 8, "desc" ]],
+      "aaSorting": [],
+      columnDefs: [{
+      orderable: false,
+      targets: 9
+      }],
+      "lengthMenu": [[5, 10, 50, -1], [5, 10, 50, "All"]]
+    });
+    $('.dataTables_length').addClass('bs-select');
+    });
+  </script>
+
+
   <script>
     $('#image').on('change',function(){
         //get the file name
