@@ -94,9 +94,9 @@
       </div>
 
       <li class="nav-item">
-        <a class="nav-link" href="<?=base_url('customer/historys');?>">
+        <a class="nav-link" href="<?=base_url('doctor/dashboard/pethealth_list');?>">
           <i class="fas fa-fw fa-heart"></i>
-          <span>My Pet Health Order</span></a>
+          <span>Pet Health Order List</span></a>
       </li>
 
       <li class="nav-item">

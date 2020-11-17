@@ -24,7 +24,7 @@
   <?php if (!$info1 == null) :?>
   <h6><Strong>Product Order Information : </Strong></h6>
     <p class="alert alert-warning alert-dismissible fade show" role="alert">Currently You Have : <Strong><?=$info1;?></Strong> Pet Health Order(s) assign to you,
-     please check My Pet Health Order for more detailed information ^^</p>
+     please check Pet Health Order List for more detailed information ^^</p>
   <?php endif;?>
   </div>
   </div>

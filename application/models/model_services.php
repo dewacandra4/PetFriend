@@ -136,4 +136,31 @@ class Model_services extends CI_Model{
         $result = $this->db->get()->num_rows();
         return $result;
     }
+
+     //get all pet health order data based on doctor id with status on process (displayed on pet health order list)
+    public function get_pethealtho_on($id, $limit, $start)
+    {
+        $names = array('On Process');
+        $this->db->select('*');
+        $this->db->from('services_order');
+        $this->db->join('pethealth_order', 'pethealth_order.sorder_id = services_order.sorder_id');
+        $this->db->where('pethealth_order.doc_id', $id);
+        $this->db->where_in('services_order.order_status', $names);
+        $this->db->limit($limit, $start);
+        $result = $this->db->get();
+        return $result;
+    }
+
+    //get all pet health order history data based on doctor id with status order complete (displayed on pet health order history)
+    public function get_pethealtho_his($id)
+    {
+        $names = array('Order Complete');
+        $this->db->select('*');
+        $this->db->from('services_order');
+        $this->db->join('pethealth_order', 'pethealth_order.sorder_id = services_order.sorder_id');
+        $this->db->where('pethealth_order.doc_id', $id);
+        $this->db->where_in('services_order.order_status', $names);
+        $result = $this->db->get();
+        return $result;
+    }
 }
