@@ -100,7 +100,7 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="<?=base_url('customer/historys');?>">
+        <a class="nav-link" href="<?=base_url('doctor/dashboard/history_phealth');?>">
           <i class="fas fa-fw fa-heart"></i>
           <span>Pet Health Order History</span></a>
       </li>
