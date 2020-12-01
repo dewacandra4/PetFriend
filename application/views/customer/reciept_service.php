@@ -115,6 +115,7 @@
                     </div>
             </div>
             <?php endif; ?>
+            </div>
             <?php endforeach; ?>
             <?php if ($soi->order_status == "Awaiting Payment") : ?>
             <?php $stop_date = date('d F yy H:i:s', $soi->order_date);
@@ -122,10 +123,11 @@
             <br><br>
             <div class="alert alert-warning">
             <p> If the payment has not been made, the order will be canceled in: <strong id="demo"></strong></p>
+            <p> You can send the bank transfer evidence to: <strong>Petfriend2@gmail.com</strong>
             </div> 
             <?php endif; ?>
             <?php endif; ?>
-
+            
             <!-- PET SALON -->
             <?php if ($soi->service_id == 3) : ?>
                 <?php foreach ($petsalon as $ps): ?>
@@ -163,7 +165,12 @@
                         </div>
                     </div>
             </div>
-            <?php endforeach; ?> 
+            <?php endforeach; ?> <br>
+            <?php if ($soi->order_status == "Awaiting Payment") : ?>
+            <div class="alert alert-warning">
+            <p> You can send the bank transfer evidence to: <strong>Petfriend2@gmail.com</strong>
+            </div> 
+            <?php endif; ?>
             <?php endif; ?>
 
             <!-- PET HEALTH -->
@@ -178,7 +185,6 @@
                 ?> 
                 <div class="d-flex justify-content-between align-items-center product-details">
                 <div>
-                <br>
                 <h6 class="my-0"><strong>Responsible Veterinarian : </strong></h6><br>
                 <img src="<?= base_url().'/assets/dp/'.$v->image;?>" width="100"> <br><br>
                 <medium class="text-muted"><i class="fas fa-file-signature"></i> Name : <?= $v->name;?>,PhD</medium><br>
@@ -230,6 +236,8 @@
 </div>
 </div>
 </div>
+
+
 
 <style>
 body {

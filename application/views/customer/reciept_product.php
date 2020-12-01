@@ -79,7 +79,9 @@
             $stop_date2 = date('d F yy H:i:s', strtotime($stop_date . '+1 day'));?>
             <br><br>
             <div class="alert alert-warning">
-            <p> If the payment has not been made, the order will be canceled in: <strong id="demo"></strong></p>
+            <p> If the payment has not been made, the order will be canceled in: <strong id="demo"></strong>
+            <p> You can send the bank transfer evidence to: <strong>Petfriend2@gmail.com</strong>
+            </p>
             </div> 
             <?php endif; ?>
         </div>
