@@ -74,6 +74,107 @@
             <?php endforeach; ?>
         </div>
     </div>
+
+    <!-- Carousel Review Product -->
+    <?php 
+    date_default_timezone_set('Asia/Singapore');
+    function time_elapsed_string($datetime, $full = false) {
+        $now = new DateTime;
+        $ago = new DateTime($datetime);
+        $diff = $now->diff($ago);
+    
+        $diff->w = floor($diff->d / 7);
+        $diff->d -= $diff->w * 7;
+    
+        $string = array(
+            'y' => 'year',
+            'm' => 'month',
+            'w' => 'week',
+            'd' => 'day',
+            'h' => 'hour',
+            'i' => 'minute',
+            's' => 'second',
+        );
+        foreach ($string as $k => &$v) {
+            if ($diff->$k) {
+                $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
+            } else {
+                unset($string[$k]);
+            }
+        }
+    
+        if (!$full) $string = array_slice($string, 0, 1);
+        return $string ? implode(', ', $string) . ' ago' : 'just now';
+    }
+    ?>
+<div class="container mt-lg-5 " >
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Product Review <b></b></h2>
+                <div id="ReviewC" class="carousel slide" data-ride="carousel" data-interval="0">
+                <!-- Carousel indicators -->
+                
+                <ol class="carousel-indicators">
+                
+                <?php 
+                    $count = $review_count;
+                    for( $n = 0; $n<$count;$n++)
+                    {
+                        if($n==0)
+                        {
+                            echo "<li data-target='#ReviewC' data-slide-to= $n class='active'></li>";
+                        }
+                        else
+                        {
+                            echo "<li data-target='#ReviewC' data-slide-to= $n class=''></li>";
+                        }
+                    
+                    }
+                ?>
+                </ol>
+                <!-- Wrapper for carousel items -->
+                <div class="carousel-inner " >
+                    <!-- <div class="item carousel-item active"> -->
+                        <div class="row mx-auto">
+                            <?php $i = 0; foreach ($review as $c) : $item_class = ($i === 0) ? 'item carousel-item active' : 'item carousel-item'; ?>
+                            <div class="<?= $item_class ?>">
+                                <div class="col-sm-5 mx-auto my-1">
+                                    <div class="thumb-wrapper">
+                                        <div class="img-box">
+                                            <img src="<?= base_url().'assets/dp/'.$c->image;?>"class="img-fluid" alt="">	
+                                        </div>
+                                        <div class="thumb-content">
+                                            <h4><?= $c->name;?></h4>						
+                                            <div class="star-rating">
+                                            <?php $rating= $c->rating;?>
+                                                <ul class="list-inline">
+                                                <?php for ($x = 1; $x <= $rating;  $x++){
+                                                    echo '<li class="list-inline-item"><i class="fa fa-star"></i></li>';}
+                                                    ?>
+                                                </ul>
+                                            </div>
+                                            <?php $reviewd = time_elapsed_string(date('Y/m/d H:i:s',$c->review_date));?>
+                                            <p><?= $reviewd;?></p>
+                                        </div>						
+                                    </div>
+                                </div>
+                            </div>
+                            <?php $i++; endforeach; ?>
+                </div>
+                <!-- Carousel controls -->
+                <a class="carousel-control-prev" href="#ReviewC" data-slide="prev">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                <a class="carousel-control-next" href="#ReviewC" data-slide="next">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+		</div>
+	</div>
+</div>
+</div>
+
+    <!-- Carousel Similar Product -->
     <div class="container mt-lg-5 " >
         <div class="row">
             <div class="col-md-12">
@@ -165,10 +266,13 @@
 		</div>
 	</div>
 </div>
+
+
 </div>
 </div>
 <style>
 body {
     background-color: #fdfcfc
 }
+
 </style>

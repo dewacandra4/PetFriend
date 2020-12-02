@@ -570,6 +570,8 @@ class Home extends CI_Controller {
 
 	public function detail_product($id)
 	{
+        $lol = $this->session->userdata('username');
+        $result= $this->db->query("SELECT `id` FROM `user` WHERE `username` = '$lol'")->row()->id;
 		$data['products'] = $this->db->select('*')
         ->from('products')
         ->join('category', 'category.cid = products.category_id')
@@ -577,7 +579,11 @@ class Home extends CI_Controller {
 		$data['dog'] = $this->model_category->show_dog()->result();
 		$data['cat'] = $this->model_category->show_cat()->result();
 		$data['birds'] = $this->model_category->show_birds()->result();
-		$data['smallp'] = $this->model_category->show_smallpet()->result();
+        $data['smallp'] = $this->model_category->show_smallpet()->result();
+        $data['review'] = $this->model_products->get_review($id)->result();
+        $data['review_count'] = $this->model_products->get_count_review($id);
+        $data['review_check'] = $this->model_products->check_review($id,$result);
+        $data['order_check'] = $this->model_products->check_order($id,$result);
 		$data['title'] = 'Products';
         $this->load->view('home/header',$data);
         $this->load->view('home/detail_product',$data);
