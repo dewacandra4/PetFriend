@@ -118,6 +118,8 @@
                     </div>
                     <p>The total amount that you have to transfer is as follows : <input readonly class="form-control w-50 mt-1" type="text" 
                     value="RM <?=number_format($total,2,",",".");?>"> <br>
+                    You can send the bank transfer evidence to : <input readonly class="form-control w-50 mt-1" type="text" 
+                    value="Petfriend2@gmail.com"><br>
                     <Strong>If payment has not been made within 30 minutes, the room order will be canceled automatically</Strong>
                     </p>
                     </blockquote>
@@ -141,6 +143,8 @@
                     </div>
                     <p>The total amount that you have to transfer is as follows : <input readonly class="form-control w-50 mt-1" type="text" 
                     value="RM <?=number_format($total,2,",",".");?>"><br>
+                    You can send the bank transfer evidence to : <input readonly class="form-control w-50 mt-1" type="text" 
+                    value="Petfriend2@gmail.com"><br>
                     <Strong>If payment has not been made within 30 minutes, the room order will be canceled automatically</Strong>
                     </p>
                     </blockquote>
@@ -218,8 +222,8 @@
             </li>
             <?php endif; ?>
             <li class="list-group-item d-flex justify-content-between">
-              <span>Total <?=number_format($total,2,",",".");?> (RM)</span>
-              <strong></strong>
+              <span>Total (RM)</span>
+              <strong><?=number_format($total,2,",",".");?></strong>
             </li>
           </ul>
           <!-- Cart -->

@@ -74,6 +74,249 @@
             <?php endforeach; ?>
         </div>
     </div>
+
+    <!-- Carousel Review Product -->
+    <?php 
+    date_default_timezone_set('Asia/Singapore');
+    function time_elapsed_string($datetime, $full = false) {
+        $now = new DateTime;
+        $ago = new DateTime($datetime);
+        $diff = $now->diff($ago);
+    
+        $diff->w = floor($diff->d / 7);
+        $diff->d -= $diff->w * 7;
+    
+        $string = array(
+            'y' => 'year',
+            'm' => 'month',
+            'w' => 'week',
+            'd' => 'day',
+            'h' => 'hour',
+            'i' => 'minute',
+            's' => 'second',
+        );
+        foreach ($string as $k => &$v) {
+            if ($diff->$k) {
+                $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
+            } else {
+                unset($string[$k]);
+            }
+        }
+    
+        if (!$full) $string = array_slice($string, 0, 1);
+        return $string ? implode(', ', $string) . ' ago' : 'just now';
+    }
+    ?>
+<div class="container mt-lg-5 " >
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Product Review <b></b></h2>
+                
+                <?php if ($review == null) : ?>
+                <h4 class="text-center">No review for this product yet ^^</h4>
+                <?php endif?>
+
+                <div id="ReviewC" class="carousel slide" data-ride="carousel" data-interval="0">
+                <!-- Carousel indicators -->
+                
+                <ol class="carousel-indicators">
+                <?php 
+                    $count = $review_count;
+                    for( $n = 0; $n<$count;$n++)
+                    {
+                        if($n==0)
+                        {
+                            echo "<li data-target='#ReviewC' data-slide-to= $n class='active'></li>";
+                        }
+                        else
+                        {
+                            echo "<li data-target='#ReviewC' data-slide-to= $n class=''></li>";
+                        }
+                    
+                    }
+                ?>
+                </ol>
+
+                <!-- Rating Info -->
+                <?php $rate = round($avg_rating);?>
+                <span class="heading md-center">Average Rating:</span>
+                <?php if ($rate == 1) : ?>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <?php endif;?>
+                <?php if ($rate == 2) : ?>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <?php endif;?>
+                <?php if ($rate == 3) : ?>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <?php endif;?>
+                <?php if ($rate == 4) : ?>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <?php endif;?>
+                <?php if ($rate == 5) : ?>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <?php endif;?>
+                <p><?php echo $avg_rating ?> Average based on <?php echo $review_count ?>  reviews.</p>
+                <hr style="border:3px solid #f1f1f1">
+
+                <div class="row">
+                <div class="side">
+                    <div>5 stars</div>
+                </div>
+                <div class="middle">
+                    <div class="bar-container">
+                    <div class="bar-5"></div>
+                    </div>
+                </div>
+                <div class="side right">
+                    <div><?php echo $check_5?></div>
+                </div>
+                <div class="side">
+                    <div>4 stars</div>
+                </div>
+                <div class="middle">
+                    <div class="bar-container">
+                    <div class="bar-4"></div>
+                    </div>
+                </div>
+                <div class="side right">
+                    <div><?php echo $check_4?></div>
+                </div>
+                <div class="side">
+                    <div>3 stars</div>
+                </div>
+                <div class="middle">
+                    <div class="bar-container">
+                    <div class="bar-3"></div>
+                    </div>
+                </div>
+                <div class="side right">
+                    <div><?php echo $check_3?></div>
+                </div>
+                <div class="side">
+                    <div>2 stars</div>
+                </div>
+                <div class="middle">
+                    <div class="bar-container">
+                    <div class="bar-2"></div>
+                    </div>
+                </div>
+                <div class="side right">
+                    <div><?php echo $check_2?></div>
+                </div>
+                <div class="side">
+                    <div>1 star</div>
+                </div>
+                <div class="middle">
+                    <div class="bar-container">
+                    <div class="bar-1"></div>
+                    </div>
+                </div>
+                <div class="side right">
+                    <div><?php echo $check_1?></div>
+                </div>
+                </div>
+                <!-- Wrapper for carousel items -->
+                <br><br><div class="carousel-inner " >
+                    <!-- <div class="item carousel-item active"> -->
+                        <div class="row mx-auto">
+                            <?php $i = 0; foreach ($review as $c) : $item_class = ($i === 0) ? 'item carousel-item active' : 'item carousel-item'; ?>
+                            <div class="<?= $item_class ?>">
+                                <div class="col-sm-10 mx-auto my-1">
+                                    <div class="thumb-wrapper">
+                                    <div class="row mx-auto">
+                                    <div class="col-sm-4 border-right">
+                                    <div class="img-box">
+                                            <img src="<?= base_url().'assets/dp/'.$c->image;?>"class="img-fluid" alt="">	
+                                        </div>
+                                        <h4><?= $c->name;?></h4>						
+                                            <?php $reviewd = time_elapsed_string(date('Y/m/d H:i:s',$c->review_date));?>
+                                            <p><?= $reviewd;?></p>
+                                    </div>
+                                    <div class="col">
+                                    <div class="thumb-content">
+                                    <h4><?= $c->title;?></h4></div>
+                                            <div class="star-rating">
+                                            <?php $rating= $c->rating;?>
+                                                <ul class="list-inline">
+                                                <?php if ($rating == 1) : ?>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                                <?php endif;?>
+                                                <?php if ($rating == 2) : ?>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                                <?php endif;?>
+                                                <?php if ($rating == 3) : ?>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                                <?php endif;?>
+                                                <?php if ($rating == 4) : ?>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star"></span>
+                                                <?php endif;?>
+                                                <?php if ($rating == 5) : ?>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <?php endif;?>
+                                                </ul>
+                                            </div><br>
+							                <p><?= $c->content;?></p>
+                                        </div>						
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            <?php $i++; endforeach; ?>
+                </div>
+                <!-- Carousel controls -->
+                <a class="carousel-control-prev" href="#ReviewC" data-slide="prev">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                <a class="carousel-control-next" href="#ReviewC" data-slide="next">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+		</div>
+	</div>
+</div>
+</div>
+
+    <!-- Carousel Similar Product -->
     <div class="container mt-lg-5 " >
         <div class="row">
             <div class="col-md-12">
@@ -165,10 +408,81 @@
 		</div>
 	</div>
 </div>
+
+
 </div>
 </div>
 <style>
 body {
     background-color: #fdfcfc
 }
+* {
+  box-sizing: border-box;
+}
+
+
+.heading {
+  font-size: 25px;
+  margin-right: 25px;
+}
+
+.fa {
+  font-size: 25px;
+}
+
+.checked {
+  color: orange;
+}
+
+/* Three column layout */
+.side {
+  float: left;
+  width: 15%;
+  margin-top: 10px;
+}
+
+.middle {
+  float: left;
+  width: 70%;
+  margin-top: 10px;
+}
+
+/* Place text to the right */
+.right {
+  text-align: right;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* The bar container */
+.bar-container {
+  width: 100%;
+  background-color: #f1f1f1;
+  text-align: center;
+  color: white;
+}
+
+/* Individual bars */
+.bar-5 {width: <?php echo $check_5.'%';?>; height: 18px; background-color: #4CAF50;}
+.bar-4 {width: <?php echo $check_4.'%';?>; height: 18px; background-color: #2196F3;}
+.bar-3 {width: <?php echo $check_3.'%';?>; height: 18px; background-color: #00bcd4;}
+.bar-2 {width: <?php echo $check_2.'%';?>; height: 18px; background-color: #ff9800;}
+.bar-1 {width: <?php echo $check_1.'%';?>; height: 18px; background-color: #f44336;}
+
+/* Responsive layout - make the columns stack on top of each other instead of next to each other */
+@media (max-width: 400px) {
+  .side, .middle {
+    width: 100%;
+  }
+  /* Hide the right column on small screens */
+  .right {
+    display: none;
+  }
+}
+
 </style>
