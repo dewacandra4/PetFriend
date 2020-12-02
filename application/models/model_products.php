@@ -153,6 +153,9 @@ class Model_products extends CI_Model{
         return $result;
     }
 
+
+//REVIEW FUNCTION//
+
      //get review by product id
      function get_review($id)
      {
@@ -190,6 +193,61 @@ class Model_products extends CI_Model{
         $this->db->where('products_order_detail.product_id', $id);
         $result = $this->db->get()->num_rows();
         return $result;
+     }
+
+     //get 5 star review count
+     function check_5($id)
+     {
+        $r=5;
+        $this->db->where('product_id', $id);
+        $this->db->where('rating', $r);
+        $result = $this->db->get('review')->num_rows();
+        return $result;
+     }
+    //get 4 star review count
+     function check_4($id)
+     {
+        $r=4;
+        $this->db->where('product_id', $id);
+        $this->db->where('rating', $r);
+        $result = $this->db->get('review')->num_rows();
+        return $result;
+     }
+    //get 3 star review count
+     function check_3($id)
+     {
+        $r=3;
+        $this->db->where('product_id', $id);
+        $this->db->where('rating', $r);
+        $result = $this->db->get('review')->num_rows();
+        return $result;
+     }
+     //get 2 star review count
+     function check_2($id)
+     {
+        $r=2;
+        $this->db->where('product_id', $id);
+        $this->db->where('rating', $r);
+        $result = $this->db->get('review')->num_rows();
+        return $result;
+     }
+     //get 1 star review count
+     function check_1($id)
+     {
+        $r=1;
+        $this->db->where('product_id', $id);
+        $this->db->where('rating', $r);
+        $result = $this->db->get('review')->num_rows();
+        return $result;
+     }
+
+     //get average rating of a product
+     function average_rating($id)
+     {
+        $this->db->where('product_id', $id);
+        $this->db->select_avg('rating');
+        $result = $this->db->get('review')->row();
+        return $result->rating;
      }
 
 }

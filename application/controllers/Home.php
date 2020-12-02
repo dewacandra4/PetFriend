@@ -584,6 +584,12 @@ class Home extends CI_Controller {
         $data['review_count'] = $this->model_products->get_count_review($id);
         $data['review_check'] = $this->model_products->check_review($id,$result);
         $data['order_check'] = $this->model_products->check_order($id,$result);
+        $data['check_1'] = $this->model_products->check_1($id);
+        $data['check_2'] = $this->model_products->check_2($id);
+        $data['check_3'] = $this->model_products->check_3($id);
+        $data['check_4'] = $this->model_products->check_4($id);
+        $data['check_5'] = $this->model_products->check_5($id);
+        $data['avg_rating'] = $this->model_products->average_rating($id);
 		$data['title'] = 'Products';
         $this->load->view('home/header',$data);
         $this->load->view('home/detail_product',$data);
