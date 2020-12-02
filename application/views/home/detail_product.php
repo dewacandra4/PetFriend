@@ -111,11 +111,15 @@
         <div class="row">
             <div class="col-md-12">
                 <h2>Product Review <b></b></h2>
+                
+                <?php if ($review == null) : ?>
+                <h4 class="text-center">No review for this product yet ^^</h4>
+                <?php endif?>
+
                 <div id="ReviewC" class="carousel slide" data-ride="carousel" data-interval="0">
                 <!-- Carousel indicators -->
                 
                 <ol class="carousel-indicators">
-                
                 <?php 
                     $count = $review_count;
                     for( $n = 0; $n<$count;$n++)
@@ -135,19 +139,48 @@
 
                 <!-- Rating Info -->
                 <?php $rate = round($avg_rating);?>
-                <span class="heading">Users Rating</span>
-                <?php if (is_admin() == 1) : ?>
+                <span class="heading md-center">Average Rating:</span>
+                <?php if ($rate == 1) : ?>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <?php endif;?>
+                <?php if ($rate == 2) : ?>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <?php endif;?>
+                <?php if ($rate == 3) : ?>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <?php endif;?>
+                <?php if ($rate == 4) : ?>
                 <span class="fa fa-star checked"></span>
                 <span class="fa fa-star checked"></span>
                 <span class="fa fa-star checked"></span>
                 <span class="fa fa-star checked"></span>
                 <span class="fa fa-star"></span>
+                <?php endif;?>
+                <?php if ($rate == 5) : ?>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <?php endif;?>
                 <p><?php echo $avg_rating ?> Average based on <?php echo $review_count ?>  reviews.</p>
                 <hr style="border:3px solid #f1f1f1">
 
                 <div class="row">
                 <div class="side">
-                    <div>5 star</div>
+                    <div>5 stars</div>
                 </div>
                 <div class="middle">
                     <div class="bar-container">
@@ -158,7 +191,7 @@
                     <div><?php echo $check_5?></div>
                 </div>
                 <div class="side">
-                    <div>4 star</div>
+                    <div>4 stars</div>
                 </div>
                 <div class="middle">
                     <div class="bar-container">
@@ -169,7 +202,7 @@
                     <div><?php echo $check_4?></div>
                 </div>
                 <div class="side">
-                    <div>3 star</div>
+                    <div>3 stars</div>
                 </div>
                 <div class="middle">
                     <div class="bar-container">
@@ -180,7 +213,7 @@
                     <div><?php echo $check_3?></div>
                 </div>
                 <div class="side">
-                    <div>2 star</div>
+                    <div>2 stars</div>
                 </div>
                 <div class="middle">
                     <div class="bar-container">
@@ -221,13 +254,45 @@
                                     </div>
                                     <div class="col">
                                     <div class="thumb-content">
-                                    <b><?= $c->title;?></b></div>
+                                    <h4><?= $c->title;?></h4></div>
                                             <div class="star-rating">
                                             <?php $rating= $c->rating;?>
                                                 <ul class="list-inline">
-                                                <?php for ($x = 1; $x <= $rating;  $x++){
-                                                    echo '<li class="list-inline-item"><i class="fa fa-star"></i></li>';}
-                                                    ?>
+                                                <?php if ($rating == 1) : ?>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                                <?php endif;?>
+                                                <?php if ($rating == 2) : ?>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                                <?php endif;?>
+                                                <?php if ($rating == 3) : ?>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                                <?php endif;?>
+                                                <?php if ($rating == 4) : ?>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star"></span>
+                                                <?php endif;?>
+                                                <?php if ($rating == 5) : ?>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <?php endif;?>
                                                 </ul>
                                             </div><br>
 							                <p><?= $c->content;?></p>
