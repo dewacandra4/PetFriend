@@ -82,7 +82,7 @@
       <th scope="row"><?php echo $i;?></th>
       <td><?= $v->id?></td>
       <td><img src="<?= base_url().'/assets/dp/'.$v->image;?>" width="100"></td>
-      <td><?= $v->name?>, PhD</td>
+      <td><?= $v->name?>, S.K.H</td>
       <td><?= $v->email?></td>
     </tr>
     <?php $i++;?>
