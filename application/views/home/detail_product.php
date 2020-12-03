@@ -118,24 +118,6 @@
 
                 <div id="ReviewC" class="carousel slide" data-ride="carousel" data-interval="0">
                 <!-- Carousel indicators -->
-                
-                <ol class="carousel-indicators">
-                <?php 
-                    $count = $review_count;
-                    for( $n = 0; $n<$count;$n++)
-                    {
-                        if($n==0)
-                        {
-                            echo "<li data-target='#ReviewC' data-slide-to= $n class='active'></li>";
-                        }
-                        else
-                        {
-                            echo "<li data-target='#ReviewC' data-slide-to= $n class=''></li>";
-                        }
-                    
-                    }
-                ?>
-                </ol>
 
                 <!-- Rating Info -->
                 <?php $rate = round($avg_rating);?>
@@ -237,7 +219,7 @@
                 </div>
                 <!-- Wrapper for carousel items -->
                 <br><br><div class="carousel-inner " >
-                    <!-- <div class="item carousel-item active"> -->
+                    <!-- all Users Review -->
                         <div class="row mx-auto">
                             <?php $i = 0; foreach ($review as $c) : $item_class = ($i === 0) ? 'item carousel-item active' : 'item carousel-item'; ?>
                             <div class="<?= $item_class ?>">
@@ -296,11 +278,6 @@
                                                 </ul>
                                             </div><br>
                                             <p><?= $c->content;?></p><br>
-                                            <?php if (is_admin() == 2) : ?>
-                                            <?php if ($c->user_id == $cusid) : ?>
-                                            <?= anchor('customer/review/delete_review/'.$review_id,'<div class="btn btn-danger"><i class="fas fa-trash"></i> Delete</div>')?>
-                                            <?php endif; ?>
-                                            <?php endif; ?>
                                         </div>						
                                     </div>
                                 </div>
@@ -317,9 +294,73 @@
                 </a>
             </div>
 		</div>
-	</div>
-</div>
-</div>
+    </div>
+            <!-- My Review -->
+            <?php foreach ($review as $c) : ?>
+            <?php if (is_admin() == 2) : ?>
+            <?php if ($c->user_id == $cusid) : ?>
+            <div class="col-md-12 ml-3">
+            <h2>My Review <b></b></h2>
+            <div class="card">
+            <div class="card-header">
+            <h4><?= $c->title;?><h4>
+            <div class="star-rating">
+            <?php $rating= $c->rating;?>
+                <ul class="list-inline">
+                <?php if ($rating == 1) : ?>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <?php endif;?>
+                <?php if ($rating == 2) : ?>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <?php endif;?>
+                <?php if ($rating == 3) : ?>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <?php endif;?>
+                <?php if ($rating == 4) : ?>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <?php endif;?>
+                <?php if ($rating == 5) : ?>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <?php endif;?>
+                </ul>
+            </div>
+            </div>
+            <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                <p><?= $c->content;?></p>
+                <footer class="blockquote-footer"><?= $c->name;?><br><br>
+                <small> Posted on: <?=date('Y/m/d H:i:s',$c->review_date);?> </small>
+            </footer><br>
+            <?= anchor('customer/review/delete_review/'.$review_id,'<div class="btn btn-danger"><i class="fas fa-trash"></i> Delete</div>')?>
+                </blockquote>
+            </div>
+            </div>
+            </div>
+            <?php endif; ?>
+            <?php endif; ?>
+            <?php $i++; endforeach; ?>
+        </div>
+        </div>
 <?php if (is_admin() == 1) : ?>
 <?php elseif(is_admin() == 3) : ?>
 <?php elseif(is_admin() == null) : ?>
