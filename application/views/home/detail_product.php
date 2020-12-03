@@ -322,29 +322,33 @@
     <div class="row">
         <div class="col-md-12">
         <h2>Write a Review</h2>
-        <p>Dear <?=$customer['name'];?> you haven't made a review for this product yet ^^ </p>
+        <p class="text-center">Dear <?=$customer['name'];?> you haven't made a review for this product yet ^^ </p>
             <div class="panel panel-info">
                 <div class="panel-body">
                 <div class="form-group">
                     <label for="name">Full Name</label>
                     <input readonly class="form-control" id="name" value="<?=$customer['name'];?>">
                 </div>
-                <div class="rating">
-                <span><input type="radio" name="rating" id="str5" value="5"><label for="str5"></label></span>
-                <span><input type="radio" name="rating" id="str4" value="4"><label for="str4"></label></span>
-                <span><input type="radio" name="rating" id="str3" value="3"><label for="str3"></label></span>
-                <span><input type="radio" name="rating" id="str2" value="2"><label for="str2"></label></span>
-                <span><input type="radio" name="rating" id="str1" value="1"><label for="str1"></label></span>
-                </div>
+                <label for="ra">Give Rating 1-5</label><br>
+                <div class="rating" id="ra">
+                    <span><input type="radio" name="rating" id="str5" value="5"><label for="str5"></label></span>
+                    <span><input type="radio" name="rating" id="str4" value="4"><label for="str4"></label></span>
+                    <span><input type="radio" name="rating" id="str3" value="3"><label for="str3"></label></span>
+                    <span><input type="radio" name="rating" id="str2" value="2"><label for="str2"></label></span>
+                    <span><input type="radio" name="rating" id="str1" value="1"><label for="str1"></label></span>
+                    </div><br><br>
                 <div class="form-group">
                     <label for="sub">Subject</label>
-                    <input type="text" class="form-control" id="sub" placeholder="Few word about the product" required>
+                    <input type="text" class="form-control" id="sub" placeholder="Few word about the product" name="title" required>
                 </div>
                 <label for="area">Review Content</label>
-                    <textarea id="area" placeholder="Write your review here!  (Optional)" maxlength="200" class="pb-cmnt-textarea"></textarea>
+                    <textarea id="area" placeholder="Write your review here!  (Optional)" maxlength="200" class="pb-cmnt-textarea" name="content"></textarea>
                     <div class="word-counter mr-3">0/200</div>
-                        <input type="hidden" name="user_id" value="<?=$customer['id'];?>">
+                    <?php foreach($products as $pd): ?>
+                        <input type="hidden" name="product_id" value="<?=$customer['id'];?>">
+                        <input type="hidden" name="user_id" value="<?= $pd->id?>">
                         <button class="btn btn-cart p-3 mt-3" type="button">Submit <i class="fas fa-pen-square"></i></button>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </div>
@@ -541,8 +545,7 @@ right:0;
 }
 
 .rating {
-    float:rigth;
-    width:300px;
+    float:left;
 }
 .rating span { float:right; position:relative; }
 .rating span input {
