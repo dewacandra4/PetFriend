@@ -250,4 +250,10 @@ class Model_products extends CI_Model{
         return $result->rating;
      }
 
+     function delete_review($id)
+     {
+        $this->db->where('id', $id);
+        $this->db->delete('review');
+     }
+
 }
