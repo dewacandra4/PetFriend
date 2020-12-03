@@ -364,8 +364,8 @@
 <?php if (is_admin() == 1) : ?>
 <?php elseif(is_admin() == 3) : ?>
 <?php elseif(is_admin() == null) : ?>
-<?php elseif ($review_check != null) : ?>
 <?php elseif ($order_check == null) : ?>
+<?php elseif ($review_check != null) : ?>
 <?php else : ?>
  <!-- Review Form -->
  <form method="post"  action="<?= base_url('customer/review/review_product');?>" autocomplete="off">
