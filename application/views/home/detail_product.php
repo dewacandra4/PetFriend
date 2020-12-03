@@ -316,6 +316,28 @@
 </div>
 </div>
 
+ <!-- Review Form -->
+ <div class="container mt-lg-5 border-top">
+    <div class="row">
+        <div class="col-md-12">
+        <h2>Write a Review</h2>
+        <p>Dear <?=$customer['name'];?> you haven't made a review for this product yet ^^ </p>
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <textarea id="area" placeholder="Write your review here!" maxlength="200" class="pb-cmnt-textarea"></textarea>
+                    <div class="word-counter mr-3">0/200</div>
+                    <form class="form-inline">
+                        <div class="btn-group">
+                        </div>
+                        <button class="btn btn-cart pull-right p-3 mt-3" type="button">Submit <i class="fas fa-pen-square"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
     <!-- Carousel Similar Product -->
     <div class="container mt-lg-5 " >
         <div class="row">
@@ -413,6 +435,18 @@
 </div>
 </div>
 <style>
+.pb-cmnt-container {
+        font-family: Lato;
+        margin-top: 100px;
+    }
+
+    .pb-cmnt-textarea {
+        resize: none;
+        padding: 20px;
+        height: 130px;
+        width: 100%;
+        border: 1px solid #F2F2F2;
+    }
 body {
     background-color: #fdfcfc
 }
@@ -467,6 +501,12 @@ body {
   color: white;
 }
 
+.word-counter {
+position:absolute;
+bottom: 1;
+right:0;
+}
+
 /* Individual bars */
 .bar-5 {width: <?php echo $check_5.'%';?>; height: 18px; background-color: #4CAF50;}
 .bar-4 {width: <?php echo $check_4.'%';?>; height: 18px; background-color: #2196F3;}
@@ -486,3 +526,9 @@ body {
 }
 
 </style>
+<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+<script>
+$('#area').keyup(function(){
+    $('.word-counter').text($.trim(this.value.length)+'/200');
+})
+</script>

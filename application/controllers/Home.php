@@ -572,6 +572,9 @@ class Home extends CI_Controller {
 	{
         $lol = $this->session->userdata('username');
         $result= $this->db->query("SELECT `id` FROM `user` WHERE `username` = '$lol'")->row()->id;
+        $query = $this->db->query("SELECT * FROM `user` WHERE `id` = $result");
+        $row = $query->row_array();
+        $data['customer']= $row;
 		$data['products'] = $this->db->select('*')
         ->from('products')
         ->join('category', 'category.cid = products.category_id')
