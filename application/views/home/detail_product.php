@@ -317,6 +317,7 @@
 </div>
 
  <!-- Review Form -->
+ <form method="post"  action="<?= base_url('home/order_products');?>" autocomplete="off">
  <div class="container mt-lg-5 border-top">
     <div class="row">
         <div class="col-md-12">
@@ -324,18 +325,24 @@
         <p>Dear <?=$customer['name'];?> you haven't made a review for this product yet ^^ </p>
             <div class="panel panel-info">
                 <div class="panel-body">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input readonly class="form-control" id="name" value="<?=$customer['name'];?>">
+                </div>
+                <div class="form-group">
+                    <label for="sub">Subject</label>
+                    <input type="text" class="form-control" id="sub" placeholder="Few words about the product" required>
+                </div>
                     <textarea id="area" placeholder="Write your review here!" maxlength="200" class="pb-cmnt-textarea"></textarea>
                     <div class="word-counter mr-3">0/200</div>
-                    <form class="form-inline">
-                        <div class="btn-group">
-                        </div>
-                        <button class="btn btn-cart pull-right p-3 mt-3" type="button">Submit <i class="fas fa-pen-square"></i></button>
-                    </form>
+                        <input type="hidden" name="user_id" value="<?=$customer['id'];?>">
+                        <button class="btn btn-cart p-3 mt-3" type="button">Submit <i class="fas fa-pen-square"></i></button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+</form>
 
 
     <!-- Carousel Similar Product -->
