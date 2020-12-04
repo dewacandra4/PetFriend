@@ -56,8 +56,10 @@
                                 <div class="d-inline-flex p-0">
                                     <?= anchor('customer/historyp/view_reciept/'.$product['order_id'],'<div class="btn btn-success"><i class="fa fa-info-circle" aria-hidden="true"></i>
                      Detail</div>')?>
+                     <?php if($product['order_status']=="Cancelled") : ?>
                      <?= anchor('customer/historyp/re_order/'.$product['order_id'],'<div class="btn btn-warning"><i class="fa fa-shopping-basket" aria-hidden="true"></i>
                      Re-Order</div>')?>
+                     <?php endif?>
                                 </div>
                             </div>
                             </td>               
