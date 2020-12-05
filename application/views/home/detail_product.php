@@ -75,7 +75,7 @@
         </div>
     </div>
 
-    <!-- Carousel Review Product -->
+    <!-- Product Review -->
     <?php 
     date_default_timezone_set('Asia/Singapore');
     function time_elapsed_string($datetime, $full = false) {
@@ -111,31 +111,13 @@
         <div class="row">
             <div class="col-md-12">
                 <h2>Product Review <b></b></h2>
-                
+                <?= $this->session->flashdata('message'); ?>
                 <?php if ($review == null) : ?>
                 <h4 class="text-center">No review for this product yet ^^</h4>
                 <?php endif?>
 
                 <div id="ReviewC" class="carousel slide" data-ride="carousel" data-interval="0">
                 <!-- Carousel indicators -->
-                
-                <ol class="carousel-indicators">
-                <?php 
-                    $count = $review_count;
-                    for( $n = 0; $n<$count;$n++)
-                    {
-                        if($n==0)
-                        {
-                            echo "<li data-target='#ReviewC' data-slide-to= $n class='active'></li>";
-                        }
-                        else
-                        {
-                            echo "<li data-target='#ReviewC' data-slide-to= $n class=''></li>";
-                        }
-                    
-                    }
-                ?>
-                </ol>
 
                 <!-- Rating Info -->
                 <?php $rate = round($avg_rating);?>
@@ -237,7 +219,7 @@
                 </div>
                 <!-- Wrapper for carousel items -->
                 <br><br><div class="carousel-inner " >
-                    <!-- <div class="item carousel-item active"> -->
+                    <!-- all Users Review -->
                         <div class="row mx-auto">
                             <?php $i = 0; foreach ($review as $c) : $item_class = ($i === 0) ? 'item carousel-item active' : 'item carousel-item'; ?>
                             <div class="<?= $item_class ?>">
@@ -248,7 +230,7 @@
                                     <div class="img-box">
                                             <img src="<?= base_url().'assets/dp/'.$c->image;?>"class="img-fluid" alt="">	
                                         </div>
-                                        <h4><?= $c->name;?></h4>						
+                                        <h4><?= $c->name;?></h4>					
                                             <?php $reviewd = time_elapsed_string(date('Y/m/d H:i:s',$c->review_date));?>
                                             <p><?= $reviewd;?></p>
                                     </div>
@@ -295,7 +277,7 @@
                                                 <?php endif;?>
                                                 </ul>
                                             </div><br>
-							                <p><?= $c->content;?></p>
+                                            <p><?= $c->content;?></p><br>
                                         </div>						
                                     </div>
                                 </div>
@@ -312,9 +294,118 @@
                 </a>
             </div>
 		</div>
-	</div>
+    </div>
+            <!-- My Review -->
+            <?php foreach ($review as $c) : ?>
+            <?php if (is_admin() == 2) : ?>
+            <?php if ($c->user_id == $cusid) : ?>
+            <div class="col-md-12 ml-3">
+            <h2>My Review <b></b></h2>
+            <div class="card">
+            <div class="card-header">
+            <h4><?= $c->title;?><h4>
+            <div class="star-rating">
+            <?php $rating= $c->rating;?>
+                <ul class="list-inline">
+                <?php if ($rating == 1) : ?>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <?php endif;?>
+                <?php if ($rating == 2) : ?>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <?php endif;?>
+                <?php if ($rating == 3) : ?>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+                <?php endif;?>
+                <?php if ($rating == 4) : ?>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <?php endif;?>
+                <?php if ($rating == 5) : ?>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <?php endif;?>
+                </ul>
+            </div>
+            </div>
+            <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                <p><?= $c->content;?></p>
+                <footer class="blockquote-footer"><?= $c->name;?><br><br>
+                <small> Posted on: <?=date('Y/m/d H:i:s',$c->review_date);?> </small>
+            </footer><br>
+            <?= anchor('customer/review/delete_review/'.$review_id,'<div class="btn btn-danger"><i class="fas fa-trash"></i> Delete</div>')?>
+                </blockquote>
+            </div>
+            </div>
+            </div>
+            <?php endif; ?>
+            <?php endif; ?>
+            <?php $i++; endforeach; ?>
+        </div>
+        </div>
+<?php if (is_admin() == 1) : ?>
+<?php elseif(is_admin() == 3) : ?>
+<?php elseif(is_admin() == null) : ?>
+<?php elseif ($order_check == null) : ?>
+<?php elseif ($review_check != null) : ?>
+<?php else : ?>
+ <!-- Review Form -->
+ <form method="post"  action="<?= base_url('customer/review/review_product');?>" autocomplete="off">
+ <div class="container mt-lg-5 border-top">
+    <div class="row">
+        <div class="col-md-12">
+        <h2>Write a Review</h2>
+        <p class="text-center">Dear <?=$customer['name'];?> you haven't made a review for this product yet ^^ </p>
+            <div class="panel panel-info">
+                <div class="panel-body">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input readonly class="form-control" id="name" value="<?=$customer['name'];?>">
+                </div>
+                <label for="ra">Give Rating 1-5</label><br>
+                <div class="rating" id="ra">
+                    <span><input type="radio" name="rating" id="str5" value="5"><label for="str5"></label></span>
+                    <span><input type="radio" name="rating" id="str4" value="4"><label for="str4"></label></span>
+                    <span><input type="radio" name="rating" id="str3" value="3"><label for="str3"></label></span>
+                    <span><input type="radio" name="rating" id="str2" value="2"><label for="str2"></label></span>
+                    <span><input type="radio" name="rating" id="str1" value="1" required><label for="str1"></label></span>
+                    </div><br><br>
+                <div class="form-group">
+                    <label for="sub">Subject</label>
+                    <input type="text" class="form-control" id="sub" placeholder="Few word about the product" name="title" required>
+                </div>
+                <label for="area">Review Content</label>
+                    <textarea id="area" placeholder="Write your review here!  (Optional)" maxlength="200" class="pb-cmnt-textarea" name="content"></textarea>
+                    <div class="word-counter mr-3">0/200</div>
+                        <input type="hidden" name="product_id" value="<?php echo $proid ?>">
+                        <input type="hidden" name="user_id" value="<?php echo $cusid ?>"> 
+                        <button class="btn btn-cart p-3 mt-3" type="submit">Submit <i class="fas fa-pen-square"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-</div>
+</form>
+<?php endif ?>
+
 
     <!-- Carousel Similar Product -->
     <div class="container mt-lg-5 " >
@@ -413,6 +504,18 @@
 </div>
 </div>
 <style>
+.pb-cmnt-container {
+        font-family: Lato;
+        margin-top: 100px;
+    }
+
+    .pb-cmnt-textarea {
+        resize: none;
+        padding: 20px;
+        height: 130px;
+        width: 100%;
+        border: 1px solid #F2F2F2;
+    }
 body {
     background-color: #fdfcfc
 }
@@ -467,6 +570,12 @@ body {
   color: white;
 }
 
+.word-counter {
+position:absolute;
+bottom: 1;
+right:0;
+}
+
 /* Individual bars */
 .bar-5 {width: <?php echo $check_5.'%';?>; height: 18px; background-color: #4CAF50;}
 .bar-4 {width: <?php echo $check_4.'%';?>; height: 18px; background-color: #2196F3;}
@@ -485,4 +594,55 @@ body {
   }
 }
 
+.rating {
+    float:left;
+}
+.rating span { float:right; position:relative; }
+.rating span input {
+    position:absolute;
+    top:0px;
+    left:0px;
+    opacity:0;
+}
+.rating span label {
+    display:inline-block;
+    width:30px;
+    height:30px;
+    text-align:center;
+    color:#FFF;
+    background:#ccc;
+    font-size:30px;
+    margin-right:2px;
+    line-height:30px;
+    border-radius:50%;
+    -webkit-border-radius:50%;
+}
+.rating span:hover ~ span label,
+.rating span:hover label,
+.rating span.checked label,
+.rating span.checked ~ span label {
+    background:#F90;
+    color:#FFF;
+}
 </style>
+
+<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+<script>
+$('#area').keyup(function(){
+    $('.word-counter').text($.trim(this.value.length)+'/200');
+})
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">
+</script>
+<script>
+    $(document).ready(function(){
+    // Check Radio-box
+    $(".rating input:radio").attr("checked", false);
+
+    $('.rating input').click(function () {
+        $(".rating span").removeClass('checked');
+        $(this).parent().addClass('checked');
+    }); 
+});
+</script>

@@ -191,6 +191,7 @@ class Model_products extends CI_Model{
         $this->db->join('products_order_detail', 'products_order_detail.order_id = products_order.order_id');
         $this->db->where('products_order.user_id', $idc);
         $this->db->where('products_order_detail.product_id', $id);
+        $this->db->where('products_order.order_status', "Order Complete");
         $result = $this->db->get()->num_rows();
         return $result;
      }
@@ -248,6 +249,12 @@ class Model_products extends CI_Model{
         $this->db->select_avg('rating');
         $result = $this->db->get('review')->row();
         return $result->rating;
+     }
+
+     function delete_review($id)
+     {
+        $this->db->where('id', $id);
+        $this->db->delete('review');
      }
 
 }
