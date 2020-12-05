@@ -28,7 +28,7 @@
                         <tr>
                             <td><?= ++$start?></td>
                             <td><?= $product['order_id']?></td>
-                            <td><?= date('Y/m/d H:i:s', $product['order_date']);?></td>
+                            <td><?= date('Y-m-d H:i:s', $product['order_date']);?></td>
                             <td><?php 
                             if(empty(($product['delivery_date'])))
                             {
@@ -36,17 +36,17 @@
                             }
                             else
                             {
-                                echo date('Y/m/d H:i:s', $product['delivery_date']);
+                                echo date('Y-m-d H:i:s', $product['delivery_date']);
                             }
                             ?></td>
                             <td><?php 
-                            if(empty(($product['finish_date'])))
+                            if($product['finish_date'] == 0)
                             {
                                 echo "-";
                             }
                             else
                             {
-                                echo date('Y/m/d H:i:s', $product['finish_date']);
+                                echo $product['finish_date'];
                             }
                             ?></td>
                             <td><?= $product['order_status']?></td>
