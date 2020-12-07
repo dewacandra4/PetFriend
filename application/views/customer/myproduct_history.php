@@ -46,7 +46,7 @@
                             }
                             else
                             {
-                                echo $product['finish_date'];
+                                echo  $product['finish_date'];
                             }
                             ?></td>
                             <td><?= $product['order_status']?></td>
@@ -54,8 +54,8 @@
                             <td>
                             <div class="text-center">
                                 <div class="d-inline-flex p-0">
-                                    <?= anchor('customer/historyp/view_reciept/'.$product['order_id'],'<div class="btn btn-success"><i class="fa fa-info-circle" aria-hidden="true"></i>
-                     Detail</div>')?>
+                                    <?= anchor('customer/historyp/view_reciept/'.$product['order_id'],'<div class="btn btn-success"><i class="fas fa-search-plus" aria-hidden="true"></i>
+                     </div>')?>
                      <?php if($product['order_status']=="Cancelled") : ?>
                      <?= anchor('customer/historyp/re_order/'.$product['order_id'],'<div class="btn btn-warning"><i class="fa fa-shopping-basket" aria-hidden="true"></i>
                      Re-Order</div>')?>
