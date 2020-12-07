@@ -115,7 +115,7 @@
                     </div>
             </div>
             <?php endif; ?>
-            </div>
+            </div></div>
             <?php endforeach; ?>
             <?php if ($soi->order_status == "Awaiting Payment") : ?>
             <?php $stop_date = date('d F yy H:i:s', $soi->order_date);
@@ -164,6 +164,7 @@
                                 RM <?php echo number_format($total,2)."<br>";?></span></div>
                         </div>
                     </div>
+                    </div></div>
             </div>
             <?php endforeach; ?> <br>
             <?php if ($soi->order_status == "Awaiting Payment") : ?>
@@ -229,13 +230,12 @@
             <div class="alert alert-warning">
             <p> Total price <strong> RM <?php echo number_format($total,2);?></strong>
             is only a fee for veterinarians, for the cost of treatment and care will vary depending on the type of treatment</p>
-            </div> 
+            </div> </div>
             <?php endif; ?>
         </div>
     </div>
 </div>
-</div>
-</div>
+
 
 
 
