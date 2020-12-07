@@ -42,8 +42,8 @@
                       $stop_date3 = date('H:i:s', strtotime($stop_date . ' +1 day'));?>
                       <td><?php echo $stop_date2; ?> || <?php echo $stop_date3; ?></td>
                     <?php endif; ?>
-                    <td><?= anchor('customer/dashboard/view_reciept/'.$po->order_id,'<div class="btn btn-success"><i class="fa fa-info-circle" aria-hidden="true"></i>
-                     Detail</div>')?>
+                    <td><?= anchor('customer/dashboard/view_reciept/'.$po->order_id,'<div class="btn btn-success"><i class="fas fa-search-plus" aria-hidden="true"></i>
+                     </div>')?>
                     <?php if($po->order_status == "Awaiting Payment") :?>
                      || <?= anchor('customer/dashboard/cancel_product/'.$po->order_id,'<div class="btn btn-danger"><i class="fa fa-ban" aria-hidden="true"></i>
                       Cancel</div>')?></td>
