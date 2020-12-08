@@ -117,7 +117,17 @@
     $('.dataTables_length').addClass('bs-select');
     });
   </script>
-
+  <script>
+    $(document).ready(function () {
+    $('#userTable').DataTable({
+      "order": [[ 4, "desc" ]],
+    
+      "lengthMenu": [[5, 10, 50, -1], [5, 10, 50, "All"]],
+      
+    });
+    $('.dataTables_length').addClass('bs-select');
+    });
+  </script>
 
   <script>
     $('#image').on('change',function(){

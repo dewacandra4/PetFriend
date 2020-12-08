@@ -70,7 +70,7 @@
                             <div class="card-body">
                               <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                  <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total Products Sold</div>
+                                  <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total Products Sold <?=date("F Y")?></div>
                                   <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $total_sold?> Item(s)</div>
                                 </div>
                                 <div class="col-auto">
@@ -100,7 +100,7 @@
                         <img class="img-fluid px-3 px-sm-4 mt-3 mb-0" style="width: 45rem;" src="<?= base_url()?>assets/img/welcome.png" alt="">
                       </div>
                       <div class="dropdown-divider"></div>
-                      <h6 class="text-center font-weight-bold">Welcome to the admin dashboard. In this page you can view your profile information, change your profile and password, manage services and products, and see the list of order on the right sidebar.</h6>
+                      <h6 class="text-center font-weight-bold">Welcome to the admin dashboard. In this page you can view your profile information, change your profile and password, manage services and products, and see the list of order on the left sidebar.</h6>
                     </div>
                   </div>
                 </div>

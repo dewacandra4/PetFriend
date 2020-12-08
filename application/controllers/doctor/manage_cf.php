@@ -18,115 +18,145 @@ class Manage_cf extends CI_Controller
         $row = $query->row_array();
         $data['doctor']= $row;
         $data['start'] = $this->uri->segment(4);
-        //load library
-        $this->load->library('pagination');
-        //config
-        $config['base_url'] = 'http://localhost/PetFriend/doctor/manage_cf/index';
-        $config['total_rows'] = $this->model_doctor->countAllCF();
-        $config['per_page'] = 8;
-        //styling
-        $config['full_tag_open'] = '<nav>
-        <ul class="pagination justify-content-center">';
-        $config['full_tag_close'] = '</ul>
-        </nav>';
-        $config['first_link'] = 'First';
-        $config['first_tag_open'] = '<li class="page-item">';
-        $config['first_tag_close'] = '</li>';
-
-        $config['last_link'] = 'Last';
-        $config['last_tag_open'] = '<li class="page-item">';
-        $config['last_tag_close'] = '</li>';
         
-        $config['next_link'] = '&raquo';
-        $config['next_tag_open'] = '<li class="page-item">';
-        $config['next_tag_close'] = '</li>';
-        
-        $config['prev_link'] = '&laquo';
-        $config['prev_tag_open'] = '<li class="page-item">';
-        $config['prev_tag_close'] = '</li>';
-        
-        $config['cur_tag_open'] = '<li class="page-item active "><a class="page-link " href="#">';
-        $config['cur_tag_close'] = '</a></li>';
-        
-        $config['num_tag_open'] = '<li class="page-item">';
-        $config['num_tag_close'] = '</li>';
-
-        $config['attributes'] = array('class' => 'page-link');
-        //initialize
-        $this->pagination->initialize($config);
-        
-        
-        $data['cf'] = $this->model_cf->getListCF($config['per_page'],$data['start']);
+        $data['diseases'] = $this->db->query("SELECT * FROM diseases order by id")->result();
+        $data['symptoms'] = $this->db->query("SELECT * FROM symptoms order by symptom_id")->result();
+        // $data['cf_id'] = $this->model_cf->getById($id);
+        $data['cf'] = $this->model_cf->getListCF();
         $this->load->view('doctor/header',$data);
         $this->load->view('doctor/sidebar',$data);
         $this->load->view('doctor/cf_value/data_cf',$data);
         $this->load->view('doctor/footer');
     }
-    public function create()
+    public function add_action()
 	{
-		if (isset($_POST['submit'])){
-			$this->model_cf->insert();
-			redirect('doctor/manage_cf/index');
+        $this->form_validation->set_rules('symptom', 'Symptom', 'required|trim');
+        $this->form_validation->set_rules('disease', 'Disease', 'required|trim');
+        $this->form_validation->set_rules('mb', 'MB', 'required|trim|numeric');
+        $this->form_validation->set_rules('md', 'MD', 'required|trim|numeric');
+        if($this->form_validation->run() == false)
+        {
+            
+            $data['title'] = 'CF Value';
+            $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
+            $user = $this->session->userdata('username');
+            $result= $this->db->query("SELECT `id` FROM `user` WHERE `username` = '$user'")->row()->id;
+            $query = $this->db->query("SELECT * FROM `user` WHERE `id` = $result");
+            $row = $query->row_array();
+            $data['doctor']= $row;
+            $data['start'] = $this->uri->segment(4);
+            
+            $data['cf'] = $this->model_cf->getListCF();
+            $this->load->view('doctor/header',$data);
+            $this->load->view('doctor/sidebar',$data);
+            $this->load->view('doctor/cf_value/data_cf',$data);
+            $this->load->view('doctor/footer');
+        }
+	    else{
+            $symptom = $this->input->post('symptom');
+            $disease = $this->input->post('disease');
+            $md = $this->input->post('md');
+            $mb = $this->input->post('mb');
+
+            $data = array(
+                        'symptom_id'=>$symptom,
+                        'disease_id'=>$disease,
+                        'md'=>$md,
+                        'mb'=>$mb,
+                    );
+            $this->model_cf->insert($data);
+            if($this->db->affected_rows())
+            {
+                $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Data Added Successfully <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button></div>');
+                redirect('doctor/manage_cf/index');
+            }
+            elseif(!$this->db->affected_rows())
+            {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Failed to add the CF Value data! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button></div>');
+                redirect('doctor/manage_cf/index');
+            }
 		}
-        $data['title'] = 'CF Value';
-        $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
-        $user = $this->session->userdata('username');
-        $result= $this->db->query("SELECT `id` FROM `user` WHERE `username` = '$user'")->row()->id;
-        $query = $this->db->query("SELECT * FROM `user` WHERE `id` = $result");
-        $row = $query->row_array();
-        $data['doctor']= $row;
-		$data['content'] = 'doctor/manage_cf/create';
-		$this->load->view('doctor/header',$data);
-        $this->load->view('doctor/sidebar',$data);
-        $this->load->view('doctor/cf_value/add_cf',$data);
-        $this->load->view('doctor/footer');
-
-
 	}
     public function edit()
     {
-        $this->form_validation->set_rules('md', 'md', 'required|trim');
-        $this->form_validation->set_rules('mb', 'mb', 'required|trim');
+        $this->form_validation->set_rules('md', 'md', 'required|numeric|trim');
+        $this->form_validation->set_rules('mb', 'mb', 'required|numeric|trim');
         if($this->form_validation->run() == false)
         {
-            $data['title'] = 'Edit CF';
+            $data['title'] = 'CF Value';
             $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
-            $id=$this->uri->segment(4);
+            $user = $this->session->userdata('username');
+            $result= $this->db->query("SELECT `id` FROM `user` WHERE `username` = '$user'")->row()->id;
+            $query = $this->db->query("SELECT * FROM `user` WHERE `id` = $result");
+            $row = $query->row_array();
+            $data['doctor']= $row;
+            $data['start'] = $this->uri->segment(4);
+            
             $data['diseases'] = $this->db->query("SELECT * FROM diseases order by id")->result();
-            $data['symptoms'] = $this->db->query("SELECT * FROM symptoms order by id")->result();
-            $data['cf'] = $this->model_cf->getById($id);
-            $data['content'] = 'doctor/manage_cf/edit';
+            $data['symptoms'] = $this->db->query("SELECT * FROM symptoms order by symptom_id")->result();
+            // $data['cf_id'] = $this->model_cf->getById($id);
+            $data['cf'] = $this->model_cf->getListCF();
             $this->load->view('doctor/header',$data);
             $this->load->view('doctor/sidebar',$data);
-            $this->load->view('doctor/cf_value/edit_cf',$data);
+            $this->load->view('doctor/cf_value/data_cf',$data);
             $this->load->view('doctor/footer');
         }
         else
         {
-            if (isset($_POST['submit']))
+            $id = $this->input->post('id');
+            $symptom_id = $this->input->post('symptom_id');
+            $disease_id = $this->input->post('disease_id');
+            $md = $this->input->post('md');
+            $mb = $this->input->post('mb');
+
+            $data = array(
+                        'symptom_id'=>$symptom_id,
+                        'disease_id'=>$disease_id,
+                        'md'=>$md,'mb'=>$mb,
+            );
+            $update= $this->model_cf->edit($id, $data);
+            if($this->db->affected_rows())
             {
-                $id = $this->input->post('id');
-                $symptom_id = $this->input->post('symptom_id');
-                $disease_id = $this->input->post('disease_id');
-                $md = $this->input->post('md');
-                $mb = $this->input->post('mb');
-    
-                $data = array(
-                            'symptom_id'=>$symptom_id,
-                            'disease_id'=>$disease_id,
-                            'md'=>$md,'mb'=>$mb,
-                );
-                $this->model_cf->edit($id, $data);
-                redirect('doctor/manage_cf/index');
+                $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible 
+                fade show" role="alert">Successfully Edited! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button></div>');
+                redirect('doctor/manage_cf/index'); 
+            }
+            elseif(!$this->db->affected_rows())
+            {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible 
+                fade show" role="alert">Failed to edit symptom data! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button></div>');
+                redirect('doctor/manage_cf/index'); 
             }
         }
 
     }
     
-    public function delete($id)
+    public function delete()
     {
-        $where = array('id_cf' => $id);
+        $id_cf = $this->input->post('id_cf');
+        $where = array('id_cf' => $id_cf);
         $this->model_doctor->delete_data($where,'cf');
-        redirect('doctor/manage_cf/index');
+        if($this->db->affected_rows())
+        {
+            $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">CF ID <strong>#'.$id_cf.'</strong> removed! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button></div>');
+            redirect('doctor/manage_cf/index');
+        }
+        elseif(!$this->db->affected_rows())
+        {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Failed to remove the CF ID #'.$id_cf.'! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button></div>');
+            redirect('doctor/manage_cf/index');
+        }
     }
 }

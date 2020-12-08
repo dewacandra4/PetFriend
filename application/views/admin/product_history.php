@@ -48,7 +48,7 @@
                             }
                             else
                             {
-                                echo date('Y/m/d H:i:s', $product['finish_date']);
+                                echo $product['finish_date'];
                             }
                             ?></td>
                             <td><?= $product['order_status']?></td>

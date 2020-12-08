@@ -29,5 +29,5 @@
   <!-- Custom styles for this template-->
   <link href="<?= base_url()?>assets/sbadmin/css/sb-admin-2.css" rel="stylesheet">
   <link href="<?= base_url()?>assets/css/addons/datatables.min.css" rel="stylesheet">
-
+  
 </head>

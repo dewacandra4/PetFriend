@@ -210,19 +210,19 @@ class Manage_products extends CI_Controller
     public function delete()
     {
         $id = $this->input->post('id');
-        $name = $this->input->post('name');
+        $code = $this->input->post('code');
         $where = array('id' => $id);
         $this->model_products->delete_data($where,'products');
         if($this->db->affected_rows())
         {
-            $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Products #'.$name.' removed! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Products #'.$code.' removed! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button></div>');
             redirect('admin/manage_products/index');
         }
         elseif(!$this->db->affected_rows())
         {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Failed to remove the product #'.$name.'! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Failed to remove the product #'.$code.'! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button></div>');
             redirect('admin/manage_products/index');

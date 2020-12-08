@@ -48,12 +48,15 @@ class Model_doctor extends CI_Model{
     {
         return $this->db->get('cf')->num_rows();
     }
-    public function getDiseases($limit, $start)
+    public function getDiseases()
     {
-        return $this->db->get('diseases', $limit, $start)->result_array();
+        return $this->db->get('diseases')->result_array();
     }
-    public function getSympt($limit, $start)
+    public function getSympt()
     {
-        return $this->db->get('symptoms', $limit, $start)->result_array();
+        $symptom = $this->db->select('*')
+        ->from('type')
+        ->join('symptoms', 'type.id = symptoms.type_id')->get()->result_array(); 
+        return $symptom;
     }
 }
