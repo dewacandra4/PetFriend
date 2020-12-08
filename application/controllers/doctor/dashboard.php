@@ -256,6 +256,25 @@ class dashboard extends CI_Controller
          redirect('doctor/dashboard/pethealth_list');
  
      }
+
+     public function history_phealth()
+     {
+         $data['title'] = 'Pet Health Order History';
+         $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
+         $user = $this->session->userdata('username');
+         $result= $this->db->query("SELECT `id` FROM `user` WHERE `username` = '$user'")->row()->id;
+         $query = $this->db->query("SELECT * FROM `user` WHERE `id` = $result");
+         $row = $query->row_array();
+         $data['customer']= $row;
+         $data['start'] = $this->uri->segment(4);
+         date_default_timezone_set('Asia/Singapore');
+         $data['order']= $this->model_services->get_pethealtho_his($result)->result_array();
+         $this->load->view('doctor/header',$data);
+         $this->load->view('doctor/sidebar',$data);
+         $this->load->view('doctor/phealth_history',$data);
+         $this->load->view('doctor/footer');
+     }
+ 
  
 
 

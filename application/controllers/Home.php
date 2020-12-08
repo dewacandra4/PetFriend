@@ -570,6 +570,22 @@ class Home extends CI_Controller {
 
 	public function detail_product($id)
 	{
+        $lol = $this->session->userdata('username');
+        if($lol != null)
+        {
+            $result= $this->db->query("SELECT `id` FROM `user` WHERE `username` = '$lol'")->row()->id;
+            $query = $this->db->query("SELECT * FROM `user` WHERE `id` = $result");
+            $row = $query->row_array();
+            $data['customer']= $row;
+            $data['review_check'] = $this->model_products->check_review($id,$result);
+            $data['order_check'] = $this->model_products->check_order($id,$result);
+            $data['cusid'] = $result;
+            
+            if($this->model_products->check_review($id,$result) != null)
+            {
+                $data['review_id'] = $this->db->query("SELECT `id` FROM `review` WHERE `user_id` = '$result' AND `product_id` = '$id' ")->row()->id;
+            }
+        }
 		$data['products'] = $this->db->select('*')
         ->from('products')
         ->join('category', 'category.cid = products.category_id')
@@ -577,7 +593,16 @@ class Home extends CI_Controller {
 		$data['dog'] = $this->model_category->show_dog()->result();
 		$data['cat'] = $this->model_category->show_cat()->result();
 		$data['birds'] = $this->model_category->show_birds()->result();
-		$data['smallp'] = $this->model_category->show_smallpet()->result();
+        $data['smallp'] = $this->model_category->show_smallpet()->result();
+        $data['review'] = $this->model_products->get_review($id)->result();
+        $data['review_count'] = $this->model_products->get_count_review($id);
+        $data['check_1'] = $this->model_products->check_1($id);
+        $data['check_2'] = $this->model_products->check_2($id);
+        $data['check_3'] = $this->model_products->check_3($id);
+        $data['check_4'] = $this->model_products->check_4($id);
+        $data['check_5'] = $this->model_products->check_5($id);
+        $data['proid'] = $id;
+        $data['avg_rating'] = $this->model_products->average_rating($id);
 		$data['title'] = 'Products';
         $this->load->view('home/header',$data);
         $this->load->view('home/detail_product',$data);

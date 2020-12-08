@@ -28,7 +28,7 @@
                         <tr>
                             <td><?= ++$start?></td>
                             <td><?= $product['order_id']?></td>
-                            <td><?= date('Y/m/d H:i:s', $product['order_date']);?></td>
+                            <td><?= date('Y-m-d H:i:s', $product['order_date']);?></td>
                             <td><?php 
                             if(empty(($product['delivery_date'])))
                             {
@@ -36,17 +36,17 @@
                             }
                             else
                             {
-                                echo date('Y/m/d H:i:s', $product['delivery_date']);
+                                echo date('Y-m-d H:i:s', $product['delivery_date']);
                             }
                             ?></td>
                             <td><?php 
-                            if(empty(($product['finish_date'])))
+                            if($product['finish_date'] == 0)
                             {
                                 echo "-";
                             }
                             else
                             {
-                                echo date('Y/m/d H:i:s', $product['finish_date']);
+                                echo  $product['finish_date'];
                             }
                             ?></td>
                             <td><?= $product['order_status']?></td>
@@ -54,10 +54,12 @@
                             <td>
                             <div class="text-center">
                                 <div class="d-inline-flex p-0">
-                                    <?= anchor('customer/historyp/view_reciept/'.$product['order_id'],'<div class="btn btn-success"><i class="fa fa-info-circle" aria-hidden="true"></i>
-                     Detail</div>')?>
+                                    <?= anchor('customer/historyp/view_reciept/'.$product['order_id'],'<div class="btn btn-success"><i class="fas fa-search-plus" aria-hidden="true"></i>
+                     </div>')?>
+                     <?php if($product['order_status']=="Cancelled") : ?>
                      <?= anchor('customer/historyp/re_order/'.$product['order_id'],'<div class="btn btn-warning"><i class="fa fa-shopping-basket" aria-hidden="true"></i>
                      Re-Order</div>')?>
+                     <?php endif?>
                                 </div>
                             </div>
                             </td>               

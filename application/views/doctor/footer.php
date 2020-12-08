@@ -169,7 +169,105 @@ $(document).ready(function () {
     });
     $('.dataTables_length').addClass('bs-select');
     });
-  </script>
+</script>
+<script>
+    import { mdbTbl, mdbTblHead, mdbTblBody } from 'mdbvue';
+    export default {
+      name: 'TableResponsivePage',
+      components: {
+        mdbTbl,
+        mdbTblHead,
+        mdbTblBody
+      }
+    }
+</script>
+<script>
+  $(document).ready(function () {
+  $('#table-bootstrap').DataTable({
+    "order": [[ 2, "desc" ]],
+    "language": {
+      "emptyTable": "You have no orders at this time"
+    },
+    "aaSorting": [],
+    columnDefs: [{
+    orderable: false,
+    targets: 7
+    }],
+    "lengthMenu": [[5, 10, 50, -1], [5, 10, 50, "All"]]
+  });
+  $('.dataTables_length').addClass('bs-select');
+  });
+</script>
+
+<script>
+  $(document).ready(function () {
+  $('#table-bootstrap-services').DataTable({
+    "order": [[ 2, "desc" ]],
+    "language": {
+      "emptyTable": "You have no orders at this time"
+    },
+    "aaSorting": [],
+    columnDefs: [{
+    orderable: false,
+    targets: 7
+    }],
+    "lengthMenu": [[5, 10, 50, -1], [5, 10, 50, "All"]]
+  });
+  $('.dataTables_length').addClass('bs-select');
+  });
+</script>
+
+<script>
+  $(document).ready(function () {
+  $('#table-bootstrap-history').DataTable({
+    "order": [[ 4, "desc" ]],
+    "language": {
+      "emptyTable": "You have no orders at this time"
+    },
+    "aaSorting": [],
+    columnDefs: [{
+    orderable: false,
+    targets: 7
+    }],
+    "lengthMenu": [[5, 10, 50, -1], [5, 10, 50, "All"]]
+  });
+  $('.dataTables_length').addClass('bs-select');
+  });
+</script>
+
+<script>
+  $(document).ready(function () {
+  $('#table-bootstrap-history2').DataTable({
+    "order": [[ 4, "desc" ]],
+    "language": {
+      "emptyTable": "You have no orders at this time"
+    },
+    "aaSorting": [],
+    columnDefs: [{
+    orderable: false,
+    targets: 7
+    }],
+    "lengthMenu": [[5, 10, 50, -1], [5, 10, 50, "All"]]
+  });
+  $('.dataTables_length').addClass('bs-select');
+  });
+</script>
+
+<script>
+  $(document).ready(function () {
+  $('#selectedColumn').DataTable({
+    "order": [[ 8, "desc" ]],
+    "aaSorting": [],
+    columnDefs: [{
+    orderable: false,
+    targets: 9
+    }],
+    "lengthMenu": [[5, 10, 50, -1], [5, 10, 50, "All"]]
+  });
+  $('.dataTables_length').addClass('bs-select');
+  });
+</script>
+
 <script>
   $('#image').on('change',function(){
       //get the file name
