@@ -114,17 +114,17 @@
                         </div>
                     </div>
             </div>
-            <?php endif; ?>
+            <?php endif; ?><br>
+            <div class="alert alert-warning">
+            <p> If the payment has not been made, the order will be canceled in: <strong id="demo"></strong></p>
+            <p> You can send the bank transfer evidence to: <strong>Petfriend2@gmail.com</strong>
+            </div> 
             </div></div>
             <?php endforeach; ?>
             <?php if ($soi->order_status == "Awaiting Payment") : ?>
             <?php $stop_date = date('d F yy H:i:s', $soi->order_date);
             $stop_date2 = date('d F yy H:i:s', strtotime($stop_date . '+30 minutes'));?>
             <br><br>
-            <div class="alert alert-warning">
-            <p> If the payment has not been made, the order will be canceled in: <strong id="demo"></strong></p>
-            <p> You can send the bank transfer evidence to: <strong>Petfriend2@gmail.com</strong>
-            </div> 
             <?php endif; ?>
             <?php endif; ?>
             
@@ -164,13 +164,12 @@
                                 RM <?php echo number_format($total,2)."<br>";?></span></div>
                         </div>
                     </div>
-                    </div></div>
+                    </div><br><div class="alert alert-warning">
+            <p> You can send the bank transfer evidence to: <strong>Petfriend2@gmail.com</strong>
+            </div> </div>
             </div>
             <?php endforeach; ?> <br>
             <?php if ($soi->order_status == "Awaiting Payment") : ?>
-            <div class="alert alert-warning">
-            <p> You can send the bank transfer evidence to: <strong>Petfriend2@gmail.com</strong>
-            </div> 
             <?php endif; ?>
             <?php endif; ?>
 

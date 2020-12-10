@@ -16,7 +16,7 @@
                             <th >Service Order Id</th>
                             <th >Order Date</th>
                             <th >Order Status</th>
-                            <th >Customer Id</th>
+                            <th style="display:none;"></th>
                             <th >Payment Method</th>
                             <th >Total Price</th>
                             <th >Action</th>
@@ -30,7 +30,7 @@
                             <td><?= $service['sorder_id']?></td>
                             <td><?= date('Y/m/d H:i:s', $service['order_date']);?></td>
                             <td><?= $service['order_status']?></td>
-                            <td><?= $service['user_id']?></td>
+                            <td style="display:none;"></td>
                             <td><?= $service['payment_method']?></td>
                             <td>RM <?= $service['total_price']?></td>
                             <td>
