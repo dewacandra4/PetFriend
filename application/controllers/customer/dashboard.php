@@ -453,5 +453,23 @@ class dashboard extends CI_Controller
         force_download($name, $data);
     }
 
+    //to download diagnosis result file
+    public function proof_product($oid)
+    {
+        $data['title'] = 'Upload Payment Proof';
+        $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
+        $lol = $this->session->userdata('username');
+        $result= $this->db->query("SELECT `id` FROM `user` WHERE `username` = '$lol'")->row()->id;
+        $query = $this->db->query("SELECT * FROM `user` WHERE `id` = $result");
+        $row = $query->row_array();
+        $data['customer']= $row;
+        $data['order_id']= $oid;
+        $this->load->view('customer/header',$data);
+        $this->load->view('customer/sidebar',$data);
+        $this->load->view('customer/upload_proofp',$data);
+        $this->load->view('customer/footer');
+
+    }
+
 
 }

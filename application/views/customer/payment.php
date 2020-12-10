@@ -112,10 +112,9 @@
                       </div>
                     </div>
                     <p>The total amount that you have to transfer is as follows : <input readonly class="form-control w-50 mt-1" type="text" 
-                    value="RM <?php echo $this->cart->format_number(($this->cart->total()*0.05) + $this->cart->total()); ?>"><br>
-                    You can send the bank transfer evidence to : <input readonly class="form-control w-50 mt-1" type="text" 
-                    value="Petfriend2@gmail.com">
-                    <br><strong>We will verify your payment soon, and if within 24 hours the payment has not been made, the order will be canceled automatically.</strong>
+                    value="RM <?php echo $this->cart->format_number(($this->cart->total()*0.05) + $this->cart->total()); ?>">
+                    <br><strong>Make sure you upload the proof of payment, you can do it from My product order table also and
+                    we will verify your payment soon, if within 24 hours the payment has not been made, the order will be canceled automatically.</strong>
                     </p>
                     </blockquote>
                   </div>
@@ -137,10 +136,9 @@
                       </div>
                     </div>
                     <p>The total amount that you have to transfer is as follows : <input readonly class="form-control w-50 mt-1" type="text" 
-                    value="RM <?php echo $this->cart->format_number(($this->cart->total()*0.05) + $this->cart->total()); ?>"><br>
-                    You can send the bank transfer evidence to : <input readonly class="form-control w-50 mt-1" type="text" 
-                    value="Petfriend2@gmail.com">
-                    <br><strong>We will verify your payment soon, and if within 24 hours the payment has not been made, the order will be canceled automatically.</strong>
+                    value="RM <?php echo $this->cart->format_number(($this->cart->total()*0.05) + $this->cart->total()); ?>">
+                    <br><strong> Make sure you upload the proof of payment, you can do it from My product order table also and
+                    we will verify your payment soon, if within 24 hours the payment has not been made, the order will be canceled automatically.</strong>
                     </p>
                     </blockquote>
                   </div>
