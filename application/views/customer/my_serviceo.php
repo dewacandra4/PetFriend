@@ -37,6 +37,11 @@
                     <td><?= $so->order_status?></td>
                     <td><?= anchor('customer/dashboard/view_reciept_service/' .$so->sorder_id,'<div class="btn btn-success"><i class="fas fa-search-plus" aria-hidden="true"></i>
                      </div>')?>
+                      <?php if($so->payment_method != "COD" && $so->payment_proof == null) :?>
+                     || <?= anchor('customer/dashboard/proof_service/'.$so->sorder_id,'<div class="btn btn-warning"><i class="fas fa-receipt"></i>
+                      </div>')?>
+                        <?php endif; ?>
+                     </td>
                     </tr>
                     <?php $i++; ?>
                     <?php endforeach; ?>

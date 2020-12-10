@@ -80,8 +80,6 @@
             <br><br>
             <div class="alert alert-warning">
             <p> If the payment has not been made, the order will be canceled in: <strong id="demo"></strong>
-            <p> You can send the bank transfer evidence to: <strong>Petfriend2@gmail.com</strong>
-            </p>
             </div> 
             <?php endif; ?>
         </div>

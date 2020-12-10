@@ -46,8 +46,13 @@
                      </div>')?>
                     <?php if($po->order_status == "Awaiting Payment") :?>
                      || <?= anchor('customer/dashboard/cancel_product/'.$po->order_id,'<div class="btn btn-danger"><i class="fa fa-ban" aria-hidden="true"></i>
-                      Cancel</div>')?></td>
-                     <?php endif; ?>
+                      </div>')?>
+                      <?php if($po->payment_method != "COD" && $po->payment_proof == null) :?>
+                     || <?= anchor('customer/dashboard/proof_product/'.$po->order_id,'<div class="btn btn-warning"><i class="fas fa-receipt"></i>
+                      </div>')?>
+                        <?php endif; ?>
+                       <?php endif; ?>
+                      </td>
                     </tr>
                     <?php $i++; ?>
                     <?php endforeach; ?>

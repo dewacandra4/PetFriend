@@ -108,10 +108,9 @@
                       </div>
                     </div>
                     <p>The total amount that you have to transfer is as follows : <input readonly class="form-control w-50 mt-1" type="text" 
-                    value="RM <?=number_format($total,2,",",".");?>"> <br>
-                    You can send the bank transfer evidence to : <input readonly class="form-control w-50 mt-1" type="text" 
-                    value="Petfriend2@gmail.com"><br>
-                    <Strong>After payment is made, we will immediately send our employees to pick up your pet to the address you entered</Strong>
+                    value="RM <?=number_format($total,2,",",".");?>"><br>
+                    <Strong>Make sure you upload the proof of payment, you can do it from My Product Order table and
+                    after payment is made, we will immediately send our employees to pick up your pet to the address you entered</Strong>
                     </p>
                     </blockquote>
                   </div>
@@ -134,9 +133,8 @@
                     </div>
                     <p>The total amount that you have to transfer is as follows : <input readonly class="form-control w-50 mt-1" type="text" 
                     value="RM <?=number_format($total,2,",",".");?>"><br>
-                    You can send the bank transfer evidence to : <input readonly class="form-control w-50 mt-1" type="text" 
-                    value="Petfriend2@gmail.com"><br>
-                    <Strong>After payment is made, we will immediately send our employees to pick up your pet to the address you entered</Strong>
+                    <Strong>Make sure you upload the proof of payment, you can do it from My Product Order table and
+                    after payment is made, we will immediately send our employees to pick up your pet to the address you entered</Strong>
                     </p>
                     </blockquote>
                   </div>
