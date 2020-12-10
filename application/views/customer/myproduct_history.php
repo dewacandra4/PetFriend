@@ -57,8 +57,8 @@
                                     <?= anchor('customer/historyp/view_reciept/'.$product['order_id'],'<div class="btn btn-success"><i class="fas fa-search-plus" aria-hidden="true"></i>
                      </div>')?>
                      <?php if($product['order_status']=="Cancelled") : ?>
-                     <?= anchor('customer/historyp/re_order/'.$product['order_id'],'<div class="btn btn-warning"><i class="fa fa-shopping-basket" aria-hidden="true"></i>
-                     Re-Order</div>')?>
+                     <?= anchor('customer/historyp/re_order/'.$product['order_id'],'<div class="btn btn-warning"><i class="fas fa-shopping-cart"></i>
+                     </div>')?>
                      <?php endif?>
                                 </div>
                             </div>

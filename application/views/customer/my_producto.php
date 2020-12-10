@@ -46,7 +46,7 @@
                      </div>')?>
                     <?php if($po->order_status == "Awaiting Payment") :?>
                      || <?= anchor('customer/dashboard/cancel_product/'.$po->order_id,'<div class="btn btn-danger"><i class="fa fa-ban" aria-hidden="true"></i>
-                      Cancel</div>')?></td>
+                      </div>')?></td>
                      <?php endif; ?>
                     </tr>
                     <?php $i++; ?>
