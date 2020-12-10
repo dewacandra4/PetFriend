@@ -114,18 +114,16 @@
                         </div>
                     </div>
             </div>
-            <?php endif; ?>
+            <?php endif; ?> <br>
+            <div class="alert alert-warning">
+            <p> If the payment has not been made, the order will be canceled in: <strong id="demo"></strong></p>
+            </div> 
             </div></div>
             <?php endforeach; ?>
             <?php if ($soi->order_status == "Awaiting Payment") : ?>
             <?php $stop_date = date('d F yy H:i:s', $soi->order_date);
             $stop_date2 = date('d F yy H:i:s', strtotime($stop_date . '+30 minutes'));?>
             <br><br>
-            <div class="alert alert-warning">
-            <p> If the payment has not been made, the order will be canceled in: <strong id="demo"></strong></p>
-            <p> Click <strong><?= anchor('customer/dashboard/proof_service/'.$soi->sorder_id,'Here')?></strong> to upload your payment proof
-            </p>
-            </div> 
             <?php endif; ?>
             <?php endif; ?>
             
@@ -169,10 +167,6 @@
             </div>
             <?php endforeach; ?> <br>
             <?php if ($soi->order_status == "Awaiting Payment") : ?>
-            <div class="alert alert-warning">
-            <p> Click <strong><?= anchor('customer/dashboard/proof_service/'.$soi->sorder_id,'Here')?></strong> to upload your payment proof
-            </p>
-            </div> 
             <?php endif; ?>
             <?php endif; ?>
 

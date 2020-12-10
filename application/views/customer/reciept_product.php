@@ -80,8 +80,6 @@
             <br><br>
             <div class="alert alert-warning">
             <p> If the payment has not been made, the order will be canceled in: <strong id="demo"></strong>
-            <p> Click <strong><?= anchor('customer/dashboard/proof_product/'.$poi->order_id,'Here')?></strong> to upload your payment proof
-            </p>
             </div> 
             <?php endif; ?>
         </div>
