@@ -11,15 +11,15 @@
         <div class="row"> 
             <div class="mx-auto col-lg-7">
             <?= $this->session->flashdata('message'); ?>
-            <?=form_open_multipart('customer/dashboard/upload_proofp');?>
+            <?=form_open_multipart('customer/dashboard/upload_proofs');?>
                 <div class="alert alert-success" role="alert">
-                Upload the Payment Proof for prdocut order with order id: #<?=$order_id;?>
+                Upload the Payment Proof for service order with order id: #<?=$sorder_id;?>
                 </div>
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="image" name="payment_proof">
+                        <input type="file" class="custom-file-input" id="image" name="payment_proofs">
                         <label class="custom-file-label" for="image">Choose file</label>
                     </div><br><br>
-                    <input type="hidden" name="order_id" value="<?=$order_id;?>">
+                    <input type="hidden" name="sorder_id" value="<?=$sorder_id;?>">
                     <button class="btn btn-success" type="submit"><i class="fas fa-file-upload"></i> Upload</button>
                     </form>
             </div>       

@@ -453,7 +453,7 @@ class dashboard extends CI_Controller
         force_download($name, $data);
     }
 
-    //to download diagnosis result file
+    //to upload payment proof (Product)
     public function proof_product($oid)
     {
         $data['title'] = 'Upload Payment Proof';
@@ -470,6 +470,101 @@ class dashboard extends CI_Controller
         $this->load->view('customer/footer');
 
     }
+
+    public function upload_proofp()
+    {
+            $order_id = $this->input->post('order_id'); 
+            $upload_image = $_FILES['payment_proof']['name'];
+
+			if($upload_image)
+            {
+                $config['upload_path'] = './assets/recieptp';
+                $config['allowed_types'] = 'gif|jpg|png';
+                $config['max_size']     = '2048';
+
+                $this->load->library('upload', $config);//load librari upload
+            
+
+                if (!$this->upload->do_upload('payment_proof'))
+                {
+                    $error = array('error' => $this->upload->display_errors());
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Error file extension or file larger than 2MB <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button></div>');
+                    redirect('customer/dashboard/proof_product/'.$order_id);
+                }
+                else
+                {
+                    $new_image = $this->upload->data('file_name');
+                    $this->db->set('payment_proof', $new_image);
+                    $this->db->where('order_id',$order_id);
+                    $this->db->update('products_order');
+                }
+            
+            }
+            $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Your payment proof has been uploaded! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button></div>');
+            redirect('customer/dashboard/my_producto');
+        
+    }
+
+    //to upload payment proof (Service)
+    public function proof_service($oid)
+    {
+        $data['title'] = 'Upload Payment Proof';
+        $data['user'] = $this->db->get_where('user', ['username'=> $this->session->userdata('username')])->row_array();
+        $lol = $this->session->userdata('username');
+        $result= $this->db->query("SELECT `id` FROM `user` WHERE `username` = '$lol'")->row()->id;
+        $query = $this->db->query("SELECT * FROM `user` WHERE `id` = $result");
+        $row = $query->row_array();
+        $data['customer']= $row;
+        $data['sorder_id']= $oid;
+        $this->load->view('customer/header',$data);
+        $this->load->view('customer/sidebar',$data);
+        $this->load->view('customer/upload_proofs',$data);
+        $this->load->view('customer/footer');
+
+    }
+
+    public function upload_proofs()
+    {
+            $sorder_id = $this->input->post('sorder_id'); 
+            $upload_image = $_FILES['payment_proofs']['name'];
+
+			if($upload_image)
+            {
+                $config['upload_path'] = './assets/reciepts';
+                $config['allowed_types'] = 'gif|jpg|png';
+                $config['max_size']     = '2048';
+
+                $this->load->library('upload', $config);//load librari upload
+            
+
+                if (!$this->upload->do_upload('payment_proofs'))
+                {
+                    $error = array('error' => $this->upload->display_errors());
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Error file extension or file larger than 2MB <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button></div>');
+                    redirect('customer/dashboard/proof_service/'.$sorder_id);
+                }
+                else
+                {
+                    $new_image = $this->upload->data('file_name');
+                    $this->db->set('payment_proof', $new_image);
+                    $this->db->where('sorder_id',$sorder_id);
+                    $this->db->update('services_order');
+                }
+            
+            }
+            $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Your payment proof has been uploaded! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button></div>');
+            redirect('customer/dashboard/my_serviceo');
+        
+    }
+
 
 
 }
