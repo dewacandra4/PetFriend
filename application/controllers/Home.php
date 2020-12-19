@@ -381,7 +381,15 @@ class Home extends CI_Controller {
 
         }
         $this->cart->destroy();
-        redirect('customer/dashboard/proof_product/'.$ordert);
+
+        if($this->input->post ('payment_method') == "COD")
+        {
+            redirect('customer/dashboard/view_reciept/'.$ordert);
+        }
+        else
+        {
+            redirect('customer/dashboard/proof_product/'.$ordert);
+        }
 
     }
 
@@ -416,7 +424,14 @@ class Home extends CI_Controller {
     
             $this->db->insert('pethotel_order', $data1);
 
-            redirect('customer/dashboard/proof_service/'.$sordert);
+            if($this->input->post ('payment_method') == "COD")
+            {
+                redirect('customer/dashboard/view_reciept_service/'.$sordert);
+            }
+            else
+            {
+                redirect('customer/dashboard/proof_service/'.$sordert);
+            }
 
     }
 
@@ -464,7 +479,15 @@ class Home extends CI_Controller {
     
             $this->db->insert('petsalon_order', $data1);
 
-            redirect('customer/dashboard/proof_service/'.$sordert);
+            if($this->input->post ('payment_method') == "COD")
+            {
+                redirect('customer/dashboard/view_reciept_service/'.$sordert);
+            }
+            else
+            {
+                redirect('customer/dashboard/proof_service/'.$sordert);
+            }
+            
     }
 
     private function _sendEmail($type,$name,$email)
