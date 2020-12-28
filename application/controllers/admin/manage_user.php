@@ -33,6 +33,7 @@ class Manage_User extends CI_Controller
     {
         $role = $this->input->post('role');
         $id = $this->input->post('id');
+        $role_name = $this->db->query("SELECT role FROM user_role WHERE id= '$role'")->row()->role;
         $where = array(
             'id' =>$id
         );
@@ -40,12 +41,18 @@ class Manage_User extends CI_Controller
             'role_id' => $role
         );
         $name = $this->db->get_where('user', ['id'=> $id])->row()->username;
-        
         $this->db->where($where);
         $update = $this->db->update('user',$data);
-        if($update == true)
+        if($this->db->affected_rows())
         {
-            $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Successfully change user #'.$name.' role! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            $this->session->set_flashdata('message', '<div class="alert alert-success text-center alert-dismissible fade show" role="alert">Successfully change user #'.$name.' role to '.$role_name.'! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button></div>');
+            redirect('admin/manage_user/index');
+        }
+        elseif(!$this->db->affected_rows())
+        {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Failed to change user #'.$name.' role! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button></div>');
             redirect('admin/manage_user/index');
@@ -55,7 +62,7 @@ class Manage_User extends CI_Controller
     {
         $id = $this->input->post('id');
         $name = $this->input->post('name');
-        $where = array('id' => $id);
+        $where = array('id' => 12345);
         $this->db->where($where);
         $this->db->delete('user');
         if($this->db->affected_rows())
@@ -77,7 +84,7 @@ class Manage_User extends CI_Controller
     {
         $id = $this->input->post('id');
         $username = $this->input->post('username');
-        $is_active = $this->input->post('is_active');
+        $is_active = $this->input->post('is_active'); //value = 1 ->active
         $where = array('id' => $id);
         $data = array(
             'is_active' => $is_active
@@ -103,7 +110,7 @@ class Manage_User extends CI_Controller
     {
         $id = $this->input->post('id');
         $username = $this->input->post('username');
-        $is_active = $this->input->post('is_active');
+        $is_active = $this->input->post('is_active');// value = 0 -> deactive
         $where = array('id' => $id);
         $data = array(
             'is_active' => $is_active

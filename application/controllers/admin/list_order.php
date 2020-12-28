@@ -201,4 +201,10 @@ class List_order extends CI_Controller
             return false;
         }
     }
+    public function downloadReceiptProduct($fileName)
+    {
+        $path = './assets/recieptp/'.$fileName;
+        $data = file_get_contents($path);
+        force_download($fileName, $data);
+    }
 }

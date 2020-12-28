@@ -690,16 +690,17 @@ class Home extends CI_Controller {
             $j=0;
             foreach($listSymptom->result() as $value2){
                 $j++;
-                if($j==3){
-                    $combineCFmb=$value2->mb;
-                    $combineCFmd=$value2->md;}
-                else
-                {
+                // if($j==3){
+                //     $combineCFmb=$value2->mb;
+                //     $combineCFmd=$value2->md;}
+                // else
+                // {
                 $combineCFmb =$combineCFmb + ($value2->mb * (1 - $combineCFmb));
                 $combineCFmd =$combineCFmd + ($value2->md * (1 - $combineCFmd));
-                }
+                // }
 
                 $combinehasil = $combineCFmb-$combineCFmd; 
+                // var_dump($j);
             }
             if($combinehasil)
             {
@@ -736,29 +737,33 @@ class Home extends CI_Controller {
         usort($disease, "cmp");
         $data["listDiseases"] = $disease;
         $disease = $disease + array(null);
-        $data_hasil = array(
-            'code' =>$disease[0]['code'],
-            'name' =>$disease[0]['name'],
-            'cf_value' =>$disease[0]['cf_value'],
-            'information' =>$disease[0]['information'],
-            'user_id' =>$user_id,
-            'created_at'=>time()
-        );
-        $this->db->insert('diagnosis_result', $data_hasil);
+        // $data_hasil = array(
+        //     'code' =>$disease[0]['code'],
+        //     'name' =>$disease[0]['name'],
+        //     'cf_value' =>$disease[0]['cf_value'],
+        //     'information' =>$disease[0]['information'],
+        //     'user_id' =>$user_id,
+        //     'created_at'=>time()
+        // );
+        // $this->db->insert('diagnosis_result', $data_hasil);
         $this->load->view('home/header',$data);
         $this->load->view('cf/result',$data);
         $this->load->view('home/footer');
     }
+
     public function list_sympt($type)
     {
         if($type == "dog")
         {
-            if (!$this->input->post('symptom')) {
+            if(!$this->input->post('symptom')){
                 $data['title'] = 'Diagnosis';
                 $data['listS'] = $this->model_group->get_list_data('Dog');
                 $this->load->view('home/header',$data);
                 $this->load->view('cf/list_sympt',$data);
                 $this->load->view('home/footer');
+                $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Please select a symptom before pressing the "Process" button! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button></div>');
             }
             else
             {
@@ -773,6 +778,9 @@ class Home extends CI_Controller {
                 $this->load->view('home/header',$data);
                 $this->load->view('cf/list_sympt',$data);
                 $this->load->view('home/footer');
+                $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Please select a symptom before pressing the "Process" button! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button></div>');
             }
             else
             {

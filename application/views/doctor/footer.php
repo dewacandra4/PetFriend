@@ -89,6 +89,9 @@
         "pagingType":"simple_numbers",
         "lengthMenu": [[5, 10, 50, -1], [5, 10, 50, "All"]],
         "order": [[ 0, "desc" ]],
+        "language": {
+            "emptyTable": "No data available in diagnosis result history"
+        },
         "aaSorting": [],
         columnDefs: [{
         orderable: false,

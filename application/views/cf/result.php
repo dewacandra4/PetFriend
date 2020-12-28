@@ -8,13 +8,15 @@
                 <div class="box-body table-responsive">
                     <table id="tbl-list" class="table table-bordered">
                         <tr>
-                            <th width="50px" class="bg-success text-white">No</th>
+                            <th width="10%" class="bg-success text-white">No</th>
+                            <th width="28%"class="bg-success text-white">Symtpom Code</th>
                             <th class="bg-success text-white text-center">Symptom</th>
                         </tr>
                         <tr>
                             <?php $i = 1; foreach($listSymptom->result() as $value){?>
                                 <tr>
                                     <td><?php echo $i++?></td>
+                                    <td><?php echo $value->code; ?></td>
                                     <td><?php echo $value->symptom?></td>
                                 </tr>
                             <?php }?>
@@ -26,6 +28,11 @@
                 <div class="card text-white text-center mb-3" style="max-width: 40rem; ">
                     <div class="card-header bg-success font-weight-bold text-light">Diseases</div>
                         <div class="card-body">
+                        <?php if($listSymptom->num_rows()<=0){?>
+                            <h1>-</h1>
+                            <h5 class="card-title">Certainity Factor: </h5>
+                            <h1 class="card-text"> - %</h1>
+                        <?php } else{ ?>
                         <?php $temp_array = array();
                             $i = 0;
                             $key_array = array();
@@ -41,25 +48,38 @@
                             <h1><?php echo $temp_array[0]['name'];?></h1>
                             <h5 class="card-title">Certainity Factor: </h5>
                             <h1 class="card-text"><?php echo $temp_array[0]['cf_value'];?> %</h1>
+                        <?php }?>
                         </div>
                     </div>
                 </div>
             </div>
             <h3 class="text-center">Diagnostic Results</h3>
+            <?php if($listSymptom->num_rows()<=0){?>
+            <p class="text-center">Lack information on the symptom provided by the customer. Please provide more symptoms of information that appears on your pet. </p class="text-center">
+            <?php }else {?>
             <?php $i = 1; foreach($listDiseases as $value){?>
                 <div class="progress mb-4 " style="height:35px;">
                     <div class="progress-bar bg-success" role="progressbar" style="width: <?=$value['cf_value']?>%;" aria-valuenow="<?=$value['cf_value']?> " aria-valuemin="0" aria-valuemax="100"><?php echo $value['cf_value'].'% '.$value['name']." (".$value['code'].')';?> </div>
                 </div>
             <?php }?>
+           
             <!--box body-->
             <h2 class="box-title">Conclusion</h2>
             </div><!-- /.box-header -->
             <div class="container">
                 <?php if(($listDiseases[0]['cf_value'])>0 && sizeof($listDiseases) <4 ) { ?>
+                    <?php if($listSymptom->num_rows()>=2) {?>
                     <p>
                         Based on the symptoms, your pet has a disease of <b><?php echo $listDiseases[0]['name'];?></b> with a certainity factor of <b><?php echo $listDiseases[0]['cf_value'];?> %</b><br/>
                         <?php echo $listDiseases[0]['information'];?><p style="font-style: bold; color: red; font-size: 13px;">*The results of this diagnosis still require further examination at the vet to get more accurate results.</p>
                     </p>
+                    <?php }else{?>
+                    <p>
+                        Based on the symptoms, your pet has a disease of <b><?php echo $listDiseases[0]['name'];?></b> with a certainity factor of <b><?php echo $listDiseases[0]['cf_value'];?> %</b><br/>
+                        <?php echo $listDiseases[0]['information'];?><p style="font-style: bold; color: red; font-size: 13px;">*The results of this diagnosis still require further examination at the vet to get more accurate results.</p>
+                        <p style="font-style: bold; color: red; font-size: 13px;">*Lack of symptom information provided by the customer, the customer only provide one symptom. Please provide more symptoms of information that appears on your pet to get better results. Consult the vet or use our PetHealth services to get further examination and more accurate results.</p>
+                    </p>
+                    <?php }?>
                 <?php }else{?>
                     <p>
                         The disease cannot be predicted because the certainity factor is too low and lack of information such as the selected symptoms
@@ -67,6 +87,7 @@
                 <?php }?>
                 
             </div>
+            <?php }?>
         </div>
     </div>
 </div>

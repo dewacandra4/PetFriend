@@ -165,6 +165,7 @@ $(document).ready(function() {
                     <input type="hidden" id="id_cf" name="id" value="<?php echo $c['id_cf'];?>">
                     <label for="name">Symptom</label>
                     <select id="symptom_id" name="symptom_id" class="form-control" value="" >
+                    <option value="">-Select-</option>
                         <?php
                         // $query = $this->db->query("SELECT *, a.id_cf as cid FROM cf a JOIN diseases b ON b.id = a.disease_id WHERE a.id_cf='$id' ")->row_array();
                             foreach ($symptoms as $s) {
@@ -178,6 +179,7 @@ $(document).ready(function() {
                 <div class="form-group">
                     <label for="disease">Disease's Name</label>
                     <select id="disease_id" name="disease_id" class="form-control" value="" >
+                    <option value="">-Select-</option>
                     <?php
                     // $query = $this->db->query("SELECT *, a.id_cf as cid FROM cf a JOIN diseases b ON b.id = a.disease_id WHERE a.id_cf='$id' ")->row_array();
                         foreach ($diseases as $dise) {

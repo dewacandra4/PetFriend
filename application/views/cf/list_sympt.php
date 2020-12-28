@@ -75,6 +75,17 @@
 	table-layout:fixed;
 	width: 98% !important; 
 }
+.dataTables_wrapper .dataTables_filter {
+  width:100%;
+  text-align:center;
+}
+
+input[type=search] {
+  width: 300px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
 </style>
 <h2 class="mt-4">Diagnosis</h2>
 <div class="container">
@@ -85,6 +96,7 @@
 				<?php foreach($listS->result() as $value){?>
 					<h3 class="text-center"><?php echo $value->name?></h3>
 					<p class="text-center" >Choose the symptoms that are on your pet:</p>
+					<?= $this->session->flashdata('message')?>
 					<div class="table-responsive">
 						<table id="listSympt" class="table table-hover my-3" cellspacing="0" width="100%">
 							<thead class="text-center ">

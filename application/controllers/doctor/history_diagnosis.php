@@ -19,7 +19,6 @@ class History_diagnosis extends CI_Controller
         $row = $query->row_array();
         $data['doctor']= $row;
         $data['start'] = $this->uri->segment(4);
-        // $diagnosis = $this->db->query("SELECT * FROM `diagnosis_result`");
         $diagnosis = $this->db->query("SELECT DISTINCT  a.* FROM `diagnosis_result` a 
         LEFT OUTER JOIN `diagnosis_result` b 
         ON a.created_at = b.created_at AND a.cf_value < b.cf_value 
@@ -27,14 +26,7 @@ class History_diagnosis extends CI_Controller
         ");
         $array = $diagnosis->result_array();
         $num_unique = array_unique($array, SORT_REGULAR);//to remove duplicate array value
-        // function cmp($a, $b)
-        // {
-        //     return ($a["cf_value"] > $b["cf_value"]) ? -1 : 1;
-        // }
-        // usort($array, "cmp");
-        // $data["listDiseases"] = $num_unique;
         $data['diagnosis'] = $num_unique;
-        // var_dump($data['diagnosis']);
         $this->load->view('doctor/header',$data);
         $this->load->view('doctor/sidebar',$data);
         $this->load->view('doctor/diagnosis_history',$data);
@@ -51,9 +43,6 @@ class History_diagnosis extends CI_Controller
         $data['doctor']= $row;
         $date = $this->uri->segment(4);
         $cust_id = $this->uri->segment(5);
-        
-        // $date = $this->input->post('date');
-        // $cust_id = $this->input->post('id');
         $symptom_id = $this->db->query("SELECT `symptom_id` FROM `history` WHERE `created_at` = '$date' AND `user_id` = '$cust_id'");
         $symp_id = $symptom_id->row()->symptom_id;
         //get pet type
@@ -62,24 +51,18 @@ class History_diagnosis extends CI_Controller
         ->join('symptoms', 'symptoms.type_id = type.id')
         ->where('symptom_id', $symp_id)->get()->row_array(); 
         $data['type'] = $type;
-        // var_dump($symp_id);
         $user = $this->db->query("SELECT * FROM `user` WHERE `id` = '$cust_id' ");
         //get customer info
         $data['customer'] = $user->row_array();
-        // var_dump($type );
-
         //get symptom
         $data['date'] = $this->db->select('*')
         ->from('symptoms')
         ->join('history', 'symptoms.symptom_id = history.symptom_id')
         ->where('created_at', $date)->get()->result_array(); 
-        
         //get disease
-        
         $this->db->select_max('cf_value');
         $this->db->where('created_at', $date);
         $max = $this->db->get('diagnosis_result');
-        
         if($max->num_rows() >0)
         {
             $max2 = $max->result_array();

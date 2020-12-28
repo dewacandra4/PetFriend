@@ -5,7 +5,7 @@
   <?= $this->session->flashdata('message')?>
     <div class="card shadow px-0 mb-5" >
         <div class="card-header py-4">
-            <h5 class="m-0 font-weight-bold text-center text-dark">User List</h5>
+            <h5 class="m-0 font-weight-bold text-center text-dark">List of All Users</h5>
         </div>
         <div class="card-body">
           <div class="table-responsive">
@@ -151,7 +151,7 @@
         <div class="modal-content text-center">
         <!--Header-->
             <div class="modal-header d-flex justify-content-center">
-                <p class="heading"><strong>Deactive Account</strong></p>
+                <p class="heading"><strong>Deactivate Account</strong></p>
             </div>
 
             <!--Body-->
@@ -161,7 +161,7 @@
                 <div class="form-group ">
                     <div class="text-center">
                         <form action="<?php echo base_url('admin/manage_user/deactive_acc');?>" method="post">
-                            <h4><strong>Deactive</strong> this account #<strong id="username"></strong>?</h4>
+                            <h4><strong>Deactivate</strong> this account #<strong id="username"></strong>?</h4>
                             <input type="hidden" id="id" name="id" value=""> 
                             <input type="hidden" id="is_active" name="is_active" value="0">
                             <input type="hidden" id="usernameH" name="username" value="">

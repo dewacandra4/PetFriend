@@ -149,13 +149,14 @@
 <script>
 $(document).ready(function () {
   $('#listSympt').DataTable({
-        "lengthMenu": [[5, 10, 50, -1], [5, 10, 50, "All"]],
+
         "order": [[ 0, "desc" ]],
-        "lengthChange": false,
+        "paging": false,
         language: {
-            searchPlaceholder: "Search symptoms",
-        },
-        "dom": '<"pull-right mr-3" f><<t>p>'
+            search: ' ',
+            searchPlaceholder: 'Search Symptom'
+        }
+        
   });
   $('.dataTables_length').addClass('bs-select');
   });

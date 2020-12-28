@@ -175,7 +175,10 @@
         "<'row'<'col-sm-5'i><'col-sm-7'p>>",
         "pagingType":"simple_numbers",
         "order": [[ 0, "desc" ]],
-        "lengthMenu": [[5, 10, 50, -1], [5, 10, 50, "All"]]
+        "lengthMenu": [[5, 10, 50, -1], [5, 10, 50, "All"]],
+        "language": {
+            "emptyTable": "No data available in diagnosis result history"
+          }
         
     });
     $('.dataTables_length').addClass('bs-select');

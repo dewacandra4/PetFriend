@@ -234,4 +234,10 @@ class List_sorder extends CI_Controller
             return false;
         }
     }
+    public function downloadReceiptServices($fileName)
+    {
+        $path = './assets/reciepts/'.$fileName;
+        $data = file_get_contents($path);
+        force_download($fileName, $data);
+    }
 }
