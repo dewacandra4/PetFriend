@@ -20,6 +20,7 @@
                             <th >Customer Id</th>
                             <th >Payment Method</th>
                             <th >Total Price</th>
+                            <th >Payment Proof</th>
                             <th >Action</th>
                         </tr>
                     </thead>
@@ -35,6 +36,19 @@
                             <td><?= $s['user_id']?></td>
                             <td><?= $s['payment_method']?></td>
                             <td>RM <?= $s['total_price']?></td>
+                            <td><?php if(!($s['payment_proof'] == null) && !($s['payment_method']=='COD') )
+                                {
+                                    echo anchor('admin/list_sorder/downloadReceiptServices/'.$s['payment_proof'],'<div class="btn btn-sm btn-success"><i class="fas fa-download"></i></div>');
+                                }
+                                elseif(($s['payment_proof'] == null) && !($s['payment_method']=='COD'))
+                                {
+                                    echo '<div class="btn btn-sm btn-warning"><i class="fas fa-spinner"></i></div>';
+                                }
+                                else
+                                {
+                                    echo'<p class="text-center">-</p>';
+                                }?>
+                            </td>
                             <td>
                             <div class="text-center">
                                 <div class="d-inline-flex p-0">

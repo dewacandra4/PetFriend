@@ -20,6 +20,7 @@
                             <th >Customer Id</th>
                             <th >Payment Method</th>
                             <th >Total Price</th>
+                            <th >Payment Proof</th>
                             <th >Action</th>
                         </tr>
                     </thead>
@@ -35,6 +36,19 @@
                             <td><?= $product['user_id']?></td>
                             <td><?= $product['payment_method']?></td>
                             <td>RM <?= $product['total_price']?></td>
+                            <td><?php if(!($product['payment_proof'] == null) && !($product['payment_method']=='COD') )
+                                {
+                                    echo anchor('admin/list_order/downloadReceiptProduct/'.$product['payment_proof'],'<div class="btn btn-sm btn-success"><i class="fas fa-download"></i></div>');
+                                }
+                                elseif(($product['payment_proof'] == null) && !($product['payment_method']=='COD'))
+                                {
+                                    echo '<div class="btn btn-sm btn-warning"><i class="fas fa-spinner"></i></div>';
+                                }
+                                else
+                                {
+                                    echo'<p class="text-center">-</p>';
+                                }?>
+                            </td>
                             <td>
                             <div class="text-center">
                                 <div class="d-inline-flex p-0">

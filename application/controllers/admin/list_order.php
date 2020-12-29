@@ -116,7 +116,8 @@ class List_order extends CI_Controller
     }
     public function complete_order()
     {
-        $waktu = time();
+        date_default_timezone_set('Asia/Singapore');
+        $waktu = date('Y-m-d H:i:s');
         $order_id = $this->input->post('order_id');
         $status = array(
             "finish_date"=>  $waktu,
@@ -199,5 +200,11 @@ class List_order extends CI_Controller
         } else {
             return false;
         }
+    }
+    public function downloadReceiptProduct($fileName)
+    {
+        $path = './assets/recieptp/'.$fileName;
+        $data = file_get_contents($path);
+        force_download($fileName, $data);
     }
 }

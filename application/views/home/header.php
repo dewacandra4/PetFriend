@@ -15,7 +15,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Place favicon.ico in the root directory -->
 
     <!-- CSS here -->
-    <link rel="stylesheet" href="<?= base_url()?>assets/anipat/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="<?= base_url()?>assets/anipat/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="<?= base_url()?>assets/anipat/css/owl.carousel.min.css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="<?= base_url()?>assets/anipat/css/themify-icons.css">
@@ -26,10 +27,36 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link rel="stylesheet" href="<?= base_url()?>assets/anipat/css/slicknav.css">
     <link rel="stylesheet" href="<?= base_url()?>assets/anipat/css/style.css">
     <link rel="stylesheet" href="<?= base_url()?>assets/default/css/style.css">
+
+    <!-- Datatable cdn NP -->
+    <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet">
     <!-- Custom fonts for this template-->
     <link href="<?= base_url()?>assets/sbadmin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 </head>
-
+<style>
+.dataTables_wrapper .dataTables_paginate .paginate_button.current, 
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover{
+    color: white !important;
+    border: 1px solid #32a860!important;
+    background-color: #32a860!important;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #32a860), color-stop(100%, #32a860))!important;
+    background: -webkit-linear-gradient(top, #32a860 0%, #32a860 100%)!important;
+    background: -moz-linear-gradient(top, #32a860 0%, #32a860 100%)!important;
+    background: -ms-linear-gradient(top, #32a860 0%, #32a860 100%)!important;
+    background: -o-linear-gradient(top, #32a860 0%, #32a860 100%)!important;
+    background: linear-gradient(to bottom, #32a860 0%, #32a860 100%)!important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  background: #f2f5f2;
+  color: black!important;
+  border-radius: #e6e8e6 0px !important; 
+  border: 1px #e6e8e6 solid;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button:active {
+  background: #f2f5f2;
+  color: black!important;
+} 
+</style>
 <body>
     <!--[if lte IE 9]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>

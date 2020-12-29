@@ -16,6 +16,9 @@
 
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
+      <?php $uri=$this->uri->segment(1).'/'.$this->uri->segment(2);
+      $uri2=$this->uri->segment(1).'/'.$this->uri->segment(2).'/'.$this->uri->segment(3);
+      ?>
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
@@ -33,7 +36,7 @@
       </div>
 
       <!-- Nav Item - Profile -->
-      <li class="nav-item">
+      <li class="nav-item <?php if($uri2=='doctor/dashboard/profile'){ echo 'active';}?>">
       <a class="nav-link" href="<?=base_url('doctor/dashboard/profile');?>">
           <i class="fas fa-fw fa-user"></i>
           <span>Profile</span></a>
@@ -41,13 +44,13 @@
 
       <!-- Nav Item - Edit Profile -->
 
-      <li class="nav-item">
+      <li class="nav-item <?php if($uri2 =='doctor/dashboard/edit'){ echo 'active';}?>">
       <a class="nav-link" href="<?=base_url('doctor/dashboard/edit');?>">
           <i class="fas fa-fw fa-user-edit"></i>
           <span>Edit Profile</span></a>
       </li>
       <!-- Nav Item - Change password -->
-      <li class="nav-item">
+      <li class="nav-item <?php if($uri2=='doctor/dashboard/change_password'){ echo 'active';}?>">
         <a class="nav-link" href="<?=base_url('doctor/dashboard/change_password');?>">
           <i class="fas fa-fw fa-key"></i>
           <span>Change Password</span></a>
@@ -61,7 +64,7 @@
         Diseases 
       </div>
       <!-- Nav Item - Charts -->
-      <li class="nav-item">
+      <li class="nav-item <?php if($uri=='doctor/manage_diseases'){ echo 'active';}?>">
         <a class="nav-link" href="<?=base_url('doctor/manage_diseases');?>">
           <i class="fas fa-fw fa-book-medical"></i>
           <span>Data Diseases</span></a>
@@ -74,18 +77,36 @@
         Data Symptoms
       </div>
       <!-- Nav Item - Tables -->
-      <li class="nav-item">
+      <li class="nav-item <?php if($uri=='doctor/manage_sympt'){ echo 'active';}?>">
         <a class="nav-link" href="<?=base_url('doctor/manage_sympt');?>">
           <i class="fas fa-fw fa-notes-medical"></i>
           <span>Symptoms</span></a>
       </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        Data CF
+      </div>
       <!-- Nav Item - Tables -->
-      <li class="nav-item">
+      <li class="nav-item <?php if($uri=='doctor/manage_cf'){ echo 'active';}?>">
         <a class="nav-link" href="<?=base_url('doctor/manage_cf');?>">
           <i class="fas fa-fw fa-calculator"></i>
           <span>CF Value</span></a>
       </li>
+      <hr class="sidebar-divider">
 
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        Diagnosis History 
+      </div>
+
+      <li class="nav-item <?php if($uri=='doctor/history_diagnosis'){ echo 'active';}?>">
+        <a class="nav-link" href="<?=base_url('doctor/history_diagnosis');?>">
+          <i class="fas fa-fw fa-heart"></i>
+          <span>Diagnosis Result History</span></a>
+      </li>
        <hr class="sidebar-divider">
 
       <!-- Heading -->
@@ -104,7 +125,18 @@
           <i class="fas fa-fw fa-heart"></i>
           <span>Pet Health Order History</span></a>
       </li>
+      <!-- Divider
+      <hr class="sidebar-divider">
 
+      <div class="sidebar-heading">
+        Chat
+      </div>
+
+      <li class="nav-item">
+        <a class="nav-link" href="<?=base_url('chat');?>">
+          <i class="fas fa-fw fa-bone"></i>
+          <span>Chat</span></a>
+      </li> -->
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 

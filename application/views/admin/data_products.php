@@ -202,7 +202,7 @@
 ?>
 
 
-<!--Modal: modalPush-->
+<!--Modal: Modal remove-->
 <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
     <div class="modal-dialog modal-notify modal-info" role="document">
         <!--Content-->
@@ -239,7 +239,7 @@
 </div>
 
 <?php endforeach;?>
-<!-- END Modal edit -->
+<!-- END Modal remove -->
 <script src="<?php echo base_url('assets/js/jquery.min.js');?>"></script>
 <script src="<?= base_url()?>assets/sbadmin/vendor/jquery/jquery.min.js"></script>
 <script>

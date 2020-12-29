@@ -3,29 +3,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Model_cf extends CI_Model {
 
-	public function getListCF($limit, $start = 0, $q = null){
+	public function getListCF($q = null){
 		return $this->db->select('*, cf.id_cf AS cfid ')
 						->from('cf')
-						->join('symptoms', 'symptoms.id = cf.symptom_id ')
+						->join('symptoms', 'symptoms.symptom_id = cf.symptom_id ')
 						->join('diseases', 'diseases.id = cf.disease_id ')
 						->order_by('cf.id_cf', 'DESC')
-                        ->limit($limit, $start)
 						->get()
 						->result_array();
 	}
 
-	public function insert(){ 
-		$symptom_id = $this->input->post('symptom_id');
-		$disease_id = $this->input->post('disease_id');
-		$md = $this->input->post('md');
-		$mb = $this->input->post('mb');
-
-		$data = array(
-					'symptom_id'=>$symptom_id,
-					'disease_id'=>$disease_id,
-					'md'=>$md,
-					'mb'=>$mb,
-				);
+	public function insert($data){ 
+		
 		$this->db->insert('cf', $data);
 
 	}
@@ -39,23 +28,6 @@ class Model_cf extends CI_Model {
 		$this->db->where('id_cf',$id);
 		$this->db->update('cf', $data);
 	}
-
-	// public function hapus($id){
-	// 	$this->db->where('id', $id);
-	// 	$this->db->delete('cf');
-	// }
-
-	// public function getlistnilaicf()
-	// {
-	// 	// return $this->db->get('gejala');
-
-	// 	return $this->db->select('*, gejala_penyakit.id AS gpid ')
-	// 					->from('gejala_penyakit')
-	// 					->join('gejala', 'gejala.id = gejala_penyakit.gejala_id ')
-	// 					->join('penyakit', 'penyakit.id = gejala_penyakit.penyakit_id ')
-	// 					->get()
-	// 					->result_array();
-	// }
 
 	function get_by_symptom($symptom){
          $sql = "select distinct disease_id,p.code,p.name,p.information from cf gp inner join diseases p on gp.disease_id=p.id where symptom_id in (".$symptom.") order by disease_id,symptom_id";

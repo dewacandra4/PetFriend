@@ -53,7 +53,19 @@
           <i class="fas fa-fw fa-key"></i>
           <span>Change Password</span></a>
       </li>
+      <!-- Divider -->
+      <hr class="sidebar-divider">
 
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        User Management
+      </div>
+      <!-- Nav Item - Charts -->
+      <li class="nav-item <?php if($uri=='admin/manage_user'){ echo 'active';}?>">
+        <a class="nav-link" href="<?=base_url('admin/manage_user');?>">
+          <i class="fas fa-fw fa-bone"></i>
+          <span>Manage User</span></a>
+      </li>
       <!-- Divider -->
       <hr class="sidebar-divider">
 
@@ -117,6 +129,7 @@
           <span>Services Order History</span></a>
       </li>
 
+      
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 

@@ -46,7 +46,9 @@ class Model_products extends CI_Model{
     }
     public function sumSoldproduct()
     {
-        return $this->db->query("SELECT sum(sold) AS total from products ");
+        $first_date = date('Y-m-d',strtotime('first day of this month'));
+        $last_date = date('Y-m-d',strtotime('last day of this month'));
+        return $this->db->query("SELECT sum(total_items) AS total from products_order WHERE order_status = 'Order Complete' AND finish_date between '$first_date' AND '$last_date'");
     }
     public function countListProducts()
     {

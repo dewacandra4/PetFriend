@@ -634,7 +634,21 @@ class Home extends CI_Controller {
 	public function services()
 	{
 		$data['services'] = $this->model_services->show_data()->result();
-		$data['title'] = 'Services';
+        $data['title'] = 'Services';
+        $user = $this->session->userdata('username');
+        if($user)
+        {
+            $role_id = $this->db->query("SELECT `role_id` FROM `user` WHERE `username` = '$user'")->row()->role_id;
+        }
+        if(empty ($role_id))
+        {
+            $role = "2";
+        }
+        else
+        {
+            $role = $role_id;
+        }
+        $data['role_id'] =  $role;
         $this->load->view('home/header',$data);
         $this->load->view('home/services',$data);
         $this->load->view('home/footer');
@@ -642,6 +656,9 @@ class Home extends CI_Controller {
     public function diagnosis()
     {
         if(!$this->session->userdata('username')){ 
+            $this->session->set_flashdata('message', '<div class="alert alert-warning text-center alert-dismissible fade show" role="alert">You need to login first!<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button></div>');
             redirect('auth/login');
         }
         else
@@ -652,12 +669,14 @@ class Home extends CI_Controller {
             $this->load->view('home/footer');
         }
     }
+    
     public function calculate_cf()
     {
         $data['title'] = 'Result';
         $symptom = implode(",", $this->input->post("symptom"));//get list all selected symptom
         $data["listSymptom"] = $this->model_symptom->get_list_by_id($symptom);
         $username = $this->session->userdata('username');
+        $data["username"] = $username;
         $user_id = $this->db->get_where('user', ['username'=> $username])->row()->id;
         //calculate cf value
         $listDiseases = $this->model_cf->get_by_symptom($symptom); //get disease data
@@ -671,25 +690,27 @@ class Home extends CI_Controller {
             $j=0;
             foreach($listSymptom->result() as $value2){
                 $j++;
-                if($j==3){
-                    $combineCFmb=$value2->mb;
-                    $combineCFmd=$value2->md;}
-                else
-                {
+                // if($j==3){
+                //     $combineCFmb=$value2->mb;
+                //     $combineCFmd=$value2->md;}
+                // else
+                // {
                 $combineCFmb =$combineCFmb + ($value2->mb * (1 - $combineCFmb));
                 $combineCFmd =$combineCFmd + ($value2->md * (1 - $combineCFmd));
-                }
+                // }
 
                 $combinehasil = $combineCFmb-$combineCFmd; 
+                // var_dump($j);
             }
             if($combinehasil)
             {
                 $disease[$total]=array('code'=>$value->code,
                                     'name'=>$value->name,
-                                    'credibility'=>$combinehasil*100,
-                                    'information'=>$value->information);
-                                    // 'user_id' =>$user_login);
-                // $this->db->insert('diagnosis_result', $disease[$total]);
+                                    'cf_value'=>$combinehasil*100,
+                                    'information'=>$value->information,
+                                    'user_id' =>$user_id,
+                                    'created_at'=>time());
+                $this->db->insert('diagnosis_result', $disease[$total]);
                 $total++;
             }
             
@@ -699,42 +720,50 @@ class Home extends CI_Controller {
         $insert_data = array();
         foreach ($this->input->post("symptom") as $g) {
             $insert_data[] = array(
+                            'code'=>$value->code,
                             'user_id' => $user_id,
-                            'symptom_id' => $g
+                            'symptom_id' => $g,
+                            'name'=>$value->name,
+                            'created_at'=>time()
                         );
         }
         $this->db->insert_batch('history', $insert_data);
         
-        //diagnosis_result
+        //diagnosis_result sorting cf_value -1 b turun
         function cmp($a, $b)
         {
-            return ($a["credibility"] > $b["credibility"]) ? -1 : 1;
+            return ($a["cf_value"] > $b["cf_value"]) ? -1 : 1;
         }
         usort($disease, "cmp");
         $data["listDiseases"] = $disease;
         $disease = $disease + array(null);
-        $data_hasil = array(
-            'code' =>$disease[0]['code'],
-            'name' =>$disease[0]['name'],
-            'credibility' =>$disease[0]['credibility'],
-            'information' =>$disease[0]['information'],
-            'user_id' =>$user_id,
-        );
-        $this->db->insert('diagnosis_result', $data_hasil);
+        // $data_hasil = array(
+        //     'code' =>$disease[0]['code'],
+        //     'name' =>$disease[0]['name'],
+        //     'cf_value' =>$disease[0]['cf_value'],
+        //     'information' =>$disease[0]['information'],
+        //     'user_id' =>$user_id,
+        //     'created_at'=>time()
+        // );
+        // $this->db->insert('diagnosis_result', $data_hasil);
         $this->load->view('home/header',$data);
         $this->load->view('cf/result',$data);
         $this->load->view('home/footer');
     }
+
     public function list_sympt($type)
     {
         if($type == "dog")
         {
-            if (!$this->input->post('symptom')) {
+            if(!$this->input->post('symptom')){
                 $data['title'] = 'Diagnosis';
                 $data['listS'] = $this->model_group->get_list_data('Dog');
                 $this->load->view('home/header',$data);
                 $this->load->view('cf/list_sympt',$data);
                 $this->load->view('home/footer');
+                $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Please select a symptom before pressing the "Process" button! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button></div>');
             }
             else
             {
@@ -743,7 +772,20 @@ class Home extends CI_Controller {
         }
         elseif($type == "cat")
         {
-            
+            if (!$this->input->post('symptom')) {
+                $data['title'] = 'Diagnosis';
+                $data['listS'] = $this->model_group->get_list_data('Cat');
+                $this->load->view('home/header',$data);
+                $this->load->view('cf/list_sympt',$data);
+                $this->load->view('home/footer');
+                $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Please select a symptom before pressing the "Process" button! <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button></div>');
+            }
+            else
+            {
+                $this->calculate_cf();
+            }
         }
     }
 

@@ -96,62 +96,101 @@
     <!-- footer_end  -->
 
 
-    <!-- JS here -->
-    <script src="<?= base_url()?>assets/anipat/js/vendor/modernizr-3.5.0.min.js"></script>
-    <script src="<?= base_url()?>assets/anipat/js/vendor/jquery-1.12.4.min.js"></script>
-    <script src="<?= base_url()?>assets/anipat/js/popper.min.js"></script>
-    <script src="<?= base_url()?>assets/anipat/js/bootstrap.min.js"></script>
-    <script src="<?= base_url()?>assets/anipat/js/owl.carousel.min.js"></script>
-    <script src="<?= base_url()?>assets/anipat/js/isotope.pkgd.min.js"></script>
-    <script src="<?= base_url()?>assets/anipat/js/ajax-form.js"></script>
-    <script src="<?= base_url()?>assets/anipat/js/waypoints.min.js"></script>
-    <script src="<?= base_url()?>assets/anipat/js/jquery.counterup.min.js"></script>
-    <script src="<?= base_url()?>assets/anipat/js/imagesloaded.pkgd.min.js"></script>
-    <script src="<?= base_url()?>assets/anipat/js/scrollIt.js"></script>
-    <script src="<?= base_url()?>assets/anipat/js/jquery.scrollUp.min.js"></script>
-    <script src="<?= base_url()?>assets/anipat/js/wow.min.js"></script>
-    <script src="<?= base_url()?>assets/anipat/js/nice-select.min.js"></script>
-    <script src="<?= base_url()?>assets/anipat/js/jquery.slicknav.min.js"></script>
-    <script src="<?= base_url()?>assets/anipat/js/jquery.magnific-popup.min.js"></script>
-    <script src="<?= base_url()?>assets/anipat/js/plugins.js"></script>
-    <script src="<?= base_url()?>assets/anipat/js/gijgo.min.js"></script>
+<!-- JS here -->
+<script src="<?= base_url()?>assets/anipat/js/vendor/modernizr-3.5.0.min.js"></script>
+<script src="<?= base_url()?>assets/anipat/js/vendor/jquery-1.12.4.min.js"></script>
+<script src="<?= base_url()?>assets/anipat/js/popper.min.js"></script>
+<script src="<?= base_url()?>assets/anipat/js/bootstrap.min.js"></script>
+<script src="<?= base_url()?>assets/anipat/js/owl.carousel.min.js"></script>
+<script src="<?= base_url()?>assets/anipat/js/isotope.pkgd.min.js"></script>
+<script src="<?= base_url()?>assets/anipat/js/ajax-form.js"></script>
+<script src="<?= base_url()?>assets/anipat/js/waypoints.min.js"></script>
+<script src="<?= base_url()?>assets/anipat/js/jquery.counterup.min.js"></script>
+<script src="<?= base_url()?>assets/anipat/js/imagesloaded.pkgd.min.js"></script>
+<script src="<?= base_url()?>assets/anipat/js/scrollIt.js"></script>
+<script src="<?= base_url()?>assets/anipat/js/jquery.scrollUp.min.js"></script>
+<script src="<?= base_url()?>assets/anipat/js/wow.min.js"></script>
+<script src="<?= base_url()?>assets/anipat/js/nice-select.min.js"></script>
+<script src="<?= base_url()?>assets/anipat/js/jquery.slicknav.min.js"></script>
+<script src="<?= base_url()?>assets/anipat/js/jquery.magnific-popup.min.js"></script>
+<script src="<?= base_url()?>assets/anipat/js/plugins.js"></script>
+<script src="<?= base_url()?>assets/anipat/js/gijgo.min.js"></script>
+<script src="<?= base_url()?>assets/js/flexible.pagination.js"></script>
 
-    <!--contact js-->
-    <script src="<?= base_url()?>assets/anipat/js/contact.js"></script>
-    <script src="<?= base_url()?>assets/anipat/js/jquery.ajaxchimp.min.js"></script>
-    <script src="<?= base_url()?>assets/anipat/js/jquery.form.js"></script>
-    <script src="<?= base_url()?>assets/anipat/js/jquery.validate.min.js"></script>
-    <script src="<?= base_url()?>assets/anipat/js/mail-script.js"></script>
 
-    <script src="<?= base_url()?>assets/anipat/js/main.js"></script>
-    <script>
-        $(document).ready(function(){
-        $(".scroll").on('click', function(event) {
-            if (this.hash !== "") {
-            event.preventDefault();
-            var hash = this.hash;
-            $('html, body').animate
-            ({
-                scrollTop: $(hash).offset().top
-            }, 700, function()
-            {
-                window.location.hash = hash;
-            });
-        } 
+<!--contact js-->
+<script src="<?= base_url()?>assets/anipat/js/contact.js"></script>
+<script src="<?= base_url()?>assets/anipat/js/jquery.ajaxchimp.min.js"></script>
+<script src="<?= base_url()?>assets/anipat/js/jquery.form.js"></script>
+<script src="<?= base_url()?>assets/anipat/js/jquery.validate.min.js"></script>
+<script src="<?= base_url()?>assets/anipat/js/mail-script.js"></script>
+
+<script src="<?= base_url()?>assets/anipat/js/main.js"></script>
+<!-- JQuery -->
+<script src="<?= base_url()?>assets/js/date-eu.js"></script>
+<script src="<?= base_url()?>assets/js/addons/datatables.min.js"></script>
+<!-- JS -->
+<!--DataTables -->
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<!--DateRangePicker -->
+<script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script>
+    import { mdbTbl, mdbTblHead, mdbTblBody } from 'mdbvue';
+    export default {
+      name: 'TableResponsivePage',
+      components: {
+        mdbTbl,
+        mdbTblHead,
+        mdbTblBody
+      }
+    }
+</script>
+<script>
+$(document).ready(function () {
+  $('#listSympt').DataTable({
+
+        "order": [[ 0, "desc" ]],
+        "paging": false,
+        language: {
+            search: ' ',
+            searchPlaceholder: 'Search Symptom'
+        }
+        
+  });
+  $('.dataTables_length').addClass('bs-select');
+  });
+</script>
+
+
+<script>
+    $(document).ready(function(){
+    $(".scroll").on('click', function(event) {
+        if (this.hash !== "") {
+        event.preventDefault();
+        var hash = this.hash;
+        $('html, body').animate
+        ({
+            scrollTop: $(hash).offset().top
+        }, 700, function()
+        {
+            window.location.hash = hash;
+        });
+    } 
+});
+});
+</script>
+<script>
+$(document).ready(function(){		
+    $('.form-checkbox').click(function(){
+        if($(this).is(':checked')){
+            $('.form-password').attr('type','text');
+        }else{
+            $('.form-password').attr('type','password');
+        }
     });
-    });
-    </script>
-    <script>
-	$(document).ready(function(){		
-		$('.form-checkbox').click(function(){
-			if($(this).is(':checked')){
-				$('.form-password').attr('type','text');
-			}else{
-				$('.form-password').attr('type','password');
-			}
-		});
-	});
-  </script>
+});
+</script>
 </body>
 
 </html>

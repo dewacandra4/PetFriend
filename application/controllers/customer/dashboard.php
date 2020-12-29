@@ -478,7 +478,7 @@ class dashboard extends CI_Controller
 
 			if($upload_image)
             {
-                $config['upload_path'] = './assets/recieptp';
+                $config['upload_path'] = 'assets/recieptp';
                 $config['allowed_types'] = 'gif|jpg|png';
                 $config['max_size']     = '2048';
 
@@ -487,8 +487,8 @@ class dashboard extends CI_Controller
 
                 if (!$this->upload->do_upload('payment_proof'))
                 {
-                    $error = array('error' => $this->upload->display_errors());
-                    $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Error file extension or file larger than 2MB <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    $error =  $this->upload->display_errors();
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Error file extension or file larger than 2MB '.$error.'<button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button></div>');
                     redirect('customer/dashboard/proof_product/'.$order_id);
@@ -534,7 +534,7 @@ class dashboard extends CI_Controller
 
 			if($upload_image)
             {
-                $config['upload_path'] = './assets/reciepts';
+                $config['upload_path'] = 'assets/reciepts';
                 $config['allowed_types'] = 'gif|jpg|png';
                 $config['max_size']     = '2048';
 
@@ -543,8 +543,8 @@ class dashboard extends CI_Controller
 
                 if (!$this->upload->do_upload('payment_proofs'))
                 {
-                    $error = array('error' => $this->upload->display_errors());
-                    $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Error file extension or file larger than 2MB <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    $error = $this->upload->display_errors();
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger text-center alert-dismissible fade show" role="alert">Error file extension or file larger than 2MB '.$error.' <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button></div>');
                     redirect('customer/dashboard/proof_service/'.$sorder_id);

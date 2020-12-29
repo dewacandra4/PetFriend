@@ -8,7 +8,7 @@ class Model_symptom extends CI_Model {
 	// }
 
 	function get_list_by_id($id){
-         $sql = "select id,code,symptom from symptoms where id in (".$id.")";
+         $sql = "select symptom_id,code,symptom from symptoms where symptom_id in (".$id.")";
          return $this->db->query($sql);
      }
      function get_by_type($type){

@@ -78,6 +78,18 @@
       </li>
       
       <hr class="sidebar-divider">
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        Diagnosis History 
+      </div>
+
+      <li class="nav-item <?php if($uri=='customer/history_diagnosis'){ echo 'active';}?>">
+        <a class="nav-link" href="<?=base_url('customer/history_diagnosis');?>">
+          <i class="fas fa-fw fa-heart"></i>
+          <span>My Diagnosis History</span></a>
+      </li>
+       <hr class="sidebar-divider">
+
       <div class="sidebar-heading">
         My Order History
       </div>
@@ -93,7 +105,18 @@
           <i class="fas fa-fw fa-heart"></i>
           <span>Services Order History</span></a>
       </li>
+      <!-- Divider
+      <hr class="sidebar-divider">
 
+      <div class="sidebar-heading">
+        Chat
+      </div>
+
+      <li class="nav-item">
+        <a class="nav-link" href="<?=base_url('chat');?>">
+          <i class="fas fa-fw fa-bone"></i>
+          <span>Chat</span></a>
+      </li> -->
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 
