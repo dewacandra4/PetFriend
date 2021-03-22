@@ -33,7 +33,7 @@
                     <td><?php echo $i; ?></td>
                     <td><?= $so->sorder_id; ?></td>
                     <td><?= $so->name; ?></td>
-                    <td><?= date('d F yy', $so->order_date);?></td>
+                    <td><?= date('d F Y', $so->order_date);?></td>
                     <td><?= $so->order_status?></td>
                     <td><?= anchor('customer/dashboard/view_reciept_service/' .$so->sorder_id,'<div class="btn btn-success"><i class="fas fa-search-plus" aria-hidden="true"></i>
                      </div>')?>

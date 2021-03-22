@@ -28,7 +28,7 @@
                 <hr>
                 <div class="d-flex flex-row justify-content-between align-items-center order-details">
                     <div><span class="d-block fs-12">Order date</span><span class="font-weight-bold"><i class="fa fa-calendar" aria-hidden="true"></i>
-                    <?= date('d F yy', $soi->order_date);?></span></div>
+                    <?= date('d F Y', $soi->order_date);?></span></div>
                     <div><span class="d-block fs-12">Service Order ID</span><span class="font-weight-bold">#<?=$soi->sorder_id?></span></div>
                     <div><span class="d-block fs-12">Payment method</span><span class="font-weight-bold"><?=$soi->payment_method?></span>
                     <?php if ($soi->payment_method == "Bank Transfer") : ?>

@@ -28,7 +28,7 @@
                 <hr>
                 <div class="d-flex flex-row justify-content-between align-items-center order-details">
                     <div><span class="d-block fs-12">Order date</span><span class="font-weight-bold"><i class="fa fa-calendar" aria-hidden="true"></i>
-                    <?= date('d F yy', $soi->order_date);?></span></div>
+                    <?= date('d F Y', $soi->order_date);?></span></div>
                     <div><span class="d-block fs-12">Service Order ID</span><span class="font-weight-bold">#<?=$soi->sorder_id?></span></div>
                     <div><span class="d-block fs-12">Payment method</span><span class="font-weight-bold"><?=$soi->payment_method?></span>
                     <?php if ($soi->payment_method == "Bank Transfer") : ?>
@@ -50,8 +50,8 @@
                 <?php if ($soi->service_id == 1) : ?>
                 <?php foreach ($pethotel as $ph): ?>
                 <!-- get days -->
-                <?php $ci = strtotime(date('d F yy',$ph->check_in));
-                $co = strtotime(date('d F yy',$ph->check_out));
+                <?php $ci = strtotime(date('d F Y',$ph->check_in));
+                $co = strtotime(date('d F Y',$ph->check_out));
                 $days = $co-$ci;
                 ?>
                 <!-- Count Price -->
@@ -86,8 +86,8 @@
                 <medium class="text-muted"><i class="fas fa-paw"></i> Pet : <?= $ph->pet_kind;?></medium><br>
                 <medium class="text-muted"><i class="fas fa-money-check-alt"></i> Price per Night :  RM <?= number_format($price,2,",",".")?></medium><br>
                 <medium class="text-muted"><i class="fas fa-clock"></i> Duration :  <?php echo round($days/(60 * 60 * 24)); ?> Night </medium><br>
-                <medium class="text-muted"><i class="fas fa-calendar-check"></i> Check In : <?= date('d F yy',$ph->check_in);?></medium><br>
-                <medium class="text-muted"><i class="fas fa-calendar-times"></i> Check Out : <?= date('d F yy', $ph->check_out);?></medium>
+                <medium class="text-muted"><i class="fas fa-calendar-check"></i> Check In : <?= date('d F Y',$ph->check_in);?></medium><br>
+                <medium class="text-muted"><i class="fas fa-calendar-times"></i> Check Out : <?= date('d F Y', $ph->check_out);?></medium>
                 <?php if ($soi->order_status == "Order Complete" || $soi->order_status == "On Process"  ) : ?>
                 <hr>
                 <br><h5 class="text-muted"><i class="fas fa-money-check"></i> Total Price : <?php echo number_format($total,2);?>  </h5>
@@ -121,8 +121,8 @@
             </div></div>
             <?php endforeach; ?>
             <?php if ($soi->order_status == "Awaiting Payment") : ?>
-            <?php $stop_date = date('d F yy H:i:s', $soi->order_date);
-            $stop_date2 = date('d F yy H:i:s', strtotime($stop_date . '+30 minutes'));?>
+            <?php $stop_date = date('d F Y H:i:s', $soi->order_date);
+            $stop_date2 = date('d F Y H:i:s', strtotime($stop_date . '+30 minutes'));?>
             <br><br>
             <?php endif; ?>
             <?php endif; ?>

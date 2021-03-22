@@ -108,7 +108,7 @@
                     <table>
                         <tr>
                             <td class="title">
-                                <img src="https://i.ibb.co/2KvHFkW/logo-trans.png" style="width:100%; max-width:300px;">
+                                <img src="https://i.ibb.co/d5sst0F/logo-trans.png" style="width:100%; max-width:300px;">
                             </td>
                             <td>
                                 Order ID: <strong>#<?php echo $sorder_id;?></strong><br>

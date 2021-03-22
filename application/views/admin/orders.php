@@ -21,7 +21,7 @@
                 <tr>
                     <td><?= ++$start?></td>
                     <td><?= $orders['order_id']?></td>
-                    <td><?= date('d F yy', $orders['order_date']);?></td>
+                    <td><?= date('d F Y', $orders['order_date']);?></td>
                     <td><?= $orders['order_status']?></td>
                     <td><?= $orders['user_id']?></td>
                     <td><?= $orders['payment_method']?></td>

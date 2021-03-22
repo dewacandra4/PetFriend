@@ -32,13 +32,13 @@
                     <tr>
                     <td><?php echo $i; ?></td>
                     <td><?= $po->order_id?></td>
-                    <td><?= date('d F yy', $po->order_date);?>
+                    <td><?= date('d F Y', $po->order_date);?>
                     <td><?= $po->order_status?></td>
                     <?php if($po->order_status == "On Process") :?>
                       <td> - </td>
                       <?php else : ?>
-                        <?php $stop_date = date('d F yy H:i:s', $po->order_date);
-                      $stop_date2 = date('d F yy', strtotime($stop_date . ' +1 day'));
+                        <?php $stop_date = date('d F Y H:i:s', $po->order_date);
+                      $stop_date2 = date('d F Y', strtotime($stop_date . ' +1 day'));
                       $stop_date3 = date('H:i:s', strtotime($stop_date . ' +1 day'));?>
                       <td><?php echo $stop_date2; ?> || <?php echo $stop_date3; ?></td>
                     <?php endif; ?>

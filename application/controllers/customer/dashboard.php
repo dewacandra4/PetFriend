@@ -377,7 +377,7 @@ class dashboard extends CI_Controller
         if ($type == 'product')
         {
             $date_created = $this->db->query("SELECT `order_date` FROM `products_order` WHERE `order_id` = $poid")->row()->order_date;
-            $order_date = date('d F yy', $date_created);
+            $order_date = date('d F Y', $date_created);
             $datap = array(
                 'order_date'=> $order_date,
                 'order_id' => $poid,
@@ -387,7 +387,7 @@ class dashboard extends CI_Controller
         if ($type == 'hotel')
         {
             $date_created2 = $this->db->query("SELECT `order_date` FROM `services_order` WHERE `sorder_id` = $poid")->row()->order_date;
-            $order_date2 = date('d F yy', $date_created2);
+            $order_date2 = date('d F Y', $date_created2);
             $datas = array(
                 'order_date'=> $order_date2,
                 'sorder_id' => $poid,
@@ -399,7 +399,7 @@ class dashboard extends CI_Controller
             'protocol'  => 'smtp',
             'smtp_host' => 'ssl://smtp.googlemail.com',
             'smtp_user' => 'finalprojectdua@gmail.com',
-            'smtp_pass' => '2yShDYTAyc2hw5j',
+            'smtp_pass' => 'aVyM2nWAXGjZxhZ',
             'smtp_port' => 465,
             'mailtype'  => 'html',
             'charset'   => 'utf-8',

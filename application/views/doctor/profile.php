@@ -16,7 +16,7 @@
                     <p class="card-text"><b>Email</b>: <?=$user['email'];?></p></br>
                     <p class="card-text"><b>Phone Number</b>: <?=$user['phone'];?></p></br>
                     <p class="card-text"><b>Address</b>: <?=$user['address'];?></p></br>
-                    <p class="card-text"><small class="text-muted"><b>Member since </b> <?= date('d F yy', $user['date_created']);?></small></p>
+                    <p class="card-text"><small class="text-muted"><b>Member since </b> <?= date('d F Y', $user['date_created']);?></small></p>
                 </div>
               </div>
               <div class="col-md-5 mt-4 text-center">

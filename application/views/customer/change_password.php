@@ -11,7 +11,7 @@
         <div class="row"> 
             <div class="mx-auto col-lg-7">
                 <?= $this->session->flashdata('message');?>
-                <form action="<?= base_url('customer/change_password');?>" method="post">
+                <form action="<?= base_url('customer/dashboard/change_password');?>" method="post">
                     <div class="form-group">
                         <label for="current_password">Current Password</label>
                         <input type="password" class="form-control form-password" id="current_password" name="current_password">

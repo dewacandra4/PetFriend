@@ -17,7 +17,7 @@
                 $total = $tax + $sub_total;
               }
               ?> 
-      <?php $stop_date = date('d F yy',$book['check_in']);
+      <?php $stop_date = date('d F Y',$book['check_in']);
                 $days =$book['days'];
                 $stop_date2 = strtotime($stop_date . ' +'.$book['days'].'day');
                 ?>
@@ -200,8 +200,8 @@
                 <h4 class="my-0"><?php echo $book['room_type']; ?> Room (<?php echo $book['pet_kind']; ?>)</h4><br>
                 <small class="text-muted">Price per Night : <?php echo $book['price']; ?> RM </small><br>
                 <small class="text-muted">Duration :  <?php echo $book['days']; ?> Night </small><br>
-                <small class="text-muted">Check In : <?= date('d F yy',$book['check_in']);?></small><br>
-                <small class="text-muted">Check Out : <?= date('d F yy', $stop_date2);?></small>
+                <small class="text-muted">Check In : <?= date('d F Y',$book['check_in']);?></small><br>
+                <small class="text-muted">Check Out : <?= date('d F Y', $stop_date2);?></small>
               </div>
               <span class="text-muted">RM <?=number_format($sub_total,2,",",".");?></span>
             </li>

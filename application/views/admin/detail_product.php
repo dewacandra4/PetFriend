@@ -1,4 +1,4 @@
-
+<?php date_default_timezone_set('Asia/Singapore');?>
 <div class="container mt-5 mb-5">
     <div class="d-flex justify-content-center row">
         <div class="col-md-10">
@@ -20,7 +20,7 @@
                 <h6 class="name">Customer Name: <?=$customer['name'];?>,</h6><span class="fs-20 text-black-50">Customer ID: <strong><?=$customer['id'];?></strong></span>
                 <hr>
                 <div class="d-flex flex-row justify-content-between align-items-center order-details">
-                    <div><span class="d-block fs-12">Order date</span><span class="font-weight-bold"><i class="fa fa-calendar" aria-hidden="true">&nbsp;</i><?= date('d F yy', $poi->order_date);?></span></div>
+                    <div><span class="d-block fs-12">Order date</span><span class="font-weight-bold"><i class="fa fa-calendar" aria-hidden="true">&nbsp;</i><?= date('d F Y', $poi->order_date);?></span></div>
                     <div><span class="d-block fs-12">Product Order ID</span><span class="font-weight-bold">#<?=$poi->order_id?></span></div>
                     <div><span class="d-block fs-12">Payment method</span><span class="font-weight-bold"><?=$poi->payment_method?></span>
                     <?php if ($poi->payment_method == "Bank Transfer") : ?>

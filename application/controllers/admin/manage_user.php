@@ -62,7 +62,7 @@ class Manage_User extends CI_Controller
     {
         $id = $this->input->post('id');
         $name = $this->input->post('name');
-        $where = array('id' => 12345);
+        $where = array('id' => $id);
         $this->db->where($where);
         $this->db->delete('user');
         if($this->db->affected_rows())

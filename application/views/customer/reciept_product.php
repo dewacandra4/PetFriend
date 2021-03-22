@@ -28,7 +28,7 @@
                 <hr>
                 <div class="d-flex flex-row justify-content-between align-items-center order-details">
                     <div><span class="d-block fs-12">Order date</span><span class="font-weight-bold"><i class="fa fa-calendar" aria-hidden="true"></i>
-                    <?= date('d F yy', $poi->order_date);?></span></div>
+                    <?= date('d F Y', $poi->order_date);?></span></div>
                     <div><span class="d-block fs-12">Product Order ID</span><span class="font-weight-bold">#<?=$poi->order_id?></span></div>
                     <div><span class="d-block fs-12">Payment method</span><span class="font-weight-bold"><?=$poi->payment_method?></span>
                     <?php if ($poi->payment_method == "Bank Transfer") : ?>
@@ -75,8 +75,8 @@
                     </div>
             </div>
             <?php if ($poi->order_status == "Awaiting Payment") : ?>
-            <?php $stop_date = date('d F yy H:i:s', $poi->order_date);
-            $stop_date2 = date('d F yy H:i:s', strtotime($stop_date . '+1 day'));?>
+            <?php $stop_date = date('d F Y H:i:s', $poi->order_date);
+            $stop_date2 = date('d F Y H:i:s', strtotime($stop_date . '+1 day'));?>
             <br><br>
             <div class="alert alert-warning">
             <p> If the payment has not been made, the order will be canceled in: <strong id="demo"></strong>

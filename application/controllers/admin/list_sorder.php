@@ -189,7 +189,7 @@ class List_sorder extends CI_Controller
     private function _sendEmail($sorder_id, $email, $type)
     {
         $date_created = $this->db->query("SELECT `order_date` FROM `services_order` WHERE `sorder_id` = $sorder_id")->row()->order_date;
-        $order_date = date('d F yy', $date_created);
+        $order_date = date('d F Y', $date_created);
         $order_status = $this->db->query("SELECT `order_status` FROM `services_order` WHERE `sorder_id` = $sorder_id")->row()->order_status;
         $total_price = $this->db->query("SELECT `total_price` FROM `services_order` WHERE `sorder_id` = $sorder_id")->row()->total_price;
         $payment_method = $this->db->query("SELECT `payment_method` FROM `services_order` WHERE `sorder_id` = $sorder_id")->row()->payment_method;
@@ -198,7 +198,7 @@ class List_sorder extends CI_Controller
             'protocol'  => 'smtp',
             'smtp_host' => 'ssl://smtp.googlemail.com',
             'smtp_user' => 'finalprojectdua@gmail.com',
-            'smtp_pass' => 'WEJANCUKAPAINAKUNK0S0NGGNIDIH4CK',
+            'smtp_pass' => 'aVyM2nWAXGjZxhZ',
             'smtp_port' => 465,
             'mailtype'  => 'html',
             'charset'   => 'utf-8',
